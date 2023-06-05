@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import React from "react";
 
 const Container = styled.div``;
 
@@ -134,7 +135,9 @@ const Product = () => {
       try {
         const res = await publicRequest.get("/products/find/" + id);
         setProduct(res.data);
-      } catch {}
+      } catch(error) {
+        console.log(error)
+      }
     };
     getProduct();
   }, [id]);
@@ -167,14 +170,14 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {product.color?.map((c) => (
+              {product.color.map((c) => (
                 <FilterColor color={c} key={c} onClick={() => setColor(c)} />
               ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size?.map((s) => (
+                {product.size.map((s) => (
                   <FilterSizeOption key={s}>{s}</FilterSizeOption>
                 ))}
               </FilterSize>

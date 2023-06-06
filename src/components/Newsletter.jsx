@@ -13,13 +13,14 @@ const Container = styled.div`
 const Title = styled.h1`
   font-size: 4.375rem;
   margin-bottom: 1.25rem;
+  ${mobile({ fontSize: '2.5rem' })}
 `;
 
 const Desc = styled.div`
   font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 1.25rem;
-  ${mobile({ textAlign: 'center' })}
+  ${mobile({ textAlign: 'center',fontSize:"1.3rem" })}
 `;
 
 const InputContainer = styled.div`
@@ -29,7 +30,7 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   border: 1px solid lightgray;
-  ${mobile({ width: '80%' })}
+  ${mobile({ width: '90%' })}
 `;
 
 const Input = styled.input`

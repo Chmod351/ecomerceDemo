@@ -9,8 +9,7 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   width: 100%;
   height: 60px;
-  max-width:1200px;
-  ${mobile({ height: '50px'})}
+  ${mobile({ height: '50px' })}
 `;
 
 const Wrapper = styled.div`
@@ -83,11 +82,15 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Shoppy.</Logo>
+          <Logo>Cierva Design.</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          <Link to='/register'>
+            <MenuItem>REGISTER</MenuItem>
+          </Link>
+          <Link to='/login'>
+            <MenuItem>SIGN IN</MenuItem>
+          </Link>
           <Link to='/cart'>
             <MenuItem>
               <Badge

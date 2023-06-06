@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   width: 100%;
   height: 60px;
-  ${mobile({ height: '50px' })}
+  ${mobile({ height: '3.125rem' })}
 `;
 
 const Wrapper = styled.div`
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ padding: '10px 0px' })}
+  ${mobile({ padding: '0.625rem 0rem' })}
 `;
 
 const Left = styled.div`
@@ -27,7 +27,7 @@ const Left = styled.div`
 `;
 
 const Language = styled.span`
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: pointer;
   ${mobile({ display: 'none' })}
 `;
@@ -42,7 +42,7 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
-  ${mobile({ width: '50px' })}
+  ${mobile({ width: '140px' })}
 `;
 
 const Center = styled.div`
@@ -52,7 +52,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ fontSize: '1rem' })}
+  ${mobile({ display:"none" })}
 `;
 const Right = styled.div`
   flex: 1;
@@ -63,10 +63,10 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 14px;
+  font-size: 0.875rem;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: '12px', marginLeft: '10px' })}
+  ${mobile({ fontSize: '12px', marginLeft: '0.625rem' })}
 `;
 
 const Navbar = () => {
@@ -86,10 +86,10 @@ const Navbar = () => {
         </Center>
         <Right>
           <Link to='/register'>
-            <MenuItem>REGISTER</MenuItem>
+            <MenuItem>Sign Up</MenuItem>
           </Link>
           <Link to='/login'>
-            <MenuItem>SIGN IN</MenuItem>
+            <MenuItem>Sign In</MenuItem>
           </Link>
           <Link to='/cart'>
             <MenuItem>

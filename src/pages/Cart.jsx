@@ -2,7 +2,6 @@ import { Add, Remove } from "@material-ui/icons";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
-import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
@@ -16,8 +15,8 @@ const KEY = process.env.REACT_APP_STRIPE;
 const Container = styled.div``;
 
 const Wrapper = styled.div`
-  padding: 20px;
-  ${mobile({ padding: "10px" })}
+  padding: 1.25rem;
+  ${mobile({ padding: "0.625rem" })}
 `;
 
 const Title = styled.h1`
@@ -29,11 +28,11 @@ const Top = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
+  padding: 1.25rem;
 `;
 
 const TopButton = styled.button`
-  padding: 10px;
+  padding: 0.625rem;
   font-weight: 600;
   cursor: pointer;
   border: ${(props) => props.type === "filled" && "none"};
@@ -48,7 +47,7 @@ const TopTexts = styled.div`
 const TopText = styled.span`
   text-decoration: underline;
   cursor: pointer;
-  margin: 0px 10px;
+  margin: 0rem 0.625rem;
 `;
 
 const Bottom = styled.div`
@@ -77,7 +76,7 @@ const Image = styled.img`
 `;
 
 const Details = styled.div`
-  padding: 20px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -88,8 +87,8 @@ const ProductName = styled.span``;
 const ProductId = styled.span``;
 
 const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   border-radius: 50%;
   background-color: ${(props) => props.color};
 `;
@@ -107,19 +106,19 @@ const PriceDetail = styled.div`
 const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 `;
 
 const ProductAmount = styled.div`
-  font-size: 24px;
-  margin: 5px;
-  ${mobile({ margin: "5px 15px" })}
+  font-size: 1.5rem;
+  margin: 0.3125rem;
+  ${mobile({ margin: "0.3125rem  0.9375rem" })}
 `;
 
 const ProductPrice = styled.div`
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 200;
-  ${mobile({ marginBottom: "20px" })}
+  ${mobile({ marginBottom: "1.25rem" })}
 `;
 
 const Hr = styled.hr`
@@ -131,8 +130,8 @@ const Hr = styled.hr`
 const Summary = styled.div`
   flex: 1;
   border: 0.5px solid lightgray;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 0.625rem;
+  padding: 1.25rem;
   height: 50vh;
 `;
 
@@ -141,11 +140,11 @@ const SummaryTitle = styled.h1`
 `;
 
 const SummaryItem = styled.div`
-  margin: 30px 0px;
+  margin: 1.875rem 0rem;
   display: flex;
   justify-content: space-between;
   font-weight: ${(props) => props.type === "total" && "500"};
-  font-size: ${(props) => props.type === "total" && "24px"};
+  font-size: ${(props) => props.type === "total" && "1.5rem"};
 `;
 
 const SummaryItemText = styled.span``;
@@ -154,7 +153,7 @@ const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
   width: 100%;
-  padding: 10px;
+  padding: 0.625rem;
   background-color: black;
   color: white;
   font-weight: 600;
@@ -268,7 +267,7 @@ const Cart = () => {
           </Summary>
         </Bottom>
       </Wrapper>
-      <Footer />
+      <Navbar />
     </Container>
   );
 };

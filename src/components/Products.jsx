@@ -4,7 +4,7 @@ import Product from "./Product";
 import axios from "axios";
 
 const Container = styled.div`
-  padding: 20px;
+  padding: 1.25rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

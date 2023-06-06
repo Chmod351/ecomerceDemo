@@ -31,12 +31,12 @@ const Info = styled.div`
 
 const Title = styled.h1`
     color:white;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 `;
 
 const Button = styled.button`
     border:none;
-    padding: 10px;
+    padding: 0.625rem;
     background-color: white;
     color:gray;
     cursor: pointer;

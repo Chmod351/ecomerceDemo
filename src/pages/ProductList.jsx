@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import Announcement from "../components/Announcement";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
 import { mobile } from "../responsive";
 import { useLocation } from "react-router";
 import { useState } from "react";
@@ -11,7 +10,7 @@ import { useState } from "react";
 const Container = styled.div``;
 
 const Title = styled.h1`
-  margin: 20px;
+  margin: 1.25rem;
 `;
 
 const FilterContainer = styled.div`
@@ -20,21 +19,21 @@ const FilterContainer = styled.div`
 `;
 
 const Filter = styled.div`
-  margin: 20px;
-  ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
+  margin: 1.25rem;
+  ${mobile({ width: "0rem 1.25rem", display: "flex", flexDirection: "column" })}
 `;
 
 const FilterText = styled.span`
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-right: 20px;
-  ${mobile({ marginRight: "0px" })}
+  margin-right: 1.25rem;
+  ${mobile({ marginRight: "0rem" })}
 `;
 
 const Select = styled.select`
-  padding: 10px;
-  margin-right: 20px;
-  ${mobile({ margin: "10px 0px" })}
+  padding: 0.625rem;
+  margin-right: 1.25rem;
+  ${mobile({ margin: "0.625rem 0rem" })}
 `;
 const Option = styled.option``;
 
@@ -89,7 +88,7 @@ const ProductList = () => {
       </FilterContainer>
       <Products cat={cat} filters={filters} sort={sort} />
       <Newsletter />
-      <Footer />
+      <Navbar />
     </Container>
   );
 };

@@ -52,14 +52,14 @@ import {
   `;
   
   const Icon = styled.div`
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px;
+    margin: 0.625rem;
     transition: all 0.5s ease;
     &:hover {
       background-color: #e9f5f5;

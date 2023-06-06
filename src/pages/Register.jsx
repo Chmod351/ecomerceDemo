@@ -20,13 +20,13 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 40%;
-  padding: 20px;
+  padding: 1.25rem;
   background-color: white;
   ${mobile({ width: '75%' })}
 `;
 
 const Title = styled.h1`
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 300;
 `;
 
@@ -38,19 +38,19 @@ const Form = styled.form`
 const Input = styled.input`
   flex: 1;
   min-width: 40%;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
+  margin: 1.25rem 0.625rem 0rem 0rem;
+  padding: 0.625rem;
 `;
 
 const Agreement = styled.span`
-  font-size: 12px;
-  margin: 20px 0px;
+  font-size: 0.75rem;
+  margin: 1.25rem 0rem;
 `;
 
 const Button = styled.button`
   width: 40%;
   border: none;
-  padding: 15px 20px;
+  padding: 0.938rem 1.25rem;
   background-color: teal;
   color: white;
   cursor: pointer;
@@ -59,8 +59,8 @@ const Error = styled.div`
   flex: 1;
   min-width: 40%;
   color: red;
-  margin: 20px 10px 0px 0px;
-  padding: 10px;
+  margin: 0rem 0.625rem 0rem 0rem;
+  padding: 0.625rem;
 `;
 
 const Register = () => {
@@ -133,7 +133,8 @@ const Register = () => {
         <Form>
           <div>
             <Input
-              placeholder='name' type='text'
+              placeholder='name'
+              type='text'
               name='name'
               onChange={handleChange}
             />
@@ -141,7 +142,7 @@ const Register = () => {
           </div>
           <div>
             <Input
-            type='text'
+              type='text'
               placeholder='last name'
               name='name'
               onChange={handleChange}
@@ -150,7 +151,7 @@ const Register = () => {
           </div>
           <div>
             <Input
-            type='text'
+              type='text'
               placeholder='username'
               name='username'
               onChange={handleChange}
@@ -164,7 +165,6 @@ const Register = () => {
               name='email'
               onChange={handleChange}
             />
-            {error === 'email' ? <Error>{errorMsg.invalid}</Error> : ''}
           </div>
           <div>
             <Input
@@ -177,11 +177,16 @@ const Register = () => {
           </div>
           <div>
             <Input
+              type='password'
               placeholder='confirm password'
               name='confirmPassword'
               onChange={handleChange}
             />
-            {error === 'confirmPassword' ? <Error>{errorMsg.dontMach}</Error> : ''}
+            {error === 'confirmPassword' ? (
+              <Error>{errorMsg.dontMach}</Error>
+            ) : (
+              ''
+            )}
           </div>
 
           <Agreement>

@@ -15,8 +15,8 @@ const Container = styled.div`
 `;
 
 const Arrow = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 3.125rem;
+  height: 3.125rem;
   background-color: #fff7f7;
   border-radius: 50%;
   display: flex;
@@ -25,8 +25,8 @@ const Arrow = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === "left" && "10px"};
-  right: ${(props) => props.direction === "right" && "10px"};
+  left: ${(props) => props.direction === "left" && "0.625rem"};
+  right: ${(props) => props.direction === "right" && "0.625rem"};
   margin: auto;
   cursor: pointer;
   opacity: 0.5;
@@ -59,7 +59,7 @@ const Image = styled.img`
 
 const InfoContainer = styled.div`
   flex: 1;
-  padding: 50px;
+  padding: 3.125rem;
 `;
 
 const Title = styled.h1`
@@ -67,15 +67,15 @@ const Title = styled.h1`
 `;
 
 const Desc = styled.p`
-  margin: 50px 0px;
-  font-size: 20px;
+  margin: 3.125rem 0rem;
+  font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: 3px;
 `;
 
 const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
+  padding: 0.625rem;
+  font-size: 1.25rem;
   background-color: transparent;
   cursor: pointer;
 `;

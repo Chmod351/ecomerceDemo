@@ -91,7 +91,7 @@ const Register = () => {
   };
   const matchPasswords = (confirmPassword) => {
     if (store !== confirmPassword) {
-      setError('dont');
+      setError('confirmPassword');
     } else {
       setError('');
     }
@@ -114,7 +114,6 @@ const Register = () => {
         break;
       case 'password':
         validatePassword(value);
-        // Add validation for the password field
         break;
       case 'confirmPassword':
         matchPasswords(value);
@@ -182,7 +181,7 @@ const Register = () => {
               name='confirmPassword'
               onChange={handleChange}
             />
-            {error === 'dont' ? <Error>{errorMsg.dontMach}</Error> : ''}
+            {error === 'confirmPassword' ? <Error>{errorMsg.dontMach}</Error> : ''}
           </div>
 
           <Agreement>

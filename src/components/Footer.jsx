@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
-  ${mobile({ height: "50px" })}
+  ${mobile({ height: "5rem" })}
 `;
 
 const Wrapper = styled.div`
@@ -81,7 +81,7 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>LAMA.</Logo>
+          <Logo>Shoppy.</Logo>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>

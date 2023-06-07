@@ -119,6 +119,10 @@ const Button = styled.button`
     background-color: #f8f4f4;
   }
 `;
+const Description = styled.p`
+  font-size: 1.2rem;
+  color: black;
+`;
 
 const Product = () => {
   const location = useLocation();
@@ -132,7 +136,8 @@ const Product = () => {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get('/product');
+        const res = await publicRequest.get(`/product/${id}`);
+        console.log(res.data);
         setProduct(res.data);
       } catch (error) {
         console.log(error);
@@ -163,11 +168,12 @@ const Product = () => {
         <InfoContainer>
           <Title>{product.name}</Title>
           <Desc>{product.hot}</Desc>
+          <Description>{product.description}</Description>
           <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              {product.color.map((c) => (
+              {product.color?.map((c) => (
                 <FilterColor
                   color={c}
                   key={c}
@@ -178,7 +184,7 @@ const Product = () => {
             <Filter>
               <FilterTitle>Size</FilterTitle>
               <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size.map((s) => (
+                {product.size?.map((s) => (
                   <FilterSizeOption key={s}>{s}</FilterSizeOption>
                 ))}
               </FilterSize>

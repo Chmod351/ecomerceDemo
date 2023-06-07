@@ -83,7 +83,9 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
+          <Link to="/">
           <Logo>Cierva Design.</Logo>
+          </Link>
         </Center>
         <Right>
           {username ? (

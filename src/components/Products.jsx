@@ -19,7 +19,7 @@ const Products = ({ cat, filters, sort }) => {
       try {
         const res = await axios.get(
           cat
-            ? `http://localhost:5000/api/product/tags?tag=${cat}`
+            ? `http://localhost:5000/api/product/tag?tag=${cat}`
             : "http://localhost:5000/api/product"
         );
         setProducts(res.data);
@@ -58,10 +58,10 @@ const Products = ({ cat, filters, sort }) => {
   return (
     <Container>
       {cat
-        ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
+        ? filteredProducts.map((item) => <Product item={item} key={item._id} price={item.price} />)
         : products
             .slice(0, 8)
-            .map((item) => <Product item={item} key={item._id} />)}
+            .map((item) => <Product item={item} key={item._id} price={item.price} />)}
     </Container>
   );
 };

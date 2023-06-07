@@ -158,11 +158,11 @@ const Product = () => {
       <Announcement />
       <Wrapper>
         <ImgContainer>
-          <Image src={product.img} />
+          <Image src={product.imgUrl} />
         </ImgContainer>
         <InfoContainer>
-          <Title>{product.title}</Title>
-          <Desc>{product.desc}</Desc>
+          <Title>{product.name}</Title>
+          <Desc>{product.hot}</Desc>
           <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>

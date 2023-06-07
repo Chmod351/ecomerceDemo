@@ -71,7 +71,6 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
-  console.log(username);
   const quantity = useSelector((state) => state.cart.quantity);
   return (
     <Container>
@@ -88,7 +87,8 @@ const Navbar = () => {
         </Center>
         <Right>
           {username ? (
-            username
+           <Link to="/profile">username</Link>
+            
           ) : (
             <div>
               <Link to='/register'>

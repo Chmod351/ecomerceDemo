@@ -4,6 +4,7 @@ import { login } from '../redux/apiCalls';
 import { mobile } from '../responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { publicRequest } from '../requestMethods';
 
 const Container = styled.div`
   width: 100vw;
@@ -70,28 +71,40 @@ const Error = styled.span`
 `;
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    login(dispatch, { username, password });
+    try {
+      await publicRequest.post('/signin', {
+        email,
+        password
+      });
+      login(dispatch, { email, password });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form>
           <Input
-            placeholder='username'
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder='email'
+            onChange={(e) => setEmail(e.target.value)}
+            name='email'
+            type='email'
           />
           <Input
             placeholder='password'
             type='password'
             onChange={(e) => setPassword(e.target.value)}
+            name='password'
           />
           <Button
             onClick={handleClick}

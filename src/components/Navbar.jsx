@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { username } from '../requestMethods';
 
 const Container = styled.div`
   width: 100%;
@@ -52,7 +53,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ display:"none" })}
+  ${mobile({ display: 'none' })}
 `;
 const Right = styled.div`
   flex: 1;
@@ -70,6 +71,7 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  console.log(username);
   const quantity = useSelector((state) => state.cart.quantity);
   return (
     <Container>
@@ -85,12 +87,18 @@ const Navbar = () => {
           <Logo>Cierva Design.</Logo>
         </Center>
         <Right>
-          <Link to='/register'>
-            <MenuItem>Sign Up</MenuItem>
-          </Link>
-          <Link to='/login'>
-            <MenuItem>Sign In</MenuItem>
-          </Link>
+          {username ? (
+            username
+          ) : (
+            <div>
+              <Link to='/register'>
+                <MenuItem>Sign Up</MenuItem>
+              </Link>
+              <Link to='/login'>
+                <MenuItem>Sign In</MenuItem>
+              </Link>
+            </div>
+          )}
           <Link to='/cart'>
             <MenuItem>
               <Badge

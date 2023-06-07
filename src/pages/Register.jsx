@@ -194,7 +194,7 @@ const Register = () => {
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
           <Button type='submit'>CREATE</Button>
-          <Link to='/login'>I already have an account</Link>
+          <Link to='/login' >I already have an account</Link>
         </Form>
       </Wrapper>
     </Container>

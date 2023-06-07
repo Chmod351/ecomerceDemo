@@ -69,7 +69,7 @@ const Icon = styled.div`
 const Price = styled.div`
   font-size: 1.5rem;
   color: black;
-  font-weight:700
+  font-weight: 700;
 `;
 
 const Product = ({ item }) => {
@@ -83,7 +83,10 @@ const Product = ({ item }) => {
             <ShoppingCartOutlined />
           </Icon>
           <Icon>
-            <Link to={`/product/${item._id}`}>
+            <Link
+              to={`/product/${item._id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
               <SearchOutlined />
             </Link>
           </Icon>

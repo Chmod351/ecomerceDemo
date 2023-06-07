@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-
+import logo from '../assests/logo.png'
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
@@ -192,7 +192,7 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <Link to='/'>
+          <Link to='/' style={{ textDecoration: 'none' , color: 'black' }}>
           <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
@@ -206,10 +206,10 @@ const Cart = () => {
             {cart.products.map((product) => (
               <Product>
                 <ProductDetail>
-                  <Image src={product.img} />
+                  <Image src={product.imgUrl} />
                   <Details>
                     <ProductName>
-                      <b>Product:</b> {product.title}
+                      <b>Product:</b> {product.name}
                     </ProductName>
                     <ProductId>
                       <b>ID:</b> {product._id}
@@ -254,7 +254,7 @@ const Cart = () => {
             </SummaryItem>
             <StripeCheckout
               name="Shopy"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              image={logo}
               billingAddress
               shippingAddress
               description={`Your total is $${cart.total}`}

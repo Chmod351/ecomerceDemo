@@ -83,25 +83,41 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Link to="/">
-          <Logo>Cierva Design.</Logo>
+          <Link
+            to='/'
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            <Logo>Cierva Design.</Logo>
           </Link>
         </Center>
         <Right>
           {username ? (
-           <Link to="/profile">username</Link>
-            
+            <Link
+              to='/cart'
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              {username}
+            </Link>
           ) : (
             <div>
-              <Link to='/register'>
+              <Link
+                to='/register'
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
                 <MenuItem>Sign Up</MenuItem>
               </Link>
-              <Link to='/login'>
+              <Link
+                to='/login'
+                style={{ textDecoration: 'none', color: 'black' }}
+              >
                 <MenuItem>Sign In</MenuItem>
               </Link>
             </div>
           )}
-          <Link to='/cart'>
+          <Link
+            to='/cart'
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
             <MenuItem>
               <Badge
                 badgeContent={quantity}

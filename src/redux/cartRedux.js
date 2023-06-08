@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState: {
     products: [],
     quantity: 0,
@@ -12,6 +12,11 @@ const cartSlice = createSlice({
       state.quantity += 1;
       state.products.push(action.payload);
       state.total += action.payload.price * action.payload.quantity;
+    },
+    RemoveProduct: (state, action) => {
+      state.quantity -= 1;
+      state.products.pop(action.payload);
+      state.total -= action.payload.price * action.payload.quantity;
     },
   },
 });

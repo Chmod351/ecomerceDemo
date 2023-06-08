@@ -1,22 +1,22 @@
-import { Add, Remove } from "@material-ui/icons";
-import { useSelector } from "react-redux";
-import styled from "styled-components";
-import Announcement from "../components/Announcement";
-import Navbar from "../components/Navbar";
-import { mobile } from "../responsive";
-import StripeCheckout from "react-stripe-checkout";
-import { useEffect, useState } from "react";
-import { userRequest } from "../requestMethods";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import logo from '../assests/logo.png'
+import { Add, Remove } from '@material-ui/icons';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+import Announcement from '../components/Announcement';
+import Navbar from '../components/Navbar';
+import { mobile } from '../responsive';
+import StripeCheckout from 'react-stripe-checkout';
+import { useEffect, useState } from 'react';
+import { userRequest } from '../requestMethods';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import logo from '../assests/logo.png';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 1.25rem;
-  ${mobile({ padding: "0.625rem" })}
+  ${mobile({ padding: '0.625rem' })}
 `;
 
 const Title = styled.h1`
@@ -35,14 +35,14 @@ const TopButton = styled.button`
   padding: 0.625rem;
   font-weight: 600;
   cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
+  border: ${(props) => props.type === 'filled' && 'none'};
   background-color: ${(props) =>
-    props.type === "filled" ? "black" : "transparent"};
-  color: ${(props) => props.type === "filled" && "white"};
+    props.type === 'filled' ? 'black' : 'transparent'};
+  color: ${(props) => props.type === 'filled' && 'white'};
 `;
 
 const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
+  ${mobile({ display: 'none' })}
 `;
 const TopText = styled.span`
   text-decoration: underline;
@@ -53,7 +53,7 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: "column" })}
+  ${mobile({ flexDirection: 'column' })}
 `;
 
 const Info = styled.div`
@@ -63,7 +63,7 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: "column" })}
+  ${mobile({ flexDirection: 'column' })}
 `;
 
 const ProductDetail = styled.div`
@@ -112,13 +112,13 @@ const ProductAmountContainer = styled.div`
 const ProductAmount = styled.div`
   font-size: 1.5rem;
   margin: 0.3125rem;
-  ${mobile({ margin: "0.3125rem  0.9375rem" })}
+  ${mobile({ margin: '0.3125rem  0.9375rem' })}
 `;
 
 const ProductPrice = styled.div`
   font-size: 1.875rem;
   font-weight: 200;
-  ${mobile({ marginBottom: "1.25rem" })}
+  ${mobile({ marginBottom: '1.25rem' })}
 `;
 
 const Hr = styled.hr`
@@ -143,8 +143,8 @@ const SummaryItem = styled.div`
   margin: 1.875rem 0rem;
   display: flex;
   justify-content: space-between;
-  font-weight: ${(props) => props.type === "total" && "500"};
-  font-size: ${(props) => props.type === "total" && "1.5rem"};
+  font-weight: ${(props) => props.type === 'total' && '500'};
+  font-size: ${(props) => props.type === 'total' && '1.5rem'};
 `;
 
 const SummaryItemText = styled.span``;
@@ -171,20 +171,20 @@ const Cart = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest.post("/checkout/payment", {
+        const res = await userRequest.post('/purchase/payment', {
           tokenId: stripeToken.id,
           amount: 500,
         });
-        history.push("/success", {
+        history.push('/success', {
           stripeData: res.data,
-          products: cart, });
-      } catch(error) {
-        console.log(error)
+          products: cart,
+        });
+      } catch (error) {
+        console.log(error);
       }
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, history]);
-
   return (
     <Container>
       <Navbar />
@@ -192,14 +192,17 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <Link to='/' style={{ textDecoration: 'none' , color: 'black' }}>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link
+            to='/'
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+            <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type='filled'>CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -248,12 +251,12 @@ const Cart = () => {
               <SummaryItemText>Shipping Discount</SummaryItemText>
               <SummaryItemPrice>$ -5.90</SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem type="total">
+            <SummaryItem type='total'>
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name="Shopy"
+              name='Shopy'
               image={logo}
               billingAddress
               shippingAddress

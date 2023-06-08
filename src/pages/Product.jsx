@@ -130,14 +130,13 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState('');
-  const [size, setSize] = useState('');
+  const [size, setSize] = useState('XL');
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
       try {
         const res = await publicRequest.get(`/product/${id}`);
-        console.log(res.data);
         setProduct(res.data);
       } catch (error) {
         console.log(error);
@@ -156,6 +155,7 @@ const Product = () => {
 
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity, color, size }));
+    setQuantity(1);
   };
   return (
     <Container>

@@ -6,36 +6,14 @@ import {
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Info = styled.div`
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.5s ease;
-  cursor: pointer;
-`;
-
 const Container = styled.div`
   flex: 1;
-  margin: 5px;
   min-width: 280px;
   height: 350px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5fbfd;
   position: relative;
-
-  &:hover ${Info} {
-    opacity: 1;
-  }
 `;
 
 const Circle = styled.div`
@@ -62,41 +40,59 @@ const Icon = styled.div`
   margin: 0.625rem;
   transition: all 0.5s ease;
   &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
     background-color: #e9f5f5;
     transform: scale(1.1);
   }
 `;
 const Price = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   color: black;
-  font-weight: 700;
+  font-weight: 400;
+`;
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const Article = styled.article`
+  margin: 5px;
+  border-radius:10px;
+  &:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  }
 `;
 
 const Product = ({ item }) => {
   return (
-    <article>
-      <Container>
-        <Circle />
-        <Image src={item.imgUrl} />
-        <Info>
-          <Icon>
-            <ShoppingCartOutlined />
-          </Icon>
-          <Icon>
-            <Link
-              to={`/product/${item._id}`}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <SearchOutlined />
-            </Link>
-          </Icon>
-          <Icon>
-            <FavoriteBorderOutlined />
-          </Icon>
-        </Info>
-      </Container>
-      <Price>${item.price}</Price>
-    </article>
+    <Article>
+      <Link
+        to={`/product/${item._id}`}
+        style={{ textDecoration: 'none', color: 'black' }}
+      >
+        <Container>
+          <Circle />
+          <Image src={item.imgUrl} />
+        </Container>
+      </Link>
+      <IconContainer>
+        <Price>${item.price}</Price>
+        <Icon>
+          <ShoppingCartOutlined />
+        </Icon>
+        <Icon>
+          <Link
+            to={`/product/${item._id}`}
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            <SearchOutlined />
+          </Link>
+        </Icon>
+        <Icon>
+          <FavoriteBorderOutlined />
+        </Icon>
+      </IconContainer>
+    </Article>
   );
 };
 

@@ -33,7 +33,7 @@ const Icon = styled.div`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color:${({ theme }) => theme.hover};
+  background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,14 +56,17 @@ const IconContainer = styled.div`
   justify-content: center;
 `;
 const Article = styled.article`
-background-color: ${({ theme }) => theme.bgLighter};
+  background-color: ${({ theme }) => theme.bgLighter};
   margin: 5px;
   border-radius: 10px;
   &:hover {
     box-shadow: 0 0 10px ${({ theme }) => theme.textSoft};
   }
 `;
-
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.bg};
+`;
 const Product = ({ item }) => {
   return (
     <Article>
@@ -82,12 +85,14 @@ const Product = ({ item }) => {
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <Link
+          <StyledLink
             to={`/product/${item._id}`}
-            style={{ textDecoration: 'none' }}
+            style={{
+              textDecoration: 'none'
+            }}
           >
             <SearchOutlined />
-          </Link>
+          </StyledLink>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />

@@ -13,8 +13,8 @@ import logo from '../assests/logo.png';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
-background-color: ${({ theme }) => theme.bgLighter};
-color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Wrapper = styled.div`
@@ -161,7 +161,7 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
-const Cart = ({darkMode,setDarkMode}) => {
+const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
@@ -189,14 +189,17 @@ const Cart = ({darkMode,setDarkMode}) => {
   }, [stripeToken, cart.total, history]);
   return (
     <Container>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode}/>
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
       <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
           <Link
             to='/'
-            style={{ textDecoration: 'none'}}
+            style={{ textDecoration: 'none' }}
           >
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
@@ -258,7 +261,7 @@ const Cart = ({darkMode,setDarkMode}) => {
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name='Shopy'
+              name='Cierva Design'
               image={logo}
               billingAddress
               shippingAddress

@@ -11,16 +11,30 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { darkTheme, lightTheme } from "./utils/theme.js";
+import { darkTheme, lightTheme } from './utils/theme.js';
 import Success from './pages/Success';
 import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { useState } from 'react';
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(true);
   const user = useSelector((state) => state.user.currentUser);
-  
+  const getDarkModePreference = () => {
+    const preference = localStorage.getItem('darkMode');
+    return preference !== null ? JSON.parse(preference) : false;
+  };
+  const [darkMode, setDarkMode] = useState(getDarkModePreference());
+
+  const setDarkModePreference = (preference) => {
+    localStorage.setItem('darkMode', JSON.stringify(preference));
+  };
+
+  const handleDarkModeToggle = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    setDarkModePreference(newDarkMode);
+  };
+
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Router>
@@ -29,16 +43,29 @@ const App = () => {
             exact
             path='/'
           >
-            <Home darkMode={darkMode} setDarkMode={setDarkMode}/>
+            <Home
+
+              darkMode={darkMode}
+              setDarkMode={handleDarkModeToggle}
+            />
           </Route>
           <Route path='/products/:category'>
-            <ProductList darkMode={darkMode} setDarkMode={setDarkMode}/>
+            <ProductList
+              darkMode={darkMode}
+              setDarkMode={handleDarkModeToggle}
+            />
           </Route>
           <Route path='/product/:id'>
-            <Product darkMode={darkMode} setDarkMode={setDarkMode}/>
+            <Product
+              darkMode={darkMode}
+              setDarkMode={handleDarkModeToggle}
+            />
           </Route>
           <Route path='/cart'>
-            <Cart  darkMode={darkMode} setDarkMode={setDarkMode}/>
+            <Cart
+              darkMode={darkMode}
+              setDarkMode={handleDarkModeToggle}
+            />
           </Route>
           <Route path='/success'>
             <Success />

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import axios from 'axios';
+import { mobile } from '../responsive';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -9,6 +10,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  ${mobile({ alignItems: 'center', justifyContent: 'center' })}
 `;
 
 const Products = ({ tag, filters, sort }) => {

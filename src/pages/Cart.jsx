@@ -12,7 +12,10 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import logo from '../assests/logo.png';
 const KEY = process.env.REACT_APP_STRIPE;
 
-const Container = styled.div``;
+const Container = styled.div`
+background-color: ${({ theme }) => theme.bgLighter};
+color: ${({ theme }) => theme.text};
+`;
 
 const Wrapper = styled.div`
   padding: 1.25rem;
@@ -35,10 +38,8 @@ const TopButton = styled.button`
   padding: 0.625rem;
   font-weight: 600;
   cursor: pointer;
-  border: ${(props) => props.type === 'filled' && 'none'};
-  background-color: ${(props) =>
-    props.type === 'filled' ? 'black' : 'transparent'};
-  color: ${(props) => props.type === 'filled' && 'white'};
+  background-color: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
 `;
 
 const TopTexts = styled.div`
@@ -76,6 +77,7 @@ const Image = styled.img`
 `;
 
 const Details = styled.div`
+  color: ${({ theme }) => theme.textSoft};
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -159,7 +161,7 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
-const Cart = () => {
+const Cart = ({darkMode,setDarkMode}) => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
@@ -187,14 +189,14 @@ const Cart = () => {
   }, [stripeToken, cart.total, history]);
   return (
     <Container>
-      <Navbar />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode}/>
       <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
           <Link
             to='/'
-            style={{ textDecoration: 'none', color: 'black' }}
+            style={{ textDecoration: 'none'}}
           >
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
@@ -270,7 +272,6 @@ const Cart = () => {
           </Summary>
         </Bottom>
       </Wrapper>
-      <Navbar />
     </Container>
   );
 };

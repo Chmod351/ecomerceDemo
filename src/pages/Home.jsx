@@ -6,16 +6,14 @@ import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
 
-const Home = () => {
+const Home = ({darkMode,setDarkMode}) => {
   return (
     <div>
       <Announcement />
-      <Navbar />
-      <Slider />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <Slider />
       <Categories />
       <Products/>
       <Newsletter/>
-      <Navbar />
     </div>
   );
 };

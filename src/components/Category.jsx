@@ -4,6 +4,7 @@ import { mobile } from '../responsive';
 import CategoryItem from './CategoryItem';
 
 const Container = styled.div`
+  background-color: ${({ theme }) => theme.bgLighter};
   display: flex;
   padding: 1.25rem;
   justify-content: space-between;

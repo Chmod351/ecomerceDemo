@@ -21,13 +21,14 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 40%;
   padding: 1.25rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.bgLighter};;
   ${mobile({ width: '75%' })}
 `;
 
 const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 300;
+  color:${({ theme }) => theme.text};
 `;
 
 const Form = styled.form`
@@ -40,11 +41,14 @@ const Input = styled.input`
   min-width: 40%;
   margin: 1.25rem 0.625rem 0rem 0rem;
   padding: 0.625rem;
+  color:${({ theme }) => theme.text};
+  background-color:${({ theme }) => theme.bgLighter};
 `;
 
 const Agreement = styled.span`
   font-size: 0.75rem;
   margin: 1.25rem 0rem;
+  color:${({ theme }) => theme.text};
 `;
 
 const Button = styled.button`
@@ -194,7 +198,7 @@ const Register = () => {
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
           <Button type='submit'>CREATE</Button>
-          <Link to='/login' >I already have an account</Link>
+          <Link to='/login'  >I already have an account</Link>
         </Form>
       </Wrapper>
     </Container>

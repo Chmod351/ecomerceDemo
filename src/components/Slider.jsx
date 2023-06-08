@@ -17,7 +17,8 @@ const Container = styled.div`
 const Arrow = styled.div`
   width: 3.125rem;
   height: 3.125rem;
-  background-color: #fff7f7;
+  background-color: ${({ theme }) => theme.hover};
+  color: ${({ theme }) => theme.bgLighter};
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -45,7 +46,7 @@ const Slide = styled.div`
   height: 100vh;
   display: flex;
   align-items: center;
-  background-color: #${(props) => props.bg};
+  background-color: ${({ theme }) => theme.bgLighter};
 `;
 
 const ImgContainer = styled.div`
@@ -58,6 +59,7 @@ const Image = styled.img`
 `;
 
 const InfoContainer = styled.div`
+color: ${({ theme }) => theme.text};
   flex: 1;
   padding: 3.125rem;
 `;
@@ -74,6 +76,7 @@ const Desc = styled.p`
 `;
 
 const Button = styled.button`
+  color: ${({ theme }) => theme.text};
   padding: 0.625rem;
   font-size: 1.25rem;
   background-color: transparent;

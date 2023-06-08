@@ -11,7 +11,9 @@ import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 
-const Container = styled.div``;
+const Container = styled.div`
+  background-color: ${({ theme }) => theme.bgLighter};
+`;
 
 const Wrapper = styled.div`
   padding: 50px;
@@ -31,6 +33,7 @@ const Image = styled.img`
 `;
 
 const InfoContainer = styled.div`
+  color: ${({ theme }) => theme.text};
   flex: 1;
   padding: 0px 50px;
   ${mobile({ padding: '10px' })}
@@ -38,6 +41,7 @@ const InfoContainer = styled.div`
 
 const Title = styled.h1`
   font-weight: 200;
+  color:${({ theme }) => theme.text}
 `;
 
 const Desc = styled.p`
@@ -70,7 +74,8 @@ const FilterTitle = styled.span`
 const FilterColor = styled.div`
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius:50%;
+  border:1px solid ${({ theme }) => theme.hover};
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
@@ -111,20 +116,19 @@ const Amount = styled.span`
 const Button = styled.button`
   padding: 15px;
   border: 2px solid teal;
-  background-color: white;
+  background-color: ${({ theme }) => theme.bgLighter};
   cursor: pointer;
   font-weight: 500;
-
+  color: ${({ theme }) => theme.text};
   &:hover {
-    background-color: #f8f4f4;
+    background-color: ${({ theme }) => theme.soft};
   }
 `;
 const Description = styled.p`
   font-size: 1.2rem;
-  color: black;
 `;
 
-const Product = () => {
+const Product = ({darkMode,setDarkMode}) => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
   const [product, setProduct] = useState({});
@@ -159,7 +163,7 @@ const Product = () => {
   };
   return (
     <Container>
-      <Navbar />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Announcement />
       <Wrapper>
         <ImgContainer>
@@ -172,7 +176,7 @@ const Product = () => {
           <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
-              <FilterTitle>Color</FilterTitle>
+              <FilterTitle>{color === '' ? 'Color' : color}</FilterTitle>
               {product.color?.map((c) => (
                 <FilterColor
                   color={c}
@@ -201,7 +205,6 @@ const Product = () => {
         </InfoContainer>
       </Wrapper>
       <Newsletter />
-      <Navbar />
     </Container>
   );
 };

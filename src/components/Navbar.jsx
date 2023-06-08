@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { username } from '../requestMethods';
 
 const Container = styled.div`
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.bg};
   width: 100%;
   height: 60px;
   ${mobile({ height: '3.125rem' })}
@@ -34,7 +36,7 @@ const Language = styled.span`
 `;
 
 const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
+  border-bottom: 0.5px solid lightgray;
   display: flex;
   align-items: center;
   margin-left: 25px;
@@ -42,6 +44,8 @@ const SearchContainer = styled.div`
 `;
 
 const Input = styled.input`
+  background-color: ${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
   border: none;
   ${mobile({ width: '140px' })}
 `;
@@ -52,6 +56,7 @@ const Center = styled.div`
 `;
 
 const Logo = styled.h1`
+  color: ${({ theme }) => theme.text};
   font-weight: bold;
   ${mobile({ display: 'none' })}
 `;
@@ -67,10 +72,22 @@ const MenuItem = styled.div`
   font-size: 0.875rem;
   cursor: pointer;
   margin-left: 25px;
+  color: ${({ theme }) => theme.text};
   ${mobile({ fontSize: '12px', marginLeft: '0.625rem' })}
 `;
+const Item = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  padding: 7.5px 0px;
 
-const Navbar = () => {
+  &:hover {
+    background-color: ${({ theme }) => theme.soft};
+  }
+`;
+
+const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   return (
     <Container>
@@ -85,7 +102,7 @@ const Navbar = () => {
         <Center>
           <Link
             to='/'
-            style={{ textDecoration: 'none', color: 'black' }}
+            style={{ textDecoration: 'none' }}
           >
             <Logo>Cierva Design.</Logo>
           </Link>
@@ -94,29 +111,29 @@ const Navbar = () => {
           {username ? (
             <Link
               to='/cart'
-              style={{ textDecoration: 'none', color: 'black' }}
+              style={{ textDecoration: 'none' }}
             >
               {username}
             </Link>
           ) : (
-            <div>
+            <Right>
               <Link
                 to='/register'
-                style={{ textDecoration: 'none', color: 'black' }}
+                style={{ textDecoration: 'none' }}
               >
                 <MenuItem>Sign Up</MenuItem>
               </Link>
               <Link
                 to='/login'
-                style={{ textDecoration: 'none', color: 'black' }}
+                style={{ textDecoration: 'none' }}
               >
                 <MenuItem>Sign In</MenuItem>
               </Link>
-            </div>
+            </Right>
           )}
           <Link
             to='/cart'
-            style={{ textDecoration: 'none', color: 'black' }}
+            style={{ textDecoration: 'none' }}
           >
             <MenuItem>
               <Badge
@@ -128,6 +145,9 @@ const Navbar = () => {
               </Badge>
             </MenuItem>
           </Link>
+          <Item onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? 'Light' : 'Dark'}
+          </Item>
         </Right>
       </Wrapper>
     </Container>

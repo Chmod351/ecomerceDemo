@@ -24,13 +24,14 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 25%;
   padding: 1.25rem;
-  background-color: white;
+  background-color: ${({ theme }) => theme.bgLighter};
   ${mobile({ width: '75%' })}
 `;
 
 const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 300;
+  color:${({ theme }) => theme.text};
 `;
 
 const Form = styled.form`
@@ -64,6 +65,7 @@ const Links = styled.a`
   font-size: 0.75rem;
   text-decoration: underline;
   cursor: pointer;
+  color:${({ theme }) => theme.text};
 `;
 
 const Error = styled.span`

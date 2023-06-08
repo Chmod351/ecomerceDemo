@@ -20,7 +20,7 @@ const Circle = styled.div`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-color: white;
+  background-color: ${({ theme }) => theme.bgLighter};
   position: absolute;
 `;
 
@@ -33,15 +33,14 @@ const Icon = styled.div`
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
-  background-color: white;
+  background-color:${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0.625rem;
   transition: all 0.5s ease;
+  color: ${({ theme }) => theme.bg};
   &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
-    background-color: #e9f5f5;
     transform: scale(1.1);
   }
 `;
@@ -49,6 +48,7 @@ const Price = styled.div`
   font-size: 1.3rem;
   color: black;
   font-weight: 400;
+  color: ${({ theme }) => theme.text};
 `;
 const IconContainer = styled.div`
   display: flex;
@@ -56,10 +56,11 @@ const IconContainer = styled.div`
   justify-content: center;
 `;
 const Article = styled.article`
+background-color: ${({ theme }) => theme.bgLighter};
   margin: 5px;
-  border-radius:10px;
+  border-radius: 10px;
   &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 10px ${({ theme }) => theme.textSoft};
   }
 `;
 
@@ -68,7 +69,7 @@ const Product = ({ item }) => {
     <Article>
       <Link
         to={`/product/${item._id}`}
-        style={{ textDecoration: 'none', color: 'black' }}
+        style={{ textDecoration: 'none' }}
       >
         <Container>
           <Circle />
@@ -83,7 +84,7 @@ const Product = ({ item }) => {
         <Icon>
           <Link
             to={`/product/${item._id}`}
-            style={{ textDecoration: 'none', color: 'black' }}
+            style={{ textDecoration: 'none' }}
           >
             <SearchOutlined />
           </Link>

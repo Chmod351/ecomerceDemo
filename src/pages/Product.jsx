@@ -10,6 +10,7 @@ import { publicRequest } from '../requestMethods';
 import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import React from 'react';
+import CategoryItem from '../components/CategoryItem';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgLighter};
@@ -41,7 +42,7 @@ const InfoContainer = styled.div`
 
 const Title = styled.h1`
   font-weight: 200;
-  color:${({ theme }) => theme.text}
+  color: ${({ theme }) => theme.text};
 `;
 
 const Desc = styled.p`
@@ -74,8 +75,8 @@ const FilterTitle = styled.span`
 const FilterColor = styled.div`
   width: 20px;
   height: 20px;
-  border-radius:50%;
-  border:1px solid ${({ theme }) => theme.hover};
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.hover};
   background-color: ${(props) => props.color};
   margin: 0px 5px;
   cursor: pointer;
@@ -128,13 +129,13 @@ const Description = styled.p`
   font-size: 1.2rem;
 `;
 
-const Product = ({darkMode,setDarkMode}) => {
+const Product = ({ darkMode, setDarkMode }) => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState('');
-  const [size, setSize] = useState('XL');
+  const [size, setSize] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -142,6 +143,8 @@ const Product = ({darkMode,setDarkMode}) => {
       try {
         const res = await publicRequest.get(`/product/${id}`);
         setProduct(res.data);
+        setColor(product.color[0]);
+        setSize(product.size[0]);
       } catch (error) {
         console.log(error);
       }
@@ -163,47 +166,56 @@ const Product = ({darkMode,setDarkMode}) => {
   };
   return (
     <Container>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
       <Announcement />
-      <Wrapper>
-        <ImgContainer>
-          <Image src={product.imgUrl} />
-        </ImgContainer>
-        <InfoContainer>
-          <Title>{product.name}</Title>
-          <Desc>{product.hot}</Desc>
-          <Description>{product.description}</Description>
-          <Price>$ {product.price}</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>{color === '' ? 'Color' : color}</FilterTitle>
-              {product.color?.map((c) => (
-                <FilterColor
-                  color={c}
-                  key={c}
-                  onClick={() => setColor(c)}
-                />
-              ))}
-            </Filter>
-            <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
+      {product ? (
+        <Wrapper>
+          <ImgContainer>
+            <Image src={product.imgUrl} />
+          </ImgContainer>
+          <InfoContainer>
+            <Title>{product.name}</Title>
+            <Desc>{product.hot}</Desc>
+            <Description>{product.description}</Description>
+            <Price>$ {product.price}</Price>
+            <FilterContainer>
+              <Filter>
+                <FilterTitle>{color}</FilterTitle>
+                {product.color.map((c) => (
+                  <FilterColor
+                    color={c}
+                    key={c}
+                    onClick={() => setColor(c)}
+                  />
                 ))}
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            <AmountContainer>
-              <Remove onClick={() => handleQuantity('dec')} />
-              <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity('inc')} />
-            </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
+              </Filter>
+              <Filter>
+                <FilterTitle>Size</FilterTitle>
+                <FilterSize onChange={(e) => setSize(e.target.value)}>
+                  {product.size.map((s) => (
+                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  ))}
+                </FilterSize>
+              </Filter>
+            </FilterContainer>
+            <AddContainer>
+              <AmountContainer>
+                <Remove onClick={() => handleQuantity('dec')} />
+                <Amount>{quantity}</Amount>
+                <Add onClick={() => handleQuantity('inc')} />
+              </AmountContainer>
+              <Button onClick={handleClick}>ADD TO CART</Button>
+            </AddContainer>
+          </InfoContainer>
+          <CategoryItem item={product} />
+        </Wrapper>
+      ) : (
+        ''
+      )}
+      
       <Newsletter />
     </Container>
   );

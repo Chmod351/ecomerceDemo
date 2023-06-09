@@ -47,7 +47,7 @@ const CategoryItem = ({ item }) => {
   return (
     <Container>
       <Link
-        to={`/products/${item.cat}`}
+        to={`/products/${item.tags}`}
         style={{ textDecoration: 'none', color: 'black' }}
       >
         <Image src={item.img} />

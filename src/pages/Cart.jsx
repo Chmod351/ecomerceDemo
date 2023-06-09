@@ -162,6 +162,7 @@ const Button = styled.button`
 `;
 
 const Cart = ({ darkMode, setDarkMode }) => {
+  console.log(KEY)
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();

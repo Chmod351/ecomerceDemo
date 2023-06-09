@@ -10,13 +10,13 @@ import { publicRequest } from '../requestMethods';
 import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import React from 'react';
-import CategoryItem from '../components/CategoryItem';
+import Categories from '../components/Category';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgLighter};
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.article`
   padding: 50px;
   display: flex;
   ${mobile({ padding: '10px', flexDirection: 'column' })}
@@ -172,6 +172,7 @@ const Product = ({ darkMode, setDarkMode }) => {
       />
       <Announcement />
       {product ? (
+        <div>
         <Wrapper>
           <ImgContainer>
             <Image src={product.imgUrl} />
@@ -210,12 +211,12 @@ const Product = ({ darkMode, setDarkMode }) => {
               <Button onClick={handleClick}>ADD TO CART</Button>
             </AddContainer>
           </InfoContainer>
-          <CategoryItem item={product} />
         </Wrapper>
+        <Categories item={product} />
+        </div>
       ) : (
         ''
       )}
-      
       <Newsletter />
     </Container>
   );

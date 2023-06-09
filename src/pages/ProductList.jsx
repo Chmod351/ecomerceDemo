@@ -98,7 +98,7 @@ const ProductList = ({darkMode,setDarkMode}) => {
         </Filter>
       </FilterContainer>
       <Products
-        cat={cat}
+        tag={cat}
         filters={filters}
         sort={sort}
       />

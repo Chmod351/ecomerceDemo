@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Product from './Product';
 import axios from 'axios';
 import { mobile } from '../responsive';
+import { BASE_URL } from '../requestMethods';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -16,17 +17,22 @@ const Container = styled.div`
 const Products = ({ tag, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(8);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await axios.get(
           tag
-            ? `http://localhost:5000/api/product/tag?tag=${tag}`
-            : 'http://localhost:5000/api/product'
+            ? `${BASE_URL}/product/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
+            : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`
         );
-        setProducts(res.data);
-      } catch (err) {}
+        setProducts(res.data.products);
+        setTotalPages(res.data.totalPages);
+      } catch (err) {
+        console.log(error)
+      }
     };
     getProducts();
   }, [tag]);
@@ -68,7 +74,7 @@ const Products = ({ tag, filters, sort }) => {
               price={item.price}
             />
           ))
-        : products.slice(0, 8).map((item) => (
+        : products.map((item) => (
             <Product
               item={item}
               key={item._id}

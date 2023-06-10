@@ -1,5 +1,10 @@
 import { Badge } from '@material-ui/core';
-import { Search, ShoppingCartOutlined,Brightness7, Brightness2} from '@material-ui/icons';
+import {
+  Search,
+  ShoppingCartOutlined,
+  Brightness7,
+  Brightness2,
+} from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
@@ -35,13 +40,23 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-left: 15px;
   padding: 5px;
+  width: 400px;
+  ${mobile({ display: 'none' })}
+`;
+
+const SearchContainerMobile = styled.div`
+  border-bottom: 0.5px solid lightgray;
+  align-items: center;
+  padding: 5px;
+  display: 'none';
+  ${mobile({ display: 'flex', flexDirection: 'row' })};
 `;
 
 const Input = styled.input`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   border: none;
-  ${mobile({ width: '130px' })}
+  width: 100%;
 `;
 
 const Center = styled.div`
@@ -63,14 +78,14 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 0.875rem;
+  font-size: 1.4rem;
   cursor: pointer;
   margin-left: 25px;
   color: ${({ theme }) => theme.text};
-  ${mobile({ fontSize: '12px', marginRight: '1rem' })}
+  ${mobile({ fontSize: '12px', marginRight: '1rem', fontSize: '1.4rem' })}
 `;
 const Item = styled.div`
-  font-size:1rem;
+  font-size: 1rem;
   cursor: pointer;
   ${mobile({ fontSize: '12px', marginLeft: '1rem' })}
 `;
@@ -81,8 +96,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     <Container>
       <Wrapper>
         <Left>
-        <Item onClick={() => setDarkMode(!darkMode)}>
-            {darkMode ?   <Brightness7/>: <Brightness2/>}
+          <Item onClick={() => setDarkMode(!darkMode)}>
+            {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
           <SearchContainer>
             <Input placeholder='Search' />
@@ -107,12 +122,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </Link>
           ) : (
             <Right>
-              {/* <Link
+              <Link
                 to='/register'
                 style={{ textDecoration: 'none' }}
               >
-                <MenuItem>Sign Up</MenuItem>
-              </Link> */}
+                <MenuItem>SignUp</MenuItem>
+              </Link>
               <Link
                 to='/login'
                 style={{ textDecoration: 'none' }}
@@ -121,7 +136,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               </Link>
             </Right>
           )}
-          
+
           <Link
             to='/cart'
             style={{ textDecoration: 'none' }}
@@ -132,11 +147,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 color='primary'
                 overlap='rectangular'
               >
-                <ShoppingCartOutlined  />
+                <ShoppingCartOutlined />
               </Badge>
             </MenuItem>
           </Link>
         </Right>
+        <SearchContainerMobile>
+          <Input placeholder='Search' />
+          <Search style={{ color: 'gray', fontSize: 16 }} />
+        </SearchContainerMobile>
       </Wrapper>
     </Container>
   );

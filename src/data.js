@@ -50,34 +50,34 @@ export const phones = [
   { id: 3, number: '(011) 4545 4242' },
 ];
 
-const hours = ['11:00–15:00', '19:00–23:00'];
+const hours = ['11–15', '19–23'];
 export const schedule = [
-  { id: 1, Date: 'Monday', hour: hours[0] + ' to ' + hours[1] },
-  { id: 2, Date: 'Tuesday', hour: hours[0] + ' to ' + hours[1] },
-  { id: 3, Date: 'Wednesday', hour: hours[0] + ' to ' + hours[1] },
-  { id: 4, Date: 'Thursday', hour: hours[0] + ' to ' + hours[1] },
-  { id: 5, Date: 'Friday', hour: hours[0] + ' to ' + hours[1] },
-  { id: 6, Date: 'Saturday', hour: hours[0] + ' to ' + hours[1] },
-  { id: 7, Date: 'Sunday', hour: hours[1] },
+  { id: 1, date: 'Mon', hour: hours[0] + ' to ' + hours[1] },
+  { id: 2, date: 'Tue', hour: hours[0] + ' to ' + hours[1] },
+  { id: 3, date: 'Wed', hour: hours[0] + ' to ' + hours[1] },
+  { id: 4, date: 'Thu', hour: hours[0] + ' to ' + hours[1] },
+  { id: 5, date: 'Fri', hour: hours[0] + ' to ' + hours[1] },
+  { id: 6, date: 'Sat', hour: hours[0] + ' to ' + hours[1] },
+  { id: 7, date: 'Sun', hour: hours[1] },
 ];
 
 export const social = [
   {
     id: 1,
     icon: <FaceRounded />,
-    plataform: 'Facebook',
+    platform: 'Facebook',
     link: 'www.facebook.com',
   },
   {
     id: 2,
     icon: <FaceRounded />,
-    plataform: 'Tiwtter',
+    platform: 'Tiwtter',
     link: 'www.twitter.com',
   },
   {
     id: 3,
     icon: <FaceRounded />,
-    plataform: 'Instagram',
+    platform: 'Instagram',
     link: 'www.instagram.com',
   }
 ];

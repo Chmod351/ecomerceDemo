@@ -2,7 +2,7 @@ import { Send } from '@material-ui/icons';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 
-const Container = styled.div`
+const Container = styled.section`
   height: 60vh;
   background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};
@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
-const Title = styled.h1`
+const Title = styled.h3`
   font-size: 4.375rem;
   margin-bottom: 1.25rem;
   ${mobile({ fontSize: '2.5rem' })}

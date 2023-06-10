@@ -9,7 +9,14 @@ import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
-
+const Article = styled.article`
+  background-color: ${({ theme }) => theme.bgLighter};
+  margin: 5px;
+  border-radius: 10px;
+  &:hover {
+    box-shadow: 0 0 10px ${({ theme }) => theme.textSoft};
+  }
+`;
 const Container = styled.div`
   flex: 1;
   min-width: 280px;
@@ -59,14 +66,7 @@ const IconContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const Article = styled.article`
-  background-color: ${({ theme }) => theme.bgLighter};
-  margin: 5px;
-  border-radius: 10px;
-  &:hover {
-    box-shadow: 0 0 10px ${({ theme }) => theme.textSoft};
-  }
-`;
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.bg};

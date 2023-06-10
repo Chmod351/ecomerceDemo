@@ -5,7 +5,7 @@ import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 import { useEffect } from "react";
 
-const Container = styled.div`
+const Container = styled.section`
   width: 100%;
   height: 100vh;
   display: flex;
@@ -64,7 +64,7 @@ color: ${({ theme }) => theme.text};
   padding: 3.125rem;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   font-size: 70px;
 `;
 

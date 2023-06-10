@@ -90,16 +90,16 @@ const Item = styled.div`
   cursor: pointer;
   ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
-const Username= styled.p`
-font-size:1.4rem;
-
-`
+const Username = styled.p`
+  font-size: 1.4rem;
+  color: ${({ theme }) => theme.text};
+  font-weight: 400;
+`;
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
 
   return (
     <Container>
-      
       <Wrapper>
         <Left>
           <Item onClick={() => setDarkMode(!darkMode)}>
@@ -124,7 +124,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               to='/cart'
               style={{ textDecoration: 'none' }}
             >
-              {username}
+              <Username>{username}</Username>
             </Link>
           ) : (
             <Right>

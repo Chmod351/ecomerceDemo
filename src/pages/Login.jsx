@@ -117,7 +117,6 @@ const Login = () => {
           >
             LOGIN
           </Button>
-          {error && <Error>Something went wrong...</Error>}
           <Links>DO NOT YOU REMEMBER THE PASSWORD?</Links>
           <Link
             to='/register'

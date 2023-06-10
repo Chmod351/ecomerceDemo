@@ -8,7 +8,7 @@ import { useLocation } from 'react-router';
 import { useState } from 'react';
 
 const Container = styled.div`
-background-color:${({ theme }) => theme.bgLighter};
+  background-color: ${({ theme }) => theme.bgLighter};
 `;
 
 const Title = styled.h1`
@@ -30,7 +30,7 @@ const FilterText = styled.span`
   font-size: 1.25rem;
   font-weight: 600;
   margin-right: 1.25rem;
-  color:${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.text};
   ${mobile({ marginRight: '0rem' })}
 `;
 
@@ -39,10 +39,9 @@ const Select = styled.select`
   margin-right: 1.25rem;
   ${mobile({ margin: '0.625rem 0rem' })}
 `;
-const Option = styled.option`
-`;
+const Option = styled.option``;
 
-const ProductList = ({darkMode,setDarkMode}) => {
+const ProductList = ({ darkMode, setDarkMode }) => {
   const location = useLocation();
   const tags = location.pathname.split('/')[2];
   const [filters, setFilters] = useState(null);
@@ -50,15 +49,20 @@ const ProductList = ({darkMode,setDarkMode}) => {
 
   const handleFilters = (e) => {
     const value = e.target.value;
-    setFilters({
-      ...filters,
-      [e.target.name]: value,
-    });
+    value === 'All'
+      ? setFilters(null)
+      : setFilters({
+          ...filters,
+          [e.target.name]: value,
+        });
   };
 
   return (
     <Container>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode}/>
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
       <Announcement />
       <Title>{tags}</Title>
       <FilterContainer>
@@ -69,8 +73,9 @@ const ProductList = ({darkMode,setDarkMode}) => {
             onChange={handleFilters}
           >
             <Option disabled>Color</Option>
-            <Option>white</Option>
+            <Option>All</Option>
             <Option>black</Option>
+            <Option>white</Option>
             <Option>red</Option>
             <Option>blue</Option>
             <Option>yellow</Option>
@@ -81,6 +86,7 @@ const ProductList = ({darkMode,setDarkMode}) => {
             onChange={handleFilters}
           >
             <Option disabled>Size</Option>
+
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>

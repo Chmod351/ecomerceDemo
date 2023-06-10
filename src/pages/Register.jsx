@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { useState } from 'react';
+// import { handleError,handleSuccess } from '../utils/toast';
 
 const Container = styled.div`
   width: 100vw;

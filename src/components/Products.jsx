@@ -71,11 +71,13 @@ const Products = ({ tag, filters, sort }) => {
 
   useEffect(() => {
     if (tag) {
-      const filtered = products.filter((item) =>
-        filters && Object.entries(filters).every(([key, value]) =>
-          item[key] ? item[key].includes(value) : false
-        )
-      );
+      const filtered = filters
+        ? products.filter((item) =>
+            Object.entries(filters).every(([key, value]) =>
+              item[key] ? item[key].includes(value) : false
+            )
+          )
+        : products;
       setFilteredProducts(filtered);
     } else {
       setFilteredProducts(products);
@@ -89,11 +91,11 @@ const Products = ({ tag, filters, sort }) => {
       );
     } else if (sort === 'asc') {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.price - b.price)
+        [...prev].sort((a, b) => b.price - a.price)
       );
     } else {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => b.price - a.price)
+        [...prev].sort((a, b) => a.price - b.price)
       );
     }
   }, [sort]);
@@ -108,18 +110,16 @@ const Products = ({ tag, filters, sort }) => {
         {tag
           ? filteredProducts.map((product) => (
               <Product
-              product={product}
+                product={product}
                 key={product._id}
                 price={product.price}
-              
               />
             ))
           : products.map((product) => (
               <Product
-              product={product}
+                product={product}
                 key={product._id}
                 price={product.price}
-           
               />
             ))}
       </Wrapper>

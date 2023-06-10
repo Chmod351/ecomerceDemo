@@ -5,6 +5,10 @@ import {
 } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { addProduct } from '../redux/cartRedux';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+
 
 const Container = styled.div`
   flex: 1;
@@ -67,28 +71,34 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.bg};
 `;
-const Product = ({ item }) => {
+const Product = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, quantity}));
+    setQuantity(1);
+  };
   return (
     <Article>
       <Link
-        to={`/product/${item._id}`}
+        to={`/product/${product._id}`}
         style={{ textDecoration: 'none' }}
       >
         <Container>
           <Circle />
-          <Image src={item.imgUrl} />
+          <Image src={product.imgUrl} />
         </Container>
       </Link>
       <IconContainer>
-        <Price>${item.price}</Price>
-        <Icon>
+        <Price>${product.price}</Price>
+        <Icon onClick={handleClick}>
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
           <StyledLink
-            to={`/product/${item._id}`}
+            to={`/product/${product._id}`}
             style={{
-              textDecoration: 'none'
+              textDecoration: 'none',
             }}
           >
             <SearchOutlined />

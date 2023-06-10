@@ -10,7 +10,7 @@ import { publicRequest } from '../requestMethods';
 import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import React from 'react';
-import Categories from '../components/Category';
+import Products from '../components/Products';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgLighter};
@@ -143,8 +143,8 @@ const Product = ({ darkMode, setDarkMode }) => {
       try {
         const res = await publicRequest.get(`/product/${id}`);
         setProduct(res.data);
-        setColor(product.color[0]);
-        setSize(product.size[0]);
+        setColor(res.data.color[0]);
+        setSize(res.data.size[0]);
       } catch (error) {
         console.log(error);
       }
@@ -173,46 +173,47 @@ const Product = ({ darkMode, setDarkMode }) => {
       <Announcement />
       {product ? (
         <div>
-        <Wrapper>
-          <ImgContainer>
-            <Image src={product.imgUrl} />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>{product.name}</Title>
-            <Desc>{product.hot}</Desc>
-            <Description>{product.description}</Description>
-            <Price>$ {product.price}</Price>
-            <FilterContainer>
-              <Filter>
-                <FilterTitle>{color}</FilterTitle>
-                {product.color.map((c) => (
-                  <FilterColor
-                    color={c}
-                    key={c}
-                    onClick={() => setColor(c)}
-                  />
-                ))}
-              </Filter>
-              <Filter>
-                <FilterTitle>Size</FilterTitle>
-                <FilterSize onChange={(e) => setSize(e.target.value)}>
-                  {product.size.map((s) => (
-                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+          <Wrapper>
+            <ImgContainer>
+              <Image src={product.imgUrl} />
+            </ImgContainer>
+            <InfoContainer>
+              <Title>{product.name}</Title>
+              <Desc>{product.hot}</Desc>
+              <Description>{product.description}</Description>
+              <Price>$ {product.price}</Price>
+              <FilterContainer>
+                <Filter>
+                  <FilterTitle>{color}</FilterTitle>
+                  {product.color.map((c) => (
+                    <FilterColor
+                      color={c}
+                      key={c}
+                      onClick={() => setColor(c)}
+                    />
                   ))}
-                </FilterSize>
-              </Filter>
-            </FilterContainer>
-            <AddContainer>
-              <AmountContainer>
-                <Remove onClick={() => handleQuantity('dec')} />
-                <Amount>{quantity}</Amount>
-                <Add onClick={() => handleQuantity('inc')} />
-              </AmountContainer>
-              <Button onClick={handleClick}>ADD TO CART</Button>
-            </AddContainer>
-          </InfoContainer>
-        </Wrapper>
-        <Categories item={product} />
+                </Filter>
+                <Filter>
+                  <FilterTitle>Size</FilterTitle>
+                  <FilterSize onChange={(e) => setSize(e.target.value)}>
+                    {product.size.map((s) => (
+                      <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                    ))}
+                  </FilterSize>
+                </Filter>
+              </FilterContainer>
+              <AddContainer>
+                <AmountContainer>
+                  <Remove onClick={() => handleQuantity('dec')} />
+                  <Amount>{quantity}</Amount>
+                  <Add onClick={() => handleQuantity('inc')} />
+                </AmountContainer>
+                <Button onClick={handleClick}>ADD TO CART</Button>
+              </AddContainer>
+            </InfoContainer>
+          </Wrapper>
+          <Title>Recommended:</Title>
+          <Products />
         </div>
       ) : (
         ''

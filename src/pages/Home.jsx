@@ -5,15 +5,18 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
+import Footer from "../components/Footer";
 
 const Home = ({darkMode,setDarkMode}) => {
   return (
     <div>
       <Announcement />
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <Slider />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />   
+      <Slider />
       <Categories />
       <Products/>
       <Newsletter/>
+      <Footer/>
     </div>
   );
 };

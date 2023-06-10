@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import axios from 'axios';
@@ -34,8 +34,8 @@ const PageButton = styled.button`
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
 
   &:hover {
-    background-color:  ${({ theme }) => theme.hover};;
-    color:${({ theme }) => theme.soft};
+    background-color: ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.soft};
   }
 
   &:disabled {
@@ -51,32 +51,35 @@ const Products = ({ tag, filters, sort }) => {
   const [pageSize, setPageSize] = useState(8);
   const [totalPages, setTotalPages] = useState(0);
 
-  const productAndPages = useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await axios.get(
-          tag
-            ? `${BASE_URL}/product/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
-            : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`
-        );
-        setProducts(res.data.products);
-        setTotalPages(res.data.totalPages);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getProducts();
+  const getProducts = useCallback(async () => {
+    try {
+      const res = await axios.get(
+        tag
+          ? `${BASE_URL}/product/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
+          : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`
+      );
+      setProducts(res.data.products);
+      setTotalPages(res.data.totalPages);
+    } catch (err) {
+      console.log(err);
+    }
   }, [tag, currentPage, pageSize]);
 
   useEffect(() => {
-    tag &&
-      setFilteredProducts(
-        products.filter((item) =>
-          Object.entries(filters).every(([key, value]) =>
-            item[key].includes(value)
-          )
+    getProducts();
+  }, [getProducts]);
+
+  useEffect(() => {
+    if (tag) {
+      const filtered = products.filter((item) =>
+        filters && Object.entries(filters).every(([key, value]) =>
+          item[key] ? item[key].includes(value) : false
         )
       );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(products);
+    }
   }, [products, tag, filters]);
 
   useEffect(() => {
@@ -97,26 +100,26 @@ const Products = ({ tag, filters, sort }) => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    productAndPages;
   };
 
   return (
     <Container>
-      
       <Wrapper>
         {tag
-          ? filteredProducts.map((item) => (
+          ? filteredProducts.map((product) => (
               <Product
-                item={item}
-                key={item._id}
-                price={item.price}
+              product={product}
+                key={product._id}
+                price={product.price}
+              
               />
             ))
-          : products.map((item) => (
+          : products.map((product) => (
               <Product
-                item={item}
-                key={item._id}
-                price={item.price}
+              product={product}
+                key={product._id}
+                price={product.price}
+           
               />
             ))}
       </Wrapper>

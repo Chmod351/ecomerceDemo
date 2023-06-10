@@ -44,8 +44,8 @@ const Option = styled.option`
 
 const ProductList = ({darkMode,setDarkMode}) => {
   const location = useLocation();
-  const cat = location.pathname.split('/')[2];
-  const [filters, setFilters] = useState({});
+  const tags = location.pathname.split('/')[2];
+  const [filters, setFilters] = useState(null);
   const [sort, setSort] = useState('newest');
 
   const handleFilters = (e) => {
@@ -60,7 +60,7 @@ const ProductList = ({darkMode,setDarkMode}) => {
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode}/>
       <Announcement />
-      <Title>{cat}</Title>
+      <Title>{tags}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -98,7 +98,7 @@ const ProductList = ({darkMode,setDarkMode}) => {
         </Filter>
       </FilterContainer>
       <Products
-        tag={cat}
+        tag={tags}
         filters={filters}
         sort={sort}
       />

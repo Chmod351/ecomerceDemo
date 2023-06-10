@@ -4,6 +4,7 @@ export const Toast = {
   success: {
     removed: 'removed from cart succesfully!',
     added: 'added to cart',
+    thanks:'Thank you for choose us!!'
   },
   welcome: 'Welcome',
   error: {
@@ -29,6 +30,15 @@ export const handleError = (error) => {
   }
 };
 
-export const handleSuccess = () => {
-  toast.success(Toast.welcome);
-};
+export const handleSuccess = (message) => {
+    const successMessages = Toast.success;
+    const successKeys = Object.keys(successMessages);
+  
+    for (let i = 0; i < successKeys.length; i++) {
+      const key = successKeys[i];
+      if (message === key) {
+        toast.success(successMessages[key]);
+        break;
+      }
+    }
+  };

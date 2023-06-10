@@ -88,6 +88,7 @@ const Links = styled.a`
   align-items: center;
   color: ${({ theme }) => theme.hover};
 `;
+
 const Footer = () => {
   return (
     <Container>

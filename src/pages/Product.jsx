@@ -11,6 +11,7 @@ import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import Products from '../components/Products';
+import { handleSuccess } from '../utils/toast';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bgLighter};
@@ -163,6 +164,7 @@ const Product = ({ darkMode, setDarkMode }) => {
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity, color, size }));
     setQuantity(1);
+    handleSuccess("added");
   };
   return (
     <Container>

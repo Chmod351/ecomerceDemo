@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { handleError, handleSuccess } from '../utils/toast';
 
 const Article = styled.article`
   background-color: ${({ theme }) => theme.bgLighter};
@@ -74,9 +75,16 @@ const StyledLink = styled(Link)`
 const Product = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
+
   const handleClick = () => {
-    dispatch(addProduct({ ...product, quantity}));
-    setQuantity(1);
+    try {
+      dispatch(addProduct({ ...product, quantity }));
+      setQuantity(1);
+      handleSuccess("added");
+    } catch (error) {
+      console.log(error)
+      handleError(error);
+    }
   };
   return (
     <Article>

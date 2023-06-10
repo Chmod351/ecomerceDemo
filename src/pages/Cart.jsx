@@ -164,19 +164,16 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
-const Icon = styled.div`
+const Icon = styled.button`
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
+  border:none;
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s ease;
   color: ${({ theme }) => theme.bg};
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
 
 const Cart = ({ darkMode, setDarkMode }) => {
@@ -249,9 +246,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
                     <ProductName>
                       <b>Product:</b> {product.name}
                     </ProductName>
-                    {/* <ProductId>
-                      <b>ID:</b> {product._id}
-                    </ProductId> */}
                     <ProductColor color={product.color} />
                     <ProductSize>
                       <b>Size:</b> {product.size}

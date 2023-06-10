@@ -68,6 +68,7 @@ const Icon = styled.div`
   }
 `;
 
+
 const Products = ({ tag, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);

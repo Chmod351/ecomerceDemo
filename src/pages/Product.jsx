@@ -85,7 +85,14 @@ const FilterColor = styled.div`
 
 const FilterSize = styled.select`
   margin-left: 10px;
-  padding: 5px;
+  height: 3rem;
+  border:none;
+border-radius:1rem;
+  display:flex;
+  text-align: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.hover};
+  color: ${({ theme }) => theme.bg};
 `;
 
 const FilterSizeOption = styled.option``;
@@ -130,6 +137,18 @@ const Description = styled.p`
   font-size: 1.2rem;
 `;
 
+const Icon = styled.button`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: none;
+  background-color: ${({ theme }) => theme.hover};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.bg};
+`;
+
 const Product = ({ darkMode, setDarkMode }) => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
@@ -164,7 +183,7 @@ const Product = ({ darkMode, setDarkMode }) => {
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity, color, size }));
     setQuantity(1);
-    handleSuccess("added");
+    handleSuccess('added');
   };
   return (
     <Container>
@@ -206,9 +225,14 @@ const Product = ({ darkMode, setDarkMode }) => {
               </FilterContainer>
               <AddContainer>
                 <AmountContainer>
-                  <Remove onClick={() => handleQuantity('dec')} />
+                  <Icon onClick={() => handleQuantity('dec')}>
+                    <Remove />
+                  </Icon>
+
                   <Amount>{quantity}</Amount>
-                  <Add onClick={() => handleQuantity('inc')} />
+                  <Icon onClick={() => handleQuantity('inc')}>
+                    <Add />
+                  </Icon>
                 </AmountContainer>
                 <Button onClick={handleClick}>ADD TO CART</Button>
               </AddContainer>

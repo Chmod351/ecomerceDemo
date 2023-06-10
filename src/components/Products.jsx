@@ -4,6 +4,7 @@ import Product from './Product';
 import axios from 'axios';
 import { mobile } from '../responsive';
 import { BASE_URL } from '../requestMethods';
+import { ArrowLeftRounded, ArrowRightRounded } from '@material-ui/icons';
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -27,7 +28,8 @@ const PageButton = styled.button`
   background-color: ${(props) => (props.active ? '#333' : '#fff')};
   color: ${(props) => (props.active ? '#fff' : '#333')};
   border: 1px solid #ccc;
-  padding: 8px 16px;
+  padding: 8px 14px;
+  border-radius:1rem;
   margin: 0 4px;
   cursor: pointer;
   font-size: 14px;
@@ -41,6 +43,27 @@ const PageButton = styled.button`
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+`;
+const Icon = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.hover};
+  display: flex;
+  align-items: center;
+  cursor:pointer;
+  justify-content: center;
+  color: ${({ theme }) => theme.bg};
+  border:0.1px solid ${({ theme }) => theme.hover};
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border:0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
   }
 `;
 
@@ -131,12 +154,13 @@ const Products = ({ tag, filters, sort }) => {
 
       {filteredProducts.length >= 8 && totalPages > 1 ? (
         <PaginationContainer>
-          <PageButton
+          <Icon
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            Prev
-          </PageButton>
+            <ArrowLeftRounded/>
+          </Icon>
+
           {[...Array(totalPages)].map((_, index) => (
             <PageButton
               key={index + 1}
@@ -146,12 +170,12 @@ const Products = ({ tag, filters, sort }) => {
               {index + 1}
             </PageButton>
           ))}
-          <PageButton
+          <Icon
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
-            Next
-          </PageButton>
+            <ArrowRightRounded/>
+          </Icon>
         </PaginationContainer>
       ) : (
         <PaginationContainer>
@@ -159,7 +183,7 @@ const Products = ({ tag, filters, sort }) => {
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            Prev
+            back
           </PageButton>
         </PaginationContainer>
       )}

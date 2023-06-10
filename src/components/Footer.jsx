@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { phones,social } from '../data';
+import { phones, social } from '../data';
 
 const Container = styled.section`
   width: 100%;
+  padding: 1.2rem 0rem;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   ${mobile({ height: '3.125rem' })}
@@ -25,9 +26,8 @@ const Wrapper = styled.div`
   })}
 `;
 const Title = styled.h4`
-  display:none;
-  ${mobile({ fontSize: "1.5rem",display:'flex',justifyContent:'center'})}
-
+  display: none;
+  ${mobile({ fontSize: '1.5rem', display: 'flex', justifyContent: 'center' })}
 `;
 const Left = styled.div`
   display: flex;
@@ -81,12 +81,19 @@ const ListItem = styled.li`
 
 const Links = styled.a`
   margin: 0.3125rem 0rem;
-  text-decoration: underline;
+  text-decoration: none;
   cursor: pointer;
   display: flex;
   text-align: center;
   align-items: center;
   color: ${({ theme }) => theme.hover};
+`;
+
+const Frame = styled.iframe`
+  width: 30rem;
+  height: 14rem;
+  border: 1px solid black;
+  ${mobile({ justifyContent: 'center', width: '100%' })}
 `;
 
 const Footer = () => {
@@ -117,14 +124,21 @@ const Footer = () => {
           <Title>Phones</Title>
           <Items className='li-container'>
             {phones.map((phone) => {
-              const { id, number } = phone;
-              return <ListItem key={id}>{number}</ListItem>;
+              const { id, number, icon } = phone;
+              return (
+                <ListItem key={id}>
+                  <Links>
+                    <Icon alt={number}>{icon}</Icon>
+                    {number}
+                  </Links>
+                </ListItem>
+              );
             })}
           </Items>
-        </Center> 
-        <Title>Schedule</Title>
+        </Center>
+        <Title>Location</Title>
         <Right>
-        
+          <Frame src='https://www.openstreetmap.org/export/embed.html?bbox=-0.1054215431213379%2C51.497990292603085%2C-0.09351253509521486%2C51.502004286184594&amp;layer=mapnik&amp;marker=51.499997333585014%2C-0.09946703910827637'></Frame>
         </Right>
       </Wrapper>
     </Container>

@@ -1,4 +1,4 @@
-import { FaceRounded } from '@material-ui/icons';
+import { FaceRounded, WhatsApp } from '@material-ui/icons';
 export const sliderItems = [
   {
     id: 1,
@@ -45,11 +45,10 @@ export const categories = [
 ];
 
 export const phones = [
-  { id: 1, number: '(011) 4545 4242' },
-  { id: 2, number: '(011) 4545 4242' },
-  { id: 3, number: '(011) 4545 4242' },
+  { id: 1, number: '(011) 4545 4242', icon: <WhatsApp /> },
+  { id: 2, number: '(011) 4545 4242', icon: <WhatsApp /> },
+  { id: 3, number: '(011) 4545 4242', icon: <WhatsApp /> },
 ];
-
 
 export const social = [
   {
@@ -71,4 +70,3 @@ export const social = [
     link: 'www.instagram.com',
   },
 ];
-

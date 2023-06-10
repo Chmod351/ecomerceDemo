@@ -5,8 +5,7 @@ import { mobile } from '../responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { publicRequest } from '../requestMethods';
-import { toast } from 'react-toastify';
-import { Toast } from '../data';
+import { handleError, handleSuccess } from '../utils/toast.js';
 
 const Container = styled.div`
   width: 100vw;
@@ -88,9 +87,10 @@ const Login = () => {
         password,
       });
       login(dispatch, { email, password });
-      toast.success(Toast.welcome);
+      handleSuccess();
     } catch (error) {
       console.log(error);
+      handleError(error);
     }
   };
 

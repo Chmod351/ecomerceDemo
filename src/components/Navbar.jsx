@@ -95,6 +95,7 @@ const Username = styled.p`
   color: ${({ theme }) => theme.text};
   font-weight: 400;
 `;
+
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
 

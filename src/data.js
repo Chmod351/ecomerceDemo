@@ -79,14 +79,6 @@ export const social = [
     icon: <FaceRounded />,
     platform: 'Instagram',
     link: 'www.instagram.com',
-  }
+  },
 ];
 
-export  const Toast={
-  success:{
-    removed:'removed from cart succesfully!',
-    added:'added to cart'
-  },
-  welcome:'Welcome',
-
-}

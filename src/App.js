@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { useState } from 'react';
 
+
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   const getDarkModePreference = () => {
@@ -44,7 +45,6 @@ const App = () => {
             path='/'
           >
             <Home
-
               darkMode={darkMode}
               setDarkMode={handleDarkModeToggle}
             />

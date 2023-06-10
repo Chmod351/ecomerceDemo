@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile, tablet } from '../responsive';
 
 const Container = styled.div`
-
   flex: 1;
   margin: 3px;
   height: 70vh;
@@ -32,6 +31,7 @@ const Info = styled.div`
 const Title = styled.h1`
   color: white;
   margin-bottom: 1.25rem;
+  
 `;
 
 const Button = styled.button`
@@ -41,6 +41,7 @@ const Button = styled.button`
   color: gray;
   cursor: pointer;
   font-weight: 600;
+  
 `;
 //seasson sales
 const CategoryItem = ({ item }) => {

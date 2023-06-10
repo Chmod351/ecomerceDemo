@@ -16,8 +16,8 @@ const Container = styled.div`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
   width: 100%;
-  height: 60px;
-  ${mobile({ height: '3.125rem' })}
+  height: 5rem;
+  ${mobile({ height: '6rem' })}
 `;
 
 const Wrapper = styled.div`
@@ -40,15 +40,15 @@ const SearchContainer = styled.div`
   align-items: center;
   margin-left: 15px;
   padding: 5px;
-  width: 400px;
+  width: 15rem;
   ${mobile({ display: 'none' })}
 `;
 
 const SearchContainerMobile = styled.div`
   border-bottom: 0.5px solid lightgray;
   align-items: center;
-  padding: 5px;
-  display: 'none';
+  margin: 5px;
+  display: none;
   ${mobile({ display: 'flex', flexDirection: 'row' })};
 `;
 
@@ -57,6 +57,7 @@ const Input = styled.input`
   color: ${({ theme }) => theme.text};
   border: none;
   width: 100%;
+  ${mobile({ padding: '10px' })};
 `;
 
 const Center = styled.div`
@@ -82,18 +83,23 @@ const MenuItem = styled.div`
   cursor: pointer;
   margin-left: 25px;
   color: ${({ theme }) => theme.text};
-  ${mobile({ fontSize: '12px', marginRight: '1rem', fontSize: '1.4rem' })}
+  ${mobile({ marginRight: '1rem', fontSize: '1.4rem' })}
 `;
 const Item = styled.div`
   font-size: 1rem;
   cursor: pointer;
-  ${mobile({ fontSize: '12px', marginLeft: '1rem' })}
+  ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
+const Username= styled.p`
+font-size:1.4rem;
 
+`
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
+
   return (
     <Container>
+      
       <Wrapper>
         <Left>
           <Item onClick={() => setDarkMode(!darkMode)}>
@@ -152,11 +158,11 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </MenuItem>
           </Link>
         </Right>
-        <SearchContainerMobile>
-          <Input placeholder='Search' />
-          <Search style={{ color: 'gray', fontSize: 16 }} />
-        </SearchContainerMobile>
       </Wrapper>
+      <SearchContainerMobile>
+        <Input placeholder='Search' />
+        <Search style={{ color: 'gray', fontSize: 35 }} />
+      </SearchContainerMobile>
     </Container>
   );
 };

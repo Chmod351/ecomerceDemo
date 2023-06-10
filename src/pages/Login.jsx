@@ -5,6 +5,8 @@ import { mobile } from '../responsive';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { publicRequest } from '../requestMethods';
+import { toast } from 'react-toastify';
+import { Toast } from '../data';
 
 const Container = styled.div`
   width: 100vw;
@@ -31,7 +33,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 300;
-  color:${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Form = styled.form`
@@ -65,7 +67,7 @@ const Links = styled.a`
   font-size: 0.75rem;
   text-decoration: underline;
   cursor: pointer;
-  color:${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Error = styled.span`
@@ -83,9 +85,10 @@ const Login = () => {
     try {
       await publicRequest.post('/signin', {
         email,
-        password
+        password,
       });
       login(dispatch, { email, password });
+      toast.success(Toast.welcome);
     } catch (error) {
       console.log(error);
     }
@@ -116,7 +119,10 @@ const Login = () => {
           </Button>
           {error && <Error>Something went wrong...</Error>}
           <Links>DO NOT YOU REMEMBER THE PASSWORD?</Links>
-          <Link to='/register' style={{ textDecoration: 'none', color: 'black' }} >
+          <Link
+            to='/register'
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
             <Links>CREATE ACCOUNT</Links>
           </Link>
         </Form>

@@ -25,7 +25,9 @@ const Wrapper = styled.div`
   })}
 `;
 const Title = styled.h4`
-  font-size: 1.5rem;
+  display:none;
+  ${mobile({ fontSize: "1.5rem",display:'flex',justifyContent:'center'})}
+
 `;
 const Left = styled.div`
   display: flex;
@@ -118,9 +120,9 @@ const Footer = () => {
               return <ListItem key={id}>{number}</ListItem>;
             })}
           </Items>
-        </Center>
+        </Center> 
+        <Title>Schedule</Title>
         <Right>
-          <Title>Schedule</Title>
           <Items className='li-container'>
             {schedule.map((schedule) => {
               const { id, date, hour } = schedule;

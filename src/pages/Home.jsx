@@ -10,8 +10,8 @@ import Footer from "../components/Footer";
 const Home = ({darkMode,setDarkMode}) => {
   return (
     <div>
-      <Announcement />
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />   
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />  
+      <Announcement />  
       <Slider />
       <Categories />
       <Products/>

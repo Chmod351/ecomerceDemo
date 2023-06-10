@@ -10,6 +10,7 @@ import { userRequest } from '../requestMethods';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import logo from '../assests/logo.png';
+import { toast } from 'react-toastify';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
@@ -182,11 +183,13 @@ const Cart = ({ darkMode, setDarkMode }) => {
           products: cart,
         });
       } catch (error) {
+        toast.error(error);
         console.log(error);
       }
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, history]);
+
   return (
     <Container>
       <Navbar

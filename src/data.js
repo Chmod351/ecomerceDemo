@@ -81,3 +81,12 @@ export const social = [
     link: 'www.instagram.com',
   }
 ];
+
+export  const Toast={
+  success:{
+    removed:'removed from cart succesfully!',
+    added:'added to cart'
+  },
+  welcome:'Welcome',
+
+}

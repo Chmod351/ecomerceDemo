@@ -50,16 +50,6 @@ export const phones = [
   { id: 3, number: '(011) 4545 4242' },
 ];
 
-const hours = ['11–15', '19–23'];
-export const schedule = [
-  { id: 1, date: 'Mon', hour: hours[0] + ' to ' + hours[1] },
-  { id: 2, date: 'Tue', hour: hours[0] + ' to ' + hours[1] },
-  { id: 3, date: 'Wed', hour: hours[0] + ' to ' + hours[1] },
-  { id: 4, date: 'Thu', hour: hours[0] + ' to ' + hours[1] },
-  { id: 5, date: 'Fri', hour: hours[0] + ' to ' + hours[1] },
-  { id: 6, date: 'Sat', hour: hours[0] + ' to ' + hours[1] },
-  { id: 7, date: 'Sun', hour: hours[1] },
-];
 
 export const social = [
   {

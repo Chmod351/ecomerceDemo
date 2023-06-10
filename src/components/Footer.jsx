@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { phones, schedule, social } from '../data';
+import { phones,social } from '../data';
 
 const Container = styled.section`
   width: 100%;
@@ -124,16 +124,7 @@ const Footer = () => {
         </Center> 
         <Title>Schedule</Title>
         <Right>
-          <Items className='li-container'>
-            {schedule.map((schedule) => {
-              const { id, date, hour } = schedule;
-              return (
-                <ListItem key={id}>
-                  {date} {hour}
-                </ListItem>
-              );
-            })}
-          </Items>
+        
         </Right>
       </Wrapper>
     </Container>

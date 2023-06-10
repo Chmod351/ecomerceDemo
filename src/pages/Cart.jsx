@@ -10,7 +10,9 @@ import { userRequest } from '../requestMethods';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import logo from '../assests/logo.png';
-import { handleError } from '../utils/toast';
+import { handleError, handleSuccess } from '../utils/toast';
+import { addProduct, removeProduct } from '../redux/cartRedux';
+import { useDispatch } from 'react-redux';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
@@ -166,6 +168,16 @@ const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleRemove = (index) => {
+    dispatch(removeProduct(cart.products[index]));
+    handleSuccess('removed');
+  };
+  const handleAdd=(index)=>{
+    dispatch(addProduct({ ...cart.products[index], quantity: 1 }));
+    handleSuccess('added');
+  }
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -214,7 +226,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map((product) => (
+            {cart.products.map((product,index) => (
               <Product>
                 <ProductDetail>
                   <Image src={product.imgUrl} />
@@ -233,9 +245,9 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    <Add onClick={() => handleAdd(index)}/>
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
+                    <Remove onClick={() => handleRemove(index)}/>
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
@@ -249,7 +261,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>

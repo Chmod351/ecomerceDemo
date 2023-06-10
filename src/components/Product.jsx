@@ -86,6 +86,7 @@ const Product = ({ product }) => {
       handleError(error);
     }
   };
+  
   return (
     <Article>
       <Link

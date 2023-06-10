@@ -164,6 +164,21 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
+const Icon = styled.div`
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.hover};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+  color: ${({ theme }) => theme.bg};
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
@@ -174,10 +189,10 @@ const Cart = ({ darkMode, setDarkMode }) => {
     dispatch(removeProduct(cart.products[index]));
     handleSuccess('removed');
   };
-  const handleAdd=(index)=>{
+  const handleAdd = (index) => {
     dispatch(addProduct({ ...cart.products[index], quantity: 1 }));
     handleSuccess('added');
-  }
+  };
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -226,7 +241,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map((product,index) => (
+            {cart.products.map((product, index) => (
               <Product>
                 <ProductDetail>
                   <Image src={product.imgUrl} />
@@ -234,9 +249,9 @@ const Cart = ({ darkMode, setDarkMode }) => {
                     <ProductName>
                       <b>Product:</b> {product.name}
                     </ProductName>
-                    <ProductId>
+                    {/* <ProductId>
                       <b>ID:</b> {product._id}
-                    </ProductId>
+                    </ProductId> */}
                     <ProductColor color={product.color} />
                     <ProductSize>
                       <b>Size:</b> {product.size}
@@ -245,9 +260,13 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add onClick={() => handleAdd(index)}/>
+                    <Icon onClick={() => handleAdd(index)}>
+                      <Add />
+                    </Icon>
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove onClick={() => handleRemove(index)}/>
+                    <Icon onClick={() => handleRemove(index)}>
+                      <Remove />
+                    </Icon>
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}

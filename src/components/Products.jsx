@@ -29,7 +29,7 @@ const PageButton = styled.button`
   color: ${(props) => (props.active ? '#fff' : '#333')};
   border: 1px solid #ccc;
   padding: 8px 14px;
-  border-radius:1rem;
+  border-radius: 1rem;
   margin: 0 4px;
   cursor: pointer;
   font-size: 14px;
@@ -52,17 +52,18 @@ const Icon = styled.div`
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
-  cursor:pointer;
+  cursor: pointer;
   justify-content: center;
   color: ${({ theme }) => theme.bg};
-  border:0.1px solid ${({ theme }) => theme.hover};
+  border: 0.1px solid ${({ theme }) => theme.hover};
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
   &:hover {
     background-color: ${({ theme }) => theme.bgLighter};
-    border:0.1px solid ${({ theme }) => theme.hover};
+    border: 0.1px solid ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.text};
   }
 `;
@@ -157,8 +158,9 @@ const Products = ({ tag, filters, sort }) => {
           <Icon
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
+            style={{ pointerEvents: currentPage === 1 ? 'none' : 'auto' }}
           >
-            <ArrowLeftRounded/>
+            <ArrowLeftRounded />
           </Icon>
 
           {[...Array(totalPages)].map((_, index) => (
@@ -173,8 +175,11 @@ const Products = ({ tag, filters, sort }) => {
           <Icon
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
+            style={{
+              pointerEvents: currentPage === totalPages ? 'none' : 'auto',
+            }}
           >
-            <ArrowRightRounded/>
+            <ArrowRightRounded />
           </Icon>
         </PaginationContainer>
       ) : (

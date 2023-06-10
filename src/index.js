@@ -10,7 +10,7 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <App />
-      <ToastContainer/>
+      <ToastContainer autoClose={500} hideProgressBar={true} toastStyle={{ backgroundColor: '#373737',color:'white' }}/>
     </PersistGate>
   </Provider>,
   document.getElementById("root")

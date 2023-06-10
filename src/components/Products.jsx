@@ -47,6 +47,7 @@ const PageButton = styled.button`
 const Products = ({ tag, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [showPagination, setShowPagination] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
   const [totalPages, setTotalPages] = useState(0);
@@ -79,8 +80,10 @@ const Products = ({ tag, filters, sort }) => {
           )
         : products;
       setFilteredProducts(filtered);
+      setShowPagination(filtered.length > 8);
     } else {
       setFilteredProducts(products);
+      setShowPagination(products.length > 8);
     }
   }, [products, tag, filters]);
 
@@ -123,8 +126,10 @@ const Products = ({ tag, filters, sort }) => {
               />
             ))}
       </Wrapper>
+
       {/* Renderizar paginación */}
-      {totalPages > 1 && (
+
+      {filteredProducts.length >= 8 && totalPages > 1 ? (
         <PaginationContainer>
           <PageButton
             onClick={() => handlePageChange(currentPage - 1)}
@@ -146,6 +151,15 @@ const Products = ({ tag, filters, sort }) => {
             disabled={currentPage === totalPages}
           >
             Next
+          </PageButton>
+        </PaginationContainer>
+      ) : (
+        <PaginationContainer>
+          <PageButton
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Prev
           </PageButton>
         </PaginationContainer>
       )}

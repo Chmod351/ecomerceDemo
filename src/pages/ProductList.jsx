@@ -35,6 +35,11 @@ const FilterText = styled.span`
 `;
 
 const Select = styled.select`
+text-align: center;
+  border:none; 
+  border-radius:1rem;
+  background-color: ${({ theme }) => theme.hover};
+  color: ${({ theme }) => theme.bg};
   padding: 0.625rem;
   margin-right: 1.25rem;
   ${mobile({ margin: '0.625rem 0rem' })}

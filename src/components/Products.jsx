@@ -33,7 +33,7 @@ const PageButton = styled.button`
   margin: 0 4px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
+  font-weight: 'bold';
 
   &:hover {
     background-color: ${({ theme }) => theme.hover};
@@ -189,7 +189,7 @@ const Products = ({ tag, filters, sort }) => {
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
-            back
+            Back
           </PageButton>
         </PaginationContainer>
       )}

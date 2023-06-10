@@ -2,6 +2,7 @@ import { Badge } from '@material-ui/core';
 import {
   Search,
   ShoppingCartOutlined,
+  ShoppingCart,
   Brightness7,
   Brightness2,
 } from '@material-ui/icons';
@@ -149,13 +150,23 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             style={{ textDecoration: 'none' }}
           >
             <MenuItem>
-              <Badge
-                badgeContent={quantity}
-                color='primary'
-                overlap='rectangular'
-              >
-                <ShoppingCartOutlined />
-              </Badge>
+              {quantity > 0 ? (
+                <Badge
+                  badgeContent={quantity}
+                  color='primary'
+                  overlap='rectangular'
+                >
+                  <ShoppingCart />
+                </Badge>
+              ) : (
+                <Badge
+                  badgeContent={quantity}
+                  color='primary'
+                  overlap='rectangular'
+                >
+                  <ShoppingCartOutlined />
+                </Badge>
+              )}
             </MenuItem>
           </Link>
         </Right>

@@ -1,4 +1,4 @@
-import { Add, Remove } from '@material-ui/icons';
+import { Add, Remove, SentimentDissatisfiedOutlined } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
@@ -13,16 +13,19 @@ import logo from '../assests/logo.png';
 import { handleError, handleSuccess } from '../utils/toast';
 import { addProduct, removeProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
+import Footer from '../components/Footer';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
+  height: 100%;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
+  ${mobile({ maxWidth: '100vw', padding: '0'})}
 `;
 
 const Wrapper = styled.div`
   padding: 1.25rem;
-  ${mobile({ padding: '0.625rem' })}
+  ${mobile({ padding: '0' })}
 `;
 
 const Title = styled.h1`
@@ -34,7 +37,7 @@ const Top = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem;
+  padding: 1.25rem 0;
 `;
 
 const TopButton = styled.button`
@@ -48,16 +51,18 @@ const TopButton = styled.button`
 const TopTexts = styled.div`
   ${mobile({ display: 'none' })}
 `;
+
 const TopText = styled.span`
   text-decoration: underline;
   cursor: pointer;
   margin: 0rem 0.625rem;
+  ${mobile({ margin: '0' })}
 `;
 
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: 'column' })}
+  ${mobile({ flexDirection: 'column', overflow: 'hidden' })}
 `;
 
 const Info = styled.div`
@@ -67,29 +72,27 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  ${mobile({ flexDirection: 'column' })}
+  ${mobile({ flexDirection: 'column', justifyContent: 'center' })}
 `;
 
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+  ${mobile({ flexDirection: 'column' })}
 `;
 
 const Image = styled.img`
   width: 200px;
+  ${mobile({ width: '100vw', padding: '0rem' })}
 `;
 
 const Details = styled.div`
   color: ${({ theme }) => theme.textSoft};
   padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  ${mobile({ flexWrap: 'wrap', width: '100vw' })}
 `;
 
 const ProductName = styled.span``;
-
-const ProductId = styled.span``;
 
 const ProductColor = styled.div`
   width: 1.25rem;
@@ -137,7 +140,8 @@ const Summary = styled.div`
   border: 0.5px solid lightgray;
   border-radius: 0.625rem;
   padding: 1.25rem;
-  height: 50vh;
+  height: 20rem;
+  ${mobile({ height: '10rem', padding: '1rem', margin: '0 1rem' })}
 `;
 
 const SummaryTitle = styled.h1`
@@ -168,12 +172,31 @@ const Icon = styled.button`
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  border:none;
+  border: none;
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.bg};
+`;
+const Message = styled.p`
+    display: flex;
+    height:50vh;
+    flex: 4;
+    background-color:  color: ${({ theme }) => theme.bg};
+    font-weidth: bold;
+    font-size: 3rem;
+    color: ${({ theme }) => theme.soft};
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+ ${mobile({ height: '60vh' })}
+  `;
+const IconFace = styled.svg`
+  font-weidth: bold;
+  color: ${({ theme }) => theme.soft};
+  font-size: 1rem;
+  margin: 0 1rem;
 `;
 
 const Cart = ({ darkMode, setDarkMode }) => {
@@ -216,93 +239,97 @@ const Cart = ({ darkMode, setDarkMode }) => {
 
   return (
     <Container>
-      <Navbar
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-      />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <Link
-            to='/'
-            style={{ textDecoration: 'none' }}
-          >
+          <Link to="/" style={{ textDecoration: 'none' }}>
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
             <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type='filled'>CHECKOUT NOW</TopButton>
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
-        <Bottom>
-          <Info>
-            {cart.products.map((product, index) => (
-              <Product>
-                <ProductDetail>
-                  <Image src={product.imgUrl} />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b> {product.name}
-                    </ProductName>
-                    <ProductColor color={product.color} />
-                    <ProductSize>
-                      <b>Size:</b> {product.size}
-                    </ProductSize>
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Icon onClick={() => handleAdd(index)}>
-                      <Add />
-                    </Icon>
-                    <ProductAmount>{product.quantity}</ProductAmount>
-                    <Icon onClick={() => handleRemove(index)}>
-                      <Remove />
-                    </Icon>
-                  </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {product.price * product.quantity}
-                  </ProductPrice>
-                </PriceDetail>
-              </Product>
-            ))}
-            <Hr />
-          </Info>
-          <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem type='total'>
-              <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-            </SummaryItem>
-            <StripeCheckout
-              name='Cierva Design'
-              image={logo}
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <Button>CHECKOUT NOW</Button>
-            </StripeCheckout>
-          </Summary>
-        </Bottom>
+        {cart.products.length > 0 ? (
+          <Bottom>
+            <Info>
+              {cart.products.map((product, index) => (
+                <Product>
+                  <ProductDetail>
+                    <Image src={product.imgUrl} />
+                    <Details>
+                      <ProductName>
+                        <b>Product:</b> {product.name}
+                      </ProductName>
+                      <ProductColor color={product.color} />
+                      <ProductSize>
+                        <b>Size:</b> {product.size}
+                      </ProductSize>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <Icon onClick={() => handleAdd(index)}>
+                        <Add />
+                      </Icon>
+                      <ProductAmount>{product.quantity}</ProductAmount>
+                      <Icon onClick={() => handleRemove(index)}>
+                        <Remove />
+                      </Icon>
+                    </ProductAmountContainer>
+                    <ProductPrice>
+                      $ {product.price * product.quantity}
+                    </ProductPrice>
+                  </PriceDetail>
+                </Product>
+              ))}
+              <Hr />
+            </Info>
+            <Summary>
+              <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+              <SummaryItem>
+                <SummaryItemText>Subtotal</SummaryItemText>
+                <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Estimated Shipping</SummaryItemText>
+                <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem>
+                <SummaryItemText>Shipping Discount</SummaryItemText>
+                <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              </SummaryItem>
+              <SummaryItem type="total">
+                <SummaryItemText>Total</SummaryItemText>
+                <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              </SummaryItem>
+              <StripeCheckout
+                name="Cierva Design"
+                image={logo}
+                billingAddress
+                shippingAddress
+                description={`Your total is $${cart.total}`}
+                amount={cart.total * 100}
+                token={onToken}
+                stripeKey={KEY}
+              >
+                <Button>CHECKOUT NOW</Button>
+              </StripeCheckout>
+            </Summary>
+          </Bottom>
+        ) : (
+          <Message>
+            Your Cart Is Empty
+            <IconFace>
+              <SentimentDissatisfiedOutlined />
+            </IconFace>
+          </Message>
+        )}
       </Wrapper>
+      <Footer />
     </Container>
   );
 };

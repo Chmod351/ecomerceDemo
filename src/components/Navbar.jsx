@@ -76,15 +76,15 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 3, justifyContent: 'center' })}
+  ${mobile({ flex: 3, justifyContent: 'center'})}
 `;
 
 const MenuItem = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   cursor: pointer;
   margin-left: 25px;
   color: ${({ theme }) => theme.text};
-  ${mobile({ marginRight: '1rem', fontSize: '1.4rem' })}
+  ${mobile({ marginRight: '1rem', fontSize: '1rem' })}
 `;
 const Item = styled.div`
   font-size: 1rem;
@@ -92,7 +92,7 @@ const Item = styled.div`
   ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
 const Username = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: ${({ theme }) => theme.text};
   font-weight: 400;
 `;

@@ -138,7 +138,7 @@ const Footer = () => {
         </Center>
         <Title>Location</Title>
         <Right>
-          <Frame src='https://www.openstreetmap.org/export/embed.html?bbox=-0.1054215431213379%2C51.497990292603085%2C-0.09351253509521486%2C51.502004286184594&amp;layer=mapnik&amp;marker=51.499997333585014%2C-0.09946703910827637'></Frame>
+          <Frame src='https://www.openstreetmap.org/export/embed.html?bbox=-0.1054215431213379%2C51.497990292603085%2C-0.09351253509521486%2C51.502004286184594&amp;layer=mapnik&amp;marker=51.499997333585014%2C-0.09946703910827637' blank="https://www.openstreetmap.org/?mlat=-34.58804&mlon=-58.52441#map=19/-34.58804/-58.52441"></Frame>
         </Right>
       </Wrapper>
     </Container>

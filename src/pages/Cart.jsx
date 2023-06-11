@@ -20,7 +20,7 @@ const Container = styled.div`
   height: 100%;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
-  ${mobile({ maxWidth: '100vw', padding: '0'})}
+  ${mobile({ maxWidth: '100vw', padding: '0' })}
 `;
 
 const Wrapper = styled.div`
@@ -180,23 +180,23 @@ const Icon = styled.button`
   color: ${({ theme }) => theme.bg};
 `;
 const Message = styled.p`
-    display: flex;
-    height:50vh;
-    flex: 4;
-    background-color:  color: ${({ theme }) => theme.bg};
-    font-weidth: bold;
-    font-size: 3rem;
-    color: ${({ theme }) => theme.soft};
-    justify-content: center;
-    align-items: center;
-    text-align: center;
- ${mobile({ height: '60vh' })}
-  `;
-const IconFace = styled.svg`
-  font-weidth: bold;
+  display: flex;
+  height: 50vh;
+  flex: 4;
+  background-color: ${({ theme }) => theme.bgLighter};
+  font-weight: bold;
+  font-size: 2.4rem;
   color: ${({ theme }) => theme.soft};
-  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+${mobile({ height: '60vh', flexDirection:'column'})}
+`;
+
+const IconFace = styled.svg`
+  color: ${({ theme }) => theme.soft};
   margin: 0 1rem;
+  ${mobile({ margin: '1rem auto' })}
 `;
 
 const Cart = ({ darkMode, setDarkMode }) => {

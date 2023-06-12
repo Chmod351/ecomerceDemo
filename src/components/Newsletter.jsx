@@ -21,7 +21,7 @@ const Desc = styled.div`
   font-size: 1.5rem;
   font-weight: 300;
   margin-bottom: 1.25rem;
-  ${mobile({ textAlign: 'center',fontSize:"1.3rem" })}
+  ${mobile({ textAlign: 'center', fontSize: '1.3rem' })}
 `;
 
 const InputContainer = styled.div`
@@ -45,7 +45,7 @@ const Button = styled.button`
   border: none;
   background-color: teal;
   color: white;
-  cursor:pointer;
+  cursor: pointer;
 `;
 
 const Newsletter = () => {
@@ -54,7 +54,7 @@ const Newsletter = () => {
       <Title>Newsletter</Title>
       <Desc>Get timely updates from your favorite products.</Desc>
       <InputContainer>
-        <Input placeholder='Your email' />
+        <Input placeholder="Your email" type="email" />
         <Button>
           <Send />
         </Button>

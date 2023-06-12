@@ -12,11 +12,10 @@ import logo from '../assests/logo.png';
 import { handleError, handleSuccess } from '../utils/toast';
 import { addProduct, removeProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
-import Footer from '../components/Footer';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
-  height: 100%;
+  height: 100vh;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   ${mobile({ maxWidth: '100vw', padding: '0' })}
@@ -330,7 +329,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
           </Message>
         )}
       </Wrapper>
-      <Footer />
     </Container>
   );
 };

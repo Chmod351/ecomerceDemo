@@ -12,15 +12,17 @@ import { useDispatch } from 'react-redux';
 import React from 'react';
 import Products from '../components/Products';
 import { handleError, handleSuccess } from '../utils/toast';
+import Footer from '../components/Footer';
 
 const Container = styled.div`
-  max-width: 1200px;
   display-items: center;
-  margin: 2rem auto;
+
   background-color: ${({ theme }) => theme.bgLighter};
 `;
 
 const Wrapper = styled.article`
+  max-width: 1200px;
+  margin: auto;
   padding: 50px;
   display: flex;
   ${mobile({ padding: '10px', flexDirection: 'column' })}
@@ -187,9 +189,13 @@ const Product = ({ darkMode, setDarkMode }) => {
   };
 
   const handleClick = () => {
-    dispatch(addProduct({ ...product, quantity, color, size }));
-    setQuantity(1);
-    handleSuccess('added');
+    try {
+      dispatch(addProduct({ ...product, quantity, color, size }));
+      setQuantity(1);
+      handleSuccess('added');
+    } catch (error) {
+      handleError(error);
+    }
   };
   return (
     <Container>
@@ -241,13 +247,13 @@ const Product = ({ darkMode, setDarkMode }) => {
               </AddContainer>
             </InfoContainer>
           </Wrapper>
-          <Title>Recommended:</Title>
           <Products />
         </div>
       ) : (
         ''
       )}
       <Newsletter />
+      <Footer />
     </Container>
   );
 };

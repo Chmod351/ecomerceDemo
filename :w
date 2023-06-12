@@ -11,11 +11,9 @@ import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { publicRequest, username } from '../requestMethods';
+import { username } from '../requestMethods';
 import Announcement from './Announcement';
 import { useState } from 'react';
-import { handleError } from '../utils/toast';
-
 const Container = styled.nav`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
@@ -111,27 +109,24 @@ const Username = styled.p`
   color: ${({ theme }) => theme.text};
   font-weight: 400;
 `;
-
+const Menu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: ${({ theme }) => theme.bg};
+  padding: 1rem;
+  display: ${({ isMenuOpen }) => (isMenuOpen ? 'block' : 'none')};
+`;
 const Navbar = ({ darkMode, setDarkMode }) => {
-  const [prod, setProd] = useState([]);
-  const quantity = useSelector((state) => state.cart.quantity);
-  const [query, setQuery] = useState('');
-
-  const SearchProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const product = await publicRequest.get(`/product/search?q=${query}`);
-      console.log(product.data);
-      if (product.data.length > 0) {
-      } else {
-        const productByTags = await publicRequest.get(
-          `/product/tag?tag=${query}&page1&size=8`,
-        );
-      }
-    } catch (error) {
-      handleError(error);
-    }
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleMenuOpen = () => {
+    setIsMenuOpen(true);
   };
+
+  const handleMenuClose = () => {
+    setIsMenuOpen(false);
+  };
+  const quantity = useSelector((state) => state.cart.quantity);
 
   return (
     <Container>
@@ -142,14 +137,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
           <SearchContainer>
-            <Input
-              placeholder="Search"
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <Search
-              style={{ color: 'gray', fontSize: 30 }}
-              onClick={SearchProduct}
-            />
+            <Input placeholder="Search" />
+            <Search style={{ color: 'gray', fontSize: 16 }} />
           </SearchContainer>
         </Left>
         <Center>
@@ -158,6 +147,43 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </Link>
         </Center>
         <Right>
+          <Link
+            to="#Products"
+            style={{ textDecoration: 'none' }}
+            onMouseEnter={handleMenuOpen}
+            onMouseLeave={handleMenuClose}
+          >
+            <MenuItem>Products</MenuItem>
+          </Link>
+          {isMenuOpen && (
+            <Menu>
+              <Link
+                to="#Products"
+                style={{ textDecoration: 'none' }}
+                onMouseEnter={handleMenuOpen}
+                onMouseLeave={handleMenuClose}
+              >
+                <MenuItem>adasdads</MenuItem>
+              </Link>
+              <Link
+                to="#Products"
+                style={{ textDecoration: 'none' }}
+                onMouseEnter={handleMenuOpen}
+                onMouseLeave={handleMenuClose}
+              >
+                <MenuItem>adasdads</MenuItem>
+              </Link>
+
+              <Link
+                to="#Products"
+                style={{ textDecoration: 'none' }}
+                onMouseEnter={handleMenuOpen}
+                onMouseLeave={handleMenuClose}
+              >
+                <MenuItem>adasdads</MenuItem>
+              </Link>
+            </Menu>
+          )}
           {username ? (
             <Link to="/cart" style={{ textDecoration: 'none' }}>
               <Username>{username}</Username>

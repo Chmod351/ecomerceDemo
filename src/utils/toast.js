@@ -4,7 +4,7 @@ export const Toast = {
   success: {
     removed: 'removed from cart succesfully!',
     added: 'added to cart',
-    thanks:'Thank you for choose us!!'
+    thanks: 'Thank you for choose us!!'
   },
   welcome: 'Welcome',
   error: {
@@ -12,7 +12,7 @@ export const Toast = {
     404: '404 Not Found',
     500: 'Internal error 500',
     401: 'Unauthorized',
-    403: 'Forbiden',
+    403: 'Forbiden'
   },
 };
 
@@ -31,14 +31,14 @@ export const handleError = (error) => {
 };
 
 export const handleSuccess = (message) => {
-    const successMessages = Toast.success;
-    const successKeys = Object.keys(successMessages);
-  
-    for (let i = 0; i < successKeys.length; i++) {
-      const key = successKeys[i];
-      if (message === key) {
-        toast.success(successMessages[key]);
-        break;
-      }
+  const successMessages = Toast.success;
+  const successKeys = Object.keys(successMessages);
+
+  for (let i = 0; i < successKeys.length; i++) {
+    const key = successKeys[i];
+    if (message === key) {
+      toast.success(successMessages[key]);
+      break;
     }
-  };
+  }
+};

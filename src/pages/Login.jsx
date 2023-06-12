@@ -87,7 +87,7 @@ const Login = () => {
         password,
       });
       login(dispatch, { email, password });
-      handleSuccess();
+      handleSuccess('welcome');
     } catch (error) {
       console.log(error);
       handleError(error);
@@ -100,26 +100,23 @@ const Login = () => {
         <Title>SIGN IN</Title>
         <Form>
           <Input
-            placeholder='email'
+            placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
-            name='email'
-            type='email'
+            name="email"
+            type="email"
           />
           <Input
-            placeholder='password'
-            type='password'
+            placeholder="password"
+            type="password"
             onChange={(e) => setPassword(e.target.value)}
-            name='password'
+            name="password"
           />
-          <Button
-            onClick={handleClick}
-            disabled={isFetching}
-          >
+          <Button onClick={handleClick} disabled={isFetching}>
             LOGIN
           </Button>
           <Links>DO NOT YOU REMEMBER THE PASSWORD?</Links>
           <Link
-            to='/register'
+            to="/register"
             style={{ textDecoration: 'none', color: 'black' }}
           >
             <Links>CREATE ACCOUNT</Links>

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
-import { userRequest } from "../requestMethods";
-
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
+import { userRequest } from '../requestMethods';
+import { handleError, handleSuccess } from '../utils/toast';
 const Success = () => {
   const location = useLocation();
   const data = location.state.stripeData;
@@ -13,7 +13,7 @@ const Success = () => {
   useEffect(() => {
     const createOrder = async () => {
       try {
-        const res = await userRequest.post("/orders", {
+        const res = await userRequest.post('/orders', {
           userId: currentUser._id,
           products: cart.products.map((item) => ({
             productId: item._id,
@@ -23,7 +23,10 @@ const Success = () => {
           address: data.billing_details.address,
         });
         setOrderId(res.data._id);
-      } catch {}
+        handleSuccess('thanks');
+      } catch (error) {
+        handleError(error);
+      }
     };
     data && createOrder();
   }, [cart, data, currentUser]);
@@ -31,11 +34,11 @@ const Success = () => {
   return (
     <div
       style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       {orderId
@@ -47,3 +50,4 @@ const Success = () => {
 };
 
 export default Success;
+

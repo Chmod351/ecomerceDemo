@@ -8,25 +8,36 @@ import {
 } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { username } from '../requestMethods';
+import Announcement from './Announcement';
 
-const Container = styled.div`
+const Container = styled.nav`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
-  width: 100%;
   height: 5rem;
-  ${mobile({ height: '6rem' })}
+  ${mobile({ height: '8rem' })}
+  ${pc({
+    maxWidth: '100vw',
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    right: '0',
+    zIndex: '999',
+  })}
 `;
 
 const Wrapper = styled.div`
+  max-width: 1200px;
+  margin: -1rem auto;
   padding: 0rem 1.25rem;
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: space-between;
-  ${mobile({ padding: '0.625rem 0rem' })}
+  ${mobile({ margin: 'auto' })}
 `;
 
 const Left = styled.div`
@@ -76,7 +87,7 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 3, justifyContent: 'center'})}
+  ${mobile({ flex: 3, justifyContent: 'center' })}
 `;
 
 const MenuItem = styled.div`
@@ -102,67 +113,59 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <Container>
+      <Announcement />
       <Wrapper>
         <Left>
           <Item onClick={() => setDarkMode(!darkMode)}>
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
           <SearchContainer>
-            <Input placeholder='Search' />
+            <Input placeholder="Search" />
             <Search style={{ color: 'gray', fontSize: 16 }} />
           </SearchContainer>
         </Left>
         <Center>
-          <Link
-            to='/'
-            style={{ textDecoration: 'none' }}
-          >
+          <Link to="/" style={{ textDecoration: 'none' }}>
             <Logo>Cierva Design.</Logo>
           </Link>
         </Center>
         <Right>
+          <Link to="#Products" style={{ textDecoration: 'none' }}>
+            <MenuItem>Products</MenuItem>
+          </Link>
+          <Link to="/Specials" style={{ textDecoration: 'none' }}>
+            <MenuItem>Specials</MenuItem>
+          </Link>
           {username ? (
-            <Link
-              to='/cart'
-              style={{ textDecoration: 'none' }}
-            >
+            <Link to="/cart" style={{ textDecoration: 'none' }}>
               <Username>{username}</Username>
             </Link>
           ) : (
             <Right>
-              <Link
-                to='/register'
-                style={{ textDecoration: 'none' }}
-              >
+              <Link to="/register" style={{ textDecoration: 'none' }}>
                 <MenuItem>SignUp</MenuItem>
               </Link>
-              <Link
-                to='/login'
-                style={{ textDecoration: 'none' }}
-              >
+              <Link to="/login" style={{ textDecoration: 'none' }}>
                 <MenuItem>Login</MenuItem>
               </Link>
             </Right>
           )}
 
-          <Link
-            to='/cart'
-            style={{ textDecoration: 'none' }}
-          >
+          <Link to="/cart" style={{ textDecoration: 'none' }}>
             <MenuItem>
               {quantity > 0 ? (
                 <Badge
                   badgeContent={quantity}
-                  color='primary'
-                  overlap='rectangular'
+                  color="primary"
+                  overlap="rectangular"
                 >
                   <ShoppingCart />
                 </Badge>
               ) : (
                 <Badge
                   badgeContent={quantity}
-                  color='primary'
-                  overlap='rectangular'
+                  color="primary"
+                  overlap="rectangular"
                 >
                   <ShoppingCartOutlined />
                 </Badge>
@@ -171,8 +174,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </Link>
         </Right>
       </Wrapper>
+
       <SearchContainerMobile>
-        <Input placeholder='Search' />
+        <Input placeholder="Search" />
         <Search style={{ color: 'gray', fontSize: 35 }} />
       </SearchContainerMobile>
     </Container>

@@ -1,9 +1,8 @@
 import { Add, Remove, SentimentDissatisfiedOutlined } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Announcement from '../components/Announcement';
 import Navbar from '../components/Navbar';
-import { mobile } from '../responsive';
+import { mobile, pc } from '../responsive';
 import StripeCheckout from 'react-stripe-checkout';
 import { useEffect, useState } from 'react';
 import { userRequest } from '../requestMethods';
@@ -21,10 +20,13 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   ${mobile({ maxWidth: '100vw', padding: '0' })}
+  ${pc({ maxWidth: '100vw', padding: '0',  marginTop: '5rem' })}
 `;
 
 const Wrapper = styled.div`
-  padding: 1.25rem;
+  max-width: 1200px;
+  display-items: center;
+  margin: auto;
   ${mobile({ padding: '0' })}
 `;
 
@@ -190,7 +192,7 @@ const Message = styled.p`
   justify-content: center;
   align-items: center;
   text-align: center;
-${mobile({ height: '60vh', flexDirection:'column'})}
+  ${mobile({ height: '60vh', flexDirection: 'column' })}
 `;
 
 const IconFace = styled.svg`
@@ -240,7 +242,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Announcement />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>

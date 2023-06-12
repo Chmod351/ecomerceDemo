@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { mobile, tablet } from '../responsive';
+import { mobile} from '../responsive';
 
-const Container = styled.div`
+const Container = styled.article`
   flex: 1;
   margin: 3px;
   height: 70vh;

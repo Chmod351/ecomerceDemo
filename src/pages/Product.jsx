@@ -14,6 +14,9 @@ import Products from '../components/Products';
 import { handleSuccess } from '../utils/toast';
 
 const Container = styled.div`
+  max-width: 1200px;
+  display-items: center;
+  margin: 2rem auto;
   background-color: ${({ theme }) => theme.bgLighter};
 `;
 
@@ -86,9 +89,9 @@ const FilterColor = styled.div`
 const FilterSize = styled.select`
   margin-left: 10px;
   height: 3rem;
-  border:none;
-border-radius:1rem;
-  display:flex;
+  border: none;
+  border-radius: 1rem;
+  display: flex;
   text-align: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.hover};
@@ -123,7 +126,8 @@ const Amount = styled.span`
 `;
 
 const Button = styled.button`
-  padding: 15px;
+  padding: 0.5rem;
+  margin: 0 1rem;
   border: 2px solid teal;
   background-color: ${({ theme }) => theme.bgLighter};
   cursor: pointer;
@@ -131,6 +135,7 @@ const Button = styled.button`
   color: ${({ theme }) => theme.text};
   &:hover {
     background-color: ${({ theme }) => theme.soft};
+    color: ${({ theme }) => theme.bgLighter};
   }
 `;
 const Description = styled.p`
@@ -187,10 +192,7 @@ const Product = ({ darkMode, setDarkMode }) => {
   };
   return (
     <Container>
-      <Navbar
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-      />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Announcement />
       {product ? (
         <div>

@@ -68,7 +68,6 @@ const ProductList = ({ darkMode, setDarkMode }) => {
         darkMode={darkMode}
         setDarkMode={setDarkMode}
       />
-      <Announcement />
       <Title>{tags}</Title>
       <FilterContainer>
         <Filter>

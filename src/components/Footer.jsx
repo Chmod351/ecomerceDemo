@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { phones, social } from '../data';
 
-const Container = styled.section`
+const Container = styled.footer`
   width: 100%;
   padding: 1.2rem 0rem;
   background-color: ${({ theme }) => theme.bgLighter};
@@ -12,6 +12,8 @@ const Container = styled.section`
 `;
 
 const Wrapper = styled.div`
+  max-width: 1200px;
+  margin: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -98,7 +100,7 @@ const Frame = styled.iframe`
 
 const Footer = () => {
   return (
-    <Container>
+    <Container id='Footer'>
       <Wrapper>
         <Left>
           <Title>Social Media</Title>

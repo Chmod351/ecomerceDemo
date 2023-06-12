@@ -6,11 +6,15 @@ import { mobile } from '../responsive';
 import { BASE_URL } from '../requestMethods';
 import { ArrowLeftRounded, ArrowRightRounded } from '@material-ui/icons';
 
-const Container = styled.div`
+const Container = styled.section`
+  display-items: center;
+
   background-color: ${({ theme }) => theme.bg};
 `;
 
 const Wrapper = styled.div`
+  max-width: 1200px;
+  margin: auto;
   padding: 1.25rem;
   display: flex;
   flex-wrap: wrap;
@@ -68,7 +72,6 @@ const Icon = styled.div`
   }
 `;
 
-
 const Products = ({ tag, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -82,7 +85,7 @@ const Products = ({ tag, filters, sort }) => {
       const res = await axios.get(
         tag
           ? `${BASE_URL}/product/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
-          : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`
+          : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`,
       );
       setProducts(res.data.products);
       setTotalPages(res.data.totalPages);
@@ -100,8 +103,8 @@ const Products = ({ tag, filters, sort }) => {
       const filtered = filters
         ? products.filter((item) =>
             Object.entries(filters).every(([key, value]) =>
-              item[key] ? item[key].includes(value) : false
-            )
+              item[key] ? item[key].includes(value) : false,
+            ),
           )
         : products;
       setFilteredProducts(filtered);
@@ -115,15 +118,15 @@ const Products = ({ tag, filters, sort }) => {
   useEffect(() => {
     if (sort === 'newest') {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.createdAt - b.createdAt)
+        [...prev].sort((a, b) => a.createdAt - b.createdAt),
       );
     } else if (sort === 'asc') {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => b.price - a.price)
+        [...prev].sort((a, b) => b.price - a.price),
       );
     } else {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.price - b.price)
+        [...prev].sort((a, b) => a.price - b.price),
       );
     }
   }, [sort]);
@@ -133,7 +136,7 @@ const Products = ({ tag, filters, sort }) => {
   };
 
   return (
-    <Container>
+    <Container id='Product'>
       <Wrapper>
         {tag
           ? filteredProducts.map((product) => (

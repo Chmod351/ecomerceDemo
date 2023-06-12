@@ -17,7 +17,6 @@ import { useSelector } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { useState } from 'react';
 
-
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   const getDarkModePreference = () => {
@@ -40,39 +39,27 @@ const App = () => {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Router>
         <Switch>
-          <Route
-            exact
-            path='/'
-          >
-            <Home
-              darkMode={darkMode}
-              setDarkMode={handleDarkModeToggle}
-            />
+          <Route exact path="/">
+            <Home darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
           </Route>
-          <Route path='/products/:category'>
+          <Route path="/products/:category">
             <ProductList
               darkMode={darkMode}
               setDarkMode={handleDarkModeToggle}
             />
           </Route>
-          <Route path='/product/:id'>
-            <Product
-              darkMode={darkMode}
-              setDarkMode={handleDarkModeToggle}
-            />
+          <Route path="/product/:id">
+            <Product darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
           </Route>
-          <Route path='/cart'>
-            <Cart
-              darkMode={darkMode}
-              setDarkMode={handleDarkModeToggle}
-            />
+          <Route path="/cart">
+            <Cart darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
           </Route>
-          <Route path='/success'>
+          <Route path="/success">
             <Success />
           </Route>
-          <Route path='/login'>{user ? <Redirect to='/' /> : <Login />}</Route>
-          <Route path='/register'>
-            {user ? <Redirect to='/' /> : <Register />}
+          <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+          <Route path="/register">
+            {user ? <Redirect to="/" /> : <Register />}
           </Route>
         </Switch>
       </Router>

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-
+import styled from 'styled-components';
+import { pc } from '../responsive';
 const Container = styled.div`
   height: 1.875rem;
   background-color: teal;
@@ -9,6 +9,7 @@ const Container = styled.div`
   justify-content: center;
   font-size: 0.875rem;
   font-weight: 500;
+  ${pc({ maxWidth: '100vw' })}
 `;
 
 const Announcement = () => {
@@ -16,3 +17,4 @@ const Announcement = () => {
 };
 
 export default Announcement;
+

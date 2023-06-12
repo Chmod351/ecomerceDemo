@@ -10,7 +10,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { publicRequest, username } from '../requestMethods';
 import Announcement from './Announcement';
 import { useState } from 'react';
@@ -113,24 +113,24 @@ const Username = styled.p`
 `;
 
 const Navbar = ({ darkMode, setDarkMode }) => {
-  const [prod, setProd] = useState([]);
   const quantity = useSelector((state) => state.cart.quantity);
   const [query, setQuery] = useState('');
+  const history = useHistory();
 
   const SearchProduct = async (e) => {
     e.preventDefault();
     try {
       const product = await publicRequest.get(`/product/search?q=${query}`);
-      console.log(product.data);
       if (product.data.length > 0) {
+        const firstProduct = product.data[0];
+        history.push(`/product/${firstProduct._id}`);
       } else {
-        const productByTags = await publicRequest.get(
-          `/product/tag?tag=${query}&page1&size=8`,
-        );
+        history.push(`/products/${query}`);
       }
     } catch (error) {
       handleError(error);
     }
+    setQuery('');
   };
 
   return (
@@ -144,6 +144,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <SearchContainer>
             <Input
               placeholder="Search"
+              value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
             <Search
@@ -198,8 +199,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       </Wrapper>
 
       <SearchContainerMobile>
-        <Input placeholder="Search" />
-        <Search style={{ color: 'gray', fontSize: 35 }} />
+        <Input
+          placeholder="Search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <Search
+          style={{ color: 'gray', fontSize: 35 }}
+          onClick={SearchProduct}
+        />
       </SearchContainerMobile>
     </Container>
   );

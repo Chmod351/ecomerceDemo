@@ -5,7 +5,7 @@ import axios from 'axios';
 import { mobile } from '../responsive';
 import { BASE_URL } from '../requestMethods';
 import { ArrowLeftRounded, ArrowRightRounded } from '@material-ui/icons';
-
+import { handleError } from '../utils/toast';
 const Container = styled.section`
   display-items: center;
 
@@ -91,6 +91,7 @@ const Products = ({ tag, filters, sort }) => {
       setTotalPages(res.data.totalPages);
     } catch (err) {
       console.log(err);
+      handleError(err);
     }
   }, [tag, currentPage, pageSize]);
 
@@ -136,7 +137,7 @@ const Products = ({ tag, filters, sort }) => {
   };
 
   return (
-    <Container id='Product'>
+    <Container id="Product">
       <Wrapper>
         {tag
           ? filteredProducts.map((product) => (

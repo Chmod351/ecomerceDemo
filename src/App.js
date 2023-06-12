@@ -18,6 +18,7 @@ import { ThemeProvider } from 'styled-components';
 import { useState } from 'react';
 
 const App = () => {
+
   const user = useSelector((state) => state.user.currentUser);
   const getDarkModePreference = () => {
     const preference = localStorage.getItem('darkMode');
@@ -34,6 +35,8 @@ const App = () => {
     setDarkMode(newDarkMode);
     setDarkModePreference(newDarkMode);
   };
+
+
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>

@@ -11,7 +11,7 @@ import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import Products from '../components/Products';
-import { handleSuccess } from '../utils/toast';
+import { handleError, handleSuccess } from '../utils/toast';
 
 const Container = styled.div`
   max-width: 1200px;
@@ -172,6 +172,7 @@ const Product = ({ darkMode, setDarkMode }) => {
         setSize(res.data.size[0]);
       } catch (error) {
         console.log(error);
+        handleError(error);
       }
     };
     getProduct();

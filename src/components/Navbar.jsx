@@ -79,11 +79,7 @@ const Center = styled.div`
   text-align: center;
 `;
 
-const Logo = styled.h1`
-  color: ${({ theme }) => theme.text};
-  font-weight: bold;
-  ${mobile({ display: 'none' })}
-`;
+
 const Right = styled.div`
   flex: 1;
   display: flex;

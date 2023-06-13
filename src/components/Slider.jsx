@@ -50,7 +50,7 @@ const Slide = styled.div`
 `;
 
 const ImgContainer = styled.div`
-  height:500px;
+  height: 500px;
   flex: 1;
 `;
 
@@ -69,7 +69,7 @@ const Title = styled.h2`
 `;
 
 const Desc = styled.p`
-  margin:auto;
+  margin: auto;
   font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: 3px;
@@ -79,7 +79,10 @@ const Button = styled.button`
   color: ${({ theme }) => theme.text};
   padding: 0.625rem;
   font-size: 1.25rem;
-  background-color: transparent;
+  background-color: teal;
+  border: none;
+  margin: 0.3rem auto;
+  font-weight: bold;
   cursor: pointer;
 `;
 

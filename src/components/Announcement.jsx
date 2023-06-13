@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 import { pc } from '../responsive';
-const Container = styled.div`
+const Container = styled.header`
   height: 1.875rem;
-  background-color: teal;
-  color: white;
+  background-color: ;
+  color: ${({ theme }) => theme.text};
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: 1.6rem;
+  font-weight: bold;
   ${pc({ maxWidth: '100vw' })}
+  background-color: ${({ theme }) => theme.bg};
 `;
 
 const Announcement = () => {
-  return <Container>Super Deal! Free Shipping on Orders Over $50</Container>;
+  return <Container role="banner">Cierva Design</Container>;
 };
 
 export default Announcement;
-

@@ -20,6 +20,7 @@ const Container = styled.header`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
   height: 5rem;
+  shadow-box: ${({ theme }) => theme.bg};
   ${mobile({ height: '8rem' })}
   ${pc({
     maxWidth: '100vw',
@@ -33,7 +34,7 @@ const Container = styled.header`
 
 const Wrapper = styled.nav`
   max-width: 1200px;
-  margin: -1rem auto;
+  margin: auto;
   padding: 0rem 1.25rem;
   display: flex;
   align-items: center;
@@ -52,9 +53,8 @@ const SearchContainer = styled.div`
   border-bottom: 0.5px solid lightgray;
   display: flex;
   align-items: center;
-  margin-left: 15px;
   padding: 5px;
-  width: 15rem;
+  width: 100%;
   ${mobile({ display: 'none' })}
 `;
 
@@ -139,8 +139,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <Wrapper>
         <Left role="navigation">
           <Item
+            name="theme"
+            value={darkMode}
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex="1"
+            tabIndex="0"
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -149,29 +151,33 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           >
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
+        </Left>
+        <Center role="banner">
           <SearchContainer>
+            <label>Search</label>
             <Input
-              placeholder="Search"
+              placeholder=""
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              tabIndex="2"
+              tabIndex="0"
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  SearchProduct(e);
+                }
+              }}
             />
-            <Search
-              style={{ color: 'gray', fontSize: 30 }}
+            <label
               onClick={SearchProduct}
               onKeyUp={(e) => {
                 if (e.key === 'Enter') {
                   SearchProduct(e);
                 }
               }}
-              tabIndex="3"
-            />
+              tabIndex="0"
+            >
+              Submit
+            </label>
           </SearchContainer>
-        </Left>
-        <Center role="banner">
-          <Link to="/" style={{ textDecoration: 'none' }} tabIndex="4">
-            <Logo>Cierva Design.</Logo>
-          </Link>
         </Center>
         <Right>
           {username ? (

@@ -6,7 +6,7 @@ import { mobile } from '../responsive';
 
 const Container = styled.section`
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   margin-top: 3rem;
   display: flex;
   position: relative;
@@ -43,14 +43,14 @@ const Wrapper = styled.div`
 
 const Slide = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   background-color: ${({ theme }) => theme.bgLighter};
 `;
 
 const ImgContainer = styled.div`
-  height: 100%;
+  height:500px;
   flex: 1;
 `;
 
@@ -65,11 +65,11 @@ const InfoContainer = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 70px;
+  font-size: 3rem;
 `;
 
 const Desc = styled.p`
-  margin: 3.125rem 0rem;
+  margin:auto;
   font-size: 1.25rem;
   font-weight: 500;
   letter-spacing: 3px;
@@ -94,7 +94,7 @@ const Slider = () => {
   };
 
   return (
-    <Container tabIndex="8" id='Home'>
+    <Container tabIndex="8" id="Home">
       <Arrow direction="left" onClick={() => handleClick('left')} tabIndex="9">
         <ArrowLeftOutlined />
       </Arrow>
@@ -102,7 +102,7 @@ const Slider = () => {
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
-              <Image src={item.img} />
+              <Image src={item.img} alt={item.alt} />
             </ImgContainer>
             <InfoContainer>
               <Title>{item.title}</Title>
@@ -112,7 +112,11 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick('right')} tabIndex="15">
+      <Arrow
+        direction="right"
+        onClick={() => handleClick('right')}
+        tabIndex="15"
+      >
         <ArrowRightOutlined />
       </Arrow>
     </Container>

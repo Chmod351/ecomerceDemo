@@ -185,7 +185,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <Link
                 to="/register"
                 style={{ textDecoration: 'none' }}
-                tabIndex="5"
+                tabIndex="0"
               >
                 <MenuItem>SignUp</MenuItem>
               </Link>

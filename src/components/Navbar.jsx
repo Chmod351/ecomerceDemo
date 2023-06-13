@@ -116,16 +116,16 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const [query, setQuery] = useState('');
   const history = useHistory();
-
+  
   const SearchProduct = async (e) => {
     e.preventDefault();
     try {
       const product = await publicRequest.get(`/product/search?q=${query}`);
-      if (product.data.length > 0) {
+      if (product.data.length === 1) {
         const firstProduct = product.data[0];
         history.push(`/product/${firstProduct._id}`);
       } else {
-        history.push(`/products/${query}`);
+        history.push(`/products/search/${query}`);
       }
     } catch (error) {
       handleError(error);

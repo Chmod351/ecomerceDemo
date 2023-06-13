@@ -72,7 +72,7 @@ const Icon = styled.div`
   }
 `;
 
-const Products = ({ tag, filters, sort }) => {
+const Products = ({ tag, filters, sort, query }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [showPagination, setShowPagination] = useState(true);
@@ -85,6 +85,8 @@ const Products = ({ tag, filters, sort }) => {
       const res = await axios.get(
         tag
           ? `${BASE_URL}/product/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
+          : query
+          ? `${BASE_URL}/products/search?q=${query}&page=${currentPage}&size=${pageSize}`
           : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`,
       );
       setProducts(res.data.products);
@@ -93,14 +95,14 @@ const Products = ({ tag, filters, sort }) => {
       console.log(err);
       handleError(err);
     }
-  }, [tag, currentPage, pageSize]);
+  }, [tag, currentPage, pageSize, query]);
 
   useEffect(() => {
     getProducts();
   }, [getProducts]);
 
   useEffect(() => {
-    if (tag) {
+    if (tag || query) {
       const filtered = filters
         ? products.filter((item) =>
             Object.entries(filters).every(([key, value]) =>
@@ -114,7 +116,7 @@ const Products = ({ tag, filters, sort }) => {
       setFilteredProducts(products);
       setShowPagination(products.length > 8);
     }
-  }, [products, tag, filters]);
+  }, [products, tag, filters, query]);
 
   useEffect(() => {
     if (sort === 'newest') {

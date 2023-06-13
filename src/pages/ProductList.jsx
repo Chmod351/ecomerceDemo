@@ -49,18 +49,20 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductList = ({ darkMode, setDarkMode }) => {
-  const [tags, setTags] = useState('');
-  const [query, setQuery] = useState('');
+  const [tags, setTags] = useState(null);
+  const [query, setQuery] = useState(null);
   const location = useLocation();
   const route = location.pathname.split('/');
-
+  console.log(route);
   const [filters, setFilters] = useState(null);
   const [sort, setSort] = useState('newest');
 
   useEffect(() => {
-    if (route[1] === 'search') {
-      setQuery(route[2]);
+    if (route[2] === 'search') {
+      console.log('query');
+      setQuery(route[3]);
     } else {
+      console.log('tag');
       setTags(route[2]);
     }
   }, [route]);

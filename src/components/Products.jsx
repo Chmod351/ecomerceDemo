@@ -86,7 +86,7 @@ const Products = ({ tag, filters, sort, query }) => {
         tag
           ? `${BASE_URL}/product/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
           : query
-          ? `${BASE_URL}/products/search?q=${query}&page=${currentPage}&size=${pageSize}`
+          ? `${BASE_URL}/product/search?q=${query}&page=${currentPage}&size=${pageSize}`
           : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`,
       );
       setProducts(res.data.products);
@@ -97,26 +97,28 @@ const Products = ({ tag, filters, sort, query }) => {
     }
   }, [tag, currentPage, pageSize, query]);
 
-  useEffect(() => {
-    getProducts();
+  useEffect(async () => {
+    await getProducts();
   }, [getProducts]);
 
   useEffect(() => {
-    if (tag || query) {
-      const filtered = filters
-        ? products.filter((item) =>
-            Object.entries(filters).every(([key, value]) =>
-              item[key] ? item[key].includes(value) : false,
-            ),
-          )
-        : products;
-      setFilteredProducts(filtered);
-      setShowPagination(filtered.length > 8);
-    } else {
-      setFilteredProducts(products);
-      setShowPagination(products.length > 8);
+    if (products.length > 0) {
+      if (tag) {
+        const filtered = filters
+          ? products.filter((item) =>
+              Object.entries(filters).every(([key, value]) =>
+                item[key] ? item[key].includes(value) : false,
+              ),
+            )
+          : products;
+        setFilteredProducts(filtered);
+        setShowPagination(filtered.length > 8);
+      } else {
+        setFilteredProducts(products);
+        setShowPagination(products.length > 8);
+      }
     }
-  }, [products, tag, filters, query]);
+  }, [products, tag, filters]);
 
   useEffect(() => {
     if (sort === 'newest') {

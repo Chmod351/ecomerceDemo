@@ -1,21 +1,22 @@
 import { FaceRounded, WhatsApp } from '@material-ui/icons';
 export const sliderItems = [
   {
-    id: 1,
+    id: 10,
     img: 'https://i.ibb.co/DG69bQ4/2.png',
     title: 'SUMMER SALE',
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: 'fff',
+    
   },
   {
-    id: 2,
+    id: 11,
     img: 'https://i.ibb.co/DG69bQ4/2.png',
     title: 'AUTUMN COLLECTION',
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
     bg: 'fff',
   },
   {
-    id: 3,
+    id: 12,
     img: 'https://i.ibb.co/cXFnLLV/3.png',
     title: 'LOUNGEWEAR LOVE',
     desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
@@ -44,10 +45,22 @@ export const categories = [
   },
 ];
 
+const hours = ['11:00–15:00', '19:00–23:00'];
+export const schedule = [
+  { id: 1, Date: 'Monday', hour: hours[0] + ' to ' + hours[1] },
+  { id: 2, Date: 'Tuesday', hour: hours[0] + ' to ' + hours[1] },
+  { id: 3, Date: 'Wednesday', hour: hours[0] + ' to ' + hours[1] },
+  { id: 4, Date: 'Thursday', hour: hours[0] + ' to ' + hours[1] },
+  { id: 5, Date: 'Friday', hour: hours[0] + ' to ' + hours[1] },
+  { id: 6, Date: 'Saturday', hour: hours[0] + ' to ' + hours[1] },
+  { id: 7, Date: 'Sunday', hour: hours[1] },
+];
+
 export const phones = [
   { id: 1, number: '(011) 4545 4242', icon: <WhatsApp /> },
   { id: 2, number: '(011) 4545 4242', icon: <WhatsApp /> },
   { id: 3, number: '(011) 4545 4242', icon: <WhatsApp /> },
+  { id: 4, number: 'Fake Street 1234', icon: <WhatsApp /> },
 ];
 
 export const social = [

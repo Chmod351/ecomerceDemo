@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { phones, social } from '../data';
+import { phones, social, schedule } from '../data';
 
 const Container = styled.footer`
   width: 100%;
@@ -27,19 +27,14 @@ const Wrapper = styled.div`
     flexDirection: 'column',
   })}
 `;
-const Title = styled.h4`
-  display: none;
-  ${mobile({ fontSize: '1.5rem', display: 'flex', justifyContent: 'center' })}
-`;
+
 const Left = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   ${mobile({ flexBasis: '100%', justifyContent: 'center', display: 'flex' })}
 `;
 
 const Center = styled.div`
-  text-align: center;
   ${mobile({
     display: 'flex',
     flexDirection: 'column',
@@ -49,36 +44,46 @@ const Center = styled.div`
 
 const Right = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: flex-end;
   ${mobile({ flexBasis: '100%', justifyContent: 'center' })}
 `;
 
-const Icon = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
+const Icon = styled.svg`
+  width: 1.4rem;
+  height: 1.4rem;
   border-radius: 50%;
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s ease;
+  margin: auto 1rem;
   color: ${({ theme }) => theme.bg};
-  &:hover {
-    transform: scale(1.1);
-  }
 `;
-
+const IconSocial = styled.svg`
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  padding: 0.2rem;
+  background-color: ${({ theme }) => theme.hover};
+  color: ${({ theme }) => theme.bg};
+`;
 const Items = styled.ul`
   display: flex;
   flex-direction: column;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: auto;
+`;
+const ItemsSocial = styled.ul`
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin: auto;
 `;
 
 const ListItem = styled.li`
-  margin: 0.625rem;
+  margin: 0.4rem;
 `;
 
 const Links = styled.a`
@@ -86,45 +91,38 @@ const Links = styled.a`
   text-decoration: none;
   cursor: pointer;
   display: flex;
-  text-align: center;
+  font-size: 0.8rem;
   align-items: center;
   color: ${({ theme }) => theme.hover};
 `;
 
 const Frame = styled.iframe`
   width: 30rem;
-  height: 14rem;
+  height: 15rem;
   border: 1px solid black;
-  ${mobile({ justifyContent: 'center', width: '100%' })}
+  ${mobile({ justifyContent: 'center', width: '100vw', height: 'auto' })}
 `;
 
 const Footer = () => {
   return (
-    <Container id='Footer'>
+    <Container id="Footer">
       <Wrapper>
         <Left>
-          <Title>Social Media</Title>
-          <Items className='li-container'>
+          <ItemsSocial className="li-container">
             {social.map((socials) => {
               const { id, link, platform, icon } = socials;
               return (
                 <ListItem key={id}>
-                  <Links
-                    href={link}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <Icon alt={platform}>{icon}</Icon>
-                    {platform}
+                  <Links>
+                    <IconSocial alt={platform} href={link}>
+                      {icon}
+                    </IconSocial>
                   </Links>
                 </ListItem>
               );
             })}
-          </Items>
-        </Left>
-        <Center>
-          <Title>Phones</Title>
-          <Items className='li-container'>
+          </ItemsSocial>
+          <Items className="li-container">
             {phones.map((phone) => {
               const { id, number, icon } = phone;
               return (
@@ -137,10 +135,26 @@ const Footer = () => {
               );
             })}
           </Items>
+        </Left>
+        <Center>
+          <Items className="li-container">
+            {schedule.map((h) => {
+              const { id, Date, hour } = h;
+              return (
+                <ListItem key={id}>
+                  <Links>
+                    {Date} {hour}
+                  </Links>
+                </ListItem>
+              );
+            })}
+          </Items>
         </Center>
-        <Title>Location</Title>
         <Right>
-          <Frame src='https://www.openstreetmap.org/export/embed.html?bbox=-0.1054215431213379%2C51.497990292603085%2C-0.09351253509521486%2C51.502004286184594&amp;layer=mapnik&amp;marker=51.499997333585014%2C-0.09946703910827637' blank="https://www.openstreetmap.org/?mlat=-34.58804&mlon=-58.52441#map=19/-34.58804/-58.52441"></Frame>
+          <Frame
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1054215431213379%2C51.497990292603085%2C-0.09351253509521486%2C51.502004286184594&amp;layer=mapnik&amp;marker=51.499997333585014%2C-0.09946703910827637"
+            blank="https://www.openstreetmap.org/?mlat=-34.58804&mlon=-58.52441#map=19/-34.58804/-58.52441"
+          ></Frame>
         </Right>
       </Wrapper>
     </Container>

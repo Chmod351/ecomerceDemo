@@ -16,7 +16,7 @@ import Announcement from './Announcement';
 import { useState } from 'react';
 import { handleError } from '../utils/toast';
 
-const Container = styled.nav`
+const Container = styled.header`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
   height: 5rem;
@@ -31,7 +31,7 @@ const Container = styled.nav`
   })}
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.nav`
   max-width: 1200px;
   margin: -1rem auto;
   padding: 0rem 1.25rem;
@@ -116,7 +116,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const [query, setQuery] = useState('');
   const history = useHistory();
-  
+
   const SearchProduct = async (e) => {
     e.preventDefault();
     try {
@@ -137,8 +137,16 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     <Container>
       <Announcement />
       <Wrapper>
-        <Left>
-          <Item onClick={() => setDarkMode(!darkMode)}>
+        <Left role="navigation">
+          <Item
+            onClick={() => setDarkMode(!darkMode)}
+            tabIndex="1"
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                setDarkMode(!darkMode);
+              }
+            }}
+          >
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
           <SearchContainer>
@@ -146,35 +154,46 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               placeholder="Search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              tabIndex="2"
             />
             <Search
               style={{ color: 'gray', fontSize: 30 }}
               onClick={SearchProduct}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  SearchProduct(e);
+                }
+              }}
+              tabIndex="3"
             />
           </SearchContainer>
         </Left>
-        <Center>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+        <Center role="banner">
+          <Link to="/" style={{ textDecoration: 'none' }} tabIndex="4">
             <Logo>Cierva Design.</Logo>
           </Link>
         </Center>
         <Right>
           {username ? (
-            <Link to="/cart" style={{ textDecoration: 'none' }}>
+            <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="5">
               <Username>{username}</Username>
             </Link>
           ) : (
-            <Right>
-              <Link to="/register" style={{ textDecoration: 'none' }}>
+            <Right role="navigation">
+              <Link
+                to="/register"
+                style={{ textDecoration: 'none' }}
+                tabIndex="5"
+              >
                 <MenuItem>SignUp</MenuItem>
               </Link>
-              <Link to="/login" style={{ textDecoration: 'none' }}>
+              <Link to="/login" style={{ textDecoration: 'none' }} tabIndex="6">
                 <MenuItem>Login</MenuItem>
               </Link>
             </Right>
           )}
 
-          <Link to="/cart" style={{ textDecoration: 'none' }}>
+          <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="7">
             <MenuItem>
               {quantity > 0 ? (
                 <Badge

@@ -15,11 +15,12 @@ import { useDispatch } from 'react-redux';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  max-height: auto;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   ${mobile({ maxWidth: '100vw', padding: '0' })}
-  ${pc({ maxWidth: '100vw', padding: '0',  marginTop: '5rem' })}
+  ${pc({ maxWidth: '100vw', padding: '0', marginTop: '5rem' })}
 `;
 
 const Wrapper = styled.div`

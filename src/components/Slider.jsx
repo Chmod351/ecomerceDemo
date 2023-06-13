@@ -94,8 +94,8 @@ const Slider = () => {
   };
 
   return (
-    <Container>
-      <Arrow direction="left" onClick={() => handleClick('left')}>
+    <Container tabIndex="8" id='Home'>
+      <Arrow direction="left" onClick={() => handleClick('left')} tabIndex="9">
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
@@ -112,7 +112,7 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick('right')}>
+      <Arrow direction="right" onClick={() => handleClick('right')} tabIndex="15">
         <ArrowRightOutlined />
       </Arrow>
     </Container>

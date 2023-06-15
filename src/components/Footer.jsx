@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { phones, social, schedule } from '../data';
+import { phones, social, schedule } from '../data/footerData';
 
 const Container = styled.footer`
   width: 100%;

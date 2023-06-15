@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { categories } from '../data';
+import { categories } from '../data/categoriesData';
 import { mobile } from '../responsive';
 import CategoryItem from './CategoryItem';
 

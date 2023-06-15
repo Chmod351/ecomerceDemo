@@ -20,7 +20,7 @@ const Container = styled.header`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
   height: 5rem;
-  shadow-box: ${({ theme }) => theme.bg};
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   ${mobile({ height: '8rem' })}
   ${pc({
     maxWidth: '100vw',
@@ -78,7 +78,6 @@ const Center = styled.div`
   flex: 1;
   text-align: center;
 `;
-
 
 const Right = styled.div`
   flex: 1;

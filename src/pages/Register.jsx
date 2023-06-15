@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { handleError, handleSuccess } from '../utils/toast';
+import { publicRequest } from '../requestMethods';
 // import { handleError,handleSuccess } from '../utils/toast';
 
-const Container = styled.div`
+const Container = styled.section`
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
@@ -20,19 +22,20 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 40%;
+  width: 35rem;
   padding: 1.25rem;
-  background-color: ${({ theme }) => theme.bgLighter};;
+  background-color: ${({ theme }) => theme.bgLighter};
   ${mobile({ width: '75%' })}
 `;
 
 const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: 300;
-  color:${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Form = styled.form`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
 `;
@@ -40,16 +43,17 @@ const Form = styled.form`
 const Input = styled.input`
   flex: 1;
   min-width: 40%;
-  margin: 1.25rem 0.625rem 0rem 0rem;
+  margin: 1rem 0.625rem 0rem 0rem;
   padding: 0.625rem;
-  color:${({ theme }) => theme.text};
-  background-color:${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.bgLighter};
 `;
 
 const Agreement = styled.span`
   font-size: 0.75rem;
   margin: 1.25rem 0rem;
-  color:${({ theme }) => theme.text};
+
+  color: ${({ theme }) => theme.text};
 `;
 
 const Button = styled.button`
@@ -59,6 +63,11 @@ const Button = styled.button`
   background-color: teal;
   color: white;
   cursor: pointer;
+  &:disabled {
+    color: white;
+    cursor: not-allowed;
+  }
+}
 `;
 const Error = styled.div`
   flex: 1;
@@ -68,15 +77,48 @@ const Error = styled.div`
   padding: 0.625rem;
 `;
 
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Label = styled.label`
+  font-size: 0.75rem;
+  margin: 1rem 0rem 0 0;
+  color: ${({ theme }) => theme.text};
+`;
+
 const Register = () => {
   const [store, setStore] = useState('');
   const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [off, setOff] = useState(true);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    try {
+      await publicRequest.post('/signup', {
+        email,
+        password,
+        username,
+      });
+      setEmail('');
+      setUsername('');
+      setPassword('');
+      handleSuccess('welcome');
+    } catch (error) {
+      console.log(error);
+      handleError(error);
+    }
+  };
 
   const errorMsg = {
     onlyLetters: 'Only letters',
     invalid: '3 o more characters',
     dontMach: 'Passwords does not match',
     password: 'at leats 8 characters',
+    email: 'invalid format',
   };
 
   const validateUsername = (username) => {
@@ -84,6 +126,7 @@ const Register = () => {
       setError('username');
     } else {
       setError('');
+      setUsername(username);
     }
   };
   const validatePassword = (password) => {
@@ -91,23 +134,26 @@ const Register = () => {
       setError('password');
     } else {
       setError('');
+      setPassword(password);
       setStore(password);
     }
   };
   const matchPasswords = (confirmPassword) => {
     if (store !== confirmPassword) {
       setError('confirmPassword');
+      setOff(true);
     } else {
       setError('');
+      setOff(false);
     }
   };
-
-  const onlyLetters = (name) => {
-    const regex = /^[a-zA-Z\s]*$/;
-    if (!regex.test(name)) {
-      setError('name');
+  const verifyEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('email');
     } else {
       setError('');
+      setEmail(email);
     }
   };
   const handleChange = (e) => {
@@ -123,8 +169,8 @@ const Register = () => {
       case 'confirmPassword':
         matchPasswords(value);
         break;
-      case 'name':
-        onlyLetters(value);
+      case 'email':
+        verifyEmail(value);
         break;
       default:
         break;
@@ -132,59 +178,46 @@ const Register = () => {
   };
 
   return (
-    <Container>
+    <Container id="SignUp">
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <div>
+          <InputContainer>
+            <Label>Username</Label>
             <Input
-              placeholder='name'
-              type='text'
-              name='name'
-              onChange={handleChange}
-            />
-            {error === 'name' ? <Error>{errorMsg.onlyLetters}</Error> : ''}
-          </div>
-          <div>
-            <Input
-              type='text'
-              placeholder='last name'
-              name='name'
-              onChange={handleChange}
-            />
-            {error === 'name' ? <Error>{errorMsg.onlyLetters}</Error> : ''}
-          </div>
-          <div>
-            <Input
-              type='text'
-              placeholder='username'
-              name='username'
+              type="text"
+              placeholder="username"
+              name="username"
               onChange={handleChange}
             />
             {error === 'username' ? <Error>{errorMsg.invalid}</Error> : ''}
-          </div>
-          <div>
+          </InputContainer>
+          <InputContainer>
+            <Label>Email</Label>
             <Input
-              placeholder='email'
-              type='email'
-              name='email'
+              placeholder="email"
+              type="email"
+              name="email"
               onChange={handleChange}
             />
-          </div>
-          <div>
+            {error === 'email' ? <Error>{errorMsg.email}</Error> : ''}
+          </InputContainer>
+          <InputContainer>
+            <Label>Password</Label>
             <Input
-              placeholder='password'
-              type='password'
-              name='password'
+              placeholder="password"
+              type="password"
+              name="password"
               onChange={handleChange}
             />
             {error === 'password' ? <Error>{errorMsg.password}</Error> : ''}
-          </div>
-          <div>
+          </InputContainer>
+          <InputContainer>
+            <Label>Confirm Password</Label>
             <Input
-              type='password'
-              placeholder='confirm password'
-              name='confirmPassword'
+              type="password"
+              placeholder="confirm password"
+              name="confirmPassword"
               onChange={handleChange}
             />
             {error === 'confirmPassword' ? (
@@ -192,14 +225,25 @@ const Register = () => {
             ) : (
               ''
             )}
-          </div>
-
+          </InputContainer>
           <Agreement>
             By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
+            data in accordance with the <Link to="/">PRIVACY POLICY</Link>
           </Agreement>
-          <Button type='submit'>CREATE</Button>
-          <Link to='/login'  >I already have an account</Link>
+          <Button
+            type="submit"
+            onClick={handleClick}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                handleClick(e);
+              }
+            }}
+            disabled={off}
+          >
+            CREATE
+          </Button>
+          <Link to="/login">I already have an account </Link>
+          <Link to="/"> Go Home</Link>
         </Form>
       </Wrapper>
     </Container>

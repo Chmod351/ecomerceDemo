@@ -50,23 +50,19 @@ const Right = styled.div`
 `;
 
 const Icon = styled.svg`
-  width: 1.4rem;
-  height: 1.4rem;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.hover};
   display: flex;
+ width: 1.3rem;
+  height: 1.3rem;
   align-items: center;
   justify-content: center;
   margin: auto 1rem;
-  color: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
 `;
 const IconSocial = styled.svg`
   width: 2.3rem;
   height: 2.3rem;
-  border-radius: 50%;
   padding: 0.2rem;
-  background-color: ${({ theme }) => theme.hover};
-  color: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
 `;
 const Items = styled.ul`
   display: flex;

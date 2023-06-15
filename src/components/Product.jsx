@@ -82,7 +82,6 @@ const Product = ({ product }) => {
       setQuantity(1);
       handleSuccess("added");
     } catch (error) {
-      console.log(error)
       handleError(error);
     }
   };

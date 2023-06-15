@@ -173,7 +173,6 @@ const Product = ({ darkMode, setDarkMode }) => {
         setColor(res.data.color[0]);
         setSize(res.data.size[0]);
       } catch (error) {
-        console.log(error);
         handleError(error);
       }
     };

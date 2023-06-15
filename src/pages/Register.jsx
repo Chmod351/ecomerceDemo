@@ -48,8 +48,7 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
+  width: 80%;
   margin: 1rem 0.625rem 0rem 0rem;
   padding: 0.625rem;
   color: ${({ theme }) => theme.text};
@@ -59,7 +58,7 @@ const Input = styled.input`
 const Agreement = styled.span`
   font-size: 0.75rem;
   margin: 1.25rem 0rem;
-
+  width: 30rem;
   color: ${({ theme }) => theme.text};
 `;
 
@@ -101,6 +100,7 @@ const Register = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setError('message');
     try {
       const success = await publicRequest.post('/signup', {
         email,
@@ -108,9 +108,15 @@ const Register = () => {
         username,
       });
       handleSuccess('welcome');
-      console.log(success);
+      setError('succesfull');
+      if (success) {
+        await publicRequest.post('/signin', {
+          email: success.email,
+          password: success.password,
+        });
+      }
     } catch (error) {
-      console.log(error);
+      setError(error);
       handleError(error);
     }
   };
@@ -144,21 +150,31 @@ const Register = () => {
           {register.map((data) => {
             const { id, label, name, type, placeholder, errorMessage } = data;
             return (
-              <>
-                <InputContainer key={id}>
-                  <Label>
-                    {error === name ? <Error>{errorMessage}</Error> : label}
-                  </Label>
-                  <Input
-                    placeholder={placeholder}
-                    type={type}
-                    name={name}
-                    onChange={handleChange}
-                  />
-                </InputContainer>
-              </>
+              <InputContainer key={id}>
+                <Label>
+                  {error === name ? <Error>{errorMessage}</Error> : label}
+                </Label>
+                <Input
+                  autoComplete={name}
+                  placeholder={placeholder}
+                  type={type}
+                  name={name}
+                  onChange={handleChange}
+                />
+              </InputContainer>
             );
           })}
+          {error === 'succesfull' ? (
+            <Label>This will take a moment...</Label>
+          ) : (
+            ''
+          )}
+          {error === 'message' ? (
+            <Label>Please await...</Label>
+          ) : (
+            <Label> </Label>
+          )}
+          {error.message ? <Error>{error.message}</Error> : ''}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the{' '}

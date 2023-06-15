@@ -92,7 +92,6 @@ const Products = ({ tag, filters, sort, query }) => {
       setProducts(res.data.products);
       setTotalPages(res.data.totalPages);
     } catch (err) {
-      console.log(err);
       handleError(err);
     }
   }, [tag, currentPage, pageSize, query]);

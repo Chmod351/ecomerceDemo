@@ -21,7 +21,7 @@ export const register = [
     name: 'password',
     type: 'password',
     placeholder: 'password',
-    errorMessage: 'at leats 8 characters',
+    errorMessage: 'at least 8 characters',
   },
   {
     id: 4,

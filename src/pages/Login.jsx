@@ -89,7 +89,6 @@ const Login = () => {
       login(dispatch, { email, password });
       handleSuccess('welcome');
     } catch (error) {
-      console.log(error);
       handleError(error);
     }
   };

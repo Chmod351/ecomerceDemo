@@ -10,6 +10,9 @@ import {
   matchPasswords,
   verifyEmail,
 } from '../utils/RegisterLogic.js';
+
+import { register } from '../data/registerData';
+
 const Container = styled.section`
   width: 100vw;
   height: 100vh;
@@ -76,8 +79,6 @@ const Error = styled.div`
   flex: 1;
   min-width: 40%;
   color: red;
-  margin: 0rem 0.625rem 0rem 0rem;
-  padding: 0.625rem;
 `;
 
 const InputContainer = styled.div`
@@ -114,14 +115,6 @@ const Register = () => {
     }
   };
 
-  const errorMsg = {
-    onlyLetters: 'Only letters',
-    invalid: '3 o more characters',
-    dontMach: 'Passwords does not match',
-    password: 'at leats 8 characters',
-    email: 'invalid format',
-  };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -148,50 +141,24 @@ const Register = () => {
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <InputContainer>
-            <Label>Username</Label>
-            <Input
-              type='text'
-              placeholder='username'
-              name='username'
-              onChange={handleChange}
-            />
-            {error === 'username' ? <Error>{errorMsg.invalid}</Error> : ''}
-          </InputContainer>
-          <InputContainer>
-            <Label>Email</Label>
-            <Input
-              placeholder='email'
-              type='email'
-              name='email'
-              onChange={handleChange}
-            />
-            {error === 'email' ? <Error>{errorMsg.email}</Error> : ''}
-          </InputContainer>
-          <InputContainer>
-            <Label>Password</Label>
-            <Input
-              placeholder='password'
-              type='password'
-              name='password'
-              onChange={handleChange}
-            />
-            {error === 'password' ? <Error>{errorMsg.password}</Error> : ''}
-          </InputContainer>
-          <InputContainer>
-            <Label>Confirm Password</Label>
-            <Input
-              type='password'
-              placeholder='confirmPassword'
-              name='confirm password'
-              onChange={handleChange}
-            />
-            {error === 'confirmPassword' ? (
-              <Error>{errorMsg.dontMach}</Error>
-            ) : (
-              ''
-            )}
-          </InputContainer>
+          {register.map((data) => {
+            const { id, label, name, type, placeholder, errorMessage } = data;
+            return (
+              <>
+                <InputContainer key={id}>
+                  <Label>
+                    {error === name ? <Error>{errorMessage}</Error> : label}
+                  </Label>
+                  <Input
+                    placeholder={placeholder}
+                    type={type}
+                    name={name}
+                    onChange={handleChange}
+                  />
+                </InputContainer>
+              </>
+            );
+          })}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the{' '}

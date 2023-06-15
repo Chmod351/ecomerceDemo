@@ -12,6 +12,8 @@ import {
 } from '../utils/RegisterLogic.js';
 
 import { register } from '../data/registerData';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/apiCalls';
 
 const Container = styled.section`
   width: 100vw;
@@ -97,6 +99,13 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [off, setOff] = useState(true);
+  const dispatch = useDispatch();
+  const initialFormValues = {
+    email: '',
+    password: '',
+    username: '',
+  };
+  const [formValues, setFormValues] = useState(initialFormValues);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -108,14 +117,21 @@ const Register = () => {
         username,
       });
       handleSuccess('welcome');
-      setError('succesfull');
-      if (success) {
-        await publicRequest.post('/signin', {
-          email: success.email,
-          password: success.password,
+      if (success.data.username) {
+        setError('login');
+        const loged = await publicRequest.post('/signin', {
+          email,
+          password,
         });
+        setError('succesfull');
+        if (loged.data.username) {
+          login(dispatch, { email, password });
+          handleSuccess('welcome');
+        }
       }
+      setFormValues(initialFormValues);
     } catch (error) {
+      setFormValues(initialFormValues);
       setError(error);
       handleError(error);
     }
@@ -123,6 +139,11 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      [name]: value,
+    }));
 
     switch (name) {
       case 'username':
@@ -164,8 +185,9 @@ const Register = () => {
               </InputContainer>
             );
           })}
+          {error === 'login' ? <Label>Initializing session...</Label> : ''}
           {error === 'succesfull' ? (
-            <Label>This will take a moment...</Label>
+            <Label>You will be redirect to home</Label>
           ) : (
             ''
           )}

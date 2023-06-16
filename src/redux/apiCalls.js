@@ -1,12 +1,16 @@
-import { loginFailure, loginStart, loginSuccess } from "./userRedux";
-import { publicRequest } from "../requestMethods";
+import { loginFailure, loginStart, loginSuccess } from './userRedux';
+import { publicRequest } from '../requestMethods';
+import { handleError, handleSuccess } from '../utils/toast';
 
-export const login = async (dispatch, user) => {
+export const login = async (dispatch, email, password, setMsg) => {
   dispatch(loginStart());
   try {
-    const res = await publicRequest.post("/signin", user);
+    const res = await publicRequest.post('/signin', { email, password });
+    handleSuccess('welcome');
     dispatch(loginSuccess(res.data));
-  } catch (err) {
+  } catch (error) {
+    setMsg(error.message);
+    handleError(error);
     dispatch(loginFailure());
   }
 };

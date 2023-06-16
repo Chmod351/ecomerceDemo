@@ -31,7 +31,7 @@ const Container = styled.section`
 `;
 
 const Wrapper = styled.div`
-  width: 35rem;
+  width: 25rem;
   padding: 1.25rem;
   background-color: ${({ theme }) => theme.bgLighter};
   ${mobile({ width: '75%' })}
@@ -46,11 +46,11 @@ const Title = styled.h1`
 const Form = styled.form`
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 `;
 
 const Input = styled.input`
-  width: 80%;
+  width: 94%;
   margin: 1rem 0.625rem 0rem 0rem;
   padding: 0.625rem;
   color: ${({ theme }) => theme.text};
@@ -60,13 +60,13 @@ const Input = styled.input`
 const Agreement = styled.span`
   font-size: 0.75rem;
   margin: 1.25rem 0rem;
-  width: 30rem;
+  width: 94%;
   color: ${({ theme }) => theme.text};
 `;
 
 const Button = styled.button`
-  width: 40%;
-  margin: 0rem 0.625rem 0 0;
+  width: 100%;
+  margin: 0.5px auto;
   border: none;
   padding: 0.938rem 1.25rem;
   background-color: teal;
@@ -117,13 +117,11 @@ const Register = () => {
     e.preventDefault();
     setOff(true);
     if (islogin) {
-      await handleLogin(email, password, setMsg);
-      await login(dispatch, email, password);
+      await handleLogin(email, password, setMsg, dispatch);
     } else {
       setMsg('message');
       await handleRegistration(email, password, username, setMsg);
-      await handleLogin(email, password, setMsg);
-      await login(dispatch, email, password);
+      await handleLogin(email, password, setMsg, dispatch);
     }
     setFormValues(initialFormValues);
     setOff(false);
@@ -213,7 +211,8 @@ const Register = () => {
             onClick={(e) => {
               e.preventDefault();
               setFormValues(initialFormValues);
-              setLog(!login);
+              setMsg('');
+              setLog(!islogin);
             }}
           >
             {islogin ? 'Create account' : 'I already have an account'}

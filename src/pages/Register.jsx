@@ -2,18 +2,18 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { handleError, handleSuccess } from '../utils/toast';
-import { publicRequest } from '../requestMethods';
+import { login } from '../redux/apiCalls';
 import {
   validateUsername,
   validatePassword,
   matchPasswords,
   verifyEmail,
+  handleRegistration,
+  handleLogin,
 } from '../utils/RegisterLogic.js';
-
+import { Messages } from '../utils/errors';
 import { register } from '../data/registerData';
 import { useDispatch } from 'react-redux';
-import { login } from '../redux/apiCalls';
 
 const Container = styled.section`
   width: 100vw;
@@ -93,48 +93,36 @@ const Label = styled.label`
 `;
 
 const Register = () => {
-  const [store, setStore] = useState('');
-  const [error, setError] = useState('');
+  const [store, setStore] = useState(null);
+  const [msg, setMsg] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [off, setOff] = useState(true);
   const dispatch = useDispatch();
+
   const initialFormValues = {
     email: '',
     password: '',
     username: '',
+    confirmPassword: '',
   };
+
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  // handle click function
   const handleClick = async (e) => {
     e.preventDefault();
-    setError('message');
-    try {
-      const success = await publicRequest.post('/signup', {
-        email,
-        password,
-        username,
-      });
+    setOff(true);
+    setMsg('message');
+    await handleRegistration(email, password, username, setMsg);
+    if (msg === 'login') {
+      await handleLogin(email, password, setMsg);
+      await login(dispatch, email, password);
       handleSuccess('welcome');
-      if (success.data.username) {
-        setError('login');
-        const loged = await publicRequest.post('/signin', {
-          email,
-          password,
-        });
-        setError('succesfull');
-        if (loged.data.username) {
-          login(dispatch, { email, password });
-          handleSuccess('welcome');
-        }
-      }
-      setFormValues(initialFormValues);
-    } catch (error) {
-      setFormValues(initialFormValues);
-      setError(error);
-      handleError(error);
     }
+    setFormValues(initialFormValues);
+    setOff(false);
   };
 
   const handleChange = (e) => {
@@ -147,16 +135,16 @@ const Register = () => {
 
     switch (name) {
       case 'username':
-        validateUsername(value, setError, setUsername);
+        validateUsername(value, setMsg, setUsername);
         break;
       case 'password':
-        validatePassword(value, setError, setPassword, setStore);
+        validatePassword(value, setMsg, setPassword, setStore);
         break;
       case 'confirmPassword':
-        matchPasswords(value, setError, setOff, store);
+        matchPasswords(value, setMsg, setOff, store);
         break;
       case 'email':
-        verifyEmail(value, setError, setEmail);
+        verifyEmail(value, setMsg, setEmail);
         break;
       default:
         break;
@@ -164,7 +152,7 @@ const Register = () => {
   };
 
   return (
-    <Container id='SignUp'>
+    <Container id="SignUp">
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
@@ -173,42 +161,30 @@ const Register = () => {
             return (
               <InputContainer key={id}>
                 <Label>
-                  {error === name ? <Error>{errorMessage}</Error> : label}
+                  {msg === name ? <Error>{errorMessage}</Error> : label}
                 </Label>
                 <Input
                   autoComplete={name}
                   placeholder={placeholder}
                   type={type}
                   name={name}
+                  value={formValues[name]}
                   onChange={handleChange}
                 />
               </InputContainer>
             );
           })}
-          {error === 'login' ? <Label>Initializing session...</Label> : ''}
-          {error === 'succesfull' ? (
-            <Label>You will be redirect to home</Label>
-          ) : (
-            ''
-          )}
-          {error === 'message' ? (
-            <Label>Please await...</Label>
-          ) : (
-            <Label> </Label>
-          )}
-          {error.message ? <Error>{error.message}</Error> : ''}
+          {msg in Messages ? <Label>{Messages[msg]}</Label> : <Label> </Label>}
+          {msg.message ? <Error>{msg.message}</Error> : ''}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the{' '}
-            <Link
-              to='/'
-              target='_blank'
-            >
+            <Link to="/" target="_blank">
               PRIVACY POLICY
             </Link>
           </Agreement>
           <Button
-            type='submit'
+            type="submit"
             onClick={handleClick}
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
@@ -219,8 +195,8 @@ const Register = () => {
           >
             CREATE
           </Button>
-          <Link to='/login'>I already have an account </Link>
-          <Link to='/'> Go Home</Link>
+          <Link to="/login">I already have an account </Link>
+          <Link to="/"> Go Home</Link>
         </Form>
       </Wrapper>
     </Container>

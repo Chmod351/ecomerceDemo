@@ -1,5 +1,9 @@
+import { publicRequest } from '../requestMethods';
+import { handleError, handleSuccess } from '../utils/toast';
+
+// validate format and data
 export const validateUsername = (username, setError, setUsername) => {
-  if (username.length===0 || username.length<3) {
+  if (username.length === 0 || username.length < 3) {
     setError('username');
   } else {
     setError('');
@@ -8,7 +12,7 @@ export const validateUsername = (username, setError, setUsername) => {
 };
 
 export const validatePassword = (password, setError, setPassword, setStore) => {
-  if (password.length===  1  || password.length < 8  ) {
+  if (password.length === 1 || password.length < 8) {
     setError('password');
   } else {
     setError('');
@@ -34,5 +38,39 @@ export const verifyEmail = (email, setError, setEmail) => {
   } else {
     setError('');
     setEmail(email);
+  }
+};
+
+// functionals functions
+// register
+export const handleRegistration = async (email, password, username, setMsg) => {
+  try {
+    await publicRequest.post('/signup', {
+      email,
+      password,
+      username,
+    });
+    handleSuccess('created');
+    setMsg('created')
+  } catch (error) {
+    setMsg(error.message);
+    handleError(error);
+    setMsg('');
+  }
+};
+
+//login
+export const handleLogin = async (email, password, setMsg) => {
+  try {
+    await publicRequest.post('/signin', {
+      email,
+      password,
+    });
+    setMsg('login');
+    console.log('enviada login');
+  } catch (error) {
+    setMsg(error.message);
+    handleError(error);
+    setMsg('');
   }
 };

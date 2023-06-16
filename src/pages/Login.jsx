@@ -82,14 +82,12 @@ const Login = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const success = await publicRequest.post('/signin', {
+      await publicRequest.post('/signin', {
         email,
         password,
       });
-      if (success.data.username) {
-        login(dispatch, { email, password });
-        handleSuccess('welcome');
-      }
+      await login(dispatch, email, password);
+      handleSuccess(welcome);
     } catch (error) {
       handleError(error);
     }

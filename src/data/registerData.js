@@ -6,6 +6,7 @@ export const register = [
     type: 'text',
     placeholder: 'username',
     errorMessage: '3 o more characters',
+    shared: false,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const register = [
     type: 'email',
     placeholder: 'your email',
     errorMessage: 'invalid format',
+    shared: true,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ export const register = [
     type: 'password',
     placeholder: 'password',
     errorMessage: 'at least 8 characters',
+    shared: true,
   },
   {
     id: 4,
@@ -30,5 +33,6 @@ export const register = [
     type: 'password',
     placeholder: 'repeat password',
     errorMessage: 'Passwords does not match',
+    shared: false,
   },
 ];

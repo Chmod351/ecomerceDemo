@@ -66,6 +66,7 @@ const Agreement = styled.span`
 
 const Button = styled.button`
   width: 40%;
+  margin: 0rem 0.625rem 0 0;
   border: none;
   padding: 0.938rem 1.25rem;
   background-color: teal;
@@ -93,6 +94,7 @@ const Label = styled.label`
 `;
 
 const Register = () => {
+  const [islogin, setLog] = useState(true);
   const [store, setStore] = useState(null);
   const [msg, setMsg] = useState('');
   const [email, setEmail] = useState('');
@@ -114,10 +116,15 @@ const Register = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     setOff(true);
-    setMsg('message');
-    await handleRegistration(email, password, username, setMsg);
-    await handleLogin(email, password, setMsg);
-    await login(dispatch, email, password);
+    if (islogin) {
+      await handleLogin(email, password, setMsg);
+      await login(dispatch, email, password);
+    } else {
+      setMsg('message');
+      await handleRegistration(email, password, username, setMsg);
+      await handleLogin(email, password, setMsg);
+      await login(dispatch, email, password);
+    }
     setFormValues(initialFormValues);
     setOff(false);
   };
@@ -135,7 +142,7 @@ const Register = () => {
         validateUsername(value, setMsg, setUsername);
         break;
       case 'password':
-        validatePassword(value, setMsg, setPassword, setStore);
+        validatePassword(value, setMsg, setPassword, setStore, login, setOff);
         break;
       case 'confirmPassword':
         matchPasswords(value, setMsg, setOff, store);
@@ -149,12 +156,16 @@ const Register = () => {
   };
 
   return (
-    <Container id="SignUp">
+    <Container id={islogin ? 'SignIn' : 'SignUp'}>
       <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
+        <Title>{islogin ? 'SIGN IN' : ' CREATE AND ACCOUNT'} </Title>
         <Form>
           {register.map((data) => {
-            const { id, label, name, type, placeholder, errorMessage } = data;
+            const { id, label, name, type, placeholder, errorMessage, shared } =
+              data;
+            if (islogin && shared) {
+              return null; // Salta el campo en el modo de inicio de sesión
+            }
             return (
               <InputContainer key={id}>
                 <Label>
@@ -173,13 +184,18 @@ const Register = () => {
           })}
           {msg in Messages ? <Label>{Messages[msg]}</Label> : <Label> </Label>}
           {msg.message ? <Error>{msg.message}</Error> : ''}
-          <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the{' '}
-            <Link to="/" target="_blank">
-              PRIVACY POLICY
-            </Link>
-          </Agreement>
+          {!islogin ? (
+            <Agreement>
+              By creating an account, I consent to the processing of my personal
+              data in accordance with the{' '}
+              <Link to="/" target="_blank">
+                PRIVACY POLICY
+              </Link>
+            </Agreement>
+          ) : (
+            ''
+          )}
+
           <Button
             type="submit"
             onClick={handleClick}
@@ -190,10 +206,18 @@ const Register = () => {
             }}
             disabled={off}
           >
-            CREATE
+            {islogin ? 'Submit' : 'CREATE'}
           </Button>
-          <Link to="/login">I already have an account </Link>
-          <Link to="/"> Go Home</Link>
+          <Button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              setFormValues(initialFormValues);
+              setLog(!login);
+            }}
+          >
+            {islogin ? 'Create account' : 'I already have an account'}
+          </Button>
         </Form>
       </Wrapper>
     </Container>

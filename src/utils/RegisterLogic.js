@@ -11,9 +11,17 @@ export const validateUsername = (username, setError, setUsername) => {
   }
 };
 
-export const validatePassword = (password, setError, setPassword, setStore) => {
+export const validatePassword = (
+  password,
+  setError,
+  setPassword,
+  setStore,
+  login,
+  setOff,
+) => {
   if (password.length === 1 || password.length < 8) {
     setError('password');
+    login ? setOff(false) : '';
   } else {
     setError('');
     setPassword(password);

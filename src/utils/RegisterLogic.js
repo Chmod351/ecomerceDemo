@@ -51,7 +51,7 @@ export const handleRegistration = async (email, password, username, setMsg) => {
       username,
     });
     handleSuccess('created');
-    setMsg('created')
+    setMsg('created');
   } catch (error) {
     setMsg(error.message);
     handleError(error);
@@ -62,12 +62,12 @@ export const handleRegistration = async (email, password, username, setMsg) => {
 //login
 export const handleLogin = async (email, password, setMsg) => {
   try {
+    setMsg('login');
     await publicRequest.post('/signin', {
       email,
       password,
     });
-    setMsg('login');
-    console.log('enviada login');
+    handleSuccess('welcome');
   } catch (error) {
     setMsg(error.message);
     handleError(error);

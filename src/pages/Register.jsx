@@ -116,11 +116,8 @@ const Register = () => {
     setOff(true);
     setMsg('message');
     await handleRegistration(email, password, username, setMsg);
-    if (msg === 'login') {
-      await handleLogin(email, password, setMsg);
-      await login(dispatch, email, password);
-      handleSuccess('welcome');
-    }
+    await handleLogin(email, password, setMsg);
+    await login(dispatch, email, password);
     setFormValues(initialFormValues);
     setOff(false);
   };

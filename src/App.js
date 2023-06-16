@@ -2,7 +2,6 @@ import Product from './pages/Product';
 import Home from './pages/Home';
 import ProductList from './pages/ProductList';
 import Register from './pages/Register';
-import Login from './pages/Login';
 import Cart from './pages/Cart';
 import 'normalize.css';
 import {
@@ -18,7 +17,6 @@ import { ThemeProvider } from 'styled-components';
 import { useState } from 'react';
 
 const App = () => {
-
   const user = useSelector((state) => state.user.currentUser);
   const getDarkModePreference = () => {
     const preference = localStorage.getItem('darkMode');
@@ -35,8 +33,6 @@ const App = () => {
     setDarkMode(newDarkMode);
     setDarkModePreference(newDarkMode);
   };
-
-
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
@@ -60,8 +56,7 @@ const App = () => {
           <Route path="/success">
             <Success />
           </Route>
-          <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
-          <Route path="/register">
+          <Route path="/auth">
             {user ? <Redirect to="/" /> : <Register />}
           </Route>
         </Switch>

@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { publicRequest, username } from '../requestMethods';
+import { publicRequest } from '../requestMethods';
 import Announcement from './Announcement';
 import { useState } from 'react';
 import { handleError } from '../utils/toast';
@@ -109,7 +109,9 @@ const Username = styled.p`
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const username = useSelector((state) => state.user.username);
   const [query, setQuery] = useState('');
+
   const history = useHistory();
 
   const SearchProduct = async (e) => {
@@ -181,14 +183,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </Link>
           ) : (
             <Right role="navigation">
-              <Link
-                to="/register"
-                style={{ textDecoration: 'none' }}
-                tabIndex="0"
-              >
-                <MenuItem>SignUp</MenuItem>
-              </Link>
-              <Link to="/login" style={{ textDecoration: 'none' }} tabIndex="6">
+              <Link to="/auth" style={{ textDecoration: 'none' }} tabIndex="6">
                 <MenuItem>Login</MenuItem>
               </Link>
             </Right>

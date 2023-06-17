@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { phones, social, schedule } from '../data/footerData';
+import Announcement from './Announcement';
 
 const Container = styled.footer`
   width: 100%;
   padding: 1.2rem 0rem;
-  background-color: ${({ theme }) => theme.bgLighter};
+  background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};
   ${mobile({ height: '3.125rem' })}
 `;
@@ -20,7 +21,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   padding: 0rem 1.25rem;
   font-size: 1.5rem;
-  background-color: ${({ theme }) => theme.bgLighter};
+  background-color: ${({ theme }) => theme.bg};
   ${mobile({
     padding: '0.625rem 0rem',
     fontSize: '1.3rem',
@@ -51,7 +52,7 @@ const Right = styled.div`
 
 const Icon = styled.svg`
   display: flex;
- width: 1.3rem;
+  width: 1.3rem;
   height: 1.3rem;
   align-items: center;
   justify-content: center;
@@ -61,7 +62,7 @@ const Icon = styled.svg`
 const IconSocial = styled.svg`
   width: 2.3rem;
   height: 2.3rem;
-  padding: 0.2rem;
+  margin: auto 1.3rem auto -1.3rem;
   color: ${({ theme }) => theme.text};
 `;
 const Items = styled.ul`
@@ -104,21 +105,19 @@ const Footer = () => {
     <Container id="Footer">
       <Wrapper>
         <Left>
-          <ItemsSocial className="li-container">
+          <ItemsSocial>
             {social.map((socials) => {
               const { id, link, platform, icon } = socials;
               return (
                 <ListItem key={id}>
-                  <Links>
-                    <IconSocial alt={platform} href={link}>
-                      {icon}
-                    </IconSocial>
+                  <Links href={link} target="_blank" alt={platform}>
+                    <IconSocial>{icon}</IconSocial>
                   </Links>
                 </ListItem>
               );
             })}
           </ItemsSocial>
-          <Items className="li-container">
+          <Items>
             {phones.map((phone) => {
               const { id, number, icon } = phone;
               return (
@@ -133,7 +132,7 @@ const Footer = () => {
           </Items>
         </Left>
         <Center>
-          <Items className="li-container">
+          <Items>
             {schedule.map((h) => {
               const { id, Date, hour } = h;
               return (
@@ -153,6 +152,10 @@ const Footer = () => {
           ></Frame>
         </Right>
       </Wrapper>
+      <Announcement
+        text={'©2022 As Team All Rights Reserved.'}
+        link={'https://yamil-tauil.onrender.com/'}
+      />
     </Container>
   );
 };

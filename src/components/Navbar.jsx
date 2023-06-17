@@ -132,7 +132,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <Container>
-      <Announcement />
+      <Announcement
+        text={'Cierva Design'}
+        link={'https://ciervademo.onrender.com/'}
+      />
       <Wrapper>
         <Left role="navigation">
           <Item

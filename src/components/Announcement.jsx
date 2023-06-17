@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import styled from 'styled-components';
 import { pc } from '../responsive';
 const Container = styled.header`
@@ -16,12 +15,12 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.text};
   font-size: 1.6rem;
 `;
-const Announcement = () => {
+const Announcement = ({ text , link}) => {
   return (
     <Container role="banner">
-      <Link to="/" style={{ textDecoration: 'none' }} tabIndex="0">
-        <Title> Cierva Design</Title>
-      </Link>
+      <a href={link} style={{ textDecoration: 'none' }} tabIndex="0">
+        <Title>{text}</Title>
+      </a>
     </Container>
   );
 };

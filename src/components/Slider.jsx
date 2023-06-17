@@ -7,7 +7,6 @@ import { mobile } from '../responsive';
 const Container = styled.section`
   width: 100%;
   height: 100vh;
-  margin-top: 3rem;
   display: flex;
   position: relative;
   overflow: hidden;

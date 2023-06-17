@@ -7,7 +7,7 @@ import {
   LocationOn,
 } from '@material-ui/icons';
 
-// objects footer 
+// objects footer
 
 const hours = ['11:00–15:00', '19:00–23:00'];
 export const schedule = [
@@ -32,18 +32,19 @@ export const social = [
     id: 1,
     icon: <Facebook />,
     platform: 'Facebook',
-    link: 'www.facebook.com',
+    link: 'https://www.facebook.com',
   },
   {
     id: 2,
     icon: <Twitter />,
     platform: 'Tiwtter',
-    link: 'www.twitter.com',
+    link: 'https://www.twitter.com',
   },
   {
     id: 3,
     icon: <Instagram />,
     platform: 'Instagram',
-    link: 'www.instagram.com',
+    link: 'https://www.instagram.com',
   },
 ];
+

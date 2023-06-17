@@ -5,6 +5,7 @@ import CategoryItem from './CategoryItem';
 
 const Container = styled.section`
   background-color: ${({ theme }) => theme.bgLighter};
+  height: auto;
 `;
 
 const Wrapper = styled.div`
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
 
 const Categories = () => {
   return (
-    <Container id='Specials'>
+    <Container id="Specials">
       <Wrapper>
         {categories.map((item) => (
           <CategoryItem item={item} key={item._id} />

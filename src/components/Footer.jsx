@@ -5,10 +5,11 @@ import {
   Phone,
   Pinterest,
   Room,
-  Twitter,
 } from '@material-ui/icons';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
+import { contact, e, social } from '../data/footerData';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
 
 const Container = styled.footer`
   background-color: ${({ theme }) => theme.bg};
@@ -21,7 +22,7 @@ const Wrapper = styled.div`
   margin: auto;
 
   max-width: 1200px;
-  ${mobile({ flexDirection: 'column', display:'flex' })}
+  ${mobile({ flexDirection: 'column', display: 'flex' })}
 `;
 const Left = styled.div`
   flex: 1;
@@ -72,7 +73,7 @@ const List = styled.ul`
 
 const ListItem = styled.li`
   width: 50%;
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.2rem;
 `;
 
 const Right = styled.div`
@@ -89,6 +90,12 @@ const ContactItem = styled.div`
 const Payment = styled.img`
   width: 50%;
 `;
+const MenuItem = styled.p`
+  color: ${({ theme }) => theme.text};
+`;
+const A= styled.a`
+ color: ${({ theme }) => theme.text};
+`
 
 const Footer = () => {
   return (
@@ -103,47 +110,57 @@ const Footer = () => {
             believable.
           </Desc>
           <SocialContainer>
-            <SocialIcon color='3B5999'>
-              <Facebook />
-            </SocialIcon>
-            <SocialIcon color='E4405F'>
-              <Instagram />
-            </SocialIcon>
-            <SocialIcon color='55ACEE'>
-              <Twitter />
-            </SocialIcon>
-            <SocialIcon color='E60023'>
-              <Pinterest />
-            </SocialIcon>
+            {social.map((i) => {
+              const { id, color, icon, link } = i;
+              return (
+                <a href={link}>
+                  <SocialIcon
+                    color={color}
+                    key={id}
+                  >
+                    {icon}
+                  </SocialIcon>
+                </a>
+              );
+            })}
           </SocialContainer>
         </Left>
         <Center>
           <Title>Useful Links</Title>
           <List>
-            <ListItem>Home</ListItem>
-            <ListItem>Cart</ListItem>
-            <ListItem>Man Fashion</ListItem>
-            <ListItem>Woman Fashion</ListItem>
-            <ListItem>Accessories</ListItem>
-            <ListItem>My Account</ListItem>
-            <ListItem>Order Tracking</ListItem>
-            <ListItem>Wishlist</ListItem>
-            <ListItem>Wishlist</ListItem>
-            <ListItem>Terms</ListItem>
+            {e.map((i) => {
+              const { id, route, name } = i;
+              return (
+                <ListItem key={id}>
+                  <Link
+                    to={route}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <MenuItem>{name}</MenuItem>
+                  </Link>
+                </ListItem>
+              );
+            })}
           </List>
         </Center>
         <Right>
           <Title>Contact</Title>
-          <ContactItem>
-            <Room style={{ marginRight: '10px' }} /> 622 Dixie Path , South
-            Tobinchester 98336
-          </ContactItem>
-          <ContactItem>
-            <Phone style={{ marginRight: '10px' }} /> +1 234 56 78
-          </ContactItem>
-          <ContactItem>
-            <MailOutline style={{ marginRight: '10px' }} /> y.kasper@protonmail.com
-          </ContactItem>
+          <>
+            {contact.map((i) => {
+              const { id, url, icon, text } = i;
+              return (
+                <ContactItem key={id}>
+                  <A
+                    href={url}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {icon}
+                    {text}
+                  </A>
+                </ContactItem>
+              );
+            })}
+          </>
           <Payment src='https://i.ibb.co/Qfvn4z6/payment.png' />
         </Right>
       </Wrapper>

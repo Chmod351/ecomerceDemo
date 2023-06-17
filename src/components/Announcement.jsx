@@ -18,7 +18,7 @@ const Title = styled.h1`
 const Announcement = () => {
   return (
     <Container role='banner'>
-      <Title>¡Envío gratuito en pedidos superiores a $50!</Title>
+      <Title>¡Free shipping on orders over $50!</Title>
     </Container>
   );
 };

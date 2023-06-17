@@ -140,7 +140,7 @@ const Products = ({ tag, filters, sort, query }) => {
   };
 
   return (
-    <Container id="Product">
+    <Container id="Products">
       <Wrapper>
         {tag
           ? filteredProducts.map((product) => (

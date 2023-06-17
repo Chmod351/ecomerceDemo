@@ -1,18 +1,18 @@
 export const e = [
   {
     id: 1,
-    route: '/Categories',
-    name: 'Categories',
+    route: '/products/shirt',
+    name: 'Shirts',
   },
   {
     id: 2,
-    route: '/Products',
-    name: 'Products',
+    route: '/products/coat',
+    name: 'Coats',
   },
   {
     id: 3,
-    route: '/Accesories',
-    name: 'Accesories',
+    route: '/products/jacket',
+    name: 'Jackets',
   },
   {
     id: 4,

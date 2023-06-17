@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 1200px;
-  display-items: center;
+  align-items: center;
   margin: auto;
   background-color: ${({ theme }) => theme.bgLighter};
   ${mobile({ padding: '0rem', flexDirection: 'column' })}

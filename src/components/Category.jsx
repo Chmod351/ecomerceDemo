@@ -4,17 +4,17 @@ import { mobile } from '../responsive';
 import CategoryItem from './CategoryItem';
 
 const Container = styled.section`
-  background-color: ${({ theme }) => theme.bgLighter};
+  background-color: ${({ theme }) => theme.bg};
   height: auto;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 1.25rem;
   justify-content: space-between;
   max-width: 1200px;
   display-items: center;
   margin: auto;
+  background-color: ${({ theme }) => theme.bgLighter};
   ${mobile({ padding: '0rem', flexDirection: 'column' })}
 `;
 

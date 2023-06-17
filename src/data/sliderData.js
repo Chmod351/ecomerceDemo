@@ -1,30 +1,27 @@
-import grupoMujeres from '../assests/grupoMujer.webp';
-import vestido from '../assests/vestidonegro.webp';
-import sombrero from '../assests/sombreroPaja.avif';
 export const sliderItems = [
   {
     id: 10,
-    img: vestido,
-    title: 'Effortless Elegance, Anytime',
-    desc: "Don't compromise on style! Discover our collection of elegantly designed dresses that exude sophistication and charm. Whether it's a daytime event or a special occasion, embrace effortless elegance with our curated selection of refined dresses. Enjoy flat 30% off on new arrivals and elevate your daytime looks with timeless grace.",
+    img: 'https://4.bp.blogspot.com/-7ObmsyETz8M/US5aRfrvRcI/AAAAAAAAAKg/oPk3o7Gi8-Y/s1600/0_8c0f7_f1fd8abd_L.jpg.png',
+    title: 'HOT SALE',
+    desc: 'NO COMPROMETAS TU ESTILO!, Y APROVECHA UN 30% DE DESCUENTO EN TODAS TUS COMPRAS!',
     bg: 'fff',
     alt: 'women clothes winter',
     tags: 'elegant',
   },
   {
     id: 11,
-    img: grupoMujeres,
-    title: "Celebrate Life's Moments in Style",
-    desc: "Find your perfect casual dresses for every occasion. Whether it's a picnic, a brunch date, or a day out with friends, our collection of vibrant and comfortable dresses has you covered. Enjoy flat 30% off on new arrivals and celebrate life's moments in style.",
+    img: 'https://i.ibb.co/DG69bQ4/2.png',
+    title: 'APROVECHA AHORA',
+    desc: 'TODAS LAS COMPRAS MAYORES A $1200 TIENEN EL ENVIO BONIFICADO!!',
     bg: 'fff',
     alt: 'women clothes summer',
     tags: 'autmn',
   },
   {
     id: 12,
-    img: sombrero,
-    title: 'Escape to Paradise with Fashion',
-    desc: 'Get ready for a tropical getaway with our collection of stylish summer dresses. Experience the joy of warm beaches and sunny days in our lightweight and fashionable dresses. Enjoy flat 30% off on new arrivals and escape to paradise with fashion.',
+    img: 'https://i.ibb.co/cXFnLLV/3.png',
+    title: 'HOT SALE',
+    desc: 'NO COMPROMETAS TU ESTILO!, Y APROVECHA UN 30% DE DESCUENTO EN TODAS TUS COMPRAS!',
     bg: 'fff',
     alt: 'women clothes autmn',
     tags: '',

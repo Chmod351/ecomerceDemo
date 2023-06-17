@@ -24,11 +24,6 @@ const Container = styled.header`
   ${mobile({ height: '8rem' })}
   ${pc({
     maxWidth: '100vw',
-    position: 'fixed',
-    top: '0',
-    left: '0',
-    right: '0',
-    zIndex: '999',
   })}
 `;
 
@@ -132,10 +127,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   return (
     <Container>
-      <Announcement
-        text={'Cierva Design'}
-        link={'https://ciervademo.onrender.com/'}
-      />
       <Wrapper>
         <Left role="navigation">
           <Item
@@ -227,6 +218,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           onClick={SearchProduct}
         />
       </SearchContainerMobile>
+      <Announcement
+      />
     </Container>
   );
 };

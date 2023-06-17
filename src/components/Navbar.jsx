@@ -12,14 +12,16 @@ import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { publicRequest } from '../requestMethods';
-import Announcement from './Announcement';
 import { useState } from 'react';
 import { handleError } from '../utils/toast';
 
 const Container = styled.header`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
-  height: 5rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   ${mobile({ height: '8rem' })}
   ${pc({
@@ -29,6 +31,7 @@ const Container = styled.header`
 
 const Wrapper = styled.nav`
   max-width: 1200px;
+  width: 100%;
   margin: auto;
   padding: 0rem 1.25rem;
   display: flex;
@@ -69,10 +72,6 @@ const Input = styled.input`
   ${mobile({ padding: '10px' })};
 `;
 
-const Center = styled.div`
-  flex: 1;
-  text-align: center;
-`;
 
 const Right = styled.div`
   flex: 1;
@@ -83,7 +82,7 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
   margin-left: 25px;
   color: ${({ theme }) => theme.text};
@@ -91,11 +90,12 @@ const MenuItem = styled.div`
 `;
 const Item = styled.div`
   font-size: 1rem;
+  margin: 1rem;
   cursor: pointer;
   ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
 const Username = styled.p`
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   margin: 1rem;
   color: ${({ theme }) => theme.text};
@@ -144,6 +144,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     <Container>
       <Wrapper>
         <Left role='navigation'>
+          <label
+            onClick={() => setDarkMode(!darkMode)}
+            tabIndex='0'
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                setDarkMode(!darkMode);
+              }
+            }}
+          >
+            {darkMode ? 'Dark' : 'Light'}
+          </label>
           <Item
             name='theme'
             value={darkMode}
@@ -157,12 +168,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           >
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
-        </Left>
-        <Center role='banner'>
           <SearchContainer>
-            <label>Buscar</label>
             <Input
-              placeholder=''
+              placeholder='Buscar'
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               tabIndex='0'
@@ -184,22 +192,95 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               Submit
             </Label>
           </SearchContainer>
-        </Center>
+        </Left>
         <Right>
           {username ? (
-            <Link
-              to='/cart'
-              style={{ textDecoration: 'none' }}
-              tabIndex='5'
-            >
-              <Username>{username}</Username>
-            </Link>
+            <>
+              <Link
+                to='/auth'
+                style={{ textDecoration: 'none' }}
+                tabIndex='0'
+              >
+                <MenuItem>Inicio</MenuItem>
+              </Link>
+              <Link
+                to='/auth'
+                style={{ textDecoration: 'none' }}
+                tabIndex='0'
+              >
+                <MenuItem>Deseados</MenuItem>
+              </Link>
+              <Link
+                to='/cart'
+                style={{ textDecoration: 'none' }}
+                tabIndex='5'
+              >
+                <Link
+                  to='/auth'
+                  style={{ textDecoration: 'none' }}
+                  tabIndex='0'
+                >
+                  <MenuItem>Categorias</MenuItem>
+                </Link>
+                <Link
+                  to='/auth'
+                  style={{ textDecoration: 'none' }}
+                  tabIndex='0'
+                >
+                  <MenuItem>Productos</MenuItem>
+                </Link>
+                <Link
+                  to='/auth'
+                  style={{ textDecoration: 'none' }}
+                  tabIndex='0'
+                >
+                  <MenuItem>Accesorios</MenuItem>
+                </Link>
+                <Username>{username}</Username>
+              </Link>
+            </>
           ) : (
             <Right role='navigation'>
               <Link
                 to='/auth'
                 style={{ textDecoration: 'none' }}
-                tabIndex='6'
+                tabIndex='0'
+              >
+                <MenuItem>Categorias</MenuItem>
+              </Link>
+              <Link
+                to='/auth'
+                style={{ textDecoration: 'none' }}
+                tabIndex='0'
+              >
+                <MenuItem>Productos</MenuItem>
+              </Link>
+              <Link
+                to='/auth'
+                style={{ textDecoration: 'none' }}
+                tabIndex='0'
+              >
+                <MenuItem>Accesorios</MenuItem>
+              </Link>
+
+              <Link
+                to='/'
+                style={{ textDecoration: 'none' }}
+                tabIndex='0'
+              >
+                <MenuItem>Inicio</MenuItem>
+              </Link>
+              <Link
+                to='/auth'
+                style={{ textDecoration: 'none' }}
+                tabIndex='0'
+              >
+                <MenuItem>Deseados</MenuItem>
+              </Link>
+              <Link
+                to='/auth'
+                style={{ textDecoration: 'none' }}
+                tabIndex='0'
               >
                 <MenuItem>Login</MenuItem>
               </Link>
@@ -209,7 +290,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <Link
             to='/cart'
             style={{ textDecoration: 'none' }}
-            tabIndex='7'
+            tabIndex='0'
           >
             <MenuItem>
               {quantity > 0 ? (
@@ -245,7 +326,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           onClick={SearchProduct}
         />
       </SearchContainerMobile>
-      <Announcement />
     </Container>
   );
 };

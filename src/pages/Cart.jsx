@@ -12,16 +12,19 @@ import logo from '../assests/logo.png';
 import { handleError, handleSuccess } from '../utils/toast';
 import { addProduct, removeProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
+import Footer from '../components/Footer';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
   min-height: 100vh;
   max-height: auto;
+  height: 100%;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   ${mobile({ maxWidth: '100vw', padding: '0' })}
-  ${pc({ maxWidth: '100vw', padding: '0', marginTop: '5rem' })}
+  ${pc({ maxWidth: '100vw', padding: '0'})}
 `;
+// const Container = styled.div``;
 
 const Wrapper = styled.div`
   max-width: 1200px;
@@ -29,6 +32,8 @@ const Wrapper = styled.div`
   margin: auto;
   ${mobile({ padding: '0' })}
 `;
+
+
 
 const Title = styled.h1`
   font-weight: 300;
@@ -241,18 +246,24 @@ const Cart = ({ darkMode, setDarkMode }) => {
 
   return (
     <Container>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link
+            to='/'
+            style={{ textDecoration: 'none' }}
+          >
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
             <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type='filled'>CHECKOUT NOW</TopButton>
         </Top>
         {cart.products.length > 0 ? (
           <Bottom>
@@ -303,12 +314,12 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <SummaryItemText>Shipping Discount</SummaryItemText>
                 <SummaryItemPrice>$ -5.90</SummaryItemPrice>
               </SummaryItem>
-              <SummaryItem type="total">
+              <SummaryItem type='total'>
                 <SummaryItemText>Total</SummaryItemText>
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
               <StripeCheckout
-                name="Cierva Design"
+                name='Cierva Design'
                 image={logo}
                 billingAddress
                 shippingAddress
@@ -330,6 +341,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
           </Message>
         )}
       </Wrapper>
+      <Footer />
     </Container>
   );
 };

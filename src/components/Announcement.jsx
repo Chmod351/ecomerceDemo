@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { pc } from '../responsive';
+
 const Container = styled.header`
   height: 1.875rem;
   background-color: teal;

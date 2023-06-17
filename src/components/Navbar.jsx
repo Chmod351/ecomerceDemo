@@ -82,11 +82,29 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
+  ${mobile({ marginRight: '1rem', fontSize: '1rem' })}
   font-size: 1rem;
+  color: ${({ theme }) => theme.text};
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
   cursor: pointer;
   margin-left: 25px;
-  color: ${({ theme }) => theme.text};
-  ${mobile({ marginRight: '1rem', fontSize: '1rem' })}
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: ${({ theme }) => theme.hover}; 
+    transition: width 0.3s ease-in-out;
+  }
+
+  &:hover:after {
+    width: 100%;
+  }
 `;
 const Item = styled.div`
   font-size: 1rem;
@@ -170,7 +188,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </Item>
           <SearchContainer>
             <Input
-              placeholder='Buscar'
+              placeholder='Search Products'
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               tabIndex='0'
@@ -229,8 +247,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               <Link
                 to='/auth'
                 style={{ textDecoration: 'none' }}
-              ><MenuItem>Login</MenuItem>
-                
+              >
+                <MenuItem>Login</MenuItem>
               </Link>
             </>
           )}

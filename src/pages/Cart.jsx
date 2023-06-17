@@ -25,7 +25,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   max-width: 1200px;
-  display-items: center;
+  align-items: center;
   margin: auto;
   ${mobile({ padding: '0' })}
 `;

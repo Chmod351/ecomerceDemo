@@ -11,7 +11,6 @@ const Home = ({ darkMode, setDarkMode }) => {
     <div>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Slider />
-
       <Categories />
       <Products />
       <Newsletter />

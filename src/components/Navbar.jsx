@@ -101,6 +101,21 @@ const Username = styled.p`
   color: ${({ theme }) => theme.text};
   font-weight: 400;
 `;
+const Label = styled.label`
+  padding: 0.1rem 0.3rem;
+  border: 0.1px solid transparent;
+  cursor: pointer;
+  font-weight: bold;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  color: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.hover};
+  &:hover {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+`;
 
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -128,12 +143,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Wrapper>
-        <Left role="navigation">
+        <Left role='navigation'>
           <Item
-            name="theme"
+            name='theme'
             value={darkMode}
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex="0"
+            tabIndex='0'
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -143,61 +158,73 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
         </Left>
-        <Center role="banner">
+        <Center role='banner'>
           <SearchContainer>
-            <label>Search</label>
+            <label>Buscar</label>
             <Input
-              placeholder=""
+              placeholder=''
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              tabIndex="0"
+              tabIndex='0'
               onKeyUp={(e) => {
                 if (e.key === 'Enter') {
                   SearchProduct(e);
                 }
               }}
             />
-            <label
+            <Label
               onClick={SearchProduct}
               onKeyUp={(e) => {
                 if (e.key === 'Enter') {
                   SearchProduct(e);
                 }
               }}
-              tabIndex="0"
+              tabIndex='0'
             >
               Submit
-            </label>
+            </Label>
           </SearchContainer>
         </Center>
         <Right>
           {username ? (
-            <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="5">
+            <Link
+              to='/cart'
+              style={{ textDecoration: 'none' }}
+              tabIndex='5'
+            >
               <Username>{username}</Username>
             </Link>
           ) : (
-            <Right role="navigation">
-              <Link to="/auth" style={{ textDecoration: 'none' }} tabIndex="6">
+            <Right role='navigation'>
+              <Link
+                to='/auth'
+                style={{ textDecoration: 'none' }}
+                tabIndex='6'
+              >
                 <MenuItem>Login</MenuItem>
               </Link>
             </Right>
           )}
 
-          <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="7">
+          <Link
+            to='/cart'
+            style={{ textDecoration: 'none' }}
+            tabIndex='7'
+          >
             <MenuItem>
               {quantity > 0 ? (
                 <Badge
                   badgeContent={quantity}
-                  color="primary"
-                  overlap="rectangular"
+                  color='primary'
+                  overlap='rectangular'
                 >
                   <ShoppingCart />
                 </Badge>
               ) : (
                 <Badge
                   badgeContent={quantity}
-                  color="primary"
-                  overlap="rectangular"
+                  color='primary'
+                  overlap='rectangular'
                 >
                   <ShoppingCartOutlined />
                 </Badge>
@@ -209,7 +236,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
       <SearchContainerMobile>
         <Input
-          placeholder="Search"
+          placeholder='Search'
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
@@ -218,8 +245,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           onClick={SearchProduct}
         />
       </SearchContainerMobile>
-      <Announcement
-      />
+      <Announcement />
     </Container>
   );
 };

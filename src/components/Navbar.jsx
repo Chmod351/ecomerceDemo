@@ -14,6 +14,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { publicRequest } from '../requestMethods';
 import { useState } from 'react';
 import { handleError } from '../utils/toast';
+import { e } from '../data/navbarData';
 
 const Container = styled.header`
   color: ${({ theme }) => theme.text};
@@ -71,7 +72,6 @@ const Input = styled.input`
   width: 100%;
   ${mobile({ padding: '10px' })};
 `;
-
 
 const Right = styled.div`
   flex: 1;
@@ -196,95 +196,43 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         <Right>
           {username ? (
             <>
-              <Link
-                to='/auth'
-                style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Inicio</MenuItem>
-              </Link>
-              <Link
-                to='/auth'
-                style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Deseados</MenuItem>
-              </Link>
-              <Link
-                to='/cart'
-                style={{ textDecoration: 'none' }}
-                tabIndex='5'
-              >
-                <Link
-                  to='/auth'
-                  style={{ textDecoration: 'none' }}
-                  tabIndex='0'
-                >
-                  <MenuItem>Categorias</MenuItem>
-                </Link>
-                <Link
-                  to='/auth'
-                  style={{ textDecoration: 'none' }}
-                  tabIndex='0'
-                >
-                  <MenuItem>Productos</MenuItem>
-                </Link>
-                <Link
-                  to='/auth'
-                  style={{ textDecoration: 'none' }}
-                  tabIndex='0'
-                >
-                  <MenuItem>Accesorios</MenuItem>
-                </Link>
-                <Username>{username}</Username>
-              </Link>
+              {e.map((i) => {
+                const { id, route, name } = i;
+                return (
+                  <Link
+                    key={id}
+                    to={route}
+                    style={{ textDecoration: 'none' }}
+                    tabIndex='0'
+                  >
+                    <MenuItem>{name}</MenuItem>
+                  </Link>
+                );
+              })}
+              <Username>{username}</Username>
             </>
           ) : (
-            <Right role='navigation'>
+            <>
+              {e.map((i) => {
+                const { id, route, name } = i;
+                return (
+                  <Link
+                    key={id}
+                    to={route}
+                    style={{ textDecoration: 'none' }}
+                    tabIndex='0'
+                  >
+                    <MenuItem>{name}</MenuItem>
+                  </Link>
+                );
+              })}
               <Link
                 to='/auth'
                 style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Categorias</MenuItem>
+              ><MenuItem>Login</MenuItem>
+                
               </Link>
-              <Link
-                to='/auth'
-                style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Productos</MenuItem>
-              </Link>
-              <Link
-                to='/auth'
-                style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Accesorios</MenuItem>
-              </Link>
-
-              <Link
-                to='/'
-                style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Inicio</MenuItem>
-              </Link>
-              <Link
-                to='/auth'
-                style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Deseados</MenuItem>
-              </Link>
-              <Link
-                to='/auth'
-                style={{ textDecoration: 'none' }}
-                tabIndex='0'
-              >
-                <MenuItem>Login</MenuItem>
-              </Link>
-            </Right>
+            </>
           )}
 
           <Link
@@ -314,7 +262,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </Link>
         </Right>
       </Wrapper>
-
       <SearchContainerMobile>
         <Input
           placeholder='Search'

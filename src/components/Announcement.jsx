@@ -17,10 +17,8 @@ const Title = styled.h1`
 `;
 const Announcement = () => {
   return (
-    <Container role="banner">
-      <a href="/" style={{ textDecoration: 'none' }} tabIndex="0">
-        <Title>¡Envío gratuito en pedidos superiores a $50!</Title>
-      </a>
+    <Container role='banner'>
+      <Title>¡Envío gratuito en pedidos superiores a $50!</Title>
     </Container>
   );
 };

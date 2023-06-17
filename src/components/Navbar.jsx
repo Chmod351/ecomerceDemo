@@ -49,12 +49,24 @@ const Left = styled.div`
 `;
 
 const SearchContainer = styled.div`
-  border-bottom: 0.5px solid lightgray;
   display: flex;
   align-items: center;
   padding: 5px;
   width: 100%;
+  position: relative;
   ${mobile({ display: 'none' })}
+`;
+const SearchLine = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: ${({ theme }) => theme.text};
+  transform: scaleX(
+    0
+  ); /* Agrega esta línea para ocultar la línea por defecto */
+  transition: transform 0.3s ease-in-out; /* Agrega esta línea para animar el cambio de ancho */
 `;
 
 const SearchContainerMobile = styled.div`
@@ -62,6 +74,7 @@ const SearchContainerMobile = styled.div`
   align-items: center;
   margin: 5px;
   display: none;
+  padding-bottom: 4px;
   ${mobile({ display: 'flex', flexDirection: 'row' })};
 `;
 
@@ -69,7 +82,11 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   border: none;
+  outline: none;
   width: 100%;
+  &:focus + ${SearchLine} {
+    transform: scaleX(1);
+  }
   ${mobile({ padding: '10px' })};
 `;
 
@@ -98,7 +115,7 @@ const MenuItem = styled.div`
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background-color: ${({ theme }) => theme.hover}; 
+    background-color: ${({ theme }) => theme.hover};
     transition: width 0.3s ease-in-out;
   }
 
@@ -198,6 +215,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 }
               }}
             />
+            <SearchLine/>
             <Label
               onClick={SearchProduct}
               onKeyUp={(e) => {
@@ -209,6 +227,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             >
               Submit
             </Label>
+            
           </SearchContainer>
         </Left>
         <Right>

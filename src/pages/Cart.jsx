@@ -22,7 +22,7 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   ${mobile({ maxWidth: '100vw', padding: '0' })}
-  ${pc({ maxWidth: '100vw', padding: '0'})}
+  ${pc({ maxWidth: '100vw', padding: '0' })}
 `;
 // const Container = styled.div``;
 
@@ -32,8 +32,6 @@ const Wrapper = styled.div`
   margin: auto;
   ${mobile({ padding: '0' })}
 `;
-
-
 
 const Title = styled.h1`
   font-weight: 300;
@@ -170,9 +168,15 @@ const SummaryItemPrice = styled.span``;
 const Button = styled.button`
   width: 100%;
   padding: 0.625rem;
-  background-color: black;
-  color: white;
+  background-color: gold;
+  color: black;
+  border: none;
   font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: yellow;
+  }
 `;
 
 const Icon = styled.button`
@@ -183,6 +187,7 @@ const Icon = styled.button`
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
   color: ${({ theme }) => theme.bg};
 `;
@@ -228,7 +233,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest.post('/purchase/payment', {
+        const res = await userRequest.post('/purchase', {
           tokenId: stripeToken.id,
           amount: 500,
         });
@@ -246,24 +251,18 @@ const Cart = ({ darkMode, setDarkMode }) => {
 
   return (
     <Container>
-      <Navbar
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-      />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <Link
-            to='/'
-            style={{ textDecoration: 'none' }}
-          >
+          <Link to="/" style={{ textDecoration: 'none' }}>
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
             <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type='filled'>CHECKOUT NOW</TopButton>
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         {cart.products.length > 0 ? (
           <Bottom>
@@ -314,22 +313,24 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <SummaryItemText>Shipping Discount</SummaryItemText>
                 <SummaryItemPrice>$ -5.90</SummaryItemPrice>
               </SummaryItem>
-              <SummaryItem type='total'>
+              <SummaryItem type="total">
                 <SummaryItemText>Total</SummaryItemText>
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
-              <StripeCheckout
-                name='Cierva Design'
-                image={logo}
-                billingAddress
-                shippingAddress
-                description={`Your total is $${cart.total}`}
-                amount={cart.total * 100}
-                token={onToken}
-                stripeKey={KEY}
-              >
-                <Button>CHECKOUT NOW</Button>
-              </StripeCheckout>
+              <Button>
+                <StripeCheckout
+                  name="Cierva Design"
+                  image={logo}
+                  billingAddress
+                  shippingAddress
+                  description={`Your total is $${cart.total}`}
+                  amount={cart.total * 100}
+                  token={onToken}
+                  stripeKey={KEY}
+                >
+                  CHECKOUT NOW
+                </StripeCheckout>
+              </Button>
             </Summary>
           </Bottom>
         ) : (

@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
@@ -70,7 +69,7 @@ const Button = styled.button`
 
 const CategoryItem = ({ item }) => {
   return (
-    <Container id={item.tags}>
+    <Container id={item.tags} tabIndex="0">
       <Image src={item.img} />
       <Overlay>
         <Link
@@ -88,4 +87,3 @@ const CategoryItem = ({ item }) => {
 };
 
 export default CategoryItem;
-

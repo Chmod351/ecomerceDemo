@@ -14,7 +14,7 @@ import Products from '../components/Products';
 import { handleError, handleSuccess } from '../utils/toast';
 import Footer from '../components/Footer';
 
-const Container = styled.div`
+const Container = styled.section`
   display-items: center;
 
   background-color: ${({ theme }) => theme.bgLighter};
@@ -48,6 +48,7 @@ const InfoContainer = styled.div`
 
 const Title = styled.h1`
   font-weight: 200;
+  text-transform: uppercase;
   color: ${({ theme }) => theme.text};
 `;
 
@@ -96,6 +97,7 @@ const FilterSize = styled.select`
   display: flex;
   text-align: center;
   justify-content: center;
+  cursor: pointer;
   background-color: ${({ theme }) => theme.hover};
   color: ${({ theme }) => theme.bg};
 `;
@@ -106,6 +108,7 @@ const AddContainer = styled.div`
   width: 50%;
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: space-between;
   ${mobile({ width: '100%' })}
 `;
@@ -141,7 +144,7 @@ const Button = styled.button`
   }
 `;
 const Description = styled.p`
-  font-size: 1.2rem;
+  font-size: 1rem;
 `;
 
 const Icon = styled.button`
@@ -152,6 +155,7 @@ const Icon = styled.button`
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
+  cursor: pointer;
   justify-content: center;
   color: ${({ theme }) => theme.bg};
 `;
@@ -167,6 +171,7 @@ const Product = ({ darkMode, setDarkMode }) => {
 
   useEffect(() => {
     const getProduct = async () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       try {
         const res = await publicRequest.get(`/product/${id}`);
         setProduct(res.data);
@@ -201,21 +206,23 @@ const Product = ({ darkMode, setDarkMode }) => {
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Announcement />
       {product ? (
-        <div>
+        <>
           <Wrapper>
             <ImgContainer>
-              <Image src={product.imgUrl} />
+              <Image src={product.imgUrl} alt={product.description} />
             </ImgContainer>
             <InfoContainer>
-              <Title>{product.name}</Title>
-              <Desc>{product.hot}</Desc>
-              <Description>{product.description}</Description>
-              <Price>$ {product.price}</Price>
+              <Title tabIndex="0">{product.name}</Title>
+              <Desc tabIndex="0">{product.hot}</Desc>
+
+              <Description tabIndex="0">{product.description}</Description>
+              <Price tabIndex="0">$ {product.price}</Price>
               <FilterContainer>
-                <Filter>
-                  <FilterTitle>{color}</FilterTitle>
+                <Filter tabIndex="0">
+                  <FilterTitle tabIndex="0">{color}</FilterTitle>
                   {product.color.map((c) => (
                     <FilterColor
+                      tabIndex="0"
                       color={c}
                       key={c}
                       onClick={() => setColor(c)}
@@ -223,31 +230,62 @@ const Product = ({ darkMode, setDarkMode }) => {
                   ))}
                 </Filter>
                 <Filter>
-                  <FilterTitle>Size</FilterTitle>
-                  <FilterSize onChange={(e) => setSize(e.target.value)}>
+                  <FilterTitle tabIndex="0">Size</FilterTitle>
+                  <FilterSize
+                    onChange={(e) => setSize(e.target.value)}
+                    tabIndex="0"
+                  >
                     {product.size.map((s) => (
-                      <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                      <FilterSizeOption key={s} tabIndex="0">
+                        {s}
+                      </FilterSizeOption>
                     ))}
                   </FilterSize>
                 </Filter>
               </FilterContainer>
               <AddContainer>
                 <AmountContainer>
-                  <Icon onClick={() => handleQuantity('dec')}>
+                  <Icon
+                    onClick={() => handleQuantity('dec')}
+                    tabIndex="0"
+                    onKeyUp={(e) => {
+                      if (e.key === 'Enter') {
+                        handleSuccess('desc');
+                      }
+                    }}
+                  >
                     <Remove />
                   </Icon>
 
                   <Amount>{quantity}</Amount>
-                  <Icon onClick={() => handleQuantity('inc')}>
+                  <Icon
+                    onClick={() => handleQuantity('inc')}
+                    tabIndex="0"
+                    onKeyUp={(e) => {
+                      if (e.key === 'Enter') {
+                        handleQuantity('inc');
+                      }
+                    }}
+                  >
                     <Add />
                   </Icon>
                 </AmountContainer>
-                <Button onClick={handleClick}>ADD TO CART</Button>
+                <Button
+                  onClick={handleClick}
+                  tabIndex="0"
+                  onKeyUp={(e) => {
+                    if (e.key === 'Enter') {
+                      handleClick();
+                    }
+                  }}
+                >
+                  ADD TO CART
+                </Button>
               </AddContainer>
             </InfoContainer>
           </Wrapper>
-          <Products />
-        </div>
+          <Products tags={product.tags} />
+        </>
       ) : (
         ''
       )}

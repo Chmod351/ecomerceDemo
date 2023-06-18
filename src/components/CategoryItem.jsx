@@ -1,6 +1,7 @@
+
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { mobile} from '../responsive';
+import { mobile } from '../responsive';
 
 const Container = styled.article`
   flex: 1;
@@ -28,37 +29,63 @@ const Info = styled.div`
   justify-content: center;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   color: white;
   margin-bottom: 1.25rem;
-  
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  ${Container}:hover & {
+    opacity: 0;
+  }
 `;
 
 const Button = styled.button`
-  border: none;
-  padding: 0.625rem;
-  background-color: white;
+  padding: 10px;
+  font-size: 20px;
   color: black;
+  background-color: gold;
+  border: none;
+  font-weight: bold;
   cursor: pointer;
-  font-weight: 600;
-  
-`;
-//seasson sales
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: yellow;
+  }
+}`;
+
 const CategoryItem = ({ item }) => {
   return (
-    <Container>
-      <Link
-        to={`/products/${item.tags}`}
-        style={{ textDecoration: 'none', color: 'black' }}
-      >
-        <Image src={item.img} />
-        <Info>
-          <Title>{item.title}</Title>
-          <Button>SHOP NOW</Button>
-        </Info>
-      </Link>
+    <Container id={item.tags}>
+      <Image src={item.img} />
+      <Overlay>
+        <Link
+          to={`/products/${item.tags}`}
+          style={{ textDecoration: 'none', color: 'black' }}
+        >
+          <Info>
+            <Title>{item.title}</Title>
+            <Button>SHOP NOW</Button>
+          </Info>
+        </Link>
+      </Overlay>
     </Container>
   );
 };
 
 export default CategoryItem;
+

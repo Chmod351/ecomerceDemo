@@ -26,7 +26,7 @@ const Container = styled.header`
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   ${mobile({
-   top:'0',
+    top: '0',
     position: 'fixed',
     zIndex: '999',
     width: '100vw',
@@ -70,6 +70,7 @@ const SearchLine = styled.div`
   height: 1px;
   background-color: ${({ theme }) => theme.text};
   transform: scaleX(0);
+  transition: 0.5s ease;
 `;
 
 const SearchContainerMobile = styled.div`
@@ -258,6 +259,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 }
               }}
             />
+            <SearchLine />
             <Label
               onClick={SearchProduct}
               onKeyUp={(e) => {
@@ -270,6 +272,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               Submit
             </Label>
           </SearchContainer>
+
           <SearchContainerMobile>
             <Input
               autoComplete="true"

@@ -8,14 +8,9 @@ import { useEffect, useState } from 'react';
 import { color } from '../data/colorData';
 import { size } from '../data/sizeData';
 
-const Container = styled.div`
+const Container = styled.section`
   height: 100vh;
   background-color: ${({ theme }) => theme.bg};
-`;
-
-const Title = styled.h1`
-  color: ${({ theme }) => theme.text};
-  margin: 1.25rem;
 `;
 
 const FilterContainer = styled.div`
@@ -59,6 +54,7 @@ const ProductList = ({ darkMode, setDarkMode }) => {
   const [sort, setSort] = useState('newest');
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     if (route[2] === 'search') {
       setQuery(route[3]);
     } else {
@@ -79,7 +75,6 @@ const ProductList = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Title>{tags}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>

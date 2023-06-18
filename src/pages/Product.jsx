@@ -13,6 +13,7 @@ import React from 'react';
 import Products from '../components/Products';
 import { handleError, handleSuccess } from '../utils/toast';
 import Footer from '../components/Footer';
+import Loading from './Loading';
 
 const Container = styled.section`
   display-items: center;
@@ -286,7 +287,7 @@ const Product = ({ darkMode, setDarkMode }) => {
           <Products tag={product.tags} />
         </>
       ) : (
-        ''
+        <Loading />
       )}
       <Newsletter />
       <Footer />

@@ -6,6 +6,7 @@ import { mobile } from '../responsive';
 import { BASE_URL } from '../requestMethods';
 import { ArrowLeftRounded, ArrowRightRounded } from '@material-ui/icons';
 import { handleError } from '../utils/toast';
+import Loading from '../pages/Loading';
 const Container = styled.section`
   display-items: center;
 
@@ -32,16 +33,16 @@ const PageButton = styled.button`
   background-color: ${(props) => (props.active ? '#333' : '#fff')};
   color: ${(props) => (props.active ? '#fff' : '#333')};
   border: 1px solid #ccc;
-  padding: 8px 14px;
+  padding: 0rem 1rem;
   border-radius: 1rem;
   margin: 0 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 'bold';
 
   &:hover {
     background-color: ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.soft};
+    color: ${({ theme }) => theme.bg};
   }
 
   &:disabled {
@@ -141,23 +142,27 @@ const Products = ({ tag, filters, sort, query }) => {
 
   return (
     <Container id="Products">
-      <Wrapper>
-        {tag
-          ? filteredProducts.map((product) => (
-              <Product
-                product={product}
-                key={product._id}
-                price={product.price}
-              />
-            ))
-          : products.map((product) => (
-              <Product
-                product={product}
-                key={product._id}
-                price={product.price}
-              />
-            ))}
-      </Wrapper>
+      {products ? (
+        <Wrapper>
+          {tag
+            ? filteredProducts.map((product) => (
+                <Product
+                  product={product}
+                  key={product._id}
+                  price={product.price}
+                />
+              ))
+            : products.map((product) => (
+                <Product
+                  product={product}
+                  key={product._id}
+                  price={product.price}
+                />
+              ))}
+        </Wrapper>
+      ) : (
+        <Loading />
+      )}
 
       {/* Renderizar paginación */}
 

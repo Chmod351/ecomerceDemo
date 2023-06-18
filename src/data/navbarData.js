@@ -1,8 +1,8 @@
 export const e = [
   {
     id: 1,
-    route: '/products/shirt',
-    name: 'Shirts',
+    route: '/',
+    name: 'Home',
   },
   {
     id: 2,
@@ -16,8 +16,8 @@ export const e = [
   },
   {
     id: 4,
-    route: '/',
-    name: 'Home',
+    route: '/products/shirt',
+    name: 'Shirts',
   },
 
   {

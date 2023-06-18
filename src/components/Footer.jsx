@@ -1,11 +1,3 @@
-import {
-  Facebook,
-  Instagram,
-  MailOutline,
-  Phone,
-  Pinterest,
-  Room,
-} from '@material-ui/icons';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { contact, e, social } from '../data/footerData';
@@ -74,8 +66,14 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 0.2rem;
-`;
+  position: relative;
 
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: ${({ theme }) => theme.text};
+    text-decoration-thickness: 1px;
+  }
+`;
 const Right = styled.div`
   flex: 1;
   padding: 1.25rem;
@@ -93,9 +91,9 @@ const Payment = styled.img`
 const MenuItem = styled.p`
   color: ${({ theme }) => theme.text};
 `;
-const A= styled.a`
- color: ${({ theme }) => theme.text};
-`
+const A = styled.a`
+  color: ${({ theme }) => theme.text};
+`;
 
 const Footer = () => {
   return (
@@ -114,10 +112,7 @@ const Footer = () => {
               const { id, color, icon, link } = i;
               return (
                 <a href={link}>
-                  <SocialIcon
-                    color={color}
-                    key={id}
-                  >
+                  <SocialIcon color={color} key={id}>
                     {icon}
                   </SocialIcon>
                 </a>
@@ -132,10 +127,7 @@ const Footer = () => {
               const { id, route, name } = i;
               return (
                 <ListItem key={id}>
-                  <Link
-                    to={route}
-                    style={{ textDecoration: 'none' }}
-                  >
+                  <Link to={route} style={{ textDecoration: 'none' }}>
                     <MenuItem>{name}</MenuItem>
                   </Link>
                 </ListItem>
@@ -150,10 +142,7 @@ const Footer = () => {
               const { id, url, icon, text } = i;
               return (
                 <ContactItem key={id}>
-                  <A
-                    href={url}
-                    style={{ textDecoration: 'none' }}
-                  >
+                  <A href={url} style={{ textDecoration: 'none' }}>
                     {icon}
                     {text}
                   </A>
@@ -161,7 +150,7 @@ const Footer = () => {
               );
             })}
           </>
-          <Payment src='https://i.ibb.co/Qfvn4z6/payment.png' />
+          <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
         </Right>
       </Wrapper>
     </Container>

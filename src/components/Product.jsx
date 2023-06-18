@@ -84,7 +84,7 @@ const Product = ({ product }) => {
     <Article id="Product" tabIndex="0">
       <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
         <Container>
-          <Image src={product.imgUrl} />
+          <Image src={product.imgUrl} alt={product.description} />
         </Container>
       </Link>
       <IconContainer>
@@ -97,10 +97,11 @@ const Product = ({ product }) => {
               handleClick();
             }
           }}
+          aria-label="add to cart"
         >
           <ShoppingCartOutlined />
         </Icon>
-        <Icon tabIndex="0">
+        <Icon tabIndex="0" aria-label="Watch product">
           <StyledLink
             to={`/product/${product._id}`}
             style={{
@@ -110,7 +111,7 @@ const Product = ({ product }) => {
             <SearchOutlined />
           </StyledLink>
         </Icon>
-        <Icon tabIndex="0">
+        <Icon tabIndex="0" aria-label="add to whislist">
           <FavoriteBorderOutlined />
         </Icon>
       </IconContainer>

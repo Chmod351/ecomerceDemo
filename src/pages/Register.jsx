@@ -56,7 +56,6 @@ const Input = styled.input`
   outline: none;
   font-weight: bold;
   border: none;
-  border: none;
   border-bottom: 1px solid ${({ theme }) => theme.text}; /* Agrega esta línea */
   background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};

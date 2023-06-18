@@ -5,6 +5,7 @@ import {
   ShoppingCart,
   Brightness7,
   Brightness2,
+  MenuRounded,
 } from '@material-ui/icons';
 import React from 'react';
 import styled from 'styled-components';
@@ -24,7 +25,12 @@ const Container = styled.header`
   align-items: center;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  ${mobile({ height: '8rem' })}
+  ${mobile({
+    height: '4rem',
+    position: 'fixed',
+    zIndex: '999',
+    width: '100vw',
+  })}
   ${pc({
     maxWidth: '100vw',
   })}
@@ -63,19 +69,18 @@ const SearchLine = styled.div`
   width: 100%;
   height: 1px;
   background-color: ${({ theme }) => theme.text};
-  transform: scaleX(
-    0
-  ); /* Agrega esta línea para ocultar la línea por defecto */
-  transition: transform 0.3s ease-in-out; /* Agrega esta línea para animar el cambio de ancho */
+  transform: scaleX(0);
 `;
 
 const SearchContainerMobile = styled.div`
   border-bottom: 0.5px solid lightgray;
   align-items: center;
+  max-width: 100%;
   margin: 5px;
   display: none;
   padding-bottom: 4px;
   ${mobile({ display: 'flex', flexDirection: 'row' })};
+  ${pc({ display: 'none' })}
 `;
 
 const Input = styled.input`
@@ -95,7 +100,7 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 3, justifyContent: 'center' })}
+  ${mobile({ display: 'none' })}
 `;
 
 const MenuItem = styled.div`
@@ -151,12 +156,40 @@ const Label = styled.label`
     color: ${({ theme }) => theme.text};
   }
 `;
+const MenuDropdownContainer = styled.div`
+  position: absolute;
+  width: 100vw;
+  left: 0;
+  top: 100%;
+  background-color: ${({ theme }) => theme.bg};
+  z-index: 999;
+  transition: 1s ease-in-out;
+  ${pc({ display: 'none' })}
+`;
+const MenuDropdown = styled.div`
+  display: flex;
+  margin: auto;
+  font-weight: bold;
+  text-transform: uppercase;
+  justify-content: space-evenly;
+  align-item: center;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  ${pc({ display: 'none' })}
+`;
 
+const DarkLabel = styled.label`
+  ${mobile({ display: 'none' })}
+`;
+const MenuIconMobile = styled.div`
+  ${pc({ display: 'none' })}
+`;
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const username = useSelector((state) => state.user.username);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [query, setQuery] = useState('');
-
   const history = useHistory();
 
   const SearchProduct = async (e) => {
@@ -177,10 +210,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Wrapper>
-        <Left role='navigation'>
-          <label
+        <Left role="navigation">
+          <MenuIconMobile>
+            <MenuRounded
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              style={{ cursor: 'pointer' }}
+            />
+          </MenuIconMobile>
+
+          <DarkLabel
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex='0'
+            tabIndex="0"
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -188,12 +228,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             }}
           >
             {darkMode ? 'Dark' : 'Light'}
-          </label>
+          </DarkLabel>
           <Item
-            name='theme'
+            name="theme"
             value={darkMode}
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex='0'
+            tabIndex="0"
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -204,17 +244,16 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </Item>
           <SearchContainer>
             <Input
-              placeholder='Search Products'
+              placeholder="Search Products"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              tabIndex='0'
+              tabIndex="0"
               onKeyUp={(e) => {
                 if (e.key === 'Enter') {
                   SearchProduct(e);
                 }
               }}
             />
-            <SearchLine/>
             <Label
               onClick={SearchProduct}
               onKeyUp={(e) => {
@@ -222,14 +261,53 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   SearchProduct(e);
                 }
               }}
-              tabIndex='0'
+              tabIndex="0"
             >
               Submit
             </Label>
-            
           </SearchContainer>
+          <SearchContainerMobile>
+            <Input
+              autoComplete="true"
+              placeholder="Search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <Search
+              style={{ color: 'gray', fontSize: 35 }}
+              onClick={SearchProduct}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  SearchProduct(e);
+                }
+              }}
+            />
+            <SearchLine />
+            <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="0">
+              <MenuItem>
+                {quantity > 0 ? (
+                  <Badge
+                    badgeContent={quantity}
+                    color="primary"
+                    overlap="rectangular"
+                  >
+                    <ShoppingCart />
+                  </Badge>
+                ) : (
+                  <Badge
+                    badgeContent={quantity}
+                    color="primary"
+                    overlap="rectangular"
+                  >
+                    <ShoppingCartOutlined />
+                  </Badge>
+                )}
+              </MenuItem>
+            </Link>
+          </SearchContainerMobile>
         </Left>
         <Right>
+          {/* USER EXISTS? */}
           {username ? (
             <>
               {e.map((i) => {
@@ -239,7 +317,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     key={id}
                     to={route}
                     style={{ textDecoration: 'none' }}
-                    tabIndex='0'
+                    tabIndex="0"
                   >
                     <MenuItem>{name}</MenuItem>
                   </Link>
@@ -256,39 +334,32 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     key={id}
                     to={route}
                     style={{ textDecoration: 'none' }}
-                    tabIndex='0'
+                    tabIndex="0"
                   >
                     <MenuItem>{name}</MenuItem>
                   </Link>
                 );
               })}
-              <Link
-                to='/auth'
-                style={{ textDecoration: 'none' }}
-              >
+              <Link to="/auth" style={{ textDecoration: 'none' }}>
                 <MenuItem>Login</MenuItem>
               </Link>
             </>
           )}
-          <Link
-            to='/cart'
-            style={{ textDecoration: 'none' }}
-            tabIndex='0'
-          >
+          <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="0">
             <MenuItem>
               {quantity > 0 ? (
                 <Badge
                   badgeContent={quantity}
-                  color='primary'
-                  overlap='rectangular'
+                  color="primary"
+                  overlap="rectangular"
                 >
                   <ShoppingCart />
                 </Badge>
               ) : (
                 <Badge
                   badgeContent={quantity}
-                  color='primary'
-                  overlap='rectangular'
+                  color="primary"
+                  overlap="rectangular"
                 >
                   <ShoppingCartOutlined />
                 </Badge>
@@ -296,18 +367,52 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </MenuItem>
           </Link>
         </Right>
+        {/* MOBILE NAVBAR */}
+        {isMenuOpen && (
+          <MenuDropdownContainer>
+            <MenuDropdown>
+              {username ? (
+                <>
+                  {e.map((i) => {
+                    const { id, route, name } = i;
+                    return (
+                      <Link
+                        key={id}
+                        to={route}
+                        style={{ textDecoration: 'none' }}
+                        tabIndex="0"
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                      >
+                        <MenuItem>{name}</MenuItem>
+                      </Link>
+                    );
+                  })}
+                  <Username>{username}</Username>
+                </>
+              ) : (
+                <>
+                  {e.map((i) => {
+                    const { id, route, name } = i;
+                    return (
+                      <Link
+                        key={id}
+                        to={route}
+                        style={{ textDecoration: 'none' }}
+                        tabIndex="0"
+                      >
+                        <MenuItem>{name}</MenuItem>
+                      </Link>
+                    );
+                  })}
+                  <Link to="/auth" style={{ textDecoration: 'none' }}>
+                    <MenuItem>Login</MenuItem>
+                  </Link>
+                </>
+              )}
+            </MenuDropdown>
+          </MenuDropdownContainer>
+        )}
       </Wrapper>
-      <SearchContainerMobile>
-        <Input
-          placeholder='Search'
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <Search
-          style={{ color: 'gray', fontSize: 35 }}
-          onClick={SearchProduct}
-        />
-      </SearchContainerMobile>
     </Container>
   );
 };

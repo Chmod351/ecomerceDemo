@@ -28,14 +28,6 @@ const Container = styled.div`
   position: relative;
 `;
 
-const Circle = styled.div`
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.bgLighter};
-  position: absolute;
-`;
-
 const Image = styled.img`
   height: 75%;
   z-index: 2;
@@ -52,6 +44,7 @@ const Icon = styled.div`
   margin: 0.625rem;
   transition: all 0.5s ease;
   color: ${({ theme }) => theme.bg};
+  cursor: pointer;
   &:hover {
     transform: scale(1.1);
   }
@@ -72,6 +65,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.bg};
 `;
+
 const Product = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
@@ -80,29 +74,33 @@ const Product = ({ product }) => {
     try {
       dispatch(addProduct({ ...product, quantity }));
       setQuantity(1);
-      handleSuccess("added");
+      handleSuccess('added');
     } catch (error) {
       handleError(error);
     }
   };
-  
+
   return (
-    <Article>
-      <Link
-        to={`/product/${product._id}`}
-        style={{ textDecoration: 'none' }}
-      >
+    <Article id="Product" tabIndex="0">
+      <Link to={`/product/${product._id}`} style={{ textDecoration: 'none' }}>
         <Container>
-          <Circle />
           <Image src={product.imgUrl} />
         </Container>
       </Link>
       <IconContainer>
         <Price>${product.price}</Price>
-        <Icon onClick={handleClick}>
+        <Icon
+          onClick={handleClick}
+          tabIndex="0"
+          onKeyUp={(e) => {
+            if (e.key === 'Enter') {
+              handleClick();
+            }
+          }}
+        >
           <ShoppingCartOutlined />
         </Icon>
-        <Icon>
+        <Icon tabIndex="0">
           <StyledLink
             to={`/product/${product._id}`}
             style={{
@@ -112,7 +110,7 @@ const Product = ({ product }) => {
             <SearchOutlined />
           </StyledLink>
         </Icon>
-        <Icon>
+        <Icon tabIndex="0">
           <FavoriteBorderOutlined />
         </Icon>
       </IconContainer>

@@ -5,10 +5,12 @@ import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
 import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
+import { color } from '../data/colorData';
+import { size } from '../data/sizeData';
 
 const Container = styled.div`
   height: 100vh;
-  background-color: ${({ theme }) => theme.bgLighter};
+  background-color: ${({ theme }) => theme.bg};
 `;
 
 const Title = styled.h1`
@@ -83,21 +85,15 @@ const ProductList = ({ darkMode, setDarkMode }) => {
           <FilterText>Filter Products:</FilterText>
           <Select name="color" onChange={handleFilters}>
             <Option disabled>Color</Option>
-            <Option>All</Option>
-            <Option>black</Option>
-            <Option>white</Option>
-            <Option>red</Option>
-            <Option>blue</Option>
-            <Option>yellow</Option>
-            <Option>green</Option>
+            {color.map((c) => {
+              return <Option key={c.id}>{c.color}</Option>;
+            })}
           </Select>
           <Select name="size" onChange={handleFilters}>
             <Option disabled>Size</Option>
-            <Option>XS</Option>
-            <Option>S</Option>
-            <Option>M</Option>
-            <Option>L</Option>
-            <Option>XL</Option>
+            {size.map((s) => {
+              return <Option key={s.id}>{s.size}</Option>;
+            })}
           </Select>
         </Filter>
         <Filter>

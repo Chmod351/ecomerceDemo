@@ -26,7 +26,7 @@ const Container = styled.header`
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   ${mobile({
-    height: '4rem',
+   top:'0',
     position: 'fixed',
     zIndex: '999',
     width: '100vw',
@@ -183,7 +183,8 @@ const DarkLabel = styled.label`
   ${mobile({ display: 'none' })}
 `;
 const MenuIconMobile = styled.div`
-  ${pc({ display: 'none' })}
+  display: none;
+  ${mobile({ display: 'flex' })}
 `;
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
@@ -195,12 +196,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const SearchProduct = async (e) => {
     e.preventDefault();
     try {
-      const product = await publicRequest.get(`/product/search?q=${query}`);
-      if (product.data.length === 1) {
-        const firstProduct = product.data[0];
+      const response = await publicRequest.get(`/product/search?q=${query}`);
+      const products = response.data;
+      if (products.length === 1) {
+        const firstProduct = products[0];
         history.push(`/product/${firstProduct._id}`);
-      } else {
+      } else if (products.length > 1) {
         history.push(`/products/search/${query}`);
+      } else {
+        console.log('No se encontraron productos');
       }
     } catch (error) {
       handleError(error);

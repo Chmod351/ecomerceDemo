@@ -111,8 +111,8 @@ const Footer = () => {
             {social.map((i) => {
               const { id, color, icon, link } = i;
               return (
-                <a href={link}>
-                  <SocialIcon color={color} key={id}>
+                <a href={link} key={id}>
+                  <SocialIcon color={color}>
                     {icon}
                   </SocialIcon>
                 </a>

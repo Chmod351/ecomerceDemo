@@ -283,7 +283,7 @@ const Product = ({ darkMode, setDarkMode }) => {
               </AddContainer>
             </InfoContainer>
           </Wrapper>
-          <Products tags={product.tags} />
+          <Products tag={product.tags} />
         </>
       ) : (
         ''

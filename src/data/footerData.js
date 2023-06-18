@@ -1,10 +1,8 @@
 import {
   Facebook,
   Twitter,
-  PhoneInTalk,
+  
   Instagram,
-  WhatsApp,
-  LocationOn,
   MailOutline,
   Phone,
   Room,
@@ -14,43 +12,43 @@ import {
 
 export const e = [
   {
-    id: 1,
+    id: 21,
     route: '/products/shirt',
     name: 'Shirts',
   },
   {
-    id: 2,
+    id: 22,
     route: '/products/coat',
     name: 'Coats',
   },
   {
-    id: 3,
+    id: 23,
     route: '/products/jacket',
     name: 'Jackets',
   },
   {
-    id: 4,
+    id: 24,
     route: '/',
     name: 'Home',
   },
 
   {
-    id: 5,
+    id: 25,
     route: '/Cart',
     name: 'Wishlist',
   },
   {
-    id: 6,
+    id: 26,
     route: '/',
     name: 'My Account',
   },
   {
-    id: 7,
+    id: 27,
     route: '/',
     name: 'Terms',
   },
   {
-    id: 8,
+    id: 28,
     route: '/',
     name: 'Privacy Policy',
   },
@@ -58,21 +56,21 @@ export const e = [
 
 export const social = [
   {
-    id: 1,
+    id: 31,
     icon: <Facebook />,
     platform: 'Facebook',
     color: '3B5999',
     link: 'https://www.facebook.com',
   },
   {
-    id: 2,
+    id: 32,
     icon: <Twitter />,
     platform: 'Tiwtter',
     color: '55ACEE',
     link: 'https://www.twitter.com',
   },
   {
-    id: 3,
+    id: 33,
     icon: <Instagram />,
     platform: 'Instagram',
     color: 'E4405F',
@@ -82,19 +80,19 @@ export const social = [
 
 export const contact = [
   {
-    id: 1,
+    id: 331,
     icon: <Room style={{ marginRight: '10px' }} />,
-    text: '22 Dixie Path ,South Tobinchester 98336',
+    text: '351 Jes Kasper ,South Tobhchanester 666',
     url: 'https://osm.org/go/N2AIN--?m=',
   },
   {
-    id: 2,
+    id: 332,
     icon: <Phone style={{ marginRight: '10px' }} />,
     text: '+54 9 2234 556 5578',
     url: '',
   },
   {
-    id: 3,
+    id: 333,
     icon: <MailOutline style={{ marginRight: '10px' }} />,
     text: 'y.kasper@protonmail.com',
     url: 'mailto:y.kasper@protonmail.com',

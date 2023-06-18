@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { sliderItems } from '../data/sliderData';
 import { mobile } from '../responsive';
 
-const Container = styled.div`
+const Container = styled.section`
   width: 100%;
   height: 100vh;
   display: flex;
@@ -101,7 +101,7 @@ const Slider = () => {
   };
 
   return (
-    <Container>
+    <Container id="Home">
       <Arrow direction="left" onClick={() => handleClick('left')}>
         <ArrowLeftOutlined />
       </Arrow>
@@ -109,7 +109,9 @@ const Slider = () => {
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
-              <Image src={item.img} />
+              <Link to={item.url}>
+                <Image src={item.img} alt={item.alt} />
+              </Link>
             </ImgContainer>
             <InfoContainer>
               <Title>{item.title}</Title>

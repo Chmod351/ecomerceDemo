@@ -388,9 +388,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                         to={route}
                         style={{ textDecoration: 'none' }}
                         tabIndex="0"
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
                       >
-                        <MenuItem>{name}</MenuItem>
+                        <MenuItem onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                          {name}
+                        </MenuItem>
                       </Link>
                     );
                   })}

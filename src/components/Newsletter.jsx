@@ -25,6 +25,7 @@ const Desc = styled.div`
 `;
 
 const InputContainer = styled.div`
+  max-width:1200px;
   width: 50%;
   height: 2.5rem;
   background-color: white;

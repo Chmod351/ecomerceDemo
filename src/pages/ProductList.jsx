@@ -7,10 +7,12 @@ import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
 import { color } from '../data/colorData';
 import { size } from '../data/sizeData';
-
+import Footer from '../components/Footer';
 const Container = styled.section`
   height: 100vh;
   background-color: ${({ theme }) => theme.bg};
+ ${mobile({ marginTop: '1.25rem'})}
+
 `;
 
 const FilterContainer = styled.div`
@@ -102,6 +104,7 @@ const ProductList = ({ darkMode, setDarkMode }) => {
       </FilterContainer>
       <Products tag={tags} filters={filters} sort={sort} query={query} />
       <Newsletter />
+      <Footer />
     </Container>
   );
 };

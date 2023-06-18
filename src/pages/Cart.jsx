@@ -49,8 +49,15 @@ const TopButton = styled.button`
   padding: 0.625rem;
   font-weight: 600;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.bg};
-  color: ${({ theme }) => theme.text};
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: black;
+  background-color: gold;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: yellow;
+  }
 `;
 
 const TopTexts = styled.div`
@@ -262,7 +269,20 @@ const Cart = ({ darkMode, setDarkMode }) => {
             <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled">
+            <StripeCheckout
+              name="Cierva Design"
+              image={logo}
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              CHECKOUT NOW
+            </StripeCheckout>
+          </TopButton>
         </Top>
         {cart.products.length > 0 ? (
           <Bottom>

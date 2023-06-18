@@ -174,7 +174,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     }
     setQuery('');
   };
-
   return (
     <Container>
       <Wrapper>
@@ -271,7 +270,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
               </Link>
             </>
           )}
-
           <Link
             to='/cart'
             style={{ textDecoration: 'none' }}

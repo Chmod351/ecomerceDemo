@@ -53,8 +53,17 @@ const Input = styled.input`
   width: 94%;
   margin: 1rem 0.625rem 0rem 0rem;
   padding: 0.625rem;
+  outline: none;
+  font-weight: bold;
+  border: none;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.text}; /* Agrega esta línea */
+  background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};
-  background-color: ${({ theme }) => theme.bgLighter};
+  &:focus {
+    background-color: ${({ theme }) => theme.textSoft};
+    color: ${({ theme }) => theme.bg};
+  }
 `;
 
 const Agreement = styled.span`
@@ -129,12 +138,10 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormValues((prevFormValues) => ({
       ...prevFormValues,
       [name]: value,
     }));
-
     switch (name) {
       case 'username':
         validateUsername(value, setMsg, setUsername);
@@ -176,6 +183,7 @@ const Register = () => {
                   name={name}
                   value={formValues[name]}
                   onChange={handleChange}
+                  tabIndex="0"
                 />
               </InputContainer>
             );
@@ -186,15 +194,15 @@ const Register = () => {
             <Agreement>
               By creating an account, I consent to the processing of my personal
               data in accordance with the{' '}
-              <Link to="/" target="_blank">
+              <Link to="/" target="_blank" tabIndex="0">
                 PRIVACY POLICY
               </Link>
             </Agreement>
           ) : (
             ''
           )}
-
           <Button
+            tabIndex="0"
             type="submit"
             onClick={handleClick}
             onKeyUp={(e) => {
@@ -207,6 +215,7 @@ const Register = () => {
             {islogin ? 'Submit' : 'CREATE'}
           </Button>
           <Button
+            tabIndex="0"
             type="submit"
             onClick={(e) => {
               e.preventDefault();

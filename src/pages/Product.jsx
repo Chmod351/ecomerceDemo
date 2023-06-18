@@ -214,7 +214,6 @@ const Product = ({ darkMode, setDarkMode }) => {
             <InfoContainer>
               <Title tabIndex="0">{product.name}</Title>
               <Desc tabIndex="0">{product.hot}</Desc>
-
               <Description tabIndex="0">{product.description}</Description>
               <Price tabIndex="0">$ {product.price}</Price>
               <FilterContainer>

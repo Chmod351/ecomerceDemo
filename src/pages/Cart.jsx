@@ -6,8 +6,8 @@ import { mobile, pc } from '../responsive';
 import StripeCheckout from 'react-stripe-checkout';
 import { useEffect, useState } from 'react';
 import { publicRequest } from '../requestMethods';
-import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assests/logo.png';
 import { handleError, handleSuccess } from '../utils/toast';
 import { addProduct, removeProduct } from '../redux/cartRedux';
@@ -15,10 +15,9 @@ import { useDispatch } from 'react-redux';
 import Footer from '../components/Footer';
 const KEY = process.env.REACT_APP_STRIPE;
 
-const Container = styled.div`
+const Container = styled.section`
   min-height: 100vh;
   max-height: auto;
-  height: 100%;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   ${mobile({ maxWidth: '100vw', padding: '0' })}
@@ -38,7 +37,7 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const Top = styled.div`
+const Top = styled.aside`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -77,11 +76,11 @@ const Bottom = styled.div`
   ${mobile({ flexDirection: 'column', overflow: 'hidden' })}
 `;
 
-const Info = styled.div`
+const Info = styled.section`
   flex: 3;
 `;
 
-const Product = styled.div`
+const Product = styled.article`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: 'column', justifyContent: 'center' })}
@@ -147,7 +146,7 @@ const Hr = styled.hr`
   height: 1px;
 `;
 
-const Summary = styled.div`
+const Summary = styled.aside`
   flex: 1;
   border: 0.5px solid lightgray;
   border-radius: 0.625rem;
@@ -156,7 +155,7 @@ const Summary = styled.div`
   ${mobile({ height: '10rem', padding: '1rem', margin: '0 1rem' })}
 `;
 
-const SummaryTitle = styled.h1`
+const SummaryTitle = styled.h2`
   font-weight: 200;
 `;
 
@@ -240,9 +239,9 @@ const Cart = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await publicRequest.post('/purchase', {
+        const res = await publicRequest.post('/purchase/payment', {
           tokenId: stripeToken.id,
-          amount: 500,
+          amount: cart.total,
         });
         history.push('/success', {
           stripeData: res.data,
@@ -255,7 +254,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, history]);
-
+  console.log(cart);
   return (
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -290,7 +289,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
               {cart.products.map((product, index) => (
                 <Product>
                   <ProductDetail>
-                    <Image src={product.imgUrl} />
+                    <Image src={product.imgUrl} alt={product.description} />
                     <Details>
                       <ProductName>
                         <b>Product:</b> {product.name}
@@ -304,11 +303,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
                   <PriceDetail>
                     <ProductAmountContainer>
                       <Icon onClick={() => handleAdd(index)}>
-                        <Add />
+                        <Add aria-label="Add" />
                       </Icon>
                       <ProductAmount>{product.quantity}</ProductAmount>
                       <Icon onClick={() => handleRemove(index)}>
-                        <Remove />
+                        <Remove aria-label="Remove" />
                       </Icon>
                     </ProductAmountContainer>
                     <ProductPrice>

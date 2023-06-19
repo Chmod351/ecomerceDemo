@@ -9,7 +9,6 @@ import {
   matchPasswords,
   verifyEmail,
   handleRegistration,
-  handleLogin,
 } from '../utils/RegisterLogic.js';
 import { Messages } from '../utils/errors';
 import { register } from '../data/registerData';
@@ -125,7 +124,7 @@ const Register = () => {
     e.preventDefault();
     setOff(true);
     if (islogin) {
-      await handleLogin(email, password, setMsg, dispatch);
+      await login(dispatch, email, password, setMsg);
     } else {
       setMsg('message');
       await handleRegistration(email, password, username, setMsg);

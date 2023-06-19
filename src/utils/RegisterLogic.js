@@ -1,4 +1,3 @@
-import { login } from '../redux/apiCalls';
 import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from '../utils/toast';
 
@@ -61,22 +60,6 @@ export const handleRegistration = async (email, password, username, setMsg) => {
     });
     handleSuccess('created');
     setMsg('created');
-  } catch (error) {
-    setMsg(error.message);
-    handleError(error);
-    setMsg('');
-  }
-};
-
-//login
-export const handleLogin = async (email, password, setMsg, dispatch) => {
-  try {
-    setMsg('login');
-    await publicRequest.post('/signin', {
-      email,
-      password,
-    });
-    await login(dispatch, email, password, setMsg);
   } catch (error) {
     setMsg(error.message);
     handleError(error);

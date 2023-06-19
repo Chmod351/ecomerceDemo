@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { userRequest } from '../requestMethods';
+import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from '../utils/toast';
 const Success = () => {
   const location = useLocation();
@@ -13,7 +13,7 @@ const Success = () => {
   useEffect(() => {
     const createOrder = async () => {
       try {
-        const res = await userRequest.post('/orders', {
+        const res = await publicRequest.post('/orders', {
           userId: currentUser._id,
           products: cart.products.map((item) => ({
             productId: item._id,
@@ -50,4 +50,3 @@ const Success = () => {
 };
 
 export default Success;
-

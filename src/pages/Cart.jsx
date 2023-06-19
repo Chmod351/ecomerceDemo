@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import { mobile, pc } from '../responsive';
 import StripeCheckout from 'react-stripe-checkout';
 import { useEffect, useState } from 'react';
-import { userRequest } from '../requestMethods';
+import { publicRequest } from '../requestMethods';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import logo from '../assests/logo.png';
@@ -240,7 +240,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest.post('/purchase', {
+        const res = await publicRequest.post('/purchase', {
           tokenId: stripeToken.id,
           amount: 500,
         });

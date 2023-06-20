@@ -17,9 +17,9 @@ export const login = async (dispatch, email, password, setMsg) => {
   }
 };
 
-export const addToCart = (product) => async (dispatch) => {
+export const addToCart = async (product, dispatch) => {
   try {
-    const res = await publicRequest.post('/cart', product);
+    const res = await publicRequest.post('/cart', { products: [product] });
     dispatch(addProduct(res.data));
     handleSuccess('added');
   } catch (error) {

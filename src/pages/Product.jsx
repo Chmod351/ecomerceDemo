@@ -7,13 +7,13 @@ import { mobile } from '../responsive';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { publicRequest } from '../requestMethods';
-import { addProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import Products from '../components/Products';
 import { handleError, handleSuccess } from '../utils/toast';
 import Footer from '../components/Footer';
 import Loading from './Loading';
+import { addToCart } from '../redux/apiCalls';
 
 const Container = styled.section`
   display-items: center;
@@ -175,9 +175,10 @@ const Product = ({ darkMode, setDarkMode }) => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       try {
         const res = await publicRequest.get(`/product/${id}`);
-        setProduct(res.data);
-        setColor(res.data.color[0]);
-        setSize(res.data.size[0]);
+        const productResponse = { productId: res.data._id, ...res.data };
+        setProduct(productResponse);
+        setColor(productResponse.color[0]);
+        setSize(productResponse.size[0]);
       } catch (error) {
         handleError(error);
       }
@@ -192,15 +193,10 @@ const Product = ({ darkMode, setDarkMode }) => {
       setQuantity(quantity + 1);
     }
   };
-
+  console.log(product);
   const handleClick = async () => {
-    try {
-       dispatch(addProduct({ ...product, quantity, color, size }));
-   setQuantity(1);
-      handleSuccess('added');
-    } catch (error) {
-      handleError(error);
-    }
+    await addToCart(product, dispatch);
+    setQuantity(1);
   };
   return (
     <Container>

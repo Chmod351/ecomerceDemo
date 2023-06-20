@@ -253,8 +253,9 @@ const Cart = ({ darkMode, setDarkMode }) => {
       }
     };
     stripeToken && makeRequest();
-  }, [stripeToken, cart.total, history]);
-  console.log(cart);
+  }, [stripeToken, cart, history]);
+  
+
   return (
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -326,11 +327,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
               </SummaryItem>
               <SummaryItem>
                 <SummaryItemText>Estimated Shipping</SummaryItemText>
-                <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+                <SummaryItemPrice>$ 35.90</SummaryItemPrice>
               </SummaryItem>
               <SummaryItem>
                 <SummaryItemText>Shipping Discount</SummaryItemText>
-                <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+                <SummaryItemPrice>$ -35.90</SummaryItemPrice>
               </SummaryItem>
               <SummaryItem type="total">
                 <SummaryItemText>Total</SummaryItemText>

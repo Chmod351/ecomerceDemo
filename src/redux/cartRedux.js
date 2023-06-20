@@ -9,6 +9,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
+        
       const existingProductIndex = state.products.findIndex(
         (p) => p._id === action.payload._id
       );

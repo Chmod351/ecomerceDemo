@@ -1,6 +1,7 @@
 import { loginFailure, loginStart, loginSuccess } from './userRedux';
 import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from '../utils/toast';
+import { addProduct } from './cartRedux';
 
 export const login = async (dispatch, email, password, setMsg) => {
   setMsg('');
@@ -13,5 +14,15 @@ export const login = async (dispatch, email, password, setMsg) => {
     setMsg(error.message);
     handleError(error);
     dispatch(loginFailure());
+  }
+};
+
+export const addToCart = (product) => async (dispatch) => {
+  try {
+    const res = await publicRequest.post('/cart', product);
+    dispatch(addProduct(res.data));
+    handleSuccess('added');
+  } catch (error) {
+    handleError(error);
   }
 };

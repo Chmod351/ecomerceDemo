@@ -193,10 +193,10 @@ const Product = ({ darkMode, setDarkMode }) => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     try {
-      dispatch(addProduct({ ...product, quantity, color, size }));
-      setQuantity(1);
+       dispatch(addProduct({ ...product, quantity, color, size }));
+   setQuantity(1);
       handleSuccess('added');
     } catch (error) {
       handleError(error);

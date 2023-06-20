@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from '../utils/toast';
 import styled from 'styled-components';

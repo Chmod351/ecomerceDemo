@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { color } from '../data/colorData';
 import { size } from '../data/sizeData';

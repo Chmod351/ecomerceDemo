@@ -13,7 +13,7 @@ import Products from '../components/Products';
 import { handleError, handleSuccess } from '../utils/toast';
 import Footer from '../components/Footer';
 import Loading from './Loading';
-import { addToCart } from '../redux/apiCalls';
+import { addProduct } from '../redux/cartRedux';
 
 const Container = styled.section`
   display-items: center;
@@ -193,10 +193,16 @@ const Product = ({ darkMode, setDarkMode }) => {
       setQuantity(quantity + 1);
     }
   };
-  console.log(product);
-  const handleClick = async () => {
-    await addToCart(product, dispatch);
-    setQuantity(1);
+
+  const handleClick = () => {
+    try {
+      dispatch(addProduct({ ...product, quantity, color, size }));
+      handleSuccess('added');
+      setQuantity(1);
+    } catch (error) {
+      console.log(error);
+      handleError(error);
+    }
   };
   return (
     <Container>

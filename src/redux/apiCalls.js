@@ -3,6 +3,8 @@ import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from '../utils/toast';
 import { addProduct } from './cartRedux';
 
+
+// LOGIN 
 export const login = async (dispatch, email, password, setMsg) => {
   setMsg('');
   dispatch(loginStart());
@@ -16,6 +18,11 @@ export const login = async (dispatch, email, password, setMsg) => {
     dispatch(loginFailure());
   }
 };
+
+
+// __________________________________________________________________
+
+
 
 export const addToCart = async (product, dispatch) => {
   try {

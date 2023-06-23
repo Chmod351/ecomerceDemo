@@ -8,10 +8,18 @@ export const mobile = (props) => {
   `;
 };
 
-export const pc=(props)=>{
+export const pc = (props) => {
   return css`
-  @media only screen and (min-width: 1020px) {
-    ${props}
-  }
-`;
-}
+    @media only screen and (min-width: 1020px) {
+      ${props}
+    }
+  `;
+};
+
+export const tablet = (props) => {
+  return css`
+    @media only screen and (min-width: 1000px) {
+      ${props}
+    }
+  `;
+};

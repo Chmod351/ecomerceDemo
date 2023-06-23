@@ -79,6 +79,8 @@ const Bottom = styled.div`
 
 const Info = styled.section`
   flex: 3;
+  background-color: ${({ theme }) => theme.bg};
+  padding: 0.5rem;
 `;
 
 const Product = styled.article`

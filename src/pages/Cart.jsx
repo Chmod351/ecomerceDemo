@@ -83,8 +83,10 @@ const Info = styled.section`
 
 const Product = styled.article`
   display: flex;
+
   justify-content: space-between;
   ${mobile({ flexDirection: 'column', justifyContent: 'center' })}
+  ${pc({ padding: '0.2rem 0rem' })}
 `;
 
 const ProductDetail = styled.div`
@@ -197,6 +199,16 @@ const Icon = styled.button`
   cursor: pointer;
   justify-content: center;
   color: ${({ theme }) => theme.bg};
+  &:hover {
+    background-color: ${({ theme }) => theme.bg};
+    border: 1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+  &:focus {
+    background-color: ${({ theme }) => theme.bg};
+    border: 1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 const Message = styled.p`
   display: flex;
@@ -240,6 +252,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
   useEffect(() => {
     const makeRequest = async () => {
       try {
@@ -266,13 +279,12 @@ const Cart = ({ darkMode, setDarkMode }) => {
         <Title>YOUR BAG</Title>
         <Top>
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <TopButton>CONTINUE SHOPPING</TopButton>
+            <TopButton tabIndex="0">CONTINUE SHOPPING</TopButton>
           </Link>
           <TopTexts>
-            <TopText>Shopping Bag({cart.quantity})</TopText>
-            <TopText>Your Wishlist (0)</TopText>
+            <TopText tabIndex="0">Shopping Bag({cart.quantity})</TopText>
           </TopTexts>
-          <TopButton type="filled">
+          <TopButton type="filled" tabIndex="0">
             <StripeCheckout
               name="Cierva Design"
               image={logo}
@@ -291,9 +303,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
           <Bottom>
             <Info>
               {cart.products.map((product, index) => (
-                <Product>
+                <Product tabIndex="0">
                   <ProductDetail>
-                    <Image src={product.imgUrl} alt={product.description} />
+                    <Link to={`/product/${product._id}`}>
+                      <Image src={product.imgUrl} alt={product.description} />
+                    </Link>
                     <Details>
                       <ProductName>
                         <b>Product:</b> {product.name}
@@ -304,13 +318,14 @@ const Cart = ({ darkMode, setDarkMode }) => {
                       </ProductSize>
                     </Details>
                   </ProductDetail>
+
                   <PriceDetail>
                     <ProductAmountContainer>
-                      <Icon onClick={() => handleAdd(index)}>
+                      <Icon onClick={() => handleAdd(index)} tabIndex="0">
                         <Add aria-label="Add" />
                       </Icon>
                       <ProductAmount>{product.quantity}</ProductAmount>
-                      <Icon onClick={() => handleRemove(index)}>
+                      <Icon onClick={() => handleRemove(index)} tabIndex="0">
                         <Remove aria-label="Remove" />
                       </Icon>
                     </ProductAmountContainer>
@@ -340,7 +355,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <SummaryItemText>Total</SummaryItemText>
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
-              <Button>
+              <Button tabIndex="0">
                 <StripeCheckout
                   name="Cierva Design"
                   image={logo}

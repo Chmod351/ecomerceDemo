@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 import { mobile, pc } from '../responsive';
 import StripeCheckout from 'react-stripe-checkout';
 import { useEffect, useState } from 'react';
-import { publicRequest } from '../requestMethods';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import logo from '../assests/logo.png';
@@ -13,6 +12,7 @@ import { handleError, handleSuccess } from '../utils/toast';
 import { addProduct, removeProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import Footer from '../components/Footer';
+import { addToCart, payment } from '../redux/apiCalls';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.section`
@@ -258,7 +258,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
-
   const handleRemove = (index) => {
     dispatch(removeProduct(cart.products[index]));
     handleSuccess('removed');
@@ -276,21 +275,17 @@ const Cart = ({ darkMode, setDarkMode }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  const handleClick = async () => {
+    await addToCart(cart.products);
+  };
+
   useEffect(() => {
     const makeRequest = async () => {
-      try {
-        const res = await publicRequest.post('/purchase/payment', {
-          tokenId: stripeToken.id,
-          amount: cart.total,
-        });
-        history.push('/success', {
-          stripeData: res.data,
-          products: cart,
-        });
-      } catch (error) {
-        handleError(error);
-        console.log(error);
-      }
+      const res = await payment(stripeToken.id, cart.total);
+      history.push('/success', {
+        stripeData: res.data,
+        products: cart,
+      });
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart, history]);
@@ -308,9 +303,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
             <TopText tabIndex="0">Shopping Bag({cart.quantity})</TopText>
           </TopTexts>
           {username ? (
-            <TopButtonCheckout tabIndex="0">
-                CHECKOUT NOW
-            </TopButtonCheckout>
+            <TopButtonCheckout tabIndex="0">CHECKOUT NOW</TopButtonCheckout>
           ) : (
             <Link to="/auth">
               <TopButtonCheckout tabIndex="0">Login NOW</TopButtonCheckout>
@@ -374,7 +367,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
               {username ? (
-                <Button tabIndex="0">
+                <Button tabIndex="0" onClick={handleClick}>
                   <StripeCheckout
                     name="Cierva Design"
                     image={logo}

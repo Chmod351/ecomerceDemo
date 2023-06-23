@@ -49,9 +49,10 @@ const Wrapper = styled.nav`
 `;
 
 const Left = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
+  ${pc({ flex: '1' })}
+  ${mobile({ justifyContent: 'center', maxWidth: '100vw', width: '100%' })}
 `;
 
 const SearchContainer = styled.div`

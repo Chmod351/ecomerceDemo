@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 const Container = styled.section`
   height: 100vh;
   background-color: ${({ theme }) => theme.bg};
-  ${mobile({ marginTop: '1.25rem' })}
+  ${mobile({ marginTop: '1.25rem' ,  marginTop: '5rem'})}
 `;
 
 const FilterContainer = styled.div`

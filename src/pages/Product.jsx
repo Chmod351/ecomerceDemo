@@ -17,7 +17,6 @@ import { addProduct } from '../redux/cartRedux';
 
 const Container = styled.section`
   display-items: center;
-
   background-color: ${({ theme }) => theme.bgLighter};
 `;
 
@@ -26,7 +25,7 @@ const Wrapper = styled.article`
   margin: auto;
   padding: 50px;
   display: flex;
-  ${mobile({ padding: '10px', flexDirection: 'column' })}
+  ${mobile({ padding: '10px', flexDirection: 'column', marginTop: '5rem' })}
 `;
 
 const ImgContainer = styled.div`
@@ -37,7 +36,7 @@ const Image = styled.img`
   width: 100%;
   height: 90vh;
   object-fit: cover;
-  ${mobile({ height: '40vh' })}
+  ${mobile({ height: '100%' })}
 `;
 
 const InfoContainer = styled.div`

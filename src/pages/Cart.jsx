@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   max-width: 1200px;
   align-items: center;
   margin: auto;
-  ${mobile({ padding: '1rem 0rem' })}
+${mobile({ padding: '1rem 0rem',marginTop:'5rem' })}
   ${pc({ padding: '1rem 0rem' })}
 `;
 

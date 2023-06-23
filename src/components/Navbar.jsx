@@ -156,6 +156,11 @@ const Label = styled.label`
     border: 0.1px solid ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.text};
   }
+  &:focus {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 const MenuDropdownContainer = styled.div`
   position: absolute;

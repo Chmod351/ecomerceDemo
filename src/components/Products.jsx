@@ -49,6 +49,11 @@ const PageButton = styled.button`
     opacity: 0.5;
     cursor: not-allowed;
   }
+ &:focus {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 const Icon = styled.div`
   width: 2.5rem;
@@ -67,6 +72,11 @@ const Icon = styled.div`
     cursor: not-allowed;
   }
   &:hover {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+  &:focus {
     background-color: ${({ theme }) => theme.bgLighter};
     border: 0.1px solid ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.text};

@@ -143,6 +143,10 @@ const Button = styled.button`
     background-color: ${({ theme }) => theme.soft};
     color: ${({ theme }) => theme.bgLighter};
   }
+  &:focus {
+    background-color: ${({ theme }) => theme.soft};
+    color: ${({ theme }) => theme.bgLighter};
+  }
 `;
 const Description = styled.p`
   font-size: 1rem;
@@ -152,13 +156,18 @@ const Icon = styled.button`
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  border: none;
+  border: 1px solid transparent;
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
   cursor: pointer;
   justify-content: center;
   color: ${({ theme }) => theme.bg};
+  &:focus {
+    background-color: ${({ theme }) => theme.bg};
+    border: 1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 
 const Product = ({ darkMode, setDarkMode }) => {
@@ -228,6 +237,11 @@ const Product = ({ darkMode, setDarkMode }) => {
                       color={c}
                       key={c}
                       onClick={() => setColor(c)}
+                      onKeyUp={(e) => {
+                        if (e.key === 'Enter') {
+                          setColor(c);
+                        }
+                      }}
                     />
                   ))}
                 </Filter>
@@ -250,7 +264,7 @@ const Product = ({ darkMode, setDarkMode }) => {
                   <Icon
                     onClick={() => handleQuantity('dec')}
                     tabIndex="0"
-                    onKeyUp={(e) => {
+                    onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         handleSuccess('desc');
                       }
@@ -263,7 +277,7 @@ const Product = ({ darkMode, setDarkMode }) => {
                   <Icon
                     onClick={() => handleQuantity('inc')}
                     tabIndex="0"
-                    onKeyUp={(e) => {
+                    onKeyDown={(e) => {
                       if (e.key === 'Enter') {
                         handleQuantity('inc');
                       }

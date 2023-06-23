@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   max-width: 1200px;
   align-items: center;
   margin: auto;
-${mobile({ padding: '1rem 0rem',marginTop:'5rem' })}
+  ${mobile({ padding: '1rem 0rem', marginTop: '5rem' })}
   ${pc({ padding: '1rem 0rem' })}
 `;
 
@@ -49,7 +49,18 @@ const TopButton = styled.button`
   padding: 0.625rem;
   font-weight: 600;
   cursor: pointer;
-  border: none;
+  border: 1px solid ${({ theme }) => theme.bg};
+  font-weight: 600;
+  cursor: pointer;
+  color: ${({ theme }) => theme.textSoft};
+  background-color: ${({ theme }) => theme.soft};
+  transition: background-color 0.3s ease;
+`;
+const TopButtonCheckout = styled.button`
+  padding: 0.625rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid ${({ theme }) => theme.bg};
   font-weight: 600;
   cursor: pointer;
   color: black;
@@ -59,7 +70,6 @@ const TopButton = styled.button`
     background-color: yellow;
   }
 `;
-
 const TopTexts = styled.div`
   ${mobile({ display: 'none' })}
 `;
@@ -286,7 +296,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
           <TopTexts>
             <TopText tabIndex="0">Shopping Bag({cart.quantity})</TopText>
           </TopTexts>
-          <TopButton type="filled" tabIndex="0">
+          <TopButtonCheckout type="filled" tabIndex="0">
             <StripeCheckout
               name="Cierva Design"
               image={logo}
@@ -299,7 +309,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
             >
               CHECKOUT NOW
             </StripeCheckout>
-          </TopButton>
+          </TopButtonCheckout>
         </Top>
         {cart.products.length > 0 ? (
           <Bottom>

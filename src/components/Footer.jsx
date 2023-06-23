@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { contact, e, social } from '../data/footerData';
-import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Container = styled.footer`
   background-color: ${({ theme }) => theme.bg};
@@ -9,10 +9,8 @@ const Container = styled.footer`
 
 const Wrapper = styled.div`
   color: ${({ theme }) => theme.text};
-  background-color: ${({ theme }) => theme.bg};
   display: flex;
   margin: auto;
-
   max-width: 1200px;
   ${mobile({ flexDirection: 'column', display: 'flex' })}
 `;

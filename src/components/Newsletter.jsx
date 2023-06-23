@@ -4,7 +4,7 @@ import { mobile } from '../responsive';
 
 const Container = styled.section`
   height: 60vh;
-  background-color: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   display: flex;
   align-items: center;

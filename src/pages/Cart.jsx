@@ -69,6 +69,11 @@ const TopButtonCheckout = styled.button`
   &:hover {
     background-color: yellow;
   }
+  &:focus {
+    background-color: ${({ theme }) => theme.bg};
+    border: 1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 const TopTexts = styled.div`
   ${mobile({ display: 'none' })}
@@ -198,6 +203,11 @@ const Button = styled.button`
   &:hover {
     background-color: yellow;
   }
+  &:focus {
+    background-color: ${({ theme }) => theme.bg};
+    border: 1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 
 const Icon = styled.button`
@@ -299,18 +309,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
           </TopTexts>
           {username ? (
             <TopButtonCheckout tabIndex="0">
-              <StripeCheckout
-                name="Cierva Design"
-                image={logo}
-                billingAddress
-                shippingAddress
-                description={`Your total is $${cart.total}`}
-                amount={cart.total * 100}
-                token={onToken}
-                stripeKey={KEY}
-              >
                 CHECKOUT NOW
-              </StripeCheckout>
             </TopButtonCheckout>
           ) : (
             <Link to="/auth">

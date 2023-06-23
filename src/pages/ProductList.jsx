@@ -11,8 +11,7 @@ import Footer from '../components/Footer';
 const Container = styled.section`
   height: 100vh;
   background-color: ${({ theme }) => theme.bg};
- ${mobile({ marginTop: '1.25rem'})}
-
+  ${mobile({ marginTop: '1.25rem' })}
 `;
 
 const FilterContainer = styled.div`
@@ -80,14 +79,23 @@ const ProductList = ({ darkMode, setDarkMode }) => {
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
-          <Select name="color" onChange={handleFilters}>
+          <Select
+            name="color"
+            onChange={handleFilters}
+          >
             <Option disabled>Color</Option>
             {color.map((c) => {
-              return <Option key={c.id}>{c.color}</Option>;
+              return (
+                <Option key={c.id} tabIndex="0">
+                  {c.color}
+                </Option>
+              );
             })}
           </Select>
           <Select name="size" onChange={handleFilters}>
-            <Option disabled>Size</Option>
+            <Option disabled tabIndex="0">
+              Size
+            </Option>
             {size.map((s) => {
               return <Option key={s.id}>{s.size}</Option>;
             })}

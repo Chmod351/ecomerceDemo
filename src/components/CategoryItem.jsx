@@ -7,6 +7,7 @@ const Container = styled.article`
   margin: 3px;
   height: 70vh;
   position: relative;
+  ${mobile({ width: '90vw' })}
 `;
 
 const Image = styled.img`

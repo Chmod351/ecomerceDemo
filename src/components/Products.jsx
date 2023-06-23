@@ -7,6 +7,7 @@ import { BASE_URL } from '../requestMethods';
 import { ArrowLeftRounded, ArrowRightRounded } from '@material-ui/icons';
 import { handleError } from '../utils/toast';
 import Loading from '../pages/Loading';
+
 const Container = styled.section`
   display-items: center;
 
@@ -49,7 +50,7 @@ const PageButton = styled.button`
     opacity: 0.5;
     cursor: not-allowed;
   }
- &:focus {
+  &:focus {
     background-color: ${({ theme }) => theme.bgLighter};
     border: 0.1px solid ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.text};

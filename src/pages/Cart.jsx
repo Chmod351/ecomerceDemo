@@ -244,6 +244,7 @@ const IconFace = styled.svg`
 
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
+  const username = useSelector((state) => state.user.username);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -296,20 +297,26 @@ const Cart = ({ darkMode, setDarkMode }) => {
           <TopTexts>
             <TopText tabIndex="0">Shopping Bag({cart.quantity})</TopText>
           </TopTexts>
-          <TopButtonCheckout type="filled" tabIndex="0">
-            <StripeCheckout
-              name="Cierva Design"
-              image={logo}
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              CHECKOUT NOW
-            </StripeCheckout>
-          </TopButtonCheckout>
+          {username ? (
+            <TopButtonCheckout tabIndex="0">
+              <StripeCheckout
+                name="Cierva Design"
+                image={logo}
+                billingAddress
+                shippingAddress
+                description={`Your total is $${cart.total}`}
+                amount={cart.total * 100}
+                token={onToken}
+                stripeKey={KEY}
+              >
+                CHECKOUT NOW
+              </StripeCheckout>
+            </TopButtonCheckout>
+          ) : (
+            <Link to="/auth">
+              <TopButtonCheckout tabIndex="0">Login NOW</TopButtonCheckout>
+            </Link>
+          )}
         </Top>
         {cart.products.length > 0 ? (
           <Bottom>
@@ -367,20 +374,26 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <SummaryItemText>Total</SummaryItemText>
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
-              <Button tabIndex="0">
-                <StripeCheckout
-                  name="Cierva Design"
-                  image={logo}
-                  billingAddress
-                  shippingAddress
-                  description={`Your total is $${cart.total}`}
-                  amount={cart.total * 100}
-                  token={onToken}
-                  stripeKey={KEY}
-                >
-                  CHECKOUT NOW
-                </StripeCheckout>
-              </Button>
+              {username ? (
+                <Button tabIndex="0">
+                  <StripeCheckout
+                    name="Cierva Design"
+                    image={logo}
+                    billingAddress
+                    shippingAddress
+                    description={`Your total is $${cart.total}`}
+                    amount={cart.total * 100}
+                    token={onToken}
+                    stripeKey={KEY}
+                  >
+                    CHECKOUT NOW
+                  </StripeCheckout>
+                </Button>
+              ) : (
+                <Link to="/auth">
+                  <Button tabIndex="0">Login NOW</Button>
+                </Link>
+              )}
             </Summary>
           </Bottom>
         ) : (

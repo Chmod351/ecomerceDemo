@@ -19,10 +19,4 @@ export const e = [
     route: '/products/shirt',
     name: 'Shirts',
   },
-
-  {
-    id: 5,
-    route: '/Cart',
-    name: 'Wishlist',
-  },
 ];

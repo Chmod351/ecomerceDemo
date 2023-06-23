@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Categories from '../components/Category';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
@@ -7,8 +7,10 @@ import Slider from '../components/Slider';
 import Footer from '../components/Footer';
 import Announcement from '../components/Announcement';
 
-
 const Home = ({ darkMode, setDarkMode }) => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
   return (
     <div>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />

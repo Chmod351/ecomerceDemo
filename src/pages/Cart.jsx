@@ -29,7 +29,8 @@ const Wrapper = styled.div`
   max-width: 1200px;
   align-items: center;
   margin: auto;
-  ${mobile({ padding: '0' })}
+  ${mobile({ padding: '1rem 0rem' })}
+  ${pc({ padding: '1rem 0rem' })}
 `;
 
 const Title = styled.h1`
@@ -237,6 +238,9 @@ const Cart = ({ darkMode, setDarkMode }) => {
   };
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  useEffect(() => {
     const makeRequest = async () => {
       try {
         const res = await publicRequest.post('/purchase/payment', {
@@ -254,7 +258,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart, history]);
-  
 
   return (
     <Container>

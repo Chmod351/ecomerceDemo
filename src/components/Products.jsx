@@ -167,10 +167,16 @@ const Products = ({ tag, filters, sort, query }) => {
       {/* Renderizar paginación */}
 
       {filteredProducts.length >= 8 && totalPages > 1 ? (
-        <PaginationContainer>
+        <PaginationContainer tabIndex="0">
           <Icon
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                handlePageChange(currentPage - 1);
+              }
+            }}
+            tabIndex="0"
             style={{ pointerEvents: currentPage === 1 ? 'none' : 'auto' }}
           >
             <ArrowLeftRounded />
@@ -181,12 +187,19 @@ const Products = ({ tag, filters, sort, query }) => {
               key={index + 1}
               active={index + 1 === currentPage}
               onClick={() => handlePageChange(index + 1)}
+              tabIndex="0"
             >
               {index + 1}
             </PageButton>
           ))}
           <Icon
             onClick={() => handlePageChange(currentPage + 1)}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                handlePageChange(currentPage + 1);
+              }
+            }}
+            tabIndex="0"
             disabled={currentPage === totalPages}
             style={{
               pointerEvents: currentPage === totalPages ? 'none' : 'auto',
@@ -200,6 +213,12 @@ const Products = ({ tag, filters, sort, query }) => {
           <PageButton
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                handlePageChange(currentPage - 1);
+              }
+            }}
+            tabIndex="0"
           >
             Back
           </PageButton>

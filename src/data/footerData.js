@@ -1,7 +1,6 @@
 import {
   Facebook,
   Twitter,
-  
   Instagram,
   MailOutline,
   Phone,
@@ -18,39 +17,40 @@ export const e = [
   },
   {
     id: 22,
+    route: '/cart',
+    name: 'My Cart',
+  },
+
+  {
+    id: 23,
     route: '/products/coat',
     name: 'Coats',
   },
   {
-    id: 23,
-    route: '/products/jacket',
-    name: 'Jackets',
-  },
-  {
     id: 24,
-    route: '/',
-    name: 'Home',
-  },
-
-  {
-    id: 25,
-    route: '/Cart',
-    name: 'Wishlist',
-  },
-  {
-    id: 26,
     route: '/',
     name: 'My Account',
   },
   {
+    id: 25,
+    route: '/products/jacket',
+    name: 'Jackets',
+  },
+  {
+    id: 26,
+    route: '/',
+    name: 'Privacy Policy',
+  },
+
+  {
     id: 27,
     route: '/',
-    name: 'Terms',
+    name: 'Home',
   },
   {
     id: 28,
     route: '/',
-    name: 'Privacy Policy',
+    name: 'Terms',
   },
 ];
 

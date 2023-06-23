@@ -276,16 +276,12 @@ const Cart = ({ darkMode, setDarkMode }) => {
   }, []);
 
   const handleClick = async () => {
-    await addToCart(cart.products);
+    await addToCart(cart);
   };
 
   useEffect(() => {
     const makeRequest = async () => {
-      const res = await payment(stripeToken.id, cart.total);
-      history.push('/success', {
-        stripeData: res.data,
-        products: cart,
-      });
+      await payment(stripeToken.id, cart.total, history, cart);
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart, history]);

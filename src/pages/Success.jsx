@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from '../utils/toast';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { addToCart, makeOrder } from '../redux/apiCalls';
 const Button = styled.button`
   padding: 1rem;
   margin-top: 1.2rem;
@@ -37,21 +37,9 @@ const Success = () => {
 
   useEffect(() => {
     const createOrder = async () => {
-      try {
-        const res = await publicRequest.post('/purchase/order', {
-          userId: currentUser._id,
-          products: cart.products.map((item) => ({
-            productId: item._id,
-            quantity: item.quantity,
-          })),
-          amount: cart.total,
-          shippingAddress: data.billing_details.address,
-        });
-        setOrderId(res.data._id);
-        handleSuccess('thanks');
-      } catch (error) {
-        handleError(error);
-      }
+      const res = await makeOrder(cart, data, currentUser._id);
+      setOrderId(res.data._id);
+      handleSuccess('thanks');
     };
     data && createOrder();
   }, [cart, data, currentUser]);

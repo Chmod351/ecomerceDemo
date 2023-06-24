@@ -285,7 +285,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     const makeRequest = async () => {
       await payment(stripeToken.id, cart.total, history, userCart);
-      console.log(userCart);
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart, history, userCart]);

@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { handleSuccess } from '../utils/toast';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { makeOrder } from '../redux/apiCalls';
+import { clearCart } from '../redux/cartRedux';
 const Button = styled.button`
   padding: 1rem;
   margin-top: 1.2rem;
   background-color: gold;
   font-weight: bold;
   border: none;
+  cursor: pointer;
 `;
 const Container = styled.section`
   width: 100vw;
@@ -33,25 +35,28 @@ const Success = () => {
   const data = location.state.stripeData;
   const cart = useSelector((state) => state.cart);
   const cartId = location.state.cartId;
+  const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
 
   useEffect(() => {
-    const createOrder = async () => {
-      const res = await makeOrder(
-        cart.total,
-        data.billing_details.address,
-        currentUser._id,
-        cartId,
-      );
-      if (res.data._id) {
-        setOrderId(res.data._id);
-        console.log(res);
-        handleSuccess('thanks');
-      }
-    };
-    data && createOrder();
+    if (orderId === null) {
+      const createOrder = async () => {
+        const res = await makeOrder(
+          cart.total,
+          data.billing_details.address,
+          currentUser._id,
+          cartId,
+        );
+        if (res.data._id) {
+          setOrderId(res.data._id);
+          dispatch(clearCart());
+          handleSuccess('thanks');
+        }
+      };
+      data && createOrder();
+    }
   }, [cart, cartId, data, currentUser]);
 
   return (

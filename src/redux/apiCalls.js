@@ -18,7 +18,7 @@ export const login = async (dispatch, email, password, setMsg) => {
 };
 
 // __________________________________________________________________
-export const payment = async (tokenId, amount, history, cart) => {
+export const payment = async (tokenId, amount, history, userCart) => {
   try {
     const res = await publicRequest.post('/purchase/payment', {
       tokenId,
@@ -26,7 +26,7 @@ export const payment = async (tokenId, amount, history, cart) => {
     });
     history.push('/success', {
       stripeData: res.data,
-      products: cart,
+      cartId: userCart,
     });
   } catch (error) {
     handleError(error);
@@ -34,28 +34,27 @@ export const payment = async (tokenId, amount, history, cart) => {
   }
 };
 
-export const addToCart = async (cart) => {
+export const addToCart = async (cart, setUserCart) => {
   try {
-    await publicRequest.post('/cart', {
+    const response = await publicRequest.post('/cart', {
       products: cart.products,
     });
+    setUserCart(response.data._id);
   } catch (error) {
     console.log(error);
     handleError(error);
   }
 };
 
-export const makeOrder = async (cart, data, id) => {
+export const makeOrder = async (amount, address, userId, cartId) => {
   try {
-    await publicRequest.post('/purchase/order', {
-      userId: id,
-      products: cart.products.map((item) => ({
-        productId: item._id,
-        quantity: item._quantity,
-      })),
-      amount: cart.total,
-      address: data.billing_details.address,
+    const res = await publicRequest.post('/purchase/order', {
+      userId,
+      cartId,
+      amount,
+      address,
     });
+    return res;
   } catch (error) {
     console.log(error);
     handleError(error);

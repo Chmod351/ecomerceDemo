@@ -256,12 +256,15 @@ const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const username = useSelector((state) => state.user.username);
   const [stripeToken, setStripeToken] = useState(null);
+  const [userCart, setUserCart] = useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
+
   const handleRemove = (index) => {
     dispatch(removeProduct(cart.products[index]));
     handleSuccess('removed');
   };
+
   const handleAdd = (index) => {
     dispatch(addProduct({ ...cart.products[index], quantity: 1 }));
     handleSuccess('added');
@@ -276,15 +279,16 @@ const Cart = ({ darkMode, setDarkMode }) => {
   }, []);
 
   const handleClick = async () => {
-    await addToCart(cart);
+    await addToCart(cart, setUserCart);
   };
 
   useEffect(() => {
     const makeRequest = async () => {
-      await payment(stripeToken.id, cart.total, history, cart);
+      await payment(stripeToken.id, cart.total, history, userCart);
+      console.log(userCart);
     };
     stripeToken && makeRequest();
-  }, [stripeToken, cart, history]);
+  }, [stripeToken, cart, history, userCart]);
 
   return (
     <Container>

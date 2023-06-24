@@ -101,7 +101,11 @@ const Products = ({ tag, filters, sort, query }) => {
           ? `${BASE_URL}/product/search?q=${query}&page=${currentPage}&size=${pageSize}`
           : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`,
       );
-      setProducts(res.data.products);
+      if (res.data.products) {
+        setProducts(res.data.products);
+      } else if (res.data) {
+        setProducts(res.data);
+      }
       setTotalPages(res.data.totalPages);
     } catch (err) {
       handleError(err);

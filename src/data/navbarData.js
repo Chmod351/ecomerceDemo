@@ -6,17 +6,17 @@ export const e = [
   },
   {
     id: 2,
-    route: '/products/coat',
+    route: '/products/coats',
     name: 'Coats',
   },
   {
     id: 3,
-    route: '/products/jacket',
+    route: '/products/jackets',
     name: 'Jackets',
   },
   {
     id: 4,
-    route: '/products/shirt',
+    route: '/products/shirts',
     name: 'Shirts',
   },
 ];

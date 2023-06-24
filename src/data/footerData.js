@@ -12,7 +12,7 @@ import {
 export const e = [
   {
     id: 21,
-    route: '/products/shirt',
+    route: '/products/shirts',
     name: 'Shirts',
   },
   {
@@ -23,7 +23,7 @@ export const e = [
 
   {
     id: 23,
-    route: '/products/coat',
+    route: '/products/coats',
     name: 'Coats',
   },
   {
@@ -33,7 +33,7 @@ export const e = [
   },
   {
     id: 25,
-    route: '/products/jacket',
+    route: '/products/jackets',
     name: 'Jackets',
   },
   {

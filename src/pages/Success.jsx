@@ -39,25 +39,26 @@ const Success = () => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
-
+  
   useEffect(() => {
+    const createOrder = async () => {
+      const res = await makeOrder(
+        cart.total,
+        data.billing_details.address,
+        currentUser._id,
+        cartId,
+      );
+      if (res.data._id) {
+        setOrderId(res.data._id);
+        dispatch(clearCart());
+        handleSuccess('thanks');
+      }
+    };
+
     if (orderId === null) {
-      const createOrder = async () => {
-        const res = await makeOrder(
-          cart.total,
-          data.billing_details.address,
-          currentUser._id,
-          cartId,
-        );
-        if (res.data._id) {
-          setOrderId(res.data._id);
-          dispatch(clearCart());
-          handleSuccess('thanks');
-        }
-      };
       data && createOrder();
     }
-  }, [cart, cartId, data, currentUser]);
+  }, [cart, cartId, data, currentUser, orderId]);
 
   return (
     <Container>

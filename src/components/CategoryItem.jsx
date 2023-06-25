@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-
+import ButtonElement from '../components/Button';
 const Container = styled.article`
   flex: 1;
   margin: 3px;
@@ -53,21 +53,6 @@ const Overlay = styled.div`
   }
 `;
 
-const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  color: black;
-  background-color: gold;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: yellow;
-  }
-}`;
-
 const CategoryItem = ({ item }) => {
   return (
     <Container id={item.tags} tabIndex="0">
@@ -79,7 +64,7 @@ const CategoryItem = ({ item }) => {
         >
           <Info>
             <Title>{item.title}</Title>
-            <Button>SHOP NOW</Button>
+            <ButtonElement text={'SHOP NOW'} />
           </Info>
         </Link>
       </Overlay>

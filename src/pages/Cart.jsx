@@ -13,6 +13,7 @@ import { addProduct, removeProduct } from '../redux/cartRedux';
 import { useDispatch } from 'react-redux';
 import Footer from '../components/Footer';
 import { addToCart, payment } from '../redux/apiCalls';
+import ButtonElement from '../components/Button';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.section`
@@ -45,36 +46,6 @@ const Top = styled.aside`
   padding: 1.25rem 0;
 `;
 
-const TopButton = styled.button`
-  padding: 0.625rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid ${({ theme }) => theme.bg};
-  font-weight: 600;
-  cursor: pointer;
-  color: ${({ theme }) => theme.textSoft};
-  background-color: ${({ theme }) => theme.soft};
-  transition: background-color 0.3s ease;
-`;
-const TopButtonCheckout = styled.button`
-  padding: 0.625rem;
-  font-weight: 600;
-  cursor: pointer;
-  border: 1px solid ${({ theme }) => theme.bg};
-  font-weight: 600;
-  cursor: pointer;
-  color: black;
-  background-color: gold;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: yellow;
-  }
-  &:focus {
-    background-color: ${({ theme }) => theme.bg};
-    border: 1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-`;
 const TopTexts = styled.div`
   ${mobile({ display: 'none' })}
 `;
@@ -191,25 +162,6 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Button = styled.button`
-  width: 100%;
-  padding: 0.625rem;
-  background-color: gold;
-  color: black;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  &:hover {
-    background-color: yellow;
-  }
-  &:focus {
-    background-color: ${({ theme }) => theme.bg};
-    border: 1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-`;
-
 const Icon = styled.button`
   width: 2rem;
   height: 2rem;
@@ -296,16 +248,16 @@ const Cart = ({ darkMode, setDarkMode }) => {
         <Title>YOUR BAG</Title>
         <Top>
           <Link to="/" style={{ textDecoration: 'none' }}>
-            <TopButton tabIndex="0">CONTINUE SHOPPING</TopButton>
+            <ButtonElement text={'CONTINUE SHOPPING'} />
           </Link>
           <TopTexts>
             <TopText tabIndex="0">Shopping Bag({cart.quantity})</TopText>
           </TopTexts>
           {username ? (
-            <TopButtonCheckout tabIndex="0">CHECKOUT NOW</TopButtonCheckout>
+            <ButtonElement text={'CHECKOUT NOW'} />
           ) : (
             <Link to="/auth">
-              <TopButtonCheckout tabIndex="0">Login NOW</TopButtonCheckout>
+              <ButtonElement text={'LOGIN NOW'} />
             </Link>
           )}
         </Top>
@@ -366,7 +318,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
               {username ? (
-                <Button tabIndex="0" onClick={handleClick}>
+                <ButtonElement onClick={handleClick} text={'CHECKOUT NOW'}>
                   <StripeCheckout
                     name="Cierva Design"
                     image={logo}
@@ -376,13 +328,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
                     amount={cart.total * 100}
                     token={onToken}
                     stripeKey={KEY}
-                  >
-                    CHECKOUT NOW
-                  </StripeCheckout>
-                </Button>
+                  ></StripeCheckout>
+                </ButtonElement>
               ) : (
                 <Link to="/auth">
-                  <Button tabIndex="0">Login NOW</Button>
+                  <ButtonElement text={'LOGIN NOW'} />
                 </Link>
               )}
             </Summary>

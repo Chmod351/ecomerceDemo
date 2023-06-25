@@ -1,10 +1,13 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
+import {
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+} from '@material-ui/icons';
 import { useState } from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { sliderItems } from '../data/sliderData';
 import { mobile } from '../responsive';
-
+import ButtonElement from '../components/Button'
 const Container = styled.section`
   width: 100%;
   height: 100vh;
@@ -76,21 +79,6 @@ const Desc = styled.p`
   letter-spacing: 3px;
 `;
 
-const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  color: black;
-  background-color: gold;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: yellow;
-  }
-`;
-
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
@@ -118,7 +106,7 @@ const Slider = () => {
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
               <Link to={item.url}>
-                <Button>SHOP NOW</Button>
+                <ButtonElement text={'SHOP NOW'} />
               </Link>
             </InfoContainer>
           </Slide>

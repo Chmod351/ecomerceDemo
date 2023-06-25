@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import ButtonElement from '../components/Button';
+
 const Container = styled.article`
   flex: 1;
   margin: 3px;
@@ -56,7 +57,7 @@ const Overlay = styled.div`
 const CategoryItem = ({ item }) => {
   return (
     <Container id={item.tags} tabIndex="0">
-      <Image src={item.img} />
+      <Image src={item.img} alt={item.alt} />
       <Overlay>
         <Link
           to={`/products/${item.tags}`}

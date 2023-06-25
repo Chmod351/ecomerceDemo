@@ -7,6 +7,15 @@ const Container = styled.section`
   background-color: ${({ theme }) => theme.bg};
   height: auto;
 `;
+const Title = styled.h1`
+  font-size: 3rem;
+  margin:auto auto 1rem auto;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  color: ${({ theme }) => theme.text};
+  justify-content: center;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,6 +30,7 @@ const Wrapper = styled.div`
 const Categories = () => {
   return (
     <Container id="Categories">
+      <Title id="Products">Our Collections</Title>
       <Wrapper>
         {categories.map((item) => (
           <CategoryItem item={item} key={item._id} />

@@ -4,12 +4,12 @@ import { handleError, handleSuccess } from '../utils/toast';
 
 // LOGIN
 export const login = async (dispatch, email, password, setMsg) => {
-  setMsg('');
+  setMsg('login');
   dispatch(loginStart());
   try {
     const res = await publicRequest.post('/signin', { email, password });
-    handleSuccess('welcome');
     dispatch(loginSuccess(res.data));
+    handleSuccess('welcome');
   } catch (error) {
     setMsg(error.message);
     handleError(error);
@@ -41,7 +41,6 @@ export const addToCart = async (cart, setUserCart) => {
     });
     setUserCart(response.data._id);
   } catch (error) {
-    console.log(error);
     handleError(error);
   }
 };

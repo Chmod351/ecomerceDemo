@@ -1,4 +1,3 @@
-import { Add, Remove } from '@material-ui/icons';
 import styled from 'styled-components';
 import Announcement from '../components/Announcement';
 import Navbar from '../components/Navbar';
@@ -14,6 +13,7 @@ import { handleError, handleSuccess } from '../utils/toast';
 import Footer from '../components/Footer';
 import Loading from './Loading';
 import { addProduct } from '../redux/cartRedux';
+import QuantityButton from '../components/quantityButtons';
 
 const Container = styled.section`
   display-items: center;
@@ -113,23 +113,6 @@ const AddContainer = styled.div`
   ${mobile({ width: '100%' })}
 `;
 
-const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
-`;
-
-const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 5px;
-`;
-
 const Button = styled.button`
   padding: 0.5rem;
   margin: 0 1rem;
@@ -149,24 +132,6 @@ const Button = styled.button`
 `;
 const Description = styled.p`
   font-size: 1rem;
-`;
-
-const Icon = styled.button`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  background-color: ${({ theme }) => theme.hover};
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  justify-content: center;
-  color: ${({ theme }) => theme.bg};
-  &:focus {
-    background-color: ${({ theme }) => theme.bg};
-    border: 1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
 `;
 
 const Product = ({ darkMode, setDarkMode }) => {
@@ -259,32 +224,12 @@ const Product = ({ darkMode, setDarkMode }) => {
                 </Filter>
               </FilterContainer>
               <AddContainer>
-                <AmountContainer>
-                  <Icon
-                    onClick={() => handleQuantity('dec')}
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        handleSuccess('desc');
-                      }
-                    }}
-                  >
-                    <Remove />
-                  </Icon>
-
-                  <Amount>{quantity}</Amount>
-                  <Icon
-                    onClick={() => handleQuantity('inc')}
-                    tabIndex="0"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        handleQuantity('inc');
-                      }
-                    }}
-                  >
-                    <Add />
-                  </Icon>
-                </AmountContainer>
+                {/* add && remove buttons */}
+                <QuantityButton
+                  add={() => handleQuantity('inc')}
+                  remove={() => handleQuantity('dec')}
+                  quantity={quantity}
+                />
                 <Button
                   onClick={handleClick}
                   tabIndex="0"

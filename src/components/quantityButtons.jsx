@@ -9,8 +9,15 @@ const ProductAmountContainer = styled.div`
 `;
 
 const ProductAmount = styled.div`
-  font-size: 1.5rem;
-  margin: 0.3125rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin: 0px 5px;
   ${mobile({ margin: '0.3125rem  0.9375rem' })}
 `;
 

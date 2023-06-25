@@ -1,16 +1,27 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import {mobile} from '../responsive';
+import { mobile, pc } from '../responsive';
 import { handleError, handleSuccess } from '../utils/toast';
 
-const SearchContainer = styled.div`
+const Container = styled.nav`
   display: flex;
   align-items: center;
-  padding: 5px;
+
+  justify-content: center;
+  background-color: ${({ theme }) => theme.bg};
+  ${pc({ padding: '1rem 0' })};
+  ${mobile({ display: 'flex', width: '100%' })};
+`;
+const SearchContainer = styled.div`
+  display: flex;
+  padding: 0.6rem 0;
   width: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  ${mobile({ display: 'flex' })}
+  ${pc({ maxWidth: '800px' })};
 `;
 const SearchLine = styled.div`
   position: absolute;
@@ -26,15 +37,15 @@ const Input = styled.input`
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
   border: none;
+  padding: 0.8rem;
   outline: none;
   width: 100%;
   &:focus + ${SearchLine} {
     transform: scaleX(1);
   }
-  ${mobile({ padding: '10px' })};
 `;
 const Label = styled.label`
-  padding: 0.1rem 0.3rem;
+  padding: 0.7rem;
   border: 0.1px solid transparent;
   cursor: pointer;
   font-weight: bold;
@@ -77,31 +88,33 @@ const SearchBar = () => {
   };
 
   return (
-    <SearchContainer>
-      <Input
-        placeholder="Search Products"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        tabIndex="0"
-        onKeyUp={(e) => {
-          if (e.key === 'Enter') {
-            SearchProduct(e);
-          }
-        }}
-      />
-      <SearchLine />
-      <Label
-        onClick={SearchProduct}
-        onKeyUp={(e) => {
-          if (e.key === 'Enter') {
-            SearchProduct(e);
-          }
-        }}
-        tabIndex="0"
-      >
-        Submit
-      </Label>
-    </SearchContainer>
+    <Container>
+      <SearchContainer>
+        <Input
+          placeholder="Search Products"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          tabIndex="0"
+          onKeyUp={(e) => {
+            if (e.key === 'Enter') {
+              SearchProduct(e);
+            }
+          }}
+        />
+        <SearchLine />
+        <Label
+          onClick={SearchProduct}
+          onKeyUp={(e) => {
+            if (e.key === 'Enter') {
+              SearchProduct(e);
+            }
+          }}
+          tabIndex="0"
+        >
+          Send
+        </Label>
+      </SearchContainer>
+    </Container>
   );
 };
 

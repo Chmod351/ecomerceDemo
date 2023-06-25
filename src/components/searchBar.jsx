@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import {mobile} from '../responsive';
 import { handleError, handleSuccess } from '../utils/toast';
 
 const SearchContainer = styled.div`
@@ -9,7 +10,7 @@ const SearchContainer = styled.div`
   padding: 5px;
   width: 100%;
   position: relative;
-  ${mobile({ display: 'none' })}
+  ${mobile({ display: 'flex' })}
 `;
 const SearchLine = styled.div`
   position: absolute;
@@ -32,7 +33,26 @@ const Input = styled.input`
   }
   ${mobile({ padding: '10px' })};
 `;
-
+const Label = styled.label`
+  padding: 0.1rem 0.3rem;
+  border: 0.1px solid transparent;
+  cursor: pointer;
+  font-weight: bold;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  color: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.hover};
+  &:hover {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+  &:focus {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+`;
 const SearchBar = () => {
   const [query, setQuery] = useState('');
   const history = useHistory();

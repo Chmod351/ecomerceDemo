@@ -1,6 +1,5 @@
 import { Badge } from '@material-ui/core';
 import {
-  Search,
   ShoppingCartOutlined,
   ShoppingCart,
   Brightness7,
@@ -11,7 +10,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { e } from '../data/navbarData';
 import SearchBar from './searchBar';
@@ -54,47 +53,7 @@ const Left = styled.div`
   ${mobile({ justifyContent: 'center', maxWidth: '100vw', width: '100%' })}
 `;
 
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  width: 100%;
-  position: relative;
-  ${mobile({ display: 'none' })}
-`;
-const SearchLine = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background-color: ${({ theme }) => theme.text};
-  transform: scaleX(0);
-  transition: 0.5s ease;
-`;
 
-const SearchContainerMobile = styled.div`
-  border-bottom: 0.5px solid lightgray;
-  align-items: center;
-  max-width: 100%;
-  margin: 5px;
-  display: none;
-  padding-bottom: 4px;
-  ${mobile({ display: 'flex', flexDirection: 'row' })};
-  ${pc({ display: 'none' })}
-`;
-
-const Input = styled.input`
-  background-color: ${({ theme }) => theme.bgLighter};
-  color: ${({ theme }) => theme.text};
-  border: none;
-  outline: none;
-  width: 100%;
-  &:focus + ${SearchLine} {
-    transform: scaleX(1);
-  }
-  ${mobile({ padding: '10px' })};
-`;
 
 const Right = styled.div`
   flex: 1;
@@ -142,26 +101,7 @@ const Username = styled.p`
   color: ${({ theme }) => theme.text};
   font-weight: 400;
 `;
-const Label = styled.label`
-  padding: 0.1rem 0.3rem;
-  border: 0.1px solid transparent;
-  cursor: pointer;
-  font-weight: bold;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-  color: ${({ theme }) => theme.bg};
-  background-color: ${({ theme }) => theme.hover};
-  &:hover {
-    background-color: ${({ theme }) => theme.bgLighter};
-    border: 0.1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-  &:focus {
-    background-color: ${({ theme }) => theme.bgLighter};
-    border: 0.1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-`;
+
 const MenuDropdownContainer = styled.div`
   position: absolute;
   width: 100vw;
@@ -234,45 +174,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </Item>
           {/* SEARCH BAR */}
           <SearchBar />
-          <SearchContainerMobile>
-            <Input
-              autoComplete="true"
-              placeholder="Search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <Search
-              style={{ color: 'gray', fontSize: 35 }}
-              onClick={SearchProduct}
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                  SearchProduct(e);
-                }
-              }}
-            />
-            <SearchLine />
-            <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="0">
-              <MenuItem>
-                {quantity > 0 ? (
-                  <Badge
-                    badgeContent={quantity}
-                    color="primary"
-                    overlap="rectangular"
-                  >
-                    <ShoppingCart />
-                  </Badge>
-                ) : (
-                  <Badge
-                    badgeContent={quantity}
-                    color="primary"
-                    overlap="rectangular"
-                  >
-                    <ShoppingCartOutlined />
-                  </Badge>
-                )}
-              </MenuItem>
-            </Link>
-          </SearchContainerMobile>
         </Left>
         <Right>
           {/* USER EXISTS? */}

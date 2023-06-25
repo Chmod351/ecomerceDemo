@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import {publicRequest} from '../requestMethods';
 import { mobile, pc } from '../responsive';
 import { handleError, handleSuccess } from '../utils/toast';
 

@@ -19,8 +19,12 @@ const ButtonElement = styled.button`
   }
 `;
 
-const Button = ({ text }) => {
-  return <ButtonElement tabIndex="0">{text}</ButtonElement>;
+const Button = ({ text, onClick, onKeyUp }) => {
+  return (
+    <ButtonElement tabIndex="0" onClick={onClick} onKeyUp={onKeyUp}>
+      {text}
+    </ButtonElement>
+  );
 };
 
 export default Button;

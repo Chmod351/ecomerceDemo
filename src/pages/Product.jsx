@@ -108,7 +108,6 @@ const FilterSizeOption = styled.option``;
 const AddContainer = styled.div`
   width: 60%;
   display: flex;
-
   justify-content: space-between;
   ${mobile({ width: '100%' })}
 `;
@@ -213,6 +212,7 @@ const Product = ({ darkMode, setDarkMode }) => {
                   remove={() => handleQuantity('dec')}
                   quantity={quantity}
                 />
+                {/* action button */}
                 <Button
                   text="ADD TO CART"
                   onClick={handleClick}

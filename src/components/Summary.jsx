@@ -43,6 +43,7 @@ const Summary = ({ cart, username }) => {
   const handleClick = async () => {
     await addToCart(cart, setUserCart);
   };
+
   const onToken = (token) => {
     setStripeToken(token);
   };
@@ -74,22 +75,22 @@ const Summary = ({ cart, username }) => {
         <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
       </SummaryItem>
       {username ? (
-        <Button
-          text={'CHECKOUT NOW'}
-          onClick={handleClick}
-          onKeyUp={handleClick}
+        <StripeCheckout
+          name="Cierva Design"
+          image={logo}
+          billingAddress
+          shippingAddress
+          description={`Your total is $${cart.total}`}
+          amount={cart.total * 100}
+          token={onToken}
+          stripeKey={KEY}
         >
-          <StripeCheckout
-            name="Cierva Design"
-            image={logo}
-            billingAddress
-            shippingAddress
-            description={`Your total is $${cart.total}`}
-            amount={cart.total * 100}
-            token={onToken}
-            stripeKey={KEY}
-          ></StripeCheckout>
-        </Button>
+          <Button
+            text={'CHECKOUT NOW'}
+            onClick={handleClick}
+            onKeyUp={handleClick}
+          />
+        </StripeCheckout>
       ) : (
         <Link to="/auth">
           <Button text={'LOGIN NOW'} />

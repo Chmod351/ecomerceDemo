@@ -14,6 +14,7 @@ import Footer from '../components/Footer';
 import Loading from './Loading';
 import { addProduct } from '../redux/cartRedux';
 import QuantityButton from '../components/quantityButtons';
+import Button from '../components/Button';
 
 const Container = styled.section`
   display-items: center;
@@ -105,31 +106,13 @@ const FilterSize = styled.select`
 const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
-  width: 50%;
+  width: 60%;
   display: flex;
-  align-items: center;
-  cursor: pointer;
+
   justify-content: space-between;
   ${mobile({ width: '100%' })}
 `;
 
-const Button = styled.button`
-  padding: 0.5rem;
-  margin: 0 1rem;
-  border: 2px solid teal;
-  background-color: ${({ theme }) => theme.bgLighter};
-  cursor: pointer;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text};
-  &:hover {
-    background-color: ${({ theme }) => theme.soft};
-    color: ${({ theme }) => theme.bgLighter};
-  }
-  &:focus {
-    background-color: ${({ theme }) => theme.soft};
-    color: ${({ theme }) => theme.bgLighter};
-  }
-`;
 const Description = styled.p`
   font-size: 1rem;
 `;
@@ -231,6 +214,7 @@ const Product = ({ darkMode, setDarkMode }) => {
                   quantity={quantity}
                 />
                 <Button
+                  text="ADD TO CART"
                   onClick={handleClick}
                   tabIndex="0"
                   onKeyUp={(e) => {
@@ -238,9 +222,7 @@ const Product = ({ darkMode, setDarkMode }) => {
                       handleClick();
                     }
                   }}
-                >
-                  ADD TO CART
-                </Button>
+                />
               </AddContainer>
             </InfoContainer>
           </Wrapper>

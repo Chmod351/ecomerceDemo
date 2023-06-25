@@ -2,14 +2,13 @@ import styled from 'styled-components';
 
 const ButtonElement = styled.button`
   padding: 10px;
-  font-size: 20px;
+  font-size: 1.2rem;
   color: black;
   background-color: gold;
   border: none;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
   &:hover {
     background-color: yellow;
   }

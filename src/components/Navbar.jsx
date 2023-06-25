@@ -6,7 +6,7 @@ import {
   Brightness2,
   MenuRounded,
 } from '@material-ui/icons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
@@ -53,16 +53,35 @@ const Left = styled.div`
   ${mobile({ justifyContent: 'center', maxWidth: '100vw', width: '100%' })}
 `;
 
-
-
 const Right = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ display: 'none' })}
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.bg};
+  ${mobile({
+    position: 'absolute',
+    zIndex: '999',
+    transition: '1s ease-in-out',
+    width: '100vw',
+    left: '0',
+    top: '100%',
+  })}
 `;
 
+const DropdownMenu = styled.div`
+  ${mobile({
+    display: 'flex',
+    margin: 'auto',
+    fontWeight: 'bold',
+    justifyContent: 'spaceEvenly',
+    textTransform: 'uppercase',
+    flexDirection: 'column',
+    height: '100vh',
+    overflowY: 'auto',
+  })}
+`;
 const MenuItem = styled.div`
   ${mobile({ marginRight: '1rem', fontSize: '1rem' })}
   font-size: 1rem;
@@ -83,7 +102,36 @@ const MenuItem = styled.div`
     background-color: ${({ theme }) => theme.hover};
     transition: width 0.3s ease-in-out;
   }
-
+  ${mobile({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '6vh auto',
+  })}
+  &:hover:after {
+    width: 100%;
+  }
+`;
+const MenuItemCart = styled.div`
+  ${mobile({ marginRight: '1rem', fontSize: '1rem' })}
+  font-size: 1rem;
+  color: ${({ theme }) => theme.text};
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 25px;
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: ${({ theme }) => theme.hover};
+    transition: width 0.3s ease-in-out;
+  }
   &:hover:after {
     width: 100%;
   }
@@ -102,29 +150,6 @@ const Username = styled.p`
   font-weight: 400;
 `;
 
-const MenuDropdownContainer = styled.div`
-  position: absolute;
-  width: 100vw;
-  left: 0;
-  top: 100%;
-  background-color: ${({ theme }) => theme.bg};
-  z-index: 999;
-  transition: 1s ease-in-out;
-  ${pc({ display: 'none' })}
-`;
-const MenuDropdown = styled.div`
-  display: flex;
-  margin: auto;
-  font-weight: bold;
-  text-transform: uppercase;
-  justify-content: space-evenly;
-  align-item: center;
-  flex-direction: column;
-  height: 100vh;
-  overflow-y: auto;
-  ${pc({ display: 'none' })}
-`;
-
 const DarkLabel = styled.label`
   ${mobile({ display: 'none' })}
 `;
@@ -135,8 +160,24 @@ const MenuIconMobile = styled.div`
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const username = useSelector((state) => state.user.username);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsMenuOpen(false);
+      } else {
+        setIsMenuOpen(true);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <Container>
       <Wrapper>
@@ -175,47 +216,53 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {/* SEARCH BAR */}
           <SearchBar />
         </Left>
-        <Right>
-          {/* USER EXISTS? */}
-          {username ? (
-            <>
-              {e.map((i) => {
-                const { id, route, name } = i;
-                return (
-                  <Link
-                    key={id}
-                    to={route}
-                    style={{ textDecoration: 'none' }}
-                    tabIndex="0"
-                  >
-                    <MenuItem>{name}</MenuItem>
-                  </Link>
-                );
-              })}
-              <Username>{username}</Username>
-            </>
-          ) : (
-            <>
-              {e.map((i) => {
-                const { id, route, name } = i;
-                return (
-                  <Link
-                    key={id}
-                    to={route}
-                    style={{ textDecoration: 'none' }}
-                    tabIndex="0"
-                  >
-                    <MenuItem>{name}</MenuItem>
-                  </Link>
-                );
-              })}
-              <Link to="/auth" style={{ textDecoration: 'none' }}>
-                <MenuItem>Login</MenuItem>
-              </Link>
-            </>
-          )}
+        <>
+          <Right>
+            {isMenuOpen && (
+              <DropdownMenu>
+                {/* USER EXISTS? */}
+                {username ? (
+                  <>
+                    {e.map((i) => {
+                      const { id, route, name } = i;
+                      return (
+                        <Link
+                          key={id}
+                          to={route}
+                          style={{ textDecoration: 'none' }}
+                          tabIndex="0"
+                        >
+                          <MenuItem>{name}</MenuItem>
+                        </Link>
+                      );
+                    })}
+                    <Username>{username}</Username>
+                  </>
+                ) : (
+                  <>
+                    {e.map((i) => {
+                      const { id, route, name } = i;
+                      return (
+                        <Link
+                          key={id}
+                          to={route}
+                          style={{ textDecoration: 'none' }}
+                          tabIndex="0"
+                        >
+                          <MenuItem>{name}</MenuItem>
+                        </Link>
+                      );
+                    })}
+                    <Link to="/auth" style={{ textDecoration: 'none' }}>
+                      <MenuItem>Login</MenuItem>
+                    </Link>
+                  </>
+                )}
+              </DropdownMenu>
+            )}
+          </Right>
           <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="0">
-            <MenuItem>
+            <MenuItemCart>
               {quantity > 0 ? (
                 <Badge
                   badgeContent={quantity}
@@ -233,55 +280,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   <ShoppingCartOutlined />
                 </Badge>
               )}
-            </MenuItem>
+            </MenuItemCart>
           </Link>
-        </Right>
-        {/* MOBILE NAVBAR */}
-        {isMenuOpen && (
-          <MenuDropdownContainer>
-            <MenuDropdown>
-              {username ? (
-                <>
-                  {e.map((i) => {
-                    const { id, route, name } = i;
-                    return (
-                      <Link
-                        key={id}
-                        to={route}
-                        style={{ textDecoration: 'none' }}
-                        tabIndex="0"
-                      >
-                        <MenuItem onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                          {name}
-                        </MenuItem>
-                      </Link>
-                    );
-                  })}
-                  <Username>{username}</Username>
-                </>
-              ) : (
-                <>
-                  {e.map((i) => {
-                    const { id, route, name } = i;
-                    return (
-                      <Link
-                        key={id}
-                        to={route}
-                        style={{ textDecoration: 'none' }}
-                        tabIndex="0"
-                      >
-                        <MenuItem>{name}</MenuItem>
-                      </Link>
-                    );
-                  })}
-                  <Link to="/auth" style={{ textDecoration: 'none' }}>
-                    <MenuItem>Login</MenuItem>
-                  </Link>
-                </>
-              )}
-            </MenuDropdown>
-          </MenuDropdownContainer>
-        )}
+        </>
       </Wrapper>
     </Container>
   );

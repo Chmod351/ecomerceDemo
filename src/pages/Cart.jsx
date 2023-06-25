@@ -3,18 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import { mobile, pc } from '../responsive';
-import StripeCheckout from 'react-stripe-checkout';
-import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assests/logo.png';
 import QuantityButton from '../components/quantityButtons';
 import Footer from '../components/Footer';
-import { addToCart, payment } from '../redux/apiCalls';
 import ButtonElement from '../components/Button';
 import { addProduct, removeProduct } from '../redux/cartRedux';
 import { handleSuccess } from '../utils/toast';
-const KEY = process.env.REACT_APP_STRIPE;
+import Summary from '../components/Summary';
 
 const Container = styled.section`
   min-height: 100vh;
@@ -124,31 +120,6 @@ const Hr = styled.hr`
   height: 1px;
 `;
 
-const Summary = styled.aside`
-  flex: 1;
-  border: 0.5px solid lightgray;
-  border-radius: 0.625rem;
-  padding: 1.25rem;
-  height: 20rem;
-  ${mobile({ height: '10rem', padding: '1rem', margin: '0 1rem' })}
-`;
-
-const SummaryTitle = styled.h2`
-  font-weight: 200;
-`;
-
-const SummaryItem = styled.div`
-  margin: 1.875rem 0rem;
-  display: flex;
-  justify-content: space-between;
-  font-weight: ${(props) => props.type === 'total' && '500'};
-  font-size: ${(props) => props.type === 'total' && '1.5rem'};
-`;
-
-const SummaryItemText = styled.span``;
-
-const SummaryItemPrice = styled.span``;
-
 const Message = styled.p`
   display: flex;
   height: 50vh;
@@ -172,9 +143,7 @@ const IconFace = styled.svg`
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const username = useSelector((state) => state.user.username);
-  const [stripeToken, setStripeToken] = useState(null);
-  const [userCart, setUserCart] = useState(null);
-  const history = useHistory();
+
   const dispatch = useDispatch();
 
   const handleRemove = (index) => {
@@ -187,24 +156,9 @@ const Cart = ({ darkMode, setDarkMode }) => {
     handleSuccess('added');
   };
 
-  const onToken = (token) => {
-    setStripeToken(token);
-  };
-
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
-
-  const handleClick = async () => {
-    await addToCart(cart, setUserCart);
-  };
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      await payment(stripeToken.id, cart.total, history, userCart);
-    };
-    stripeToken && makeRequest();
-  }, [stripeToken, cart, history, userCart]);
 
   return (
     <Container>
@@ -260,43 +214,8 @@ const Cart = ({ darkMode, setDarkMode }) => {
               ))}
               <Hr />
             </Info>
-            <Summary>
-              <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-              <SummaryItem>
-                <SummaryItemText>Subtotal</SummaryItemText>
-                <SummaryItemPrice>${cart.total}</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Estimated Shipping</SummaryItemText>
-                <SummaryItemPrice>$ 35.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                <SummaryItemText>Shipping Discount</SummaryItemText>
-                <SummaryItemPrice>$ -35.90</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type="total">
-                <SummaryItemText>Total</SummaryItemText>
-                <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-              </SummaryItem>
-              {username ? (
-                <ButtonElement text={'CHECKOUT NOW'} onClick={handleClick}>
-                  <StripeCheckout
-                    name="Cierva Design"
-                    image={logo}
-                    billingAddress
-                    shippingAddress
-                    description={`Your total is $${cart.total}`}
-                    amount={cart.total * 100}
-                    token={onToken}
-                    stripeKey={KEY}
-                  ></StripeCheckout>
-                </ButtonElement>
-              ) : (
-                <Link to="/auth">
-                  <ButtonElement text={'LOGIN NOW'} />
-                </Link>
-              )}
-            </Summary>
+            {/* SUMARY COMPONENT */}
+            <Summary cart={cart} username={username} />
           </Bottom>
         ) : (
           <Message>

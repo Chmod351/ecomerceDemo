@@ -1,4 +1,4 @@
-import { Add, Remove, SentimentDissatisfiedOutlined } from '@material-ui/icons';
+import { SentimentDissatisfiedOutlined } from '@material-ui/icons';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
@@ -8,9 +8,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import logo from '../assests/logo.png';
-import { handleError, handleSuccess } from '../utils/toast';
-import { addProduct, removeProduct } from '../redux/cartRedux';
-import { useDispatch } from 'react-redux';
+import QuantityButton from '../components/quantityButtons';
 import Footer from '../components/Footer';
 import { addToCart, payment } from '../redux/apiCalls';
 import ButtonElement from '../components/Button';
@@ -113,18 +111,6 @@ const PriceDetail = styled.div`
   justify-content: center;
 `;
 
-const ProductAmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.25rem;
-`;
-
-const ProductAmount = styled.div`
-  font-size: 1.5rem;
-  margin: 0.3125rem;
-  ${mobile({ margin: '0.3125rem  0.9375rem' })}
-`;
-
 const ProductPrice = styled.div`
   font-size: 1.875rem;
   font-weight: 200;
@@ -162,28 +148,6 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Icon = styled.button`
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: none;
-  background-color: ${({ theme }) => theme.hover};
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  justify-content: center;
-  color: ${({ theme }) => theme.bg};
-  &:hover {
-    background-color: ${({ theme }) => theme.bg};
-    border: 1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-  &:focus {
-    background-color: ${({ theme }) => theme.bg};
-    border: 1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-`;
 const Message = styled.p`
   display: flex;
   height: 50vh;
@@ -210,17 +174,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
   const [stripeToken, setStripeToken] = useState(null);
   const [userCart, setUserCart] = useState(null);
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  const handleRemove = (index) => {
-    dispatch(removeProduct(cart.products[index]));
-    handleSuccess('removed');
-  };
-
-  const handleAdd = (index) => {
-    dispatch(addProduct({ ...cart.products[index], quantity: 1 }));
-    handleSuccess('added');
-  };
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -282,15 +235,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
                   </ProductDetail>
 
                   <PriceDetail>
-                    <ProductAmountContainer>
-                      <Icon onClick={() => handleAdd(index)} tabIndex="0">
-                        <Add aria-label="Add" />
-                      </Icon>
-                      <ProductAmount>{product.quantity}</ProductAmount>
-                      <Icon onClick={() => handleRemove(index)} tabIndex="0">
-                        <Remove aria-label="Remove" />
-                      </Icon>
-                    </ProductAmountContainer>
+                    <QuantityButton
+                      cart={cart}
+                      product={product}
+                      index={index}
+                    />
                     <ProductPrice>
                       $ {product.price * product.quantity}
                     </ProductPrice>
@@ -318,7 +267,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
               </SummaryItem>
               {username ? (
-                <ButtonElement onClick={handleClick} text={'CHECKOUT NOW'}>
+                <ButtonElement text={'CHECKOUT NOW'} onClick={handleClick}>
                   <StripeCheckout
                     name="Cierva Design"
                     image={logo}

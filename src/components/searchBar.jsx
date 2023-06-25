@@ -112,7 +112,7 @@ const SearchBar = () => {
           }}
           tabIndex="0"
         >
-          Submit
+          Search
         </Label>
       </SearchContainer>
     </Container>

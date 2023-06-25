@@ -1,9 +1,6 @@
-import {Add, Remove} from '@material-ui/icons';
-import {useDispatch} from 'react-redux';
+import { Add, Remove } from '@material-ui/icons';
 import styled from 'styled-components';
-import {addProduct, removeProduct} from '../redux/cartRedux';
-import {mobile} from '../responsive';
-import {handleSuccess} from '../utils/toast';
+import { mobile } from '../responsive';
 
 const ProductAmountContainer = styled.div`
   display: flex;
@@ -40,25 +37,30 @@ const Icon = styled.button`
   }
 `;
 
-const QuantityButton = ({ cart, product,index }) => {
-  const dispatch = useDispatch();
-  const handleRemove = (index) => {
-    dispatch(removeProduct(cart.products[index]));
-    handleSuccess('removed');
-  };
-
-  const handleAdd = (index) => {
-    dispatch(addProduct({ ...cart.products[index], quantity: 1 }));
-    handleSuccess('added');
-  };
-
+const QuantityButton = ({ add, remove, quantity }) => {
   return (
     <ProductAmountContainer>
-      <Icon onClick={() => handleAdd(index)} tabIndex="0">
+      <Icon
+        onClick={add}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            add;
+          }
+        }}
+        tabIndex="0"
+      >
         <Add aria-label="Add" />
       </Icon>
-      <ProductAmount>{product.quantity}</ProductAmount>
-      <Icon onClick={() => handleRemove(index)} tabIndex="0">
+      <ProductAmount>{quantity}</ProductAmount>
+      <Icon
+        onClick={remove}
+        tabIndex="0"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            remove;
+          }
+        }}
+      >
         <Remove aria-label="Remove" />
       </Icon>
     </ProductAmountContainer>

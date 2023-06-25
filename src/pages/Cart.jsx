@@ -1,5 +1,5 @@
 import { SentimentDissatisfiedOutlined } from '@material-ui/icons';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import { mobile, pc } from '../responsive';
@@ -12,6 +12,8 @@ import QuantityButton from '../components/quantityButtons';
 import Footer from '../components/Footer';
 import { addToCart, payment } from '../redux/apiCalls';
 import ButtonElement from '../components/Button';
+import { addProduct, removeProduct } from '../redux/cartRedux';
+import { handleSuccess } from '../utils/toast';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.section`
@@ -22,7 +24,6 @@ const Container = styled.section`
   ${mobile({ maxWidth: '100vw', padding: '0' })}
   ${pc({ maxWidth: '100vw', padding: '0' })}
 `;
-// const Container = styled.div``;
 
 const Wrapper = styled.div`
   max-width: 1200px;
@@ -174,6 +175,17 @@ const Cart = ({ darkMode, setDarkMode }) => {
   const [stripeToken, setStripeToken] = useState(null);
   const [userCart, setUserCart] = useState(null);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const handleRemove = (index) => {
+    dispatch(removeProduct(cart.products[index]));
+    handleSuccess('removed');
+  };
+
+  const handleAdd = (index) => {
+    dispatch(addProduct({ ...cart.products[index], quantity: 1 }));
+    handleSuccess('added');
+  };
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -221,7 +233,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 <Product tabIndex="0">
                   <ProductDetail>
                     <Link to={`/product/${product._id}`}>
-                      <Image src={product.imgUrl} alt={product.description} />
+                      <Image src={product.imgUrl} alt={product.name} />
                     </Link>
                     <Details>
                       <ProductName>
@@ -233,12 +245,12 @@ const Cart = ({ darkMode, setDarkMode }) => {
                       </ProductSize>
                     </Details>
                   </ProductDetail>
-
                   <PriceDetail>
+                    {/* add and remove buttons */}
                     <QuantityButton
-                      cart={cart}
-                      product={product}
-                      index={index}
+                      add={() => handleAdd(index)}
+                      remove={() => handleRemove(index)}
+                      quantity={product.quantity}
                     />
                     <ProductPrice>
                       $ {product.price * product.quantity}

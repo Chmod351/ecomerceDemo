@@ -7,6 +7,7 @@ export const Toast = {
     thanks: 'Thank you for choose us!!',
     welcome: 'welcome!',
     created: 'Your account was created',
+    Empty: 'No result found with that query ',
   },
   error: {
     400: 'Bad Request',

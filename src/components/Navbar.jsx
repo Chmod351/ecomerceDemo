@@ -157,7 +157,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 820) {
         setIsMenuOpen(false);
       } else {
         setIsMenuOpen(true);
@@ -209,59 +209,47 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {/* SEARCH BAR */}
           <SearchBar />
         </Left>
-        <>
-          <Right>
-            {/* MOBILE NAVBAR */}
-            {isMenuOpen && (
-              <DropdownMenu>
-                {/* USER EXISTS? */}
-                <>
-                  {e.map((i) => {
-                    const { id, route, name } = i;
-                    return (
-                      <Link
-                        key={id}
-                        to={route}
-                        style={{ textDecoration: 'none' }}
-                        tabIndex="0"
-                      >
-                        <MenuItem>{name}</MenuItem>
-                      </Link>
-                    );
-                  })}
-                  {username ? (
-                    <MenuItem>{username}</MenuItem>
-                  ) : (
-                    <Link to="/auth" style={{ textDecoration: 'none' }}>
-                      <MenuItem>Login</MenuItem>
+        <Right>
+          {/* MOBILE NAVBAR */}
+          {isMenuOpen && (
+            <DropdownMenu>
+              {/* USER EXISTS? */}
+              <>
+                {e.map((i) => {
+                  const { id, route, name } = i;
+                  return (
+                    <Link
+                      key={id}
+                      to={route}
+                      style={{ textDecoration: 'none' }}
+                      tabIndex="0"
+                    >
+                      <MenuItem>{name}</MenuItem>
                     </Link>
-                  )}
-                </>
-              </DropdownMenu>
-            )}
-          </Right>
-          <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="0">
-            <MenuItemCart>
-              {quantity > 0 ? (
-                <Badge
-                  badgeContent={quantity}
-                  color="primary"
-                  overlap="rectangular"
-                >
-                  <ShoppingCart />
-                </Badge>
-              ) : (
-                <Badge
-                  badgeContent={quantity}
-                  color="primary"
-                  overlap="rectangular"
-                >
-                  <ShoppingCartOutlined />
-                </Badge>
-              )}
-            </MenuItemCart>
-          </Link>
-        </>
+                  );
+                })}
+                {username ? (
+                  <MenuItem>{username}</MenuItem>
+                ) : (
+                  <Link to="/auth" style={{ textDecoration: 'none' }}>
+                    <MenuItem>Login</MenuItem>
+                  </Link>
+                )}
+              </>
+            </DropdownMenu>
+          )}
+        </Right>
+        <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="0">
+          <MenuItemCart>
+            <Badge
+              badgeContent={quantity}
+              color="primary"
+              overlap="rectangular"
+            >
+              {quantity > 0 ? <ShoppingCart /> : <ShoppingCartOutlined />}
+            </Badge>
+          </MenuItemCart>
+        </Link>
       </Wrapper>
     </Container>
   );

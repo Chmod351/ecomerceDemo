@@ -92,7 +92,7 @@ const SearchBar = () => {
     <Container>
       <SearchContainer>
         <Input
-          placeholder="Search Products"
+          placeholder="What are you looking for"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           tabIndex="0"
@@ -112,7 +112,7 @@ const SearchBar = () => {
           }}
           tabIndex="0"
         >
-          Send
+          Submit
         </Label>
       </SearchContainer>
     </Container>

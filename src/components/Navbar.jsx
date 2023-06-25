@@ -142,13 +142,6 @@ const Item = styled.div`
   cursor: pointer;
   ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
-const Username = styled.p`
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 1rem;
-  color: ${({ theme }) => theme.text};
-  font-weight: 400;
-`;
 
 const DarkLabel = styled.label`
   ${mobile({ display: 'none' })}
@@ -218,46 +211,32 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         </Left>
         <>
           <Right>
+            {/* MOBILE NAVBAR */}
             {isMenuOpen && (
               <DropdownMenu>
                 {/* USER EXISTS? */}
-                {username ? (
-                  <>
-                    {e.map((i) => {
-                      const { id, route, name } = i;
-                      return (
-                        <Link
-                          key={id}
-                          to={route}
-                          style={{ textDecoration: 'none' }}
-                          tabIndex="0"
-                        >
-                          <MenuItem>{name}</MenuItem>
-                        </Link>
-                      );
-                    })}
-                    <Username>{username}</Username>
-                  </>
-                ) : (
-                  <>
-                    {e.map((i) => {
-                      const { id, route, name } = i;
-                      return (
-                        <Link
-                          key={id}
-                          to={route}
-                          style={{ textDecoration: 'none' }}
-                          tabIndex="0"
-                        >
-                          <MenuItem>{name}</MenuItem>
-                        </Link>
-                      );
-                    })}
+                <>
+                  {e.map((i) => {
+                    const { id, route, name } = i;
+                    return (
+                      <Link
+                        key={id}
+                        to={route}
+                        style={{ textDecoration: 'none' }}
+                        tabIndex="0"
+                      >
+                        <MenuItem>{name}</MenuItem>
+                      </Link>
+                    );
+                  })}
+                  {username ? (
+                    <MenuItem>{username}</MenuItem>
+                  ) : (
                     <Link to="/auth" style={{ textDecoration: 'none' }}>
                       <MenuItem>Login</MenuItem>
                     </Link>
-                  </>
-                )}
+                  )}
+                </>
               </DropdownMenu>
             )}
           </Right>

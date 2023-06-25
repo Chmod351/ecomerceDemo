@@ -11,11 +11,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import { publicRequest } from '../requestMethods';
+import { Link} from 'react-router-dom';
 import { useState } from 'react';
-import { handleError } from '../utils/toast';
 import { e } from '../data/navbarData';
+import SearchBar from './searchBar';
 
 const Container = styled.header`
   color: ${({ theme }) => theme.text};
@@ -197,27 +196,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const username = useSelector((state) => state.user.username);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [query, setQuery] = useState('');
-  const history = useHistory();
 
-  const SearchProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await publicRequest.get(`/product/search?q=${query}`);
-      const products = response.data;
-      if (products.length === 1) {
-        const firstProduct = products[0];
-        history.push(`/product/${firstProduct._id}`);
-      } else if (products.length > 1) {
-        history.push(`/products/search/${query}`);
-      } else {
-        console.log('No se encontraron productos');
-      }
-    } catch (error) {
-      handleError(error);
-    }
-    setQuery('');
-  };
   return (
     <Container>
       <Wrapper>
@@ -253,32 +232,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           >
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
-          <SearchContainer>
-            <Input
-              placeholder="Search Products"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              tabIndex="0"
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                  SearchProduct(e);
-                }
-              }}
-            />
-            <SearchLine />
-            <Label
-              onClick={SearchProduct}
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                  SearchProduct(e);
-                }
-              }}
-              tabIndex="0"
-            >
-              Submit
-            </Label>
-          </SearchContainer>
-
+          {/* SEARCH BAR */}
+          <SearchBar />
           <SearchContainerMobile>
             <Input
               autoComplete="true"

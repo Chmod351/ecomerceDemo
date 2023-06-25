@@ -118,7 +118,7 @@ const Products = ({ tag, filters, sort, query }) => {
 
   useEffect(() => {
     if (products.length > 0) {
-      if (tag) {
+      if (tag || query) {
         const filtered = filters
           ? products.filter((item) =>
               Object.entries(filters).every(([key, value]) =>
@@ -133,7 +133,7 @@ const Products = ({ tag, filters, sort, query }) => {
         setShowPagination(products.length > 8);
       }
     }
-  }, [products, tag, filters]);
+  }, [products, tag, filters, query]);
 
   useEffect(() => {
     if (sort === 'newest') {
@@ -157,7 +157,7 @@ const Products = ({ tag, filters, sort, query }) => {
 
   return (
     <Container id="Products">
-      {products ? (
+      {products.length > 0 ? (
         <Wrapper>
           {tag
             ? filteredProducts.map((product) => (

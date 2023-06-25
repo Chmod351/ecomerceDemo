@@ -1,0 +1,88 @@
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { handleError, handleSuccess } from '../utils/toast';
+
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+  position: relative;
+  ${mobile({ display: 'none' })}
+`;
+const SearchLine = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: ${({ theme }) => theme.text};
+  transform: scaleX(0);
+  transition: 0.5s ease;
+`;
+const Input = styled.input`
+  background-color: ${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
+  border: none;
+  outline: none;
+  width: 100%;
+  &:focus + ${SearchLine} {
+    transform: scaleX(1);
+  }
+  ${mobile({ padding: '10px' })};
+`;
+
+const SearchBar = () => {
+  const [query, setQuery] = useState('');
+  const history = useHistory();
+
+  const SearchProduct = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await publicRequest.get(`/product/search?q=${query}`);
+      const products = response.data;
+      if (products.length === 1) {
+        const firstProduct = products[0];
+        history.push(`/product/${firstProduct._id}`);
+      } else if (products.length > 1) {
+        history.push(`/products/search/${query}`);
+      } else {
+        handleSuccess('Empty');
+      }
+    } catch (error) {
+      handleError(error);
+    }
+    setQuery('');
+  };
+
+  return (
+    <SearchContainer>
+      <Input
+        placeholder="Search Products"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        tabIndex="0"
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            SearchProduct(e);
+          }
+        }}
+      />
+      <SearchLine />
+      <Label
+        onClick={SearchProduct}
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            SearchProduct(e);
+          }
+        }}
+        tabIndex="0"
+      >
+        Submit
+      </Label>
+    </SearchContainer>
+  );
+};
+
+export default SearchBar;

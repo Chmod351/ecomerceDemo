@@ -51,9 +51,9 @@ const Product = ({ product }) => {
     <Container aria-label={product.name}>
       <LinkDecoration
         to={`/product/${product._id}`}
-        aria-label={`see more details about ${product.name}`}
+        aria-label={`see more details about ${product.name} $ ${product.price}`}
         role="link"
-        title={`${product.name}`}
+        title={`${product.name} $ ${product.price}`}
       >
         <Image
           src={product.imgUrl}

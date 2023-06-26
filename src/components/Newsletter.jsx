@@ -25,7 +25,7 @@ const Desc = styled.div`
 `;
 
 const InputContainer = styled.div`
-  max-width:1200px;
+  max-width: 1200px;
   width: 50%;
   height: 2.5rem;
   background-color: white;
@@ -51,12 +51,27 @@ const Button = styled.button`
 
 const Newsletter = () => {
   return (
-    <Container>
+    <Container role="form" aria-label="Newsletter section">
       <Title>Newsletter</Title>
-      <Desc>Get timely updates from your favorite products.</Desc>
-      <InputContainer>
-        <Input placeholder="Your email" type="email" />
-        <Button>
+      <Desc
+        role="complementary"
+        aria-label="Get timely updates from your favorite products."
+      >
+        Get timely updates from your favorite products.
+      </Desc>
+      <InputContainer role="contentinfo">
+        <Input
+          placeholder="Your email"
+          type="email"
+          role="form"
+          title="email"
+          aria-label="email to subscribe to Newsletter"
+        />
+        <Button
+          role="button"
+          title="Subscribe to Newsletter"
+          aria-label="Subscribe to Newsletter"
+        >
           <Send />
         </Button>
       </InputContainer>

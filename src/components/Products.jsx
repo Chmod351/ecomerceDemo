@@ -184,6 +184,9 @@ const Products = ({ tag, filters, sort, query }) => {
       {filteredProducts.length >= 8 && totalPages > 1 ? (
         <PaginationContainer tabIndex="0">
           <Icon
+            title="previous"
+            aria-label="go to previous page"
+            role="navigation"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
             onKeyUp={(e) => {
@@ -199,6 +202,8 @@ const Products = ({ tag, filters, sort, query }) => {
 
           {[...Array(totalPages)].map((_, index) => (
             <PageButton
+              role="list"
+              aria-label={`you are in ${currentPage}`}
               key={index + 1}
               active={index + 1 === currentPage}
               onClick={() => handlePageChange(index + 1)}
@@ -208,6 +213,9 @@ const Products = ({ tag, filters, sort, query }) => {
             </PageButton>
           ))}
           <Icon
+            title="next"
+            aria-label="go to next page"
+            role="navigation"
             onClick={() => handlePageChange(currentPage + 1)}
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
@@ -224,7 +232,11 @@ const Products = ({ tag, filters, sort, query }) => {
           </Icon>
         </PaginationContainer>
       ) : (
-        <PaginationContainer>
+        <PaginationContainer
+          title="previous"
+          aria-label="go to previous page"
+          role="navigation"
+        >
           <PageButton
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}

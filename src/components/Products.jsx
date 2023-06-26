@@ -27,7 +27,7 @@ const Wrapper = styled.div`
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 16px;
+  margin-top: 1rem;
 `;
 
 const PageButton = styled.button`
@@ -36,7 +36,7 @@ const PageButton = styled.button`
   border: 1px solid #ccc;
   padding: 0rem 1rem;
   border-radius: 1rem;
-  margin: 0 4px;
+  margin: 0 0.3rem;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 'bold';

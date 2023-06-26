@@ -14,20 +14,22 @@ const Wrapper = styled.div`
   max-width: 1200px;
   ${mobile({ flexDirection: 'column', display: 'flex' })}
 `;
-const Left = styled.div`
+const Left = styled.aside`
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
 `;
 
-const Logo = styled.h1``;
+const Logo = styled.h3`
+  font-size: 2rem;
+`;
 
 const Desc = styled.p`
   margin: 1.25rem 0px;
 `;
 
-const SocialContainer = styled.div`
+const SocialContainer = styled.aside`
   display: flex;
 `;
 
@@ -43,7 +45,7 @@ const SocialIcon = styled.div`
   margin-right: 1.25rem;
 `;
 
-const Center = styled.div`
+const Center = styled.aside`
   flex: 1;
   padding: 1.25rem;
   ${mobile({ display: 'none' })}
@@ -72,7 +74,7 @@ const ListItem = styled.li`
     text-decoration-thickness: 1px;
   }
 `;
-const Right = styled.div`
+const Right = styled.aside`
   flex: 1;
   padding: 1.25rem;
 `;
@@ -109,11 +111,9 @@ const Footer = () => {
             {social.map((i) => {
               const { id, color, icon, link } = i;
               return (
-                <a href={link} key={id}>
-                  <SocialIcon color={color}>
-                    {icon}
-                  </SocialIcon>
-                </a>
+                <A href={link} key={id}>
+                  <SocialIcon color={color}>{icon}</SocialIcon>
+                </A>
               );
             })}
           </SocialContainer>

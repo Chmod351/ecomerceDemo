@@ -54,6 +54,32 @@ const Left = styled.div`
   ${mobile({ justifyContent: 'center', maxWidth: '100vw', width: '100%' })}
 `;
 
+const MenuIconMobile = styled.div`
+  display: none;
+  ${mobile({ display: 'flex' })}
+`;
+
+
+const DarkLabel = styled.label`
+  ${mobile({ display: 'none' })}
+`;
+
+const Item = styled.div`
+  font-size: 1rem;
+  margin: 1rem;
+  cursor: pointer;
+  ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
+`;
+
+
+
+const Center = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  ${mobile({ display: 'none' })}
+`;
+
 const Right = styled.div`
   flex: 3;
   display: flex;
@@ -70,12 +96,7 @@ const Right = styled.div`
     top: '100%',
   })}
 `;
-const Center = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  ${mobile({ display: 'none' })}
-`;
+
 
 const DropdownMenu = styled.div`
   ${mobile({
@@ -144,20 +165,7 @@ const MenuItemCart = styled.div`
     width: 100%;
   }
 `;
-const Item = styled.div`
-  font-size: 1rem;
-  margin: 1rem;
-  cursor: pointer;
-  ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
-`;
 
-const DarkLabel = styled.label`
-  ${mobile({ display: 'none' })}
-`;
-const MenuIconMobile = styled.div`
-  display: none;
-  ${mobile({ display: 'flex' })}
-`;
 const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const username = useSelector((state) => state.user.username);

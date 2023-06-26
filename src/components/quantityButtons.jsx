@@ -9,9 +9,9 @@ const ProductAmountContainer = styled.div`
 `;
 
 const ProductAmount = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
   border: 1px solid teal;
   display: flex;
   align-items: center;

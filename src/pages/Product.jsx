@@ -168,7 +168,7 @@ const Product = ({ darkMode, setDarkMode }) => {
           <Wrapper role="article">
             <ImgContainer>
               <Image
-                title={product.name}
+                title={`${product.name} $ ${product.price}`}
                 src={product.imgUrl}
                 alt={product.name}
                 role="img"

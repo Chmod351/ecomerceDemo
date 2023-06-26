@@ -179,7 +179,12 @@ const Footer = () => {
               );
             })}
           </>
-          <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
+          <Payment
+            src="https://i.ibb.co/Qfvn4z6/payment.png"
+            alt="payment method acepted, visa, mastercard, paypal, mercado pago"
+            title="payment method acepted, visa, mastercard, paypal, mercado pago"
+            aria-label="payment method acepted, visa, mastercard, paypal, mercado pago"
+          />
         </Right>
       </Wrapper>
     </Container>

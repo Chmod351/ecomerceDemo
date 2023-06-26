@@ -21,7 +21,7 @@ const ButtonElement = styled.button`
 
 const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
   return (
-    <ButtonElement tabIndex={tabIndex} onClick={onClick} onKeyUp={onKeyUp}>
+    <ButtonElement tabIndex={tabIndex} onClick={onClick} onKeyUp={onKeyUp} role="button">
       {text}
     </ButtonElement>
   );

@@ -98,8 +98,9 @@ const Slider = () => {
   };
 
   return (
-    <Container id="Home">
+    <Container id="Home" role="slider">
       <Arrow
+        role="figure"
         title="Before"
         aria-label="move the slider to left"
         tabIndex="0"
@@ -114,22 +115,33 @@ const Slider = () => {
       >
         <ArrowLeftOutlined aria-label="left" />
       </Arrow>
-      <Wrapper slideIndex={slideIndex} tabIndex="-1">
+      <Wrapper slideIndex={slideIndex} tabIndex="-1" role="main">
         {sliderItems.map((item) => (
-          <Slide key={item.id} tabIndex="-1">
-            <ImgContainer tabIndex="-1">
-              <Link to={item.url} tabIndex="-1">
-                <Image src={item.img} alt={item.alt} tabIndex="-1" />
+          <Slide key={item.id} tabIndex="-1" role="sliderItems">
+            <ImgContainer tabIndex="-1" role="img">
+              <Link to={item.url} tabIndex="-1" role="link">
+                <Image src={item.img} alt={item.alt} tabIndex="-1"  role="img"/>
               </Link>
             </ImgContainer>
             <InfoContainer aria-label={item.desc} tabIndex="-1">
-              <Title tabIndex="-1" aria-label={item.title} title={item.title}>
+              <Title
+                tabIndex="-1"
+                aria-label={item.title}
+                title={item.title}
+                role="feed"
+              >
                 {item.title}
               </Title>
-              <Desc tabIndex="-1" aria-label={item.desc} title={item.desc}>
+              <Desc
+                tabIndex="-1"
+                aria-label={item.desc}
+                title={item.desc}
+                role="contentinfo"
+              >
                 {item.desc}
               </Desc>
               <Link
+                role="link"
                 to={item.url}
                 tabIndex="-1"
                 title="Shop NOW"
@@ -142,6 +154,7 @@ const Slider = () => {
         ))}
       </Wrapper>
       <Arrow
+        role="figure"
         title="Next"
         aria-label="move the slider to right"
         tabIndex="0"

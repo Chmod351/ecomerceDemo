@@ -100,6 +100,8 @@ const Slider = () => {
   return (
     <Container id="Home">
       <Arrow
+        title="Before"
+        aria-label="move the slider to left"
         tabIndex="0"
         direction="left"
         onClick={() => handleClick('left')}
@@ -110,7 +112,7 @@ const Slider = () => {
           }
         }}
       >
-        <ArrowLeftOutlined />
+        <ArrowLeftOutlined aria-label="left" />
       </Arrow>
       <Wrapper slideIndex={slideIndex} tabIndex="-1">
         {sliderItems.map((item) => (
@@ -121,21 +123,27 @@ const Slider = () => {
               </Link>
             </ImgContainer>
             <InfoContainer aria-label={item.desc} tabIndex="-1">
-              <Title tabIndex="-1">{item.title}</Title>
-              <Desc tabIndex="-1">{item.desc}</Desc>
-              <Link to={item.url} tabIndex="-1">
-                <ButtonElement
-                  tabIndex="-1"
-                  title={item.url}
-                  text={'SHOP NOW'}
-                  aria-label={`link to ${item.url}`}
-                />
+              <Title tabIndex="-1" aria-label={item.title} title={item.title}>
+                {item.title}
+              </Title>
+              <Desc tabIndex="-1" aria-label={item.desc} title={item.desc}>
+                {item.desc}
+              </Desc>
+              <Link
+                to={item.url}
+                tabIndex="-1"
+                title="Shop NOW"
+                aria-label="SHOP NOW"
+              >
+                <ButtonElement tabIndex="-1" text={'SHOP NOW'} />
               </Link>
             </InfoContainer>
           </Slide>
         ))}
       </Wrapper>
       <Arrow
+        title="Next"
+        aria-label="move the slider to right"
         tabIndex="0"
         direction="right"
         onClick={() => handleClick('right')}
@@ -146,7 +154,7 @@ const Slider = () => {
           }
         }}
       >
-        <ArrowRightOutlined />
+        <ArrowRightOutlined aria-label="right" />
       </Arrow>
     </Container>
   );

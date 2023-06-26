@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { pc } from '../responsive';
 
-const Container = styled.header`
+const Container = styled.section`
   height: 1.875rem;
   background-color: teal;
   display: flex;
@@ -17,8 +17,13 @@ const Title = styled.h1`
 `;
 const Announcement = () => {
   return (
-    <Container role='banner'>
-      <Title>¡Free shipping on orders over $50!</Title>
+    <Container role="banner">
+      <Title
+        title="Free shipping on orders over $50!"
+        aria-label="Free shipping on orders over $50!"
+      >
+        Free shipping on orders over $50!
+      </Title>
     </Container>
   );
 };

@@ -6,7 +6,7 @@ import { sliderItems } from '../data/sliderData';
 import { mobile } from '../responsive';
 import ButtonElement from '../components/Button';
 
-const Container = styled.section`
+const Container = styled.header`
   width: 100%;
   height: 90vh;
   display: flex;
@@ -33,6 +33,11 @@ const Arrow = styled.div`
   cursor: pointer;
   opacity: 0.5;
   z-index: 2;
+  &:focus {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 5px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
 `;
 
 const Wrapper = styled.div`
@@ -94,28 +99,53 @@ const Slider = () => {
 
   return (
     <Container id="Home">
-      <Arrow direction="left" onClick={() => handleClick('left')}>
+      <Arrow
+        tabIndex="0"
+        direction="left"
+        onClick={() => handleClick('left')}
+        aria-hidden="true"
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            handleClick('left');
+          }
+        }}
+      >
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper slideIndex={slideIndex}>
+      <Wrapper slideIndex={slideIndex} tabIndex="-1">
         {sliderItems.map((item) => (
-          <Slide bg={item.bg} key={item.id}>
-            <ImgContainer>
-              <Link to={item.url}>
-                <Image src={item.img} alt={item.alt} />
+          <Slide key={item.id} tabIndex="-1">
+            <ImgContainer tabIndex="-1">
+              <Link to={item.url} tabIndex="-1">
+                <Image src={item.img} alt={item.alt} tabIndex="-1" />
               </Link>
             </ImgContainer>
-            <InfoContainer>
-              <Title>{item.title}</Title>
-              <Desc>{item.desc}</Desc>
-              <Link to={item.url}>
-                <ButtonElement text={'SHOP NOW'} />
+            <InfoContainer aria-label={item.desc} tabIndex="-1">
+              <Title tabIndex="-1">{item.title}</Title>
+              <Desc tabIndex="-1">{item.desc}</Desc>
+              <Link to={item.url} tabIndex="-1">
+                <ButtonElement
+                  tabIndex="-1"
+                  title={item.url}
+                  text={'SHOP NOW'}
+                  aria-label={`link to ${item.url}`}
+                />
               </Link>
             </InfoContainer>
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick('right')}>
+      <Arrow
+        tabIndex="0"
+        direction="right"
+        onClick={() => handleClick('right')}
+        aria-hidden="true"
+        onKeyUp={(e) => {
+          if (e.key === 'Enter') {
+            handleClick('right');
+          }
+        }}
+      >
         <ArrowRightOutlined />
       </Arrow>
     </Container>

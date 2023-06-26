@@ -162,7 +162,7 @@ const Register = () => {
     <Container id={islogin ? 'SignIn' : 'SignUp'}>
       <Wrapper>
         <Title>{islogin ? 'SIGN IN' : ' CREATE AND ACCOUNT'} </Title>
-        <Form>
+        <Form role="form" aria-label="auth / login form">
           {register.map((data) => {
             const { id, label, name, type, placeholder, errorMessage, shared } =
               data;
@@ -186,13 +186,32 @@ const Register = () => {
               </InputContainer>
             );
           })}
-          {msg in Messages ? <Label>{Messages[msg]}</Label> : <Label> </Label>}
-          {msg.message ? <Error>{msg.message}</Error> : ''}
+          {msg in Messages ? (
+            <Label role="dialog" aria-label={Messages[msg]}>
+              {Messages[msg]}
+            </Label>
+          ) : (
+            <Label> </Label>
+          )}
+          {msg.message ? (
+            <Error role="dialog" aria-label={msg.message}>
+              {msg.message}
+            </Error>
+          ) : (
+            ''
+          )}
           {!islogin ? (
             <Agreement>
               By creating an account, I consent to the processing of my personal
               data in accordance with the{' '}
-              <Link to="/" target="_blank" tabIndex="0">
+              <Link
+                to="/"
+                target="_blank"
+                tabIndex="0"
+                role="link"
+                aria-label="link to home"
+                title="PRIVACY POLICY"
+              >
                 PRIVACY POLICY
               </Link>
             </Agreement>
@@ -200,6 +219,8 @@ const Register = () => {
             ''
           )}
           <Button
+            role="button"
+            aria-label="button"
             tabIndex="0"
             type="submit"
             onClick={handleClick}
@@ -213,6 +234,8 @@ const Register = () => {
             {islogin ? 'Submit' : 'CREATE'}
           </Button>
           <Button
+            role="button"
+            aria-label="button"
             tabIndex="0"
             type="submit"
             onClick={(e) => {

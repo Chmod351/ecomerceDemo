@@ -95,6 +95,8 @@ const ProductColor = styled.div`
   width: 1.25rem;
   height: 1.25rem;
   border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.textSoft};
+
   background-color: ${(props) => props.color};
 `;
 
@@ -161,16 +163,28 @@ const Cart = ({ darkMode, setDarkMode }) => {
   }, []);
 
   return (
-    <Container>
+    <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Wrapper>
-        <Title>YOUR BAG</Title>
+      <Wrapper role="complementary">
+        <Title role="main">YOUR BAG</Title>
         <Top>
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link
+            to="/"
+            style={{ textDecoration: 'none' }}
+            role="link"
+            aria-label="link to home"
+          >
             <ButtonElement text={'CONTINUE SHOPPING'} />
           </Link>
           <TopTexts>
-            <TopText tabIndex="0">Shopping Bag({cart.quantity})</TopText>
+            <TopText
+              tabIndex="0"
+              role="status"
+              aria-label={`you have ${cart.quantity} in your cart`}
+              title={`you have ${cart.quantity} in your cart`}
+            >
+              Shopping Bag({cart.quantity})
+            </TopText>
           </TopTexts>
           {username ? (
             <ButtonElement text={'CHECKOUT NOW'} />
@@ -181,12 +195,23 @@ const Cart = ({ darkMode, setDarkMode }) => {
           )}
         </Top>
         {cart.products.length > 0 ? (
-          <Bottom>
-            <Info>
+          <Bottom role="list">
+            <Info role="complementary">
               {cart.products.map((product, index) => (
                 <Product tabIndex="0">
                   <ProductDetail>
-                    <Link to={`/product/${product._id}`}>
+                    <Link
+                      to={`/product/${product._id}`}
+                      role="link"
+                      aria-label={`${product.name} in ${
+                        product.color
+                      } total units ${product.quantity} cost = ${
+                        product.price * product.quantity
+                      }`}
+                      title={`${product.name} in ${product.color} total units ${
+                        product.quantity
+                      } cost = ${product.price * product.quantity}`}
+                    >
                       <Image src={product.imgUrl} alt={product.name} />
                     </Link>
                     <Details>
@@ -206,7 +231,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                       remove={() => handleRemove(index)}
                       quantity={product.quantity}
                     />
-                    <ProductPrice>
+                    <ProductPrice aria-label="total">
                       $ {product.price * product.quantity}
                     </ProductPrice>
                   </PriceDetail>

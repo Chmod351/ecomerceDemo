@@ -97,7 +97,7 @@ const A = styled.a`
 
 const Footer = () => {
   return (
-    <Container role="contentinfo" aria-label="footer" title="footer">
+    <Container role="contentinfo" aria-label="footer">
       <Wrapper role="complementary">
         <Left role="table">
           <Logo

@@ -13,7 +13,14 @@ const Container = styled.div`
 export default function Loading() {
   return (
     <Container>
-      <ReactLoading type="bars" color="teal" height={300} width={100} />
+      <ReactLoading
+        type="bars"
+        color="teal"
+        height={300}
+        width={100}
+        role="status"
+        aria-label="loading..."
+      />
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import { Add, Remove } from '@material-ui/icons';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 
-const ProductAmountContainer = styled.div`
+const ProductAmountContainer = styled.aside`
   display: flex;
   align-items: center;
   margin-bottom: 1.25rem;
@@ -46,8 +46,11 @@ const Icon = styled.button`
 
 const QuantityButton = ({ add, remove, quantity }) => {
   return (
-    <ProductAmountContainer>
+    <ProductAmountContainer role="complementary">
       <Icon
+        title="add"
+        aria-label="you will add +1 to your cart"
+        role="figure"
         onClick={add}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
@@ -58,8 +61,18 @@ const QuantityButton = ({ add, remove, quantity }) => {
       >
         <Add aria-label="Add" />
       </Icon>
-      <ProductAmount>{quantity}</ProductAmount>
+      <ProductAmount
+        role="contentinfo"
+        value={quantity}
+        title={quantity}
+        aria-label={`you cart will have  ${quantity} of this product`}
+      >
+        {quantity}
+      </ProductAmount>
       <Icon
+        title="remove"
+        aria-label="you will remove +1 to your cart"
+        role="figure"
         onClick={remove}
         tabIndex="0"
         onKeyDown={(e) => {

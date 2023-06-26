@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 const Container = styled.article`
   flex: 1;
   margin: 5px;
@@ -15,6 +16,17 @@ const Container = styled.article`
     opacity: 1;
   }
 `;
+const LinkDecoration = styled(Link)`
+  text-decoration: none;
+  color: ${({ theme }) => theme.hover};
+`;
+
+const Image = styled.img`
+  height: 20rem;
+  width: 16rem;
+  z-index: 2;
+`;
+
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -31,11 +43,6 @@ const Info = styled.div`
   cursor: pointer;
 `;
 
-const Image = styled.img`
-  height: 20rem;
-  width: 16rem;
-  z-index: 2;
-`;
 
 const Price = styled.p`
   font-weight: bold;
@@ -43,10 +50,7 @@ const Price = styled.p`
   color: white;
 `;
 
-const LinkDecoration = styled(Link)`
-  text-decoration: none;
-  color: ${({ theme }) => theme.hover};
-`;
+
 
 const Product = ({ product }) => {
   return (

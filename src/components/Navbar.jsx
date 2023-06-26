@@ -271,7 +271,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     aria-label="go to auth"
                     to="/auth"
                     style={{ textDecoration: 'none' }}
-                    title={auth}
+                    title="Login / Create Account"
                     tabIndex="0"
                   >
                     <MenuItem>Login</MenuItem>
@@ -291,7 +291,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             <Badge
               role="figure"
               aria-label="shopping cart"
-              title={quantity}
+              title={`${quantity} products in cart`}
               badgeContent={quantity}
               color="primary"
               overlap="rectangular"

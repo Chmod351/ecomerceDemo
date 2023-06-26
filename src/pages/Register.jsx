@@ -162,7 +162,10 @@ const Register = () => {
     <Container id={islogin ? 'SignIn' : 'SignUp'} role="contentinfo">
       <Wrapper>
         <Title>{islogin ? 'SIGN IN' : ' CREATE AND ACCOUNT'} </Title>
-        <Form role="form" aria-label="auth / login form">
+        <Form
+          role="form"
+          aria-label={islogin ? 'SIGN IN' : ' CREATE AND ACCOUNT'}
+        >
           {register.map((data) => {
             const { id, label, name, type, placeholder, errorMessage, shared } =
               data;

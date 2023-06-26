@@ -16,7 +16,7 @@ import { e } from '../data/navbarData';
 import SearchBar from './searchBar';
 import Title from './Title';
 
-const Container = styled.header`
+const Container = styled.nav`
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};
   height: 6rem;
@@ -35,7 +35,7 @@ const Container = styled.header`
   })}
 `;
 
-const Wrapper = styled.nav`
+const Wrapper = styled.section`
   max-width: 1200px;
   width: 100%;
   margin: auto;

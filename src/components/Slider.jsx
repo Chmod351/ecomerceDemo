@@ -6,7 +6,7 @@ import { sliderItems } from '../data/sliderData';
 import { mobile } from '../responsive';
 import ButtonElement from '../components/Button';
 
-const Container = styled.header`
+const Container = styled.section`
   width: 100%;
   height: 90vh;
   display: flex;
@@ -74,7 +74,7 @@ const InfoContainer = styled.div`
   padding: 3rem;
 `;
 
-const Title = styled.h1`
+const Title = styled.h2`
   font-size: 4rem;
   ${mobile({ fontSize: '2.3rem', margin: '-2rem auto auto auto' })}
 `;

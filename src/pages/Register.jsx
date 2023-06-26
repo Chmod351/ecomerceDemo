@@ -159,7 +159,7 @@ const Register = () => {
   };
 
   return (
-    <Container id={islogin ? 'SignIn' : 'SignUp'}>
+    <Container id={islogin ? 'SignIn' : 'SignUp'} role="contentinfo">
       <Wrapper>
         <Title>{islogin ? 'SIGN IN' : ' CREATE AND ACCOUNT'} </Title>
         <Form role="form" aria-label="auth / login form">
@@ -171,10 +171,17 @@ const Register = () => {
             }
             return (
               <InputContainer key={id}>
-                <Label>
+                <Label
+                  title={msg === name ? <Error>{errorMessage}</Error> : label}
+                  aria-label={
+                    msg === name ? <Error>{errorMessage}</Error> : label
+                  }
+                >
                   {msg === name ? <Error>{errorMessage}</Error> : label}
                 </Label>
                 <Input
+                  role="form"
+                  aria-label={name}
                   autoComplete={name}
                   placeholder={placeholder}
                   type={type}
@@ -187,14 +194,18 @@ const Register = () => {
             );
           })}
           {msg in Messages ? (
-            <Label role="dialog" aria-label={Messages[msg]}>
+            <Label
+              role="dialog"
+              aria-label={Messages[msg]}
+              title={Messages[msg]}
+            >
               {Messages[msg]}
             </Label>
           ) : (
             <Label> </Label>
           )}
           {msg.message ? (
-            <Error role="dialog" aria-label={msg.message}>
+            <Error role="dialog" aria-label={msg.message} title={msg.message}>
               {msg.message}
             </Error>
           ) : (
@@ -219,8 +230,9 @@ const Register = () => {
             ''
           )}
           <Button
+            title={islogin ? 'Submit' : 'CREATE'}
             role="button"
-            aria-label="button"
+            aria-label={islogin ? 'Submit' : 'CREATE'}
             tabIndex="0"
             type="submit"
             onClick={handleClick}
@@ -234,8 +246,11 @@ const Register = () => {
             {islogin ? 'Submit' : 'CREATE'}
           </Button>
           <Button
+            title={islogin ? 'Create account' : 'I already have an account'}
             role="button"
-            aria-label="button"
+            aria-label={
+              islogin ? 'Create account' : 'I already have an account'
+            }
             tabIndex="0"
             type="submit"
             onClick={(e) => {

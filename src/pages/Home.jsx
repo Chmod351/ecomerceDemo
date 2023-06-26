@@ -15,15 +15,15 @@ const Home = ({ darkMode, setDarkMode }) => {
   }, []);
   return (
     <>
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Announcement />
-      <Slider />
-      <Title text={'Collections'} />
-      <Categories />
-      <Title text={'Products'} />
-      <SearchBar />
-      <Products />
-      <Newsletter />
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Announcement />
+        <Slider />
+        <Title text={'Collections'} />
+        <Categories />
+        <Title text={'Products'} />
+        <SearchBar />
+        <Products />
+        <Newsletter />
       <Footer />
     </>
   );

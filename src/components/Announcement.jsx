@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { pc } from '../responsive';
 
-const Container = styled.section`
+const Container = styled.div`
   height: 1.875rem;
   background-color: teal;
   display: flex;

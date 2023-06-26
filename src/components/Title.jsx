@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 
-const TitleE = styled.h2`
+const TitleE = styled.h1`
   font-size: 3rem;
   margin: auto;
   display: flex;

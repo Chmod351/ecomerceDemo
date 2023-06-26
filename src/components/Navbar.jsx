@@ -184,11 +184,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     };
   }, []);
   return (
-    <Container>
+    <Container role="navigation">
       <Wrapper>
-        <Left role="navigation">
+        <Left>
           <MenuIconMobile>
             <MenuRounded
+              role="menubar"
               aria-label="Dropdown Menu"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               style={{ cursor: 'pointer' }}
@@ -196,6 +197,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </MenuIconMobile>
 
           <DarkLabel
+            role="menuitem"
             aria-label="Change to dark mode and light mode"
             onClick={() => setDarkMode(!darkMode)}
             tabIndex="0"
@@ -208,6 +210,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {darkMode ? 'Dark' : 'Light'}
           </DarkLabel>
           <Item
+            role="menuitem"
             aria-label="Change to dark mode and light mode"
             aria-pressed={darkMode}
             name="theme"
@@ -226,12 +229,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {/* SEARCH BAR */}
           <SearchBar />
         </Left>
-        <Center>
-          <Link to="/" style={{ textDecoration: 'none' }} title="Cierva">
+        <Center role="banner">
+          <Link
+            to="/"
+            style={{ textDecoration: 'none' }}
+            title="Cierva"
+            role="link"
+          >
             <Title text={'Cierva'} />
           </Link>
         </Center>
-        <Right>
+        <Right role="menu">
           {/* MOBILE NAVBAR */}
           {isMenuOpen && (
             <DropdownMenu aria-hidden={!isMenuOpen}>
@@ -241,6 +249,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   const { id, route, name } = i;
                   return (
                     <Link
+                      role="link"
                       aria-label={`go to ${name}`}
                       title={name}
                       key={id}
@@ -253,11 +262,12 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   );
                 })}
                 {username ? (
-                  <MenuItem title={username} tabIndex="0">
+                  <MenuItem role="link" title={username} tabIndex="0">
                     {username}
                   </MenuItem>
                 ) : (
                   <Link
+                    role="link"
                     aria-label="go to auth"
                     to="/auth"
                     style={{ textDecoration: 'none' }}
@@ -271,9 +281,15 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </DropdownMenu>
           )}
         </Right>
-        <Link to="/cart" style={{ textDecoration: 'none' }} tabIndex="0">
+        <Link
+          to="/cart"
+          style={{ textDecoration: 'none' }}
+          tabIndex="0"
+          role="link"
+        >
           <MenuItemCart>
             <Badge
+              role="figure"
               aria-label="shopping cart"
               title={quantity}
               badgeContent={quantity}

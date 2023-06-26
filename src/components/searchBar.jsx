@@ -92,7 +92,7 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <SearchContainer role="search" aria-label="search bar">
+      <SearchContainer role="search" aria-label="search bar" >
         <Input
           role="form"
           title="Search Bar"

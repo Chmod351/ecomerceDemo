@@ -6,14 +6,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { makeOrder } from '../redux/apiCalls';
 import { clearCart } from '../redux/cartRedux';
-const Button = styled.button`
-  padding: 1rem;
-  margin-top: 1.2rem;
-  background-color: gold;
-  font-weight: bold;
-  border: none;
-  cursor: pointer;
-`;
+import Button from '../components/Button';
+
 const Container = styled.section`
   width: 100vw;
   height: 100vh;
@@ -39,7 +33,7 @@ const Success = () => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
-  
+
   useEffect(() => {
     const createOrder = async () => {
       const res = await makeOrder(
@@ -61,13 +55,25 @@ const Success = () => {
   }, [cart, cartId, data, currentUser, orderId]);
 
   return (
-    <Container>
+    <Container
+      title={
+        orderId
+          ? `Order has been created successfully. Your order number is ${orderId}`
+          : `Something went wrong, your order was not created yet...`
+      }
+      role="contentinfo"
+      aria-label={
+        orderId
+          ? `Order has been created successfully. Your order number is ${orderId}`
+          : `Something went wrong, your order was not created yet...`
+      }
+    >
       {orderId
         ? `Order has been created successfully. Your order number is ${orderId}`
         : `Something went wrong, your order was not created yet...`}
 
-      <Link to="/">
-        <Button>Keep Buying</Button>
+      <Link to="/" role="link">
+        <Button text={'Keep Buying'} />
       </Link>
     </Container>
   );

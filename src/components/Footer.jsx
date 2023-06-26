@@ -97,35 +97,60 @@ const A = styled.a`
 
 const Footer = () => {
   return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <Logo>Cierva Design</Logo>
-          <Desc>
+    <Container role="contentinfo" aria-label="footer" title="footer">
+      <Wrapper role="complementary">
+        <Left role="table">
+          <Logo
+            aria-label="cierva design logo"
+            role="banner"
+            title="Cierva Design"
+          >
+            Cierva Design
+          </Logo>
+          <Desc
+            aria-label="about Cierva"
+            role="complementary"
+            title="About Cierva"
+          >
             There are many variations of passages of Lorem Ipsum available, but
             the majority have suffered alteration in some form, by injected
             humour, or randomised words which don’t look even slightly
             believable.
           </Desc>
-          <SocialContainer>
+          <SocialContainer role="list">
             {social.map((i) => {
               const { id, color, icon, link } = i;
               return (
-                <A href={link} key={id} target="_blank" title={link}>
-                  <SocialIcon color={color}>{icon}</SocialIcon>
+                <A
+                  href={link}
+                  key={id}
+                  target="_blank"
+                  title={link}
+                  role="link"
+                  aria-label={link}
+                >
+                  <SocialIcon color={color} role="img">
+                    {icon}
+                  </SocialIcon>
                 </A>
               );
             })}
           </SocialContainer>
         </Left>
-        <Center>
-          <Title>Useful Links</Title>
-          <List>
+        <Center role="table">
+          <Title role="complementary">Useful Links</Title>
+          <List role="list">
             {e.map((i) => {
               const { id, route, name } = i;
               return (
                 <ListItem key={id}>
-                  <Link to={route} style={{ textDecoration: 'none' }} title={route}>
+                  <Link
+                    to={route}
+                    style={{ textDecoration: 'none' }}
+                    title={name}
+                    role="list"
+                    aria-label={name}
+                  >
                     <MenuItem>{name}</MenuItem>
                   </Link>
                 </ListItem>
@@ -133,14 +158,20 @@ const Footer = () => {
             })}
           </List>
         </Center>
-        <Right>
-          <Title>Contact</Title>
+        <Right role="tab">
+          <Title role="complementary">Contact</Title>
           <>
             {contact.map((i) => {
               const { id, url, icon, text } = i;
               return (
                 <ContactItem key={id}>
-                  <A href={url} style={{ textDecoration: 'none' }} title={url}>
+                  <A
+                    href={url}
+                    style={{ textDecoration: 'none' }}
+                    title={url}
+                    role="link"
+                    aria-label={url}
+                  >
                     {icon}
                     {text}
                   </A>

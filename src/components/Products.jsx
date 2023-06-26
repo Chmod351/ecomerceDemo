@@ -202,8 +202,9 @@ const Products = ({ tag, filters, sort, query }) => {
 
           {[...Array(totalPages)].map((_, index) => (
             <PageButton
+              title= {index + 1}
               role="list"
-              aria-label={`you are in ${currentPage}`}
+              aria-label= {index + 1}
               key={index + 1}
               active={index + 1 === currentPage}
               onClick={() => handlePageChange(index + 1)}

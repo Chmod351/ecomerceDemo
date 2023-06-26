@@ -198,7 +198,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
           <DarkLabel
             role="menuitem"
-            aria-label="Change to dark mode and light mode"
+            title={darkMode ? 'Dark' : 'Light'}
+            aria-label={darkMode ? 'Dark' : 'Light'}
             onClick={() => setDarkMode(!darkMode)}
             tabIndex="0"
             onKeyUp={(e) => {
@@ -211,8 +212,8 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </DarkLabel>
           <Item
             role="menuitem"
-            aria-label="Change to dark mode and light mode"
-            aria-pressed={darkMode}
+            title={darkMode ? 'Dark' : 'Light'}
+            aria-label={darkMode ? 'Dark' : 'Light'}
             name="theme"
             value={darkMode}
             onClick={() => setDarkMode(!darkMode)}

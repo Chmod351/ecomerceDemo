@@ -168,9 +168,9 @@ const Footer = () => {
                   <A
                     href={url}
                     style={{ textDecoration: 'none' }}
-                    title={url}
+                    title={text}
                     role="link"
-                    aria-label={url}
+                    aria-label={text}
                   >
                     {icon}
                     {text}

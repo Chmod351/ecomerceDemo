@@ -19,6 +19,7 @@ const Announcement = () => {
   return (
     <Container role="banner">
       <Title
+        role="complementary"
         title="Free shipping on orders over $50!"
         aria-label="Free shipping on orders over $50!"
       >

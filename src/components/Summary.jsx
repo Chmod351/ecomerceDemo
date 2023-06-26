@@ -56,23 +56,53 @@ const Summary = ({ cart, username }) => {
   }, [stripeToken, cart, history, userCart]);
 
   return (
-    <SummaryContainer>
-      <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+    <SummaryContainer role="table">
+      <SummaryTitle role="contentinfo" aria-label="your order Summary">
+        ORDER SUMMARY
+      </SummaryTitle>
       <SummaryItem>
-        <SummaryItemText>Subtotal</SummaryItemText>
-        <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+        <SummaryItemText role="contentinfo">Subtotal</SummaryItemText>
+        <SummaryItemPrice
+          role="contentinfo"
+          title={cart.total}
+          aria-label={cart.total}
+        >
+          ${cart.total}
+        </SummaryItemPrice>
       </SummaryItem>
       <SummaryItem>
-        <SummaryItemText>Estimated Shipping</SummaryItemText>
-        <SummaryItemPrice>$ 35.90</SummaryItemPrice>
+        <SummaryItemText role="complementary">
+          Estimated Shipping
+        </SummaryItemText>
+        <SummaryItemPrice
+          role="contentinfo"
+          title="Estimated Shipping $35.90"
+          aria-label={`you bill will be $ ${cart.total}`}
+        >
+          $ 35.90
+        </SummaryItemPrice>
       </SummaryItem>
       <SummaryItem>
-        <SummaryItemText>Shipping Discount</SummaryItemText>
-        <SummaryItemPrice>$ -35.90</SummaryItemPrice>
+        <SummaryItemText role="complementary">
+          Shipping Discount
+        </SummaryItemText>
+        <SummaryItemPrice
+          role="contentinfo"
+          title="Shipping Discount $35.90"
+          aria-label={`you bill will be $ ${cart.total}`}
+        >
+          $ -35.90
+        </SummaryItemPrice>
       </SummaryItem>
       <SummaryItem type="total">
-        <SummaryItemText>Total</SummaryItemText>
-        <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+        <SummaryItemText role="complementary">Total</SummaryItemText>
+        <SummaryItemPrice
+          role="contentinfo"
+          title={cart.total}
+          aria-label={`you bill will be $ ${cart.total}`}
+        >
+          $ {cart.total}
+        </SummaryItemPrice>
       </SummaryItem>
       {username ? (
         <StripeCheckout
@@ -92,7 +122,7 @@ const Summary = ({ cart, username }) => {
           />
         </StripeCheckout>
       ) : (
-        <Link to="/auth">
+        <Link to="/auth" role="link" aria-label="this is a link to auth">
           <Button text={'LOGIN NOW'} />
         </Link>
       )}

@@ -92,10 +92,11 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <SearchContainer role="search" aria-label="search bar" >
+      <SearchContainer role="search" aria-label="search bar">
         <Input
           role="form"
-          title="Search Bar"
+          aria-label="what are you looking for"
+          title="what are you looking for"
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}

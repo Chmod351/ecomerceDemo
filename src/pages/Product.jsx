@@ -40,7 +40,7 @@ const Image = styled.img`
   ${mobile({ height: '100%' })}
 `;
 
-const InfoContainer = styled.div`
+const InfoContainer = styled.aside`
   color: ${({ theme }) => theme.text};
   flex: 1;
   padding: 0px 50px;
@@ -160,25 +160,42 @@ const Product = ({ darkMode, setDarkMode }) => {
     }
   };
   return (
-    <Container>
+    <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Announcement />
       {product ? (
         <>
-          <Wrapper>
+          <Wrapper role="article">
             <ImgContainer>
-              <Image src={product.imgUrl} alt={product.description} />
+              <Image
+                title={product.name}
+                src={product.imgUrl}
+                alt={product.name}
+                role="img"
+                aria-label={`this is a ${product.name}`}
+              />
             </ImgContainer>
-            <InfoContainer>
-              <Title tabIndex="0">{product.name}</Title>
-              <Desc tabIndex="0">{product.hot}</Desc>
-              <Description tabIndex="0">{product.description}</Description>
+            <InfoContainer role="complementary" aria="complementary info">
+              <Title tabIndex="0" role="complementary">
+                {product.name}
+              </Title>
+              <Desc tabIndex="0"> {product.hot}</Desc>
+              <Description
+                tabIndex="0"
+                role="description"
+                aria-label={product.description}
+              >
+                {product.description}
+              </Description>
               <Price tabIndex="0">$ {product.price}</Price>
-              <FilterContainer>
-                <Filter tabIndex="0">
-                  <FilterTitle tabIndex="0">{color}</FilterTitle>
+              <FilterContainer role="menu">
+                <Filter tabIndex="0" aria-label="color section">
+                  <FilterTitle tabIndex="0"></FilterTitle>
                   {product.color.map((c) => (
                     <FilterColor
+                      role="list"
+                      title={c}
+                      aria-label={`color selected = ${c}`}
                       tabIndex="0"
                       color={c}
                       key={c}
@@ -191,14 +208,20 @@ const Product = ({ darkMode, setDarkMode }) => {
                     />
                   ))}
                 </Filter>
-                <Filter>
+                <Filter aria-label="size section">
                   <FilterTitle tabIndex="0">Size</FilterTitle>
                   <FilterSize
+                    title={size}
                     onChange={(e) => setSize(e.target.value)}
                     tabIndex="0"
                   >
                     {product.size.map((s) => (
-                      <FilterSizeOption key={s} tabIndex="0">
+                      <FilterSizeOption
+                        key={s}
+                        tabIndex="0"
+                        title={s}
+                        aria-label={`size is ${s}`}
+                      >
                         {s}
                       </FilterSizeOption>
                     ))}

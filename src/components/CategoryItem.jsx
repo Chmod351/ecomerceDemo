@@ -60,6 +60,8 @@ const Overlay = styled.div`
 const CategoryItem = ({ item }) => {
   return (
     <Link
+      aria-label={`go to ${item.tags}`}
+      title={item.tags}
       to={`/products/${item.tags}`}
       style={{ textDecoration: 'none', color: 'black' }}
       role="link"
@@ -74,11 +76,10 @@ const CategoryItem = ({ item }) => {
         />
         <Overlay>
           <Info role="contentinfo">
-            <Title title={item.title} aria-label={item.title}  >
+            <Title title={item.title} aria-label={item.title}>
               {item.title}
             </Title>
-            <ButtonElement 
-
+            <ButtonElement
               text={'SHOP NOW'}
               title="SHOP NOW"
               aria-label="SHOP NOW"

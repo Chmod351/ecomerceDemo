@@ -101,7 +101,7 @@ const Slider = () => {
     <Container id="Home" role="slider">
       <Arrow
         role="figure"
-        title="Before"
+        title="Previous"
         aria-label="move the slider to left"
         tabIndex="0"
         direction="left"
@@ -120,7 +120,7 @@ const Slider = () => {
           <Slide key={item.id} tabIndex="-1" role="sliderItems">
             <ImgContainer tabIndex="-1" role="img">
               <Link to={item.url} tabIndex="-1" role="link">
-                <Image src={item.img} alt={item.alt} tabIndex="-1"  role="img"/>
+                <Image src={item.img} alt={item.alt} tabIndex="-1" role="img" />
               </Link>
             </ImgContainer>
             <InfoContainer aria-label={item.desc} tabIndex="-1">

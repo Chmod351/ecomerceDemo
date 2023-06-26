@@ -92,8 +92,9 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <SearchContainer>
+      <SearchContainer role="search" aria-label="search bar">
         <Input
+          role="form"
           title="Search Bar"
           placeholder="Search..."
           value={query}
@@ -107,6 +108,7 @@ const SearchBar = () => {
         />
         <SearchLine />
         <Label
+          role="button"
           title="Submit"
           onClick={SearchProduct}
           onKeyUp={(e) => {

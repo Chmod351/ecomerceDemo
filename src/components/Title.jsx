@@ -13,6 +13,6 @@ const TitleE = styled.h2`
   ${mobile({ fontSize: '2rem', paddingTop: '4rem' })}
 `;
 const Title = ({ text }) => {
-  return <TitleE>{text}</TitleE>;
+  return <TitleE aria-label={text} title={text}>{text}</TitleE>;
 };
 export default Title;

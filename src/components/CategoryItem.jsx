@@ -52,24 +52,41 @@ const Overlay = styled.div`
   ${Container}:hover & {
     opacity: 0;
   }
+  ${Container}:focus & {
+    opacity: 0;
+  }
 `;
 
 const CategoryItem = ({ item }) => {
   return (
-    <Container id={item.tags} tabIndex="0">
-      <Image src={item.img} alt={item.alt} />
-      <Overlay>
-        <Link
-          to={`/products/${item.tags}`}
-          style={{ textDecoration: 'none', color: 'black' }}
-        >
-          <Info>
-            <Title>{item.title}</Title>
-            <ButtonElement text={'SHOP NOW'} />
+    <Link
+      to={`/products/${item.tags}`}
+      style={{ textDecoration: 'none', color: 'black' }}
+      role="link"
+    >
+      <Container id={item.tags} tabIndex="0" role="article">
+        <Image
+          role="img"
+          src={item.img}
+          alt={item.alt}
+          title={item.alt}
+          aria-label={item.alt}
+        />
+        <Overlay>
+          <Info role="contentinfo">
+            <Title title={item.title} aria-label={item.title}  >
+              {item.title}
+            </Title>
+            <ButtonElement 
+
+              text={'SHOP NOW'}
+              title="SHOP NOW"
+              aria-label="SHOP NOW"
+            />
           </Info>
-        </Link>
-      </Overlay>
-    </Container>
+        </Overlay>
+      </Container>
+    </Link>
   );
 };
 

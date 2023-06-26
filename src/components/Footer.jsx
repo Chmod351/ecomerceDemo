@@ -111,7 +111,7 @@ const Footer = () => {
             {social.map((i) => {
               const { id, color, icon, link } = i;
               return (
-                <A href={link} key={id}>
+                <A href={link} key={id} target="_blank" title={link}>
                   <SocialIcon color={color}>{icon}</SocialIcon>
                 </A>
               );
@@ -125,7 +125,7 @@ const Footer = () => {
               const { id, route, name } = i;
               return (
                 <ListItem key={id}>
-                  <Link to={route} style={{ textDecoration: 'none' }}>
+                  <Link to={route} style={{ textDecoration: 'none' }} title={route}>
                     <MenuItem>{name}</MenuItem>
                   </Link>
                 </ListItem>
@@ -140,7 +140,7 @@ const Footer = () => {
               const { id, url, icon, text } = i;
               return (
                 <ContactItem key={id}>
-                  <A href={url} style={{ textDecoration: 'none' }}>
+                  <A href={url} style={{ textDecoration: 'none' }} title={url}>
                     {icon}
                     {text}
                   </A>

@@ -94,6 +94,7 @@ const SearchBar = () => {
     <Container>
       <SearchContainer>
         <Input
+          title="Search Bar"
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -106,6 +107,7 @@ const SearchBar = () => {
         />
         <SearchLine />
         <Label
+          title="Submit"
           onClick={SearchProduct}
           onKeyUp={(e) => {
             if (e.key === 'Enter') {

@@ -1,6 +1,20 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+const Container = styled.article`
+  flex: 1;
+  margin: 5px;
+  min-width: 16rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.bg};
+  position: relative;
 
+  &:hover ${Info} {
+    opacity: 1;
+  }
+`;
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -17,25 +31,9 @@ const Info = styled.div`
   cursor: pointer;
 `;
 
-const Container = styled.div`
-  flex: 1;
-  margin: 5px;
-  min-width: 280px;
-  height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.bg};
-  position: relative;
-
-  &:hover ${Info} {
-    opacity: 1;
-  }
-`;
-
 const Image = styled.img`
-  height: 300px;
-  width: 280px;
+  height: 20rem;
+  width: 16rem;
   z-index: 2;
 `;
 

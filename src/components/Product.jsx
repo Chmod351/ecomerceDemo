@@ -48,11 +48,27 @@ const Price = styled.p`
 
 const Product = ({ product }) => {
   return (
-    <Container>
-      <LinkDecoration to={`/product/${product._id}`}>
-        <Image src={product.imgUrl} alt={product.name} />
-        <Info>
-          <Price> ${product.price}</Price>
+    <Container aria-label={product.name}>
+      <LinkDecoration
+        to={`/product/${product._id}`}
+        aria-label={`see more details about ${product.name}`}
+        role="link"
+        title={`${product.name}`}
+      >
+        <Image
+          src={product.imgUrl}
+          alt={product.name}
+          role="img"
+          title={product.imgUrl}
+          aria-label={`product-image:${product.description}`}
+        />
+        <Info role="contentinfo">
+          <Price
+            role="complementary"
+            aria-label={`product price ${product.price}`}
+          >
+            ${product.price}
+          </Price>
         </Info>
       </LinkDecoration>
     </Container>

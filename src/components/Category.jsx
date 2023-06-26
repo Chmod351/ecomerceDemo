@@ -6,7 +6,7 @@ import CategoryItem from './CategoryItem';
 const Container = styled.section`
   background-color: ${({ theme }) => theme.bg};
   height: auto;
-  padding:1.3rem 0;
+  padding: 1.3rem 0;
 `;
 
 const Wrapper = styled.div`
@@ -21,8 +21,8 @@ const Wrapper = styled.div`
 
 const Categories = () => {
   return (
-    <Container id="Collections">
-      <Wrapper>
+    <Container id="Collections" role="group">
+      <Wrapper role="feed">
         {categories.map((item) => (
           <CategoryItem item={item} key={item._id} />
         ))}

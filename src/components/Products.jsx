@@ -10,7 +10,7 @@ import Loading from '../pages/Loading';
 
 const Container = styled.section`
   display-items: center;
-
+  padding: 2rem 0;
   background-color: ${({ theme }) => theme.bg};
 `;
 

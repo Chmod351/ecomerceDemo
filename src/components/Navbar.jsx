@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { e } from '../data/navbarData';
 import SearchBar from './searchBar';
+import Title from './Title';
 
 const Container = styled.header`
   color: ${({ theme }) => theme.text};
@@ -49,12 +50,12 @@ const Wrapper = styled.nav`
 const Left = styled.div`
   display: flex;
   align-items: center;
-  ${pc({ flex: '1' })}
+  ${pc({ flex: '3' })}
   ${mobile({ justifyContent: 'center', maxWidth: '100vw', width: '100%' })}
 `;
 
 const Right = styled.div`
-  flex: 1;
+  flex: 3;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -68,6 +69,12 @@ const Right = styled.div`
     left: '0',
     top: '100%',
   })}
+`;
+const Center = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  ${mobile({ display: 'none' })}
 `;
 
 const DropdownMenu = styled.div`
@@ -112,6 +119,7 @@ const MenuItem = styled.div`
     width: 100%;
   }
 `;
+
 const MenuItemCart = styled.div`
   ${mobile({ marginRight: '1rem', fontSize: '1rem' })}
   font-size: 1rem;
@@ -206,9 +214,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           >
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
+
           {/* SEARCH BAR */}
           <SearchBar />
         </Left>
+        <Center>
+          <Title text={'Cierva'} />
+        </Center>
         <Right>
           {/* MOBILE NAVBAR */}
           {isMenuOpen && (

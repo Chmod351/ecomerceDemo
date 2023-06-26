@@ -7,7 +7,7 @@ import Slider from '../components/Slider';
 import Footer from '../components/Footer';
 import Announcement from '../components/Announcement';
 import SearchBar from '../components/searchBar';
-import styled from 'styled-components';
+import Title from '../components/Title';
 
 const Home = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
@@ -18,7 +18,9 @@ const Home = ({ darkMode, setDarkMode }) => {
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Announcement />
       <Slider />
+      <Title text={'Collections'} />
       <Categories />
+      <Title text={'Products'} />
       <SearchBar />
       <Products />
       <Newsletter />

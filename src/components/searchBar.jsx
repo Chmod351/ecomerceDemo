@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import {publicRequest} from '../requestMethods';
+import { publicRequest } from '../requestMethods';
 import { mobile, pc } from '../responsive';
 import { handleError, handleSuccess } from '../utils/toast';
+import { Search } from '@material-ui/icons';
 
 const Container = styled.nav`
   display: flex;
@@ -46,7 +47,7 @@ const Input = styled.input`
   }
 `;
 const Label = styled.label`
-  padding: 0.7rem;
+  padding: 0.3rem;
   border: 0.1px solid transparent;
   cursor: pointer;
   font-weight: bold;
@@ -54,6 +55,7 @@ const Label = styled.label`
   border-bottom-right-radius: 1rem;
   color: ${({ theme }) => theme.bg};
   background-color: ${({ theme }) => theme.hover};
+  ${mobile({ padding: '0.1rem' })};
   &:hover {
     background-color: ${({ theme }) => theme.bgLighter};
     border: 0.1px solid ${({ theme }) => theme.hover};
@@ -92,7 +94,7 @@ const SearchBar = () => {
     <Container>
       <SearchContainer>
         <Input
-          placeholder="What are you looking for"
+          placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           tabIndex="0"
@@ -112,7 +114,7 @@ const SearchBar = () => {
           }}
           tabIndex="0"
         >
-          Search
+          <Search />
         </Label>
       </SearchContainer>
     </Container>

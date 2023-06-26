@@ -183,6 +183,7 @@ const Register = () => {
                   {msg === name ? <Error>{errorMessage}</Error> : label}
                 </Label>
                 <Input
+                  title={placeholder}
                   role="form"
                   aria-label={name}
                   autoComplete={name}

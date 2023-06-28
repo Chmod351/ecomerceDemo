@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
-import axios from 'axios';
 import { mobile } from '../responsive';
-import { BASE_URL } from '../requestMethods';
 import { ArrowLeftRounded, ArrowRightRounded } from '@material-ui/icons';
-import { handleError } from '../utils/toast';
 import Loading from '../pages/Loading';
+import {
+  SearchProducts,
+  getAllProducts,
+  getProductByTags,
+  getProductsFunction,
+} from '../utils/endpointsLogic';
 
 const Container = styled.section`
-  display-items: center;
   padding: 2rem 0;
   background-color: ${({ theme }) => theme.bg};
 `;
@@ -93,23 +95,13 @@ const Products = ({ tag, filters, sort, query }) => {
   const [totalPages, setTotalPages] = useState(0);
 
   const getProducts = useCallback(async () => {
-    try {
-      const res = await axios.get(
-        tag
-          ? `${BASE_URL}/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
-          : query
-          ? `${BASE_URL}/products/search?q=${query}&page=${currentPage}&size=${pageSize}`
-          : `${BASE_URL}/products?page=${currentPage}&size=${pageSize}`,
-      );
-      if (res.data.products) {
-        setProducts(res.data.products);
-      } else if (res.data) {
-        setProducts(res.data);
-      }
-      setTotalPages(res.data.totalPages);
-    } catch (err) {
-      handleError(err);
+    const res = await getProductsFunction(currentPage, pageSize, tag, query);
+    if (res.data.products) {
+      setProducts(res.data.products);
+    } else if (res.data) {
+      setProducts(res.data);
     }
+    setTotalPages(res.data.totalPages);
   }, [tag, currentPage, pageSize, query]);
 
   useEffect(async () => {
@@ -122,8 +114,8 @@ const Products = ({ tag, filters, sort, query }) => {
         const filtered = filters
           ? products.filter((item) =>
               Object.entries(filters).every(([key, value]) =>
-                item[key] ? item[key].includes(value) : false,
-              ),
+                item[key] ? item[key].includes(value) : false
+              )
             )
           : products;
         setFilteredProducts(filtered);
@@ -138,15 +130,15 @@ const Products = ({ tag, filters, sort, query }) => {
   useEffect(() => {
     if (sort === 'newest') {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.createdAt - b.createdAt),
+        [...prev].sort((a, b) => a.createdAt - b.createdAt)
       );
     } else if (sort === 'asc') {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => b.price - a.price),
+        [...prev].sort((a, b) => b.price - a.price)
       );
     } else {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.price - b.price),
+        [...prev].sort((a, b) => a.price - b.price)
       );
     }
   }, [sort]);
@@ -156,7 +148,7 @@ const Products = ({ tag, filters, sort, query }) => {
   };
 
   return (
-    <Container id="Products">
+    <Container id='Products'>
       {products.length > 0 ? (
         <Wrapper>
           {tag
@@ -182,11 +174,11 @@ const Products = ({ tag, filters, sort, query }) => {
       {/* Renderizar paginación */}
 
       {filteredProducts.length >= 8 && totalPages > 1 ? (
-        <PaginationContainer tabIndex="0">
+        <PaginationContainer tabIndex='0'>
           <Icon
-            title="previous"
-            aria-label="go to previous page"
-            role="navigation"
+            title='previous'
+            aria-label='go to previous page'
+            role='navigation'
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
             onKeyUp={(e) => {
@@ -194,7 +186,7 @@ const Products = ({ tag, filters, sort, query }) => {
                 handlePageChange(currentPage - 1);
               }
             }}
-            tabIndex="0"
+            tabIndex='0'
             style={{ pointerEvents: currentPage === 1 ? 'none' : 'auto' }}
           >
             <ArrowLeftRounded />
@@ -202,28 +194,28 @@ const Products = ({ tag, filters, sort, query }) => {
 
           {[...Array(totalPages)].map((_, index) => (
             <PageButton
-              title= {index + 1}
-              role="list"
-              aria-label= {index + 1}
+              title={index + 1}
+              role='list'
+              aria-label={index + 1}
               key={index + 1}
               active={index + 1 === currentPage}
               onClick={() => handlePageChange(index + 1)}
-              tabIndex="0"
+              tabIndex='0'
             >
               {index + 1}
             </PageButton>
           ))}
           <Icon
-            title="next"
-            aria-label="go to next page"
-            role="navigation"
+            title='next'
+            aria-label='go to next page'
+            role='navigation'
             onClick={() => handlePageChange(currentPage + 1)}
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 handlePageChange(currentPage + 1);
               }
             }}
-            tabIndex="0"
+            tabIndex='0'
             disabled={currentPage === totalPages}
             style={{
               pointerEvents: currentPage === totalPages ? 'none' : 'auto',
@@ -234,9 +226,9 @@ const Products = ({ tag, filters, sort, query }) => {
         </PaginationContainer>
       ) : (
         <PaginationContainer
-          title="previous"
-          aria-label="go to previous page"
-          role="navigation"
+          title='previous'
+          aria-label='go to previous page'
+          role='navigation'
         >
           <PageButton
             onClick={() => handlePageChange(currentPage - 1)}
@@ -246,7 +238,7 @@ const Products = ({ tag, filters, sort, query }) => {
                 handlePageChange(currentPage - 1);
               }
             }}
-            tabIndex="0"
+            tabIndex='0'
           >
             Back
           </PageButton>

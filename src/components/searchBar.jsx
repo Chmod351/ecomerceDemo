@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { publicRequest } from '../requestMethods';
 import { mobile, pc } from '../responsive';
-import { handleError, handleSuccess } from '../utils/toast';
 import { Search } from '@material-ui/icons';
-
+import { SearchProducts } from '../utils/endpointsLogic';
+import { handleSuccess } from '../utils/toast';
 const Container = styled.nav`
   display: flex;
   align-items: center;
@@ -73,34 +72,33 @@ const SearchBar = () => {
 
   const SearchProduct = async (e) => {
     e.preventDefault();
-    try {
-      const response = await publicRequest.get(`/product/search?q=${query}`);
-      const products = response.data;
-      if (products.length === 1) {
-        const firstProduct = products[0];
-        history.push(`/product/${firstProduct._id}`);
-      } else if (products.length > 1) {
-        history.push(`/products/search/${query}`);
-      } else {
-        handleSuccess('Empty');
-      }
-    } catch (error) {
-      handleError(error);
+    const response = await SearchProducts(query);
+    const products = response.data;
+    if (products.length === 1) {
+      const firstProduct = products[0];
+      history.push(`/products/${firstProduct._id}`);
+    } else if (products.length > 1) {
+      history.push(`/products/search/${query}`);
+    } else {
+      handleSuccess('Empty');
     }
     setQuery('');
   };
 
   return (
     <Container>
-      <SearchContainer role="search" aria-label="search bar">
+      <SearchContainer
+        role='search'
+        aria-label='search bar'
+      >
         <Input
-          role="form"
-          aria-label="what are you looking for"
-          title="what are you looking for"
-          placeholder="Search..."
+          role='form'
+          aria-label='what are you looking for'
+          title='what are you looking for'
+          placeholder='Search...'
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          tabIndex="0"
+          tabIndex='0'
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
               SearchProduct(e);
@@ -109,15 +107,15 @@ const SearchBar = () => {
         />
         <SearchLine />
         <Label
-          role="button"
-          title="Submit"
+          role='button'
+          title='Submit'
           onClick={SearchProduct}
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
               SearchProduct(e);
             }
           }}
-          tabIndex="0"
+          tabIndex='0'
         >
           <Search />
         </Label>

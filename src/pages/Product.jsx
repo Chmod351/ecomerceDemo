@@ -129,7 +129,8 @@ const Product = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     const getProduct = async () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      await productById(id, setProduct, setColor, setSize);
+      const res = await productById(id, setProduct, setColor, setSize);
+      return res;
     };
     getProduct();
   }, [id]);

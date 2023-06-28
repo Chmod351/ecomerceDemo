@@ -54,6 +54,8 @@ export const verifyEmail = (email, setError, setEmail) => {
 
 // functionals functions
 
+// ----------> POST REQUESTS <--------------
+
 // register
 export const handleRegistration = async (email, password, username, setMsg) => {
   try {
@@ -66,6 +68,7 @@ export const handleRegistration = async (email, password, username, setMsg) => {
     setMsg('created');
   } catch (error) {
     setMsg(error.message);
+    console.log(error);
     handleError(error);
     setMsg('');
   }
@@ -81,6 +84,7 @@ export const login = async (dispatch, email, password, setMsg) => {
     handleSuccess('welcome');
   } catch (error) {
     setMsg(error.message);
+    console.log(error);
     handleError(error);
     dispatch(loginFailure());
   }
@@ -99,8 +103,8 @@ export const payment = async (tokenId, amount, history, userCart) => {
       cartId: userCart,
     });
   } catch (error) {
-    handleError(error);
     console.log(error);
+    handleError(error);
   }
 };
 
@@ -108,11 +112,12 @@ export const payment = async (tokenId, amount, history, userCart) => {
 
 export const addToCart = async (cart, setUserCart) => {
   try {
-    const response = await publicRequest.post('/cart', {
+    const response = await publicRequest.post('/carts/create', {
       products: cart.products,
     });
     setUserCart(response.data._id);
   } catch (error) {
+    console.log(error);
     handleError(error);
   }
 };
@@ -134,6 +139,8 @@ export const makeOrder = async (amount, address, userId, cartId) => {
   }
 };
 
+// ---- --GET PRODUCTS -- ----
+
 // get product by ID
 
 export const productById = async (id, setProduct, setColor, setSize) => {
@@ -144,15 +151,82 @@ export const productById = async (id, setProduct, setColor, setSize) => {
     setColor(productResponse.color[0]);
     setSize(productResponse.size[0]);
   } catch (error) {
+    console.log(error);
     handleError(error);
   }
 };
 
+// Search products
 
+export const SearchProducts = async (query) => {
+  try {
+    const response = await publicRequest.get(`/products/search?q=${query}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+  }
+};
 
-// redux functions 
+// product by tag
 
-export const addToReduxCart=(dispatch,setQuantity, product,quantity,color,size)=>{
+export const getProductByTags = async (tag, currentPage, pageSize) => {
+  try {
+    const response = await publicRequest.get(
+      `/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
+    );
+    return response;
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+  }
+};
+// GET ALL PRODUCTS
+
+export const getAllProducts = async (currentPage, pageSize) => {
+  try {
+    const response = await publicRequest.get(
+      `/products?page=${currentPage}&size=${pageSize}`
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+  }
+};
+
+// productJsx function
+export const getProductsFunction = async (
+  currentPage,
+  pageSize,
+  tag,
+  query
+) => {
+  if (tag) {
+    const res = await getProductByTags(tag, currentPage, pageSize);
+    return res;
+  } else if (query) {
+    const res = await SearchProducts(query);
+    return res;
+  } else {
+    console.log('here');
+    const res = await getAllProducts(currentPage, pageSize);
+    console.log(res);
+    return res;
+  }
+};
+//--------------------------------------------------------------------------------
+// redux functions
+
+export const addToReduxCart = (
+  dispatch,
+  setQuantity,
+  product,
+  quantity,
+  color,
+  size
+) => {
   try {
     dispatch(addProduct({ ...product, quantity, color, size }));
     handleSuccess('added');
@@ -161,4 +235,4 @@ export const addToReduxCart=(dispatch,setQuantity, product,quantity,color,size)=
     console.log(error);
     handleError(error);
   }
-}
+};

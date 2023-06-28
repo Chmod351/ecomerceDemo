@@ -33,6 +33,8 @@ const Success = () => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
+  const msgSuccess = `Order has been created successfully. Your order number is ${orderId}`;
+  const msgFail = `Something went wrong, your order was not created yet...`;
 
   useEffect(() => {
     const createOrder = async () => {
@@ -40,7 +42,7 @@ const Success = () => {
         cart.total,
         data.billing_details.address,
         currentUser._id,
-        cartId,
+        cartId
       );
       if (res.data._id) {
         setOrderId(res.data._id);
@@ -56,23 +58,16 @@ const Success = () => {
 
   return (
     <Container
-      title={
-        orderId
-          ? `Order has been created successfully. Your order number is ${orderId}`
-          : `Something went wrong, your order was not created yet...`
-      }
-      role="contentinfo"
-      aria-label={
-        orderId
-          ? `Order has been created successfully. Your order number is ${orderId}`
-          : `Something went wrong, your order was not created yet...`
-      }
+      title={orderId ? msgSuccess : msgFail}
+      role='contentinfo'
+      aria-label={orderId ? msgSuccess : msgFail}
     >
-      {orderId
-        ? `Order has been created successfully. Your order number is ${orderId}`
-        : `Something went wrong, your order was not created yet...`}
+      {orderId ? msgSuccess : msgFail}
 
-      <Link to="/" role="link">
+      <Link
+        to='/'
+        role='link'
+      >
         <Button text={'Keep Buying'} />
       </Link>
     </Container>

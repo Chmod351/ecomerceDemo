@@ -161,7 +161,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
-
+  console.log(cart.products);
   return (
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -180,8 +180,8 @@ const Cart = ({ darkMode, setDarkMode }) => {
             <TopText
               tabIndex="0"
               role="status"
-              aria-label={`you have ${cart.quantity} in your cart`}
-              title={`you have ${cart.quantity} in your cart`}
+              aria-label={`you have ${cart.quantity} products in your cart`}
+              title={`you have ${cart.quantity} products in your cart`}
             >
               Shopping Bag({cart.quantity})
             </TopText>
@@ -218,7 +218,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
                       <ProductName>
                         <b>Product:</b> {product.name}
                       </ProductName>
-                      <ProductColor color={product.color} />
+                      <ProductColor
+                        color={product.color}
+                        title={product.color}
+                        aria-label={product.color}
+                      />
                       <ProductSize>
                         <b>Size:</b> {product.size}
                       </ProductSize>
@@ -231,7 +235,10 @@ const Cart = ({ darkMode, setDarkMode }) => {
                       remove={() => handleRemove(index)}
                       quantity={product.quantity}
                     />
-                    <ProductPrice aria-label="total">
+                    <ProductPrice
+                      aria-label="total"
+                      title={product.price * product.quantity}
+                    >
                       $ {product.price * product.quantity}
                     </ProductPrice>
                   </PriceDetail>

@@ -53,7 +53,7 @@ export const verifyEmail = (email, setError, setEmail) => {
 // register
 export const handleRegistration = async (email, password, username, setMsg) => {
   try {
-    await publicRequest.post('/signup', {
+    await publicRequest.post('/users/signUp', {
       email,
       password,
       username,

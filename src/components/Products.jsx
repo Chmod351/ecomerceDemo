@@ -96,10 +96,10 @@ const Products = ({ tag, filters, sort, query }) => {
     try {
       const res = await axios.get(
         tag
-          ? `${BASE_URL}/product/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
+          ? `${BASE_URL}/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
           : query
-          ? `${BASE_URL}/product/search?q=${query}&page=${currentPage}&size=${pageSize}`
-          : `${BASE_URL}/product?page=${currentPage}&size=${pageSize}`,
+          ? `${BASE_URL}/products/search?q=${query}&page=${currentPage}&size=${pageSize}`
+          : `${BASE_URL}/products?page=${currentPage}&size=${pageSize}`,
       );
       if (res.data.products) {
         setProducts(res.data.products);

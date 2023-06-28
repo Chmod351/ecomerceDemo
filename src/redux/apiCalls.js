@@ -7,7 +7,7 @@ export const login = async (dispatch, email, password, setMsg) => {
   setMsg('login');
   dispatch(loginStart());
   try {
-    const res = await publicRequest.post('/signin', { email, password });
+    const res = await publicRequest.post('/users/signIn', { email, password });
     dispatch(loginSuccess(res.data));
     handleSuccess('welcome');
   } catch (error) {
@@ -20,7 +20,7 @@ export const login = async (dispatch, email, password, setMsg) => {
 // __________________________________________________________________
 export const payment = async (tokenId, amount, history, userCart) => {
   try {
-    const res = await publicRequest.post('/purchase/payment', {
+    const res = await publicRequest.post('/purchases/payment', {
       tokenId,
       amount,
     });
@@ -47,7 +47,7 @@ export const addToCart = async (cart, setUserCart) => {
 
 export const makeOrder = async (amount, address, userId, cartId) => {
   try {
-    const res = await publicRequest.post('/purchase/order', {
+    const res = await publicRequest.post('/purchases/create', {
       userId,
       cartId,
       amount,
@@ -59,3 +59,4 @@ export const makeOrder = async (amount, address, userId, cartId) => {
     handleError(error);
   }
 };
+

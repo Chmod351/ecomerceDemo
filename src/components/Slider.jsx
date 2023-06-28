@@ -118,7 +118,12 @@ const Slider = () => {
       <Wrapper slideIndex={slideIndex} tabIndex="-1" role="main">
         {sliderItems.map((item) => (
           <Slide key={item.id} tabIndex="-1" role="sliderItems">
-            <ImgContainer tabIndex="-1" role="img">
+            <ImgContainer
+              tabIndex="-1"
+              role="img"
+              title={item.alt}
+              aria-label={item.alt}
+            >
               <Link to={item.url} tabIndex="-1" role="link">
                 <Image src={item.img} alt={item.alt} tabIndex="-1" role="img" />
               </Link>

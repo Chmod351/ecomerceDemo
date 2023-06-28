@@ -49,8 +49,6 @@ const Summary = ({ cart, username }) => {
   };
 
   useEffect(() => {
-    const addedToCart=handleClick()
-    
     const makeRequest = async () => {
       await payment(stripeToken.id, cart.total, history, userCart);
     };

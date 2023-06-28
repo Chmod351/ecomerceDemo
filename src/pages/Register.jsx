@@ -108,8 +108,10 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [off, setOff] = useState(true);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const Create = 'Create account';
+  const alreadyHaveOne = 'I already have an account';
   const initialFormValues = {
     email: '',
     password: '',
@@ -128,7 +130,7 @@ const Register = () => {
     } else {
       setMsg('message');
       await handleRegistration(email, password, username, setMsg);
-      await handleLogin(email, password, setMsg, dispatch);
+      await login(dispatch, email, password, setMsg);
     }
     setFormValues(initialFormValues);
     setOff(false);
@@ -159,12 +161,15 @@ const Register = () => {
   };
 
   return (
-    <Container id={islogin ? 'SignIn' : 'SignUp'} role="contentinfo">
+    <Container
+      id={islogin ? 'SignIn' : 'SignUp'}
+      role='contentinfo'
+    >
       <Wrapper>
-        <Title>{islogin ? 'SIGN IN' : ' CREATE AND ACCOUNT'} </Title>
+        <Title>{islogin ? 'SIGN IN' : Create} </Title>
         <Form
-          role="form"
-          aria-label={islogin ? 'SIGN IN' : ' CREATE AND ACCOUNT'}
+          role='form'
+          aria-label={islogin ? 'SIGN IN' : Create}
         >
           {register.map((data) => {
             const { id, label, name, type, placeholder, errorMessage, shared } =
@@ -184,7 +189,7 @@ const Register = () => {
                 </Label>
                 <Input
                   title={placeholder}
-                  role="form"
+                  role='form'
                   aria-label={name}
                   autoComplete={name}
                   placeholder={placeholder}
@@ -192,14 +197,14 @@ const Register = () => {
                   name={name}
                   value={formValues[name]}
                   onChange={handleChange}
-                  tabIndex="0"
+                  tabIndex='0'
                 />
               </InputContainer>
             );
           })}
           {msg in Messages ? (
             <Label
-              role="dialog"
+              role='dialog'
               aria-label={Messages[msg]}
               title={Messages[msg]}
             >
@@ -209,7 +214,11 @@ const Register = () => {
             <Label> </Label>
           )}
           {msg.message ? (
-            <Error role="dialog" aria-label={msg.message} title={msg.message}>
+            <Error
+              role='dialog'
+              aria-label={msg.message}
+              title={msg.message}
+            >
               {msg.message}
             </Error>
           ) : (
@@ -220,12 +229,12 @@ const Register = () => {
               By creating an account, I consent to the processing of my personal
               data in accordance with the{' '}
               <Link
-                to="/"
-                target="_blank"
-                tabIndex="0"
-                role="link"
-                aria-label="link to home"
-                title="PRIVACY POLICY"
+                to='/'
+                target='_blank'
+                tabIndex='0'
+                role='link'
+                aria-label='link to home'
+                title='PRIVACY POLICY'
               >
                 PRIVACY POLICY
               </Link>
@@ -234,11 +243,11 @@ const Register = () => {
             ''
           )}
           <Button
-            title={islogin ? 'Submit' : 'CREATE'}
-            role="button"
-            aria-label={islogin ? 'Submit' : 'CREATE'}
-            tabIndex="0"
-            type="submit"
+            title={islogin ? 'Submit' : Create}
+            role='button'
+            aria-label={islogin ? 'Submit' : Create}
+            tabIndex='0'
+            type='submit'
             onClick={handleClick}
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
@@ -247,16 +256,15 @@ const Register = () => {
             }}
             disabled={off}
           >
-            {islogin ? 'Submit' : 'CREATE'}
+            {islogin ? 'Submit' : Create}
           </Button>
           <Button
-            title={islogin ? 'Create account' : 'I already have an account'}
-            role="button"
-            aria-label={
-              islogin ? 'Create account' : 'I already have an account'
-            }
-            tabIndex="0"
-            type="submit"
+            disabled={!off}
+            title={islogin ? Create : alreadyHaveOne}
+            role='button'
+            aria-label={islogin ? Create : alreadyHaveOne}
+            tabIndex='0'
+            type='submit'
             onClick={(e) => {
               e.preventDefault();
               setFormValues(initialFormValues);
@@ -264,7 +272,7 @@ const Register = () => {
               setLog(!islogin);
             }}
           >
-            {islogin ? 'Create account' : 'I already have an account'}
+            {islogin ? Create : alreadyHaveOne}
           </Button>
         </Form>
       </Wrapper>

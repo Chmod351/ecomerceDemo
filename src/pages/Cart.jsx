@@ -161,7 +161,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
-  console.log(cart.products);
   return (
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />

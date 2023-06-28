@@ -188,7 +188,6 @@ export const getAllProducts = async (currentPage, pageSize) => {
     const response = await publicRequest.get(
       `/products?page=${currentPage}&size=${pageSize}`
     );
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
@@ -210,13 +209,12 @@ export const getProductsFunction = async (
     const res = await SearchProducts(query);
     return res;
   } else {
-    console.log('here');
     const res = await getAllProducts(currentPage, pageSize);
-    console.log(res);
     return res;
   }
 };
 //--------------------------------------------------------------------------------
+
 // redux functions
 
 export const addToReduxCart = (

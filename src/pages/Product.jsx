@@ -15,6 +15,7 @@ import Loading from './Loading';
 import { addProduct } from '../redux/cartRedux';
 import QuantityButton from '../components/quantityButtons';
 import Button from '../components/Button';
+import { addToReduxCart, productById } from '../utils/endpointsLogic';
 
 const Container = styled.section`
   display-items: center;
@@ -128,15 +129,7 @@ const Product = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     const getProduct = async () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      try {
-        const res = await publicRequest.get(`/product/${id}`);
-        const productResponse = { productId: res.data._id, ...res.data };
-        setProduct(productResponse);
-        setColor(productResponse.color[0]);
-        setSize(productResponse.size[0]);
-      } catch (error) {
-        handleError(error);
-      }
+      await productById(id, setProduct, setColor, setSize);
     };
     getProduct();
   }, [id]);
@@ -150,53 +143,58 @@ const Product = ({ darkMode, setDarkMode }) => {
   };
 
   const handleClick = () => {
-    try {
-      dispatch(addProduct({ ...product, quantity, color, size }));
-      handleSuccess('added');
-      setQuantity(1);
-    } catch (error) {
-      console.log(error);
-      handleError(error);
-    }
+    addToReduxCart(dispatch, setQuantity, product, quantity, color, size);
   };
   return (
-    <Container role="contentinfo">
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+    <Container role='contentinfo'>
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
       <Announcement />
       {product ? (
         <>
-          <Wrapper role="article">
+          <Wrapper role='article'>
             <ImgContainer>
               <Image
                 title={`${product.name} $ ${product.price}`}
                 src={product.imgUrl}
                 alt={product.name}
-                role="img"
+                role='img'
                 aria-label={`this is a ${product.name}`}
               />
             </ImgContainer>
-            <InfoContainer role="complementary" aria="complementary info">
-              <Title tabIndex="0" role="complementary">
+            <InfoContainer
+              role='complementary'
+              aria='complementary info'
+            >
+              <Title
+                tabIndex='0'
+                role='complementary'
+              >
                 {product.name}
               </Title>
-              <Desc tabIndex="0"> {product.hot}</Desc>
+              <Desc tabIndex='0'> {product.hot}</Desc>
               <Description
-                tabIndex="0"
-                role="description"
+                tabIndex='0'
+                role='description'
                 aria-label={product.description}
               >
                 {product.description}
               </Description>
-              <Price tabIndex="0">$ {product.price}</Price>
-              <FilterContainer role="menu">
-                <Filter tabIndex="0" aria-label="color section">
-                  <FilterTitle tabIndex="0"></FilterTitle>
+              <Price tabIndex='0'>$ {product.price}</Price>
+              <FilterContainer role='menu'>
+                <Filter
+                  tabIndex='0'
+                  aria-label='color section'
+                >
+                  <FilterTitle tabIndex='0'></FilterTitle>
                   {product.color.map((c) => (
                     <FilterColor
-                      role="list"
+                      role='list'
                       title={c}
                       aria-label={`color selected = ${c}`}
-                      tabIndex="0"
+                      tabIndex='0'
                       color={c}
                       key={c}
                       onClick={() => setColor(c)}
@@ -208,17 +206,17 @@ const Product = ({ darkMode, setDarkMode }) => {
                     />
                   ))}
                 </Filter>
-                <Filter aria-label="size section">
-                  <FilterTitle tabIndex="0">Size</FilterTitle>
+                <Filter aria-label='size section'>
+                  <FilterTitle tabIndex='0'>Size</FilterTitle>
                   <FilterSize
                     title={size}
                     onChange={(e) => setSize(e.target.value)}
-                    tabIndex="0"
+                    tabIndex='0'
                   >
                     {product.size.map((s) => (
                       <FilterSizeOption
                         key={s}
-                        tabIndex="0"
+                        tabIndex='0'
                         title={s}
                         aria-label={`size is ${s}`}
                       >
@@ -237,9 +235,9 @@ const Product = ({ darkMode, setDarkMode }) => {
                 />
                 {/* action button */}
                 <Button
-                  text="ADD TO CART"
+                  text='ADD TO CART'
                   onClick={handleClick}
-                  tabIndex="0"
+                  tabIndex='0'
                   onKeyUp={(e) => {
                     if (e.key === 'Enter') {
                       handleClick();

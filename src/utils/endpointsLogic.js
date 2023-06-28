@@ -1,6 +1,7 @@
 import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from './toast';
 import { loginFailure, loginStart, loginSuccess } from '../redux/userRedux';
+import { addProduct } from '../redux/cartRedux';
 
 // validate format and data
 
@@ -19,7 +20,7 @@ export const validatePassword = (
   setPassword,
   setStore,
   login,
-  setOff,
+  setOff
 ) => {
   if (password.length === 1 || password.length < 8) {
     setError('password');
@@ -85,7 +86,7 @@ export const login = async (dispatch, email, password, setMsg) => {
   }
 };
 
-//payments 
+//payments
 
 export const payment = async (tokenId, amount, history, userCart) => {
   try {
@@ -116,7 +117,7 @@ export const addToCart = async (cart, setUserCart) => {
   }
 };
 
-// create order 
+// create order
 
 export const makeOrder = async (amount, address, userId, cartId) => {
   try {
@@ -133,3 +134,31 @@ export const makeOrder = async (amount, address, userId, cartId) => {
   }
 };
 
+// get product by ID
+
+export const productById = async (id, setProduct, setColor, setSize) => {
+  try {
+    const res = await publicRequest.get(`/products/${id}`);
+    const productResponse = { productId: res.data._id, ...res.data };
+    setProduct(productResponse);
+    setColor(productResponse.color[0]);
+    setSize(productResponse.size[0]);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+
+// redux functions 
+
+export const addToReduxCart=(dispatch,setQuantity, product,quantity,color,size)=>{
+  try {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+    handleSuccess('added');
+    setQuantity(1);
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+  }
+}

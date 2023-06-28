@@ -151,7 +151,7 @@ const Products = ({ tag, filters, sort, query }) => {
     <Container id='Products'>
       {products.length > 0 ? (
         <Wrapper>
-          {tag
+          {tag || query
             ? filteredProducts.map((product) => (
                 <Product
                   product={product}

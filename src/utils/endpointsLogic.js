@@ -1,6 +1,6 @@
 import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from './toast';
-import { loginFailure, loginStart, loginSuccess } from '../redux/userRedux';
+import { loginFailure, loginStart, loginSuccess,logout } from '../redux/userRedux';
 import { addProduct } from '../redux/cartRedux';
 
 // validate format and data
@@ -233,4 +233,16 @@ export const addToReduxCart = (
     console.log(error);
     handleError(error);
   }
+};
+
+export const logoutUser = (dispatch) => {
+  try {
+    
+    dispatch(logout());
+    
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+  }
+  
 };

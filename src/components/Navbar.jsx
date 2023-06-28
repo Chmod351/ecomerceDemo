@@ -9,12 +9,13 @@ import {
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { e } from '../data/navbarData';
 import SearchBar from './searchBar';
 import Title from './Title';
+import { logoutUser } from '../utils/endpointsLogic';
 
 const Container = styled.nav`
   color: ${({ theme }) => theme.text};
@@ -166,7 +167,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const username = useSelector((state) => state.user.username);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const dispatch = useDispatch();
 
+  const handleClick = () => {
+   
+    logoutUser(dispatch);
+    console.log("adadas");
+  };
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 820) {
@@ -184,24 +191,24 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     };
   }, []);
   return (
-    <Container role="navigation">
+    <Container role='navigation'>
       <Wrapper>
         <Left>
           <MenuIconMobile>
             <MenuRounded
-              role="menubar"
-              aria-label="Dropdown Menu"
+              role='menubar'
+              aria-label='Dropdown Menu'
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               style={{ cursor: 'pointer' }}
             />
           </MenuIconMobile>
 
           <DarkLabel
-            role="menuitem"
+            role='menuitem'
             title={darkMode ? 'Dark' : 'Light'}
             aria-label={darkMode ? 'Dark' : 'Light'}
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex="0"
+            tabIndex='0'
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -211,13 +218,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {darkMode ? 'Dark' : 'Light'}
           </DarkLabel>
           <Item
-            role="menuitem"
+            role='menuitem'
             title={darkMode ? 'Dark' : 'Light'}
             aria-label={darkMode ? 'Dark' : 'Light'}
-            name="theme"
+            name='theme'
             value={darkMode}
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex="0"
+            tabIndex='0'
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -230,17 +237,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {/* SEARCH BAR */}
           <SearchBar />
         </Left>
-        <Center role="banner">
+        <Center role='banner'>
           <Link
-            to="/"
+            to='/'
             style={{ textDecoration: 'none' }}
-            title="Cierva"
-            role="link"
+            title='Cierva'
+            role='link'
           >
             <Title text={'Cierva'} />
           </Link>
         </Center>
-        <Right role="menu">
+        <Right role='menu'>
           {/* MOBILE NAVBAR */}
           {isMenuOpen && (
             <DropdownMenu aria-hidden={!isMenuOpen}>
@@ -250,30 +257,35 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   const { id, route, name } = i;
                   return (
                     <Link
-                      role="link"
+                      role='link'
                       aria-label={`go to ${name}`}
                       title={name}
                       key={id}
                       to={route}
                       style={{ textDecoration: 'none' }}
-                      tabIndex="0"
+                      tabIndex='0'
                     >
                       <MenuItem>{name}</MenuItem>
                     </Link>
                   );
                 })}
                 {username ? (
-                  <MenuItem role="link" title={username} tabIndex="0">
+                  <MenuItem
+                    role='link'
+                    title='Log Out'
+                    tabIndex='0'
+                    onClick={handleClick}
+                  >
                     {username}
                   </MenuItem>
                 ) : (
                   <Link
-                    role="link"
-                    aria-label="go to auth"
-                    to="/auth"
+                    role='link'
+                    aria-label='go to auth'
+                    to='/auth'
                     style={{ textDecoration: 'none' }}
-                    title="Login / Create Account"
-                    tabIndex="0"
+                    title='Login / Create Account'
+                    tabIndex='0'
                   >
                     <MenuItem>Login</MenuItem>
                   </Link>
@@ -283,19 +295,19 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           )}
         </Right>
         <Link
-          to="/cart"
+          to='/cart'
           style={{ textDecoration: 'none' }}
-          tabIndex="0"
-          role="link"
+          tabIndex='0'
+          role='link'
         >
           <MenuItemCart>
             <Badge
-              role="figure"
-              aria-label="shopping cart"
+              role='figure'
+              aria-label='shopping cart'
               title={`${quantity} products in cart`}
               badgeContent={quantity}
-              color="primary"
-              overlap="rectangular"
+              color='primary'
+              overlap='rectangular'
             >
               {quantity > 0 ? <ShoppingCart /> : <ShoppingCartOutlined />}
             </Badge>

@@ -3,10 +3,10 @@ import StripeCheckout from 'react-stripe-checkout';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom/';
 import { useHistory } from 'react-router-dom';
-import { addToCart, payment } from '../redux/apiCalls';
 import { useEffect, useState } from 'react';
 import { mobile } from '../responsive';
 import Button from './Button';
+import { addToCart, payment } from '../utils/endpointsLogic';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const SummaryContainer = styled.aside`

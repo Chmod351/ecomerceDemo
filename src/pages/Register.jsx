@@ -2,14 +2,14 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { login } from '../redux/apiCalls';
+import { login } from '../utils/endpointsLogic';
 import {
   validateUsername,
   validatePassword,
   matchPasswords,
   verifyEmail,
   handleRegistration,
-} from '../utils/RegisterLogic.js';
+} from '../utils/endpointsLogic.js';
 import { Messages } from '../utils/errors';
 import { register } from '../data/registerData';
 import { useDispatch } from 'react-redux';

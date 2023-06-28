@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { handleSuccess } from '../utils/toast';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { makeOrder } from '../redux/apiCalls';
+import { makeOrder } from '../utils/endpointsLogic';
 import { clearCart } from '../redux/cartRedux';
 import Button from '../components/Button';
 

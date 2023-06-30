@@ -70,5 +70,6 @@ Follow the code style guidelines and naming conventions:
 The project is distributed under the GNU License.
 
 ## Tasks
+[Discord](https://discord.gg/TWn2qzxN)
 [trello](https://trello.com/b/PZR0coVQ/ecomerce-frontend)
 

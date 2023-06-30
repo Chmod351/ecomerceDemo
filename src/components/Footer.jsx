@@ -118,6 +118,7 @@ const Footer = () => {
             believable.
           </Desc>
           <SocialContainer role="list">
+            {/* seccion de redes sociales */}
             {social.map((i) => {
               const { id, color, icon, link } = i;
               return (
@@ -138,6 +139,7 @@ const Footer = () => {
           </SocialContainer>
         </Left>
         <Center role="table">
+          {/* seccion de navegacion */}
           <Title role="complementary">Useful Links</Title>
           <List role="list">
             {e.map((i) => {
@@ -158,6 +160,7 @@ const Footer = () => {
             })}
           </List>
         </Center>
+        {/* seccion de contacto */}
         <Right role="tab">
           <Title role="complementary">Contact</Title>
           <>
@@ -179,6 +182,7 @@ const Footer = () => {
               );
             })}
           </>
+          {/* seccion de pagos */}
           <Payment
             src="https://i.ibb.co/Qfvn4z6/payment.png"
             alt="payment method acepted, visa, mastercard, paypal, mercado pago"

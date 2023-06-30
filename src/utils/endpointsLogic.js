@@ -1,11 +1,17 @@
 import { publicRequest } from '../requestMethods';
 import { handleError, handleSuccess } from './toast';
-import { loginFailure, loginStart, loginSuccess,logout } from '../redux/userRedux';
+import {
+  loginFailure,
+  loginStart,
+  loginSuccess,
+  logout,
+} from '../redux/userRedux';
 import { addProduct } from '../redux/cartRedux';
 
 // validate format and data
 
 export const validateUsername = (username, setError, setUsername) => {
+  // Comprueba la validez del nombre de usuario y actualiza los estados de error y nombre de usuario
   if (username.length === 0 || username.length < 3) {
     setError('username');
   } else {
@@ -20,11 +26,12 @@ export const validatePassword = (
   setPassword,
   setStore,
   login,
-  setOff
+  setOff,
 ) => {
+  // Comprueba la validez de la contraseña y realiza las acciones correspondientes
   if (password.length === 1 || password.length < 8) {
     setError('password');
-    login ? setOff(false) : '';
+    login ? setOff(false) : ''; // enciende el boton
   } else {
     setError('');
     setPassword(password);
@@ -33,16 +40,18 @@ export const validatePassword = (
 };
 
 export const matchPasswords = (confirmPassword, setError, setOff, store) => {
+  // Comprueba si las contraseñas coinciden
   if (store !== confirmPassword) {
-    setError('confirmPassword');
-    setOff(true);
+    setError('confirmPassword'); // arroja un error en el formulario
+    setOff(true); // apaga el boton de envio
   } else {
     setError('');
-    setOff(false);
+    setOff(false); // enciende el boton de envio
   }
 };
 
 export const verifyEmail = (email, setError, setEmail) => {
+  // Verifica la validez del correo electrónico y realiza las acciones correspondientes
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     setError('email');
@@ -56,8 +65,9 @@ export const verifyEmail = (email, setError, setEmail) => {
 
 // ----------> POST REQUESTS <--------------
 
-// register
+// Registrar un usuario
 export const handleRegistration = async (email, password, username, setMsg) => {
+  // Realiza la solicitud de registro y maneja las respuestas.
   try {
     await publicRequest.post('/users/signUp', {
       email,
@@ -74,23 +84,24 @@ export const handleRegistration = async (email, password, username, setMsg) => {
   }
 };
 
-// LOGIN
+// Iniciar sesión
 export const login = async (dispatch, email, password, setMsg) => {
+  // Realiza la solicitud de inicio de sesión y maneja las respuestas y errores correspondientes
   setMsg('login');
   dispatch(loginStart());
   try {
     const res = await publicRequest.post('/users/signIn', { email, password });
-    dispatch(loginSuccess(res.data));
+    dispatch(loginSuccess(res.data)); // usa redux para logear al usuario
     handleSuccess('welcome');
   } catch (error) {
     setMsg(error.message);
     console.log(error);
     handleError(error);
-    dispatch(loginFailure());
+    dispatch(loginFailure()); // cancela la accion
   }
 };
 
-//payments
+// Pagos
 
 export const payment = async (tokenId, amount, history, userCart) => {
   try {
@@ -99,6 +110,7 @@ export const payment = async (tokenId, amount, history, userCart) => {
       amount,
     });
     history.push('/success', {
+      // redirecciona al componente succes en caso de exito
       stripeData: res.data,
       cartId: userCart,
     });
@@ -108,7 +120,7 @@ export const payment = async (tokenId, amount, history, userCart) => {
   }
 };
 
-// add to cart
+// añadir al carrito
 
 export const addToCart = async (cart, setUserCart) => {
   try {
@@ -122,7 +134,7 @@ export const addToCart = async (cart, setUserCart) => {
   }
 };
 
-// create order
+// crear orden
 
 export const makeOrder = async (amount, address, userId, cartId) => {
   try {
@@ -147,9 +159,9 @@ export const productById = async (id, setProduct, setColor, setSize) => {
   try {
     const res = await publicRequest.get(`/products/${id}`);
     const productResponse = { productId: res.data._id, ...res.data };
-    setProduct(productResponse);
-    setColor(productResponse.color[0]);
-    setSize(productResponse.size[0]);
+    setProduct(productResponse); // establece el estado products en la respuesta
+    setColor(productResponse.color[0]); // establece el color al primer color devuelto
+    setSize(productResponse.size[0]); // establece el tamaño al primer tamaño devuelto
   } catch (error) {
     console.log(error);
     handleError(error);
@@ -171,9 +183,10 @@ export const SearchProducts = async (query) => {
 // product by tag
 
 export const getProductByTags = async (tag, currentPage, pageSize) => {
+  // obtiene los productos relacinados y le pide al backend la paginacion necesaria
   try {
     const response = await publicRequest.get(
-      `/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
+      `/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`,
     );
     return response;
   } catch (error) {
@@ -184,9 +197,10 @@ export const getProductByTags = async (tag, currentPage, pageSize) => {
 // GET ALL PRODUCTS
 
 export const getAllProducts = async (currentPage, pageSize) => {
+  // obtiene todos los productos y le pide al backend la paginacion necesaria
   try {
     const response = await publicRequest.get(
-      `/products?page=${currentPage}&size=${pageSize}`
+      `/products?page=${currentPage}&size=${pageSize}`,
     );
     return response;
   } catch (error) {
@@ -200,7 +214,7 @@ export const getProductsFunction = async (
   currentPage,
   pageSize,
   tag,
-  query
+  query,
 ) => {
   if (tag) {
     const res = await getProductByTags(tag, currentPage, pageSize);
@@ -223,9 +237,10 @@ export const addToReduxCart = (
   product,
   quantity,
   color,
-  size
+  size,
 ) => {
   try {
+    // Agrega un producto al carrito de Redux
     dispatch(addProduct({ ...product, quantity, color, size }));
     handleSuccess('added');
     setQuantity(1);
@@ -236,13 +251,11 @@ export const addToReduxCart = (
 };
 
 export const logoutUser = (dispatch) => {
+  // Cierra la sesión del usuario
   try {
-    
     dispatch(logout());
-    
   } catch (error) {
     console.log(error);
     handleError(error);
   }
-  
 };

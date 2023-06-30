@@ -32,14 +32,6 @@ for data retrieval. To better understand the API and its endpoints, we recommend
 - Create user / login
 
 
-## Capturas de Pantalla
-
-![FireShot Capture 056 - Cierva Design - localhost](https://github.com/yamilt351/ecomerceDemo/assets/88646148/9f6195e9-9dba-4152-8342-834f73cb5420)
-
-![FireShot Capture 057 - Cierva Design - localhost](https://github.com/yamilt351/ecomerceDemo/assets/88646148/f33fc720-d58c-49e0-be24-b4860a09685d)
-![FireShot Capture 058 - Cierva Design - localhost](https://github.com/yamilt351/ecomerceDemo/assets/88646148/42e18b8c-276f-4c4e-9151-fb6d0c9a699e)
-
-
 ## Requirements
 
 - Node.js installed

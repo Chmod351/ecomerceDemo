@@ -135,7 +135,7 @@ const Register = () => {
     setFormValues(initialFormValues);
     setOff(false);
   };
-
+  // Función para manejar los cambios en los campos de entrada
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevFormValues) => ({
@@ -161,16 +161,11 @@ const Register = () => {
   };
 
   return (
-    <Container
-      id={islogin ? 'SignIn' : 'SignUp'}
-      role='contentinfo'
-    >
+    <Container id={islogin ? 'SignIn' : 'SignUp'} role="contentinfo">
       <Wrapper>
+        {/* verifica si esta en el formulario de logeo o de registro */}
         <Title>{islogin ? 'SIGN IN' : Create} </Title>
-        <Form
-          role='form'
-          aria-label={islogin ? 'SIGN IN' : Create}
-        >
+        <Form role="form" aria-label={islogin ? 'SIGN IN' : Create}>
           {register.map((data) => {
             const { id, label, name, type, placeholder, errorMessage, shared } =
               data;
@@ -189,7 +184,7 @@ const Register = () => {
                 </Label>
                 <Input
                   title={placeholder}
-                  role='form'
+                  role="form"
                   aria-label={name}
                   autoComplete={name}
                   placeholder={placeholder}
@@ -197,14 +192,14 @@ const Register = () => {
                   name={name}
                   value={formValues[name]}
                   onChange={handleChange}
-                  tabIndex='0'
+                  tabIndex="0"
                 />
               </InputContainer>
             );
           })}
           {msg in Messages ? (
             <Label
-              role='dialog'
+              role="dialog"
               aria-label={Messages[msg]}
               title={Messages[msg]}
             >
@@ -214,11 +209,7 @@ const Register = () => {
             <Label> </Label>
           )}
           {msg.message ? (
-            <Error
-              role='dialog'
-              aria-label={msg.message}
-              title={msg.message}
-            >
+            <Error role="dialog" aria-label={msg.message} title={msg.message}>
               {msg.message}
             </Error>
           ) : (
@@ -229,12 +220,12 @@ const Register = () => {
               By creating an account, I consent to the processing of my personal
               data in accordance with the{' '}
               <Link
-                to='/'
-                target='_blank'
-                tabIndex='0'
-                role='link'
-                aria-label='link to home'
-                title='PRIVACY POLICY'
+                to="/"
+                target="_blank"
+                tabIndex="0"
+                role="link"
+                aria-label="link to home"
+                title="PRIVACY POLICY"
               >
                 PRIVACY POLICY
               </Link>
@@ -244,10 +235,10 @@ const Register = () => {
           )}
           <Button
             title={islogin ? 'Submit' : Create}
-            role='button'
+            role="button"
             aria-label={islogin ? 'Submit' : Create}
-            tabIndex='0'
-            type='submit'
+            tabIndex="0"
+            type="submit"
             onClick={handleClick}
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
@@ -261,10 +252,10 @@ const Register = () => {
           <Button
             disabled={!off}
             title={islogin ? Create : alreadyHaveOne}
-            role='button'
+            role="button"
             aria-label={islogin ? Create : alreadyHaveOne}
-            tabIndex='0'
-            type='submit'
+            tabIndex="0"
+            type="submit"
             onClick={(e) => {
               e.preventDefault();
               setFormValues(initialFormValues);

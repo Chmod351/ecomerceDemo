@@ -6,7 +6,6 @@ for data retrieval. To better understand the API and its endpoints, we recommend
 
 
 ## Features
-
 - Dark and Light themes
 - Session management
 - Implemented shopping cart

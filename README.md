@@ -77,7 +77,6 @@ Licencia bajo la cual se distribuye el proyecto GNU
 
 ## Agradecimientos
 
-Menciones especiales a personas o proyectos que han contribuido o inspirado el proyecto.
 
 ## Soporte
 
@@ -95,4 +94,3 @@ Menciones especiales a personas o proyectos que han contribuido o inspirado el p
 - Promptear al usuario cuando se quiera deslogear
 
 
-Planificación futura y mejoras planeadas para el proyecto.

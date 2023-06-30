@@ -42,7 +42,7 @@ const Success = () => {
         cart.total,
         data.billing_details.address,
         currentUser._id,
-        cartId
+        cartId,
       );
       if (res.data._id) {
         setOrderId(res.data._id);
@@ -51,6 +51,7 @@ const Success = () => {
       }
     };
 
+    // Se verifica si el ID del pedido es null antes de crear la orden
     if (orderId === null) {
       data && createOrder();
     }
@@ -59,15 +60,13 @@ const Success = () => {
   return (
     <Container
       title={orderId ? msgSuccess : msgFail}
-      role='contentinfo'
+      role="contentinfo"
       aria-label={orderId ? msgSuccess : msgFail}
     >
+      {/* Se muestra el mensaje de éxito o error dependiendo del estado del ID del pedido */}
       {orderId ? msgSuccess : msgFail}
-
-      <Link
-        to='/'
-        role='link'
-      >
+      {/* componente Button  */}
+      <Link to="/" role="link">
         <Button text={'Keep Buying'} />
       </Link>
     </Container>

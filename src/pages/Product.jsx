@@ -126,10 +126,10 @@ const Product = ({ darkMode, setDarkMode }) => {
   const [size, setSize] = useState('');
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  useEffect(() => {    // screen goes up when this components loads
     const getProduct = async () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      const res = await productById(id, setProduct, setColor, setSize);
+      const res = await productById(id, setProduct, setColor, setSize); // get the specific product info 
       return res;
     };
     getProduct();

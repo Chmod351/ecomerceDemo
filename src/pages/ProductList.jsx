@@ -55,11 +55,11 @@ const ProductList = ({ darkMode, setDarkMode }) => {
   const [sort, setSort] = useState('newest');
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    if (route[2] === 'search') {
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+    if (route[2] === 'search') {  // if the url[2] has search 
       setQuery(route[3]);
     } else {
-      setTags(route[2]);
+      setTags(route[2]);           // if the url[2] does not have search
     }
   }, [route]);
 

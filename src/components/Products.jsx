@@ -87,15 +87,20 @@ const Icon = styled.div`
 `;
 
 const Products = ({ tag, filters, sort, query }) => {
+  // Estado para almacenar los productos y los productos filtrados
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+
+  // Estado para controlar la paginación
   const [showPagination, setShowPagination] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
   const [totalPages, setTotalPages] = useState(0);
 
+  // Función para obtener los productos
   const getProducts = useCallback(async () => {
     const res = await getProductsFunction(currentPage, pageSize, tag, query);
+    // Actualiza el estado de los productos y el número total de páginas
     if (res.data.products) {
       setProducts(res.data.products);
     } else if (res.data) {
@@ -104,18 +109,20 @@ const Products = ({ tag, filters, sort, query }) => {
     setTotalPages(res.data.totalPages);
   }, [tag, currentPage, pageSize, query]);
 
+  // Llama a la función getProducts al montar el componente o cuando cambian los parámetros
   useEffect(async () => {
     await getProducts();
   }, [getProducts]);
 
+  // Filtra los productos según los parámetros de filtro y actualiza los productos filtrados
   useEffect(() => {
     if (products.length > 0) {
       if (tag || query) {
         const filtered = filters
           ? products.filter((item) =>
               Object.entries(filters).every(([key, value]) =>
-                item[key] ? item[key].includes(value) : false
-              )
+                item[key] ? item[key].includes(value) : false,
+              ),
             )
           : products;
         setFilteredProducts(filtered);
@@ -127,28 +134,31 @@ const Products = ({ tag, filters, sort, query }) => {
     }
   }, [products, tag, filters, query]);
 
+  // Ordena los productos según el tipo de orden seleccionado (newest, asc, desc)
   useEffect(() => {
     if (sort === 'newest') {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.createdAt - b.createdAt)
+        [...prev].sort((a, b) => a.createdAt - b.createdAt),
       );
     } else if (sort === 'asc') {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => b.price - a.price)
+        [...prev].sort((a, b) => b.price - a.price),
       );
     } else {
       setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.price - b.price)
+        [...prev].sort((a, b) => a.price - b.price),
       );
     }
   }, [sort]);
 
+  // Maneja el cambio de página
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
   return (
-    <Container id='Products'>
+    // renderiza los productos y si no cargaron, renderiza el componente Loading
+    <Container id="Products">
       {products.length > 0 ? (
         <Wrapper>
           {tag || query
@@ -174,11 +184,12 @@ const Products = ({ tag, filters, sort, query }) => {
       {/* Renderizar paginación */}
 
       {filteredProducts.length >= 8 && totalPages > 1 ? (
-        <PaginationContainer tabIndex='0'>
+        <PaginationContainer tabIndex="0">
+          {/* Botón de página anterior */}
           <Icon
-            title='previous'
-            aria-label='go to previous page'
-            role='navigation'
+            title="previous"
+            aria-label="go to previous page"
+            role="navigation"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
             onKeyUp={(e) => {
@@ -186,36 +197,37 @@ const Products = ({ tag, filters, sort, query }) => {
                 handlePageChange(currentPage - 1);
               }
             }}
-            tabIndex='0'
+            tabIndex="0"
             style={{ pointerEvents: currentPage === 1 ? 'none' : 'auto' }}
           >
             <ArrowLeftRounded />
           </Icon>
-
+          {/* Botones de número de página */}
           {[...Array(totalPages)].map((_, index) => (
             <PageButton
               title={index + 1}
-              role='list'
+              role="list"
               aria-label={index + 1}
               key={index + 1}
               active={index + 1 === currentPage}
               onClick={() => handlePageChange(index + 1)}
-              tabIndex='0'
+              tabIndex="0"
             >
               {index + 1}
             </PageButton>
           ))}
+          {/* Botón de página siguiente */}
           <Icon
-            title='next'
-            aria-label='go to next page'
-            role='navigation'
+            title="next"
+            aria-label="go to next page"
+            role="navigation"
             onClick={() => handlePageChange(currentPage + 1)}
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 handlePageChange(currentPage + 1);
               }
             }}
-            tabIndex='0'
+            tabIndex="0"
             disabled={currentPage === totalPages}
             style={{
               pointerEvents: currentPage === totalPages ? 'none' : 'auto',
@@ -225,10 +237,11 @@ const Products = ({ tag, filters, sort, query }) => {
           </Icon>
         </PaginationContainer>
       ) : (
+        // Renderiza un botón de página anterior si no hay suficientes productos o solo hay una página
         <PaginationContainer
-          title='previous'
-          aria-label='go to previous page'
-          role='navigation'
+          title="previous"
+          aria-label="go to previous page"
+          role="navigation"
         >
           <PageButton
             onClick={() => handlePageChange(currentPage - 1)}
@@ -238,7 +251,7 @@ const Products = ({ tag, filters, sort, query }) => {
                 handlePageChange(currentPage - 1);
               }
             }}
-            tabIndex='0'
+            tabIndex="0"
           >
             Back
           </PageButton>

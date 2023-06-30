@@ -99,6 +99,7 @@ const Slider = () => {
 
   return (
     <Container id="Home" role="slider">
+      {/* left */}
       <Arrow
         role="figure"
         title="Previous"
@@ -158,6 +159,7 @@ const Slider = () => {
           </Slide>
         ))}
       </Wrapper>
+      {/* rigth */}
       <Arrow
         role="figure"
         title="Next"

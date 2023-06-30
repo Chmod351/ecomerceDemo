@@ -108,7 +108,6 @@ const DropdownMenu = styled.div`
   })}
 `;
 const MenuItem = styled.div`
-  ${mobile({ marginRight: '1rem', fontSize: '1rem' })}
   font-size: 1rem;
   color: ${({ theme }) => theme.text};
   cursor: pointer;
@@ -128,6 +127,8 @@ const MenuItem = styled.div`
     transition: width 0.3s ease-in-out;
   }
   ${mobile({
+    marginRight: '1rem',
+    fontSize: '1rem',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -169,12 +170,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const dispatch = useDispatch();
 
+  // Maneja el evento de clic en el botón de cierre de sesión
   const handleClick = () => {
-   
     logoutUser(dispatch);
-    console.log("adadas");
+    console.log('adadas');
   };
   useEffect(() => {
+    // Cambia el estado de isMenuOpen al cambiar el tamaño de la ventana
     const handleResize = () => {
       if (window.innerWidth < 820) {
         setIsMenuOpen(false);
@@ -190,25 +192,27 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
   return (
-    <Container role='navigation'>
+    <Container role="navigation">
       <Wrapper>
         <Left>
+          {/* Icono del menú para dispositivos móviles */}
           <MenuIconMobile>
             <MenuRounded
-              role='menubar'
-              aria-label='Dropdown Menu'
+              role="menubar"
+              aria-label="Dropdown Menu"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               style={{ cursor: 'pointer' }}
             />
           </MenuIconMobile>
-
+          {/* Etiqueta y botón de cambio de modo oscuro/claro */}
           <DarkLabel
-            role='menuitem'
+            role="menuitem"
             title={darkMode ? 'Dark' : 'Light'}
             aria-label={darkMode ? 'Dark' : 'Light'}
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex='0'
+            tabIndex="0"
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -218,13 +222,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             {darkMode ? 'Dark' : 'Light'}
           </DarkLabel>
           <Item
-            role='menuitem'
+            role="menuitem"
             title={darkMode ? 'Dark' : 'Light'}
             aria-label={darkMode ? 'Dark' : 'Light'}
-            name='theme'
+            name="theme"
             value={darkMode}
             onClick={() => setDarkMode(!darkMode)}
-            tabIndex='0'
+            tabIndex="0"
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 setDarkMode(!darkMode);
@@ -233,22 +237,21 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           >
             {darkMode ? <Brightness7 /> : <Brightness2 />}
           </Item>
-
-          {/* SEARCH BAR */}
+          {/* Barra de búsqueda */}
           <SearchBar />
         </Left>
-        <Center role='banner'>
+        <Center role="banner">
           <Link
-            to='/'
+            to="/"
             style={{ textDecoration: 'none' }}
-            title='Cierva'
-            role='link'
+            title="Cierva"
+            role="link"
           >
             <Title text={'Cierva'} />
           </Link>
         </Center>
-        <Right role='menu'>
-          {/* MOBILE NAVBAR */}
+        <Right role="menu">
+          {/* Menú desplegable para dispositivos móviles */}
           {isMenuOpen && (
             <DropdownMenu aria-hidden={!isMenuOpen}>
               {/* USER EXISTS? */}
@@ -257,13 +260,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   const { id, route, name } = i;
                   return (
                     <Link
-                      role='link'
+                      role="link"
                       aria-label={`go to ${name}`}
                       title={name}
                       key={id}
                       to={route}
                       style={{ textDecoration: 'none' }}
-                      tabIndex='0'
+                      tabIndex="0"
                     >
                       <MenuItem>{name}</MenuItem>
                     </Link>
@@ -271,21 +274,21 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 })}
                 {username ? (
                   <MenuItem
-                    role='link'
-                    title='Log Out'
-                    tabIndex='0'
+                    role="link"
+                    title="Log Out"
+                    tabIndex="0"
                     onClick={handleClick}
                   >
                     {username}
                   </MenuItem>
                 ) : (
                   <Link
-                    role='link'
-                    aria-label='go to auth'
-                    to='/auth'
+                    role="link"
+                    aria-label="go to auth"
+                    to="/auth"
                     style={{ textDecoration: 'none' }}
-                    title='Login / Create Account'
-                    tabIndex='0'
+                    title="Login / Create Account"
+                    tabIndex="0"
                   >
                     <MenuItem>Login</MenuItem>
                   </Link>
@@ -294,20 +297,22 @@ const Navbar = ({ darkMode, setDarkMode }) => {
             </DropdownMenu>
           )}
         </Right>
+        {/* Elemento del carrito */}
         <Link
-          to='/cart'
+          to="/cart"
           style={{ textDecoration: 'none' }}
-          tabIndex='0'
-          role='link'
+          tabIndex="0"
+          role="link"
         >
           <MenuItemCart>
+            {/* Icono del carrito con número de productos */}
             <Badge
-              role='figure'
-              aria-label='shopping cart'
+              role="figure"
+              aria-label="shopping cart"
               title={`${quantity} products in cart`}
               badgeContent={quantity}
-              color='primary'
-              overlap='rectangular'
+              color="primary"
+              overlap="rectangular"
             >
               {quantity > 0 ? <ShoppingCart /> : <ShoppingCartOutlined />}
             </Badge>

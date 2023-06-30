@@ -10,7 +10,7 @@ import {
   verifyEmail,
   handleRegistration,
 } from '../utils/endpointsLogic.js';
-import { Messages } from '../utils/errors';
+import { Messages } from '../utils/msg.js';
 import { register } from '../data/registerData';
 import { useDispatch } from 'react-redux';
 

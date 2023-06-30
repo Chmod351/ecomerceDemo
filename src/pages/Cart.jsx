@@ -185,7 +185,8 @@ const Cart = ({ darkMode, setDarkMode }) => {
               Shopping Bag({cart.quantity})
             </TopText>
           </TopTexts>
-          {username ? (
+{/* si el usuario esta logeado muestra le permite comprar, sino tiene que logearse */}
+          {username ? (  
             <ButtonElement text={'CHECKOUT NOW'} />
           ) : (
             <Link to="/auth">

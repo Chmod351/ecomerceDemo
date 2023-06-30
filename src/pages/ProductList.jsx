@@ -11,7 +11,7 @@ import Footer from '../components/Footer';
 const Container = styled.section`
   height: 100vh;
   background-color: ${({ theme }) => theme.bg};
-  ${mobile({ marginTop: '1.25rem' ,  marginTop: '5rem'})}
+  ${mobile({ marginTop: '1.25rem', marginTop: '5rem' })}
 `;
 
 const FilterContainer = styled.div`
@@ -55,11 +55,12 @@ const ProductList = ({ darkMode, setDarkMode }) => {
   const [sort, setSort] = useState('newest');
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' }); 
-    if (route[2] === 'search') {  // if the url[2] has search 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (route[2] === 'search') {
+      // if the url[2] has search
       setQuery(route[3]);
     } else {
-      setTags(route[2]);           // if the url[2] does not have search
+      setTags(route[2]); // if the url[2] does not have search
     }
   }, [route]);
 
@@ -79,10 +80,7 @@ const ProductList = ({ darkMode, setDarkMode }) => {
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
-          <Select
-            name="color"
-            onChange={handleFilters}
-          >
+          <Select name="color" onChange={handleFilters}>
             <Option disabled>Color</Option>
             {color.map((c) => {
               return (

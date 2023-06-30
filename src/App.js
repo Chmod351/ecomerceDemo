@@ -61,7 +61,7 @@ const App = () => {
           </Route>
           <Route path="/auth">
             {user ? <Redirect to="/" /> : <Register />}
- {/* Redirige a la página de inicio si el usuario ya ha iniciado sesión, de lo contrario, muestra el formulario de registro */}
+            {/* Redirige a la página de inicio si el usuario ya ha iniciado sesión, de lo contrario, muestra el formulario de registro */}
           </Route>
         </Switch>
       </Router>

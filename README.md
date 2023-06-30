@@ -74,10 +74,6 @@ Directrices de estilo de código y convenciones de nomenclatura.
 
 Licencia bajo la cual se distribuye el proyecto GNU
 
-## Autores
-
-- Nombre del Autor 1
-- Nombre del Autor 2
 
 ## Agradecimientos
 
@@ -85,12 +81,18 @@ Menciones especiales a personas o proyectos que han contribuido o inspirado el p
 
 ## Soporte
 
-Instrucciones para obtener soporte o informar sobre problemas.
-
-## Contribuciones
-
-Explicación sobre cómo se pueden realizar contribuciones al proyecto.
+- Screenshot del error
+- En que navegador obtuviste el error?
+- Que version del navegador / software tenes?
+- Cuando obtuviste el error?
 
 ## Roadmap
+- Visualizar carrito de compras de usuario
+- visualizar ordenes pendientes
+- cancelar ordenes pendientes
+- Eliminar carritos
+- editar contenido el carrito
+- Promptear al usuario cuando se quiera deslogear
+
 
 Planificación futura y mejoras planeadas para el proyecto.

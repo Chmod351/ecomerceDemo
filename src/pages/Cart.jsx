@@ -96,6 +96,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
             </Link>
           )}
         </Top>
+        {/* PRODUCT CARTS COMPONENT */}
         <ProductsCarts username={username} cart={cart} />
       </Wrapper>
       <Footer />

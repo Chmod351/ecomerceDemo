@@ -2,11 +2,12 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import { mobile, pc } from '../responsive';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import ButtonElement from '../components/Button';
 import ProductsCarts from './ProductsCart';
+import Orders from './Orders';
 
 const Container = styled.section`
   min-height: 100vh;
@@ -51,6 +52,7 @@ const TopText = styled.span`
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const username = useSelector((state) => state.user.username);
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -72,14 +74,27 @@ const Cart = ({ darkMode, setDarkMode }) => {
           <TopTexts>
             <TopText
               tabIndex="0"
+              onClick={() => setLoad(!load)}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  setLoad(!load);
+                }
+              }}
               role="status"
               aria-label={`you have ${cart.quantity} products in your cart`}
               title={`you have ${cart.quantity} products in your cart`}
             >
               Shopping Bag({cart.quantity})
             </TopText>
+
             <TopText
               tabIndex="0"
+              onClick={() => setLoad(!load)}
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  setLoad(!load);
+                }
+              }}
               role="status"
               aria-label={`you have ${cart.quantity} active orders`}
               title={`you have ${cart.quantity} active orders`}
@@ -97,7 +112,8 @@ const Cart = ({ darkMode, setDarkMode }) => {
           )}
         </Top>
         {/* PRODUCT CARTS COMPONENT */}
-        <ProductsCarts username={username} cart={cart} />
+
+        {load ? <ProductsCarts username={username} cart={cart} /> : <Orders />}
       </Wrapper>
       <Footer />
     </Container>

@@ -100,6 +100,7 @@ const Products = ({ tag, filters, sort, query }) => {
   // Función para obtener los productos
   const getProducts = useCallback(async () => {
     const res = await getProductsFunction(currentPage, pageSize, tag, query);
+    console.log(res);
     // Actualiza el estado de los productos y el número total de páginas
     if (res.data.products) {
       setProducts(res.data.products);

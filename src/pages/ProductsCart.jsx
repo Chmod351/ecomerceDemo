@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const Container = styled.section``;
 
-const Bottom = styled.div`
+const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: 'column', overflow: 'hidden' })}
@@ -115,7 +115,7 @@ const ProductsCarts = ({ cart, username }) => {
   return (
     <Container>
       {cart.products.length > 0 ? (
-        <Bottom role="list">
+        <Wrapper role="list">
           <Info role="complementary">
             {cart.products.map((product, index) => (
               <Product tabIndex="0">
@@ -168,7 +168,7 @@ const ProductsCarts = ({ cart, username }) => {
           </Info>
           {/* SUMARY COMPONENT */}
           <Summary cart={cart} username={username} />
-        </Bottom>
+        </Wrapper>
       ) : (
         <Message>
           Your Cart Is Empty

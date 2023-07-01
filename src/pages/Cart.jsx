@@ -184,9 +184,17 @@ const Cart = ({ darkMode, setDarkMode }) => {
             >
               Shopping Bag({cart.quantity})
             </TopText>
+            <TopText
+              tabIndex="0"
+              role="status"
+              aria-label={`you have ${cart.quantity} active orders`}
+              title={`you have ${cart.quantity} active orders`}
+            >
+              Orders Status({cart.quantity})
+            </TopText>
           </TopTexts>
-{/* si el usuario esta logeado muestra le permite comprar, sino tiene que logearse */}
-          {username ? (  
+          {/* si el usuario esta logeado muestra le permite comprar, sino tiene que logearse */}
+          {username ? (
             <ButtonElement text={'CHECKOUT NOW'} />
           ) : (
             <Link to="/auth">

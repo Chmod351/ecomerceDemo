@@ -105,6 +105,8 @@ const Products = ({ tag, filters, sort, query }) => {
       setProducts(res.data.products);
     } else if (res.data) {
       setProducts(res.data);
+    } else {
+      setProducts([]);
     }
     setTotalPages(res.data.totalPages);
   }, [tag, currentPage, pageSize, query]);

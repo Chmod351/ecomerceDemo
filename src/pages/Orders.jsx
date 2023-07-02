@@ -32,14 +32,15 @@ const Cell = styled.div`
   padding: 0.7rem;
   background-color: ${({ theme, status }) =>
     status == 'pendiente'
-      ? theme.yellow // Amarillo para 'pendiente'
+      ? theme.orange // naranja para 'pendiente'
       : status == 'recibido'
       ? theme.lightGreen // Verde clarito para 'recibido'
       : status == 'enviado'
-      ? theme.darkGreen // Verde fuerte para 'enviado'
+      ? theme.darkBlue // azul fuerte para 'enviado'
       : status == 'rechazado'
       ? theme.red // Rojo para 'rechazado'
       : theme.soft};
+
 `;
 const Info = styled.p`
   font-size: 1rem;

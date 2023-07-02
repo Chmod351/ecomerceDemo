@@ -173,7 +173,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   // Maneja el evento de clic en el botón de cierre de sesión
   const handleClick = () => {
     logoutUser(dispatch);
-    console.log('adadas');
+  
   };
   useEffect(() => {
     // Cambia el estado de isMenuOpen al cambiar el tamaño de la ventana

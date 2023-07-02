@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import ButtonElement from '../components/Button';
 import ProductsCarts from './ProductsCart';
 import Orders from './Orders';
+import { LocalMall, ShoppingBasket, Shop } from '@material-ui/icons';
 
 const Container = styled.section`
   min-height: 100vh;
@@ -39,6 +40,9 @@ const Top = styled.aside`
 `;
 
 const TopTexts = styled.div`
+ display: flex;
+  flex-direction: row;
+ 
   ${mobile({ display: 'none' })}
 `;
 
@@ -46,6 +50,9 @@ const TopText = styled.span`
   text-decoration: underline;
   cursor: pointer;
   margin: 0rem 0.625rem;
+display:flex;
+  align-items: center;
+  text-align: center;
   ${mobile({ margin: '0' })}
 `;
 
@@ -62,7 +69,10 @@ const Cart = ({ darkMode, setDarkMode }) => {
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Wrapper role="complementary">
-        <Title role="main">YOUR BAG</Title>
+        <Title role="main">
+          <LocalMall />
+          YOUR BAG
+        </Title>
         <Top>
           <Link
             to="/"
@@ -85,7 +95,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
               aria-label={`you have ${cart.quantity} products in your cart`}
               title={`you have ${cart.quantity} products in your cart`}
             >
-              Shopping Bag({cart.quantity})
+              <Shop /> Shopping Bag({cart.quantity})
             </TopText>
             {username ? (
               <TopText
@@ -100,6 +110,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 aria-label={`you have ${cart.quantity} active orders`}
                 title={`you have ${cart.quantity} active orders`}
               >
+                <ShoppingBasket />
                 Orders
               </TopText>
             ) : null}

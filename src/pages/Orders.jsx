@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   display: grid;
   margin: 1.1rem;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.4rem;
+  gap: 0.2rem;
   ${mobile({ gridTemplateColumns: '1fr', gap: '0' })}
 `;
 
@@ -27,7 +27,9 @@ const Cell = styled.div`
 const Info = styled.p`
   font-size: 1rem;
 `;
-
+const Label = styled.label`
+  font-size: 1rem;
+`;
 const Orders = ({ userId }) => {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
@@ -45,15 +47,19 @@ const Orders = ({ userId }) => {
             return (
               <Wrapper key={order._id}>
                 <Cell>
-                  <Info>Order: {order._id} </Info>
+                  <Label>Order:</Label>
+                  <Info>{order._id} </Info>
                 </Cell>
                 <Cell>
-                  <Info>Status: {order.shippingStatus}</Info>
+                  <Label>Status:</Label>
+                  <Info>{order.shippingStatus}</Info>
                 </Cell>
                 <Cell>
-                  <Info>Total: {order.amount}</Info>
+                  <Label>Total:</Label>
+                  <Info>{order.amount}</Info>
                 </Cell>
                 <Cell>
+                  <Label>Created :</Label>
                   <Info>{order.createdAt}</Info>
                 </Cell>
               </Wrapper>

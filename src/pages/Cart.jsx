@@ -52,7 +52,7 @@ const TopText = styled.span`
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const username = useSelector((state) => state.user.username);
-  const userId = useSelector((state) => state.user.currentUser._id);
+  const userId = useSelector((state) => state.user.currentUser?._id);
   const [load, setLoad] = useState(true);
 
   useEffect(() => {

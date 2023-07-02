@@ -108,7 +108,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
                 }}
                 role="status"
                 aria-label={`you have ${cart.quantity} active orders`}
-                title={`you have ${cart.quantity} active orders`}
+                title={`yours active orders`}
               >
                 <ShoppingBasket />
                 Orders

@@ -2,7 +2,7 @@ import { addProduct, removeProduct } from '../redux/cartRedux';
 import { handleSuccess } from '../utils/toast';
 import Summary from '../components/Summary';
 import QuantityButton from '../components/quantityButtons';
-import { SentimentDissatisfiedOutlined } from '@material-ui/icons';
+import { SentimentDissatisfiedOutline } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
@@ -24,7 +24,6 @@ const Info = styled.section`
 
 const Product = styled.article`
   display: flex;
-
   justify-content: space-between;
   ${mobile({ flexDirection: 'column', justifyContent: 'center' })}
   ${pc({ padding: '0.2rem 0rem' })}
@@ -44,7 +43,7 @@ const Image = styled.img`
 const Details = styled.div`
   color: ${({ theme }) => theme.textSoft};
   padding: 1.25rem;
-  ${mobile({ flexWrap: 'wrap', width: '100vw' })}
+  ${mobile({ flexWrap: 'wrap', width: '100vw', padding: '0rem' })}
 `;
 
 const ProductName = styled.span``;
@@ -59,7 +58,9 @@ const ProductColor = styled.div`
 `;
 
 const ProductSize = styled.span``;
-
+const ProductDescription = styled.span`
+  overflow: wrap;
+`;
 const PriceDetail = styled.div`
   flex: 1;
   display: flex;
@@ -136,7 +137,7 @@ const ProductsCarts = ({ cart, username }) => {
                   </Link>
                   <Details>
                     <ProductName>
-                      <b>Product:</b> {product.name}
+                       <b>Product:</b> {product.name}
                     </ProductName>
                     <ProductColor
                       color={product.color}
@@ -146,6 +147,13 @@ const ProductsCarts = ({ cart, username }) => {
                     <ProductSize>
                       <b>Size:</b> {product.size}
                     </ProductSize>
+                    <br></br>
+                    <ProductDescription
+                      title={product.description}
+                      aria-label={product.description}
+                    >
+                      <b>Description:</b> {product.description}
+                    </ProductDescription>
                   </Details>
                 </ProductDetail>
                 <PriceDetail>

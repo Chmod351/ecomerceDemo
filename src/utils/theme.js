@@ -7,7 +7,7 @@ export const darkTheme = {
   hover: '#f5f5f5',
   transparent: 'rgba(0, 0, 0, 0.6)',
   orange: '#B28E70',
-  lightGreen: '#A0A0A0',
+  lightGreen: '#556B2F',
   darkBlue: '#638B8E',
   red: '#946262',
 };

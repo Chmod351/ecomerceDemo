@@ -108,6 +108,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [off, setOff] = useState(true);
+  const [loggingIn, setLoggingIn] = useState(false)
 
   const dispatch = useDispatch();
   const Create = 'Create account';
@@ -148,6 +149,7 @@ const Register = () => {
         break;
       case 'password':
         validatePassword(value, setMsg, setPassword, setStore, login, setOff);
+        setLoggingIn(true);
         break;
       case 'confirmPassword':
         matchPasswords(value, setMsg, setOff, store);
@@ -250,7 +252,7 @@ const Register = () => {
             {islogin ? 'Submit' : Create}
           </Button>
           <Button
-            disabled={!off}
+            disabled={loggingIn}
             title={islogin ? Create : alreadyHaveOne}
             role="button"
             aria-label={islogin ? Create : alreadyHaveOne}

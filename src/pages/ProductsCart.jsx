@@ -2,7 +2,7 @@ import { addProduct, removeProduct } from '../redux/cartRedux';
 import { handleSuccess } from '../utils/toast';
 import Summary from '../components/Summary';
 import QuantityButton from '../components/quantityButtons';
-import { SentimentDissatisfiedOutlined } from '@material-ui/icons';
+import { SentimentDissatisfiedOutline } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
@@ -43,7 +43,7 @@ const Image = styled.img`
 const Details = styled.div`
   color: ${({ theme }) => theme.textSoft};
   padding: 1.25rem;
-${mobile({ flexWrap: 'wrap', width: '100vw', padding:'0rem'})}
+  ${mobile({ flexWrap: 'wrap', width: '100vw', padding: '0rem' })}
 `;
 
 const ProductName = styled.span``;
@@ -137,7 +137,7 @@ const ProductsCarts = ({ cart, username }) => {
                   </Link>
                   <Details>
                     <ProductName>
-                      <b>Product:</b> {product.name}
+                       <b>Product:</b> {product.name}
                     </ProductName>
                     <ProductColor
                       color={product.color}

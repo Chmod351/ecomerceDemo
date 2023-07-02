@@ -108,7 +108,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [off, setOff] = useState(true);
-  const [loggingIn, setloggingIn] = useState(false)
+  const [loggingIn, setLoggingIn] = useState(false)
 
   const dispatch = useDispatch();
   const Create = 'Create account';
@@ -138,7 +138,6 @@ const Register = () => {
   };
   // Función para manejar los cambios en los campos de entrada
   const handleChange = (e) => {
-    setloggingIn(true)
     const { name, value } = e.target;
     setFormValues((prevFormValues) => ({
       ...prevFormValues,
@@ -150,6 +149,7 @@ const Register = () => {
         break;
       case 'password':
         validatePassword(value, setMsg, setPassword, setStore, login, setOff);
+        setLoggingIn(true);
         break;
       case 'confirmPassword':
         matchPasswords(value, setMsg, setOff, store);
@@ -163,11 +163,11 @@ const Register = () => {
   };
 
   return (
-    <Container id={islogin ? "SignIn" : "SignUp"} role="contentinfo">
+    <Container id={islogin ? 'SignIn' : 'SignUp'} role="contentinfo">
       <Wrapper>
         {/* verifica si esta en el formulario de logeo o de registro */}
-        <Title>{islogin ? "SIGN IN" : Create} </Title>
-        <Form role="form" aria-label={islogin ? "SIGN IN" : Create}>
+        <Title>{islogin ? 'SIGN IN' : Create} </Title>
+        <Form role="form" aria-label={islogin ? 'SIGN IN' : Create}>
           {register.map((data) => {
             const { id, label, name, type, placeholder, errorMessage, shared } =
               data;
@@ -215,12 +215,12 @@ const Register = () => {
               {msg.message}
             </Error>
           ) : (
-            ""
+            ''
           )}
           {!islogin ? (
             <Agreement>
               By creating an account, I consent to the processing of my personal
-              data in accordance with the{" "}
+              data in accordance with the{' '}
               <Link
                 to="/"
                 target="_blank"
@@ -233,23 +233,23 @@ const Register = () => {
               </Link>
             </Agreement>
           ) : (
-            ""
+            ''
           )}
           <Button
-            title={islogin ? "Submit" : Create}
+            title={islogin ? 'Submit' : Create}
             role="button"
-            aria-label={islogin ? "Submit" : Create}
+            aria-label={islogin ? 'Submit' : Create}
             tabIndex="0"
             type="submit"
             onClick={handleClick}
             onKeyUp={(e) => {
-              if (e.key === "Enter") {
+              if (e.key === 'Enter') {
                 handleClick(e);
               }
             }}
             disabled={off}
           >
-            {islogin ? "Submit" : Create}
+            {islogin ? 'Submit' : Create}
           </Button>
           <Button
             disabled={loggingIn}
@@ -261,7 +261,7 @@ const Register = () => {
             onClick={(e) => {
               e.preventDefault();
               setFormValues(initialFormValues);
-              setMsg("");
+              setMsg('');
               setLog(!islogin);
             }}
           >

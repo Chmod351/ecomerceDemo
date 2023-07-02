@@ -54,7 +54,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
   const username = useSelector((state) => state.user.username);
   const userId = useSelector((state) => state.user.currentUser._id);
   const [load, setLoad] = useState(true);
-console.log(userId);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);

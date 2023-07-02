@@ -272,3 +272,18 @@ export const logoutUser = (dispatch) => {
     handleError(error);
   }
 };
+
+// FUNCION DE FORMATEO DE FECHAS
+
+export const formatCreatedAt = (createdAt) => {
+  const date = new Date(createdAt);
+  const formattedDate = date.toLocaleString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+  return formattedDate;
+};

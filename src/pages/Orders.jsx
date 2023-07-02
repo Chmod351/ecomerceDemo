@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Loading from './Loading.jsx';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { getOrders } from '../utils/endpointsLogic';
+import { formatCreatedAt, getOrders } from '../utils/endpointsLogic';
 
 const Container = styled.section`
   margin: 0.5rem;
@@ -29,22 +29,10 @@ const Info = styled.p`
 `;
 const Label = styled.label`
   font-size: 1rem;
+  font-weight: bold;
 `;
 const Orders = ({ userId }) => {
   const [orders, setOrders] = useState([]);
-
-  const formatCreatedAt = (createdAt) => {
-    const date = new Date(createdAt);
-    const formattedDate = date.toLocaleString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
-    return formattedDate;
-  };
 
   useEffect(() => {
     const orders = async () => {
@@ -82,8 +70,8 @@ const Orders = ({ userId }) => {
                   <Info>$ {order.amount}</Info>
                 </Cell>
                 <Cell
-                  aria-label={`Created : ${order.createdAt}`}
-                  title={`Created: ${order.createdAt}`}
+                  aria-label={`Created : ${formatCreatedAt(order.createdAt)}`}
+                  title={`Created: ${formatCreatedAt(order.createdAt)}`}
                 >
                   <Label>Created :</Label>
                   <Info>{formatCreatedAt(order.createdAt)}</Info>

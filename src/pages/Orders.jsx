@@ -32,6 +32,20 @@ const Label = styled.label`
 `;
 const Orders = ({ userId }) => {
   const [orders, setOrders] = useState([]);
+
+  const formatCreatedAt = (createdAt) => {
+    const date = new Date(createdAt);
+    const formattedDate = date.toLocaleString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+    return formattedDate;
+  };
+
   useEffect(() => {
     const orders = async () => {
       const res = await getOrders(userId);
@@ -46,21 +60,33 @@ const Orders = ({ userId }) => {
           {orders.map((order) => {
             return (
               <Wrapper key={order._id}>
-                <Cell>
+                <Cell
+                  aria-label={`Order: ${order._id}`}
+                  title={`Order: ${order._id}`}
+                >
                   <Label>Order:</Label>
                   <Info>{order._id} </Info>
                 </Cell>
-                <Cell>
+                <Cell
+                  aria-label={`Status: ${order.shippingStatus}`}
+                  title={`Status: ${order.shippingStatus}`}
+                >
                   <Label>Status:</Label>
                   <Info>{order.shippingStatus}</Info>
                 </Cell>
-                <Cell>
+                <Cell
+                  aria-label={`Total: ${order.amount}`}
+                  title={`Total: ${order.amount}`}
+                >
                   <Label>Total:</Label>
-                  <Info>{order.amount}</Info>
+                  <Info>$ {order.amount}</Info>
                 </Cell>
-                <Cell>
+                <Cell
+                  aria-label={`Created : ${order.createdAt}`}
+                  title={`Created: ${order.createdAt}`}
+                >
                   <Label>Created :</Label>
-                  <Info>{order.createdAt}</Info>
+                  <Info>{formatCreatedAt(order.createdAt)}</Info>
                 </Cell>
               </Wrapper>
             );

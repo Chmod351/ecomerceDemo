@@ -87,21 +87,22 @@ const Cart = ({ darkMode, setDarkMode }) => {
             >
               Shopping Bag({cart.quantity})
             </TopText>
-
-            <TopText
-              tabIndex="0"
-              onClick={() => setLoad(!load)}
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                  setLoad(!load);
-                }
-              }}
-              role="status"
-              aria-label={`you have ${cart.quantity} active orders`}
-              title={`you have ${cart.quantity} active orders`}
-            >
-              Orders Status({cart.quantity})
-            </TopText>
+            {username ? (
+              <TopText
+                tabIndex="0"
+                onClick={() => setLoad(!load)}
+                onKeyUp={(e) => {
+                  if (e.key === 'Enter') {
+                    setLoad(!load);
+                  }
+                }}
+                role="status"
+                aria-label={`you have ${cart.quantity} active orders`}
+                title={`you have ${cart.quantity} active orders`}
+              >
+                Orders
+              </TopText>
+            ) : null}
           </TopTexts>
           {/* si el usuario esta logeado muestra le permite comprar, sino tiene que logearse */}
           {username ? (

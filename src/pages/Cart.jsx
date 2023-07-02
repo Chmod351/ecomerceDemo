@@ -52,8 +52,9 @@ const TopText = styled.span`
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   const username = useSelector((state) => state.user.username);
+  const userId = useSelector((state) => state.user.currentUser._id);
   const [load, setLoad] = useState(true);
-
+console.log(userId);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -113,7 +114,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
         </Top>
         {/* PRODUCT CARTS COMPONENT */}
 
-        {load ? <ProductsCarts username={username} cart={cart} /> : <Orders />}
+        {load ? (
+          <ProductsCarts username={username} cart={cart} />
+        ) : (
+          <Orders userId={userId} />
+        )}
       </Wrapper>
       <Footer />
     </Container>

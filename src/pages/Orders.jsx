@@ -1,5 +1,8 @@
+import { useEffect, useState } from 'react';
+import Loading from './Loading.jsx';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
+import { getOrders } from '../utils/endpointsLogic';
 
 const Container = styled.section`
   margin: 0.5rem;
@@ -25,23 +28,41 @@ const Info = styled.p`
   font-size: 1rem;
 `;
 
-const Orders = () => {
+const Orders = ({ userId }) => {
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    const orders = async () => {
+      const res = await getOrders(userId);
+      setOrders(res.data);
+    };
+    orders();
+  }, [userId]);
   return (
     <Container>
-      <Wrapper>
-        <Cell>
-          <Info>Order: 12345678990'123456</Info>
-        </Cell>
-        <Cell>
-          <Info>Status: Pendiente</Info>
-        </Cell>
-        <Cell>
-          <Info>Total: $123345555</Info>
-        </Cell>
-        <Cell>
-          <Info>Langarompa , La Quiaca , La Quiaca 2334, 1234</Info>
-        </Cell>
-      </Wrapper>
+      {orders ? (
+        <>
+          {orders.map((order) => {
+            return (
+              <Wrapper key={order._id}>
+                <Cell>
+                  <Info>Order: {order._id} </Info>
+                </Cell>
+                <Cell>
+                  <Info>Status: {order.shippingStatus}</Info>
+                </Cell>
+                <Cell>
+                  <Info>Total: {order.amount}</Info>
+                </Cell>
+                <Cell>
+                  <Info>{order.createdAt}</Info>
+                </Cell>
+              </Wrapper>
+            );
+          })}
+        </>
+      ) : (
+        <Loading />
+      )}
     </Container>
   );
 };

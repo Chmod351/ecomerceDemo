@@ -151,6 +151,18 @@ export const makeOrder = async (amount, address, userId, cartId) => {
   }
 };
 
+// obtener ordenes
+
+export const getOrders = async (userId) => {
+  try {
+    const res = await publicRequest.get(`/purchases/${userId}`);
+    return res;
+  } catch (error) {
+    handleError(error);
+    console.log(error);
+  }
+};
+
 // ---- --GET PRODUCTS -- ----
 
 // get product by ID

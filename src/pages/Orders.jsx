@@ -3,7 +3,15 @@ import Loading from './Loading.jsx';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { formatCreatedAt, getOrders } from '../utils/endpointsLogic';
-
+import {
+  AccessTime,
+  Check,
+  CancelOutlined,
+  HowToReg,
+  CalendarTodayOutlined,
+  ShoppingBasket,
+  Payment,
+} from '@material-ui/icons';
 const Container = styled.section`
   margin: 0.5rem;
   max-width: 1200px;
@@ -21,13 +29,32 @@ const Wrapper = styled.div`
 `;
 
 const Cell = styled.div`
-  background-color: ${({ theme }) => theme.soft};
-  padding: 0.5rem;
+  padding: 0.7rem;
+  background-color: ${({ theme, status }) =>
+    status == 'pendiente'
+      ? theme.yellow // Amarillo para 'pendiente'
+      : status == 'recibido'
+      ? theme.lightGreen // Verde clarito para 'recibido'
+      : status == 'enviado'
+      ? theme.darkGreen // Verde fuerte para 'enviado'
+      : status == 'rechazado'
+      ? theme.red // Rojo para 'rechazado'
+      : theme.soft};
 `;
 const Info = styled.p`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem auto;
+  align-items: center;
+  text-align: center;
 `;
 const Label = styled.label`
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
   font-size: 1rem;
   font-weight: bold;
 `;
@@ -41,6 +68,19 @@ const Orders = ({ userId }) => {
     };
     orders();
   }, [userId]);
+
+  const getStatusIcon = (status) => {
+    if (status == 'pendiente') {
+      return <AccessTime />;
+    } else if (status == 'rechazado') {
+      return <CancelOutlined />;
+    } else if (status == 'recibido') {
+      return <HowToReg />;
+    } else {
+      return <Check />;
+    }
+  };
+
   return (
     <Container>
       {orders ? (
@@ -52,21 +92,28 @@ const Orders = ({ userId }) => {
                   aria-label={`Order: ${order._id}`}
                   title={`Order: ${order._id}`}
                 >
-                  <Label>Order:</Label>
+                  <Label>
+                    Order: <ShoppingBasket />
+                  </Label>
                   <Info>{order._id} </Info>
                 </Cell>
                 <Cell
+                  status={order.shippingStatus}
                   aria-label={`Status: ${order.shippingStatus}`}
                   title={`Status: ${order.shippingStatus}`}
                 >
                   <Label>Status:</Label>
-                  <Info>{order.shippingStatus}</Info>
+                  <Info>
+                    {order.shippingStatus} {getStatusIcon(order.shippingStatus)}
+                  </Info>
                 </Cell>
                 <Cell
                   aria-label={`Total: ${order.amount}`}
                   title={`Total: ${order.amount}`}
                 >
-                  <Label>Total:</Label>
+                  <Label>
+                    Total: <Payment />
+                  </Label>
                   <Info>$ {order.amount}</Info>
                 </Cell>
                 <Cell
@@ -74,7 +121,9 @@ const Orders = ({ userId }) => {
                   title={`Created: ${formatCreatedAt(order.createdAt)}`}
                 >
                   <Label>Created :</Label>
-                  <Info>{formatCreatedAt(order.createdAt)}</Info>
+                  <Info>
+                    {formatCreatedAt(order.createdAt)} <CalendarTodayOutlined />
+                  </Info>
                 </Cell>
               </Wrapper>
             );

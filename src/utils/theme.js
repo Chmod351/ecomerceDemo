@@ -6,6 +6,10 @@ export const darkTheme = {
   soft: '#373737',
   hover: '#f5f5f5',
   transparent: 'rgba(0, 0, 0, 0.6)',
+  yellow: '#FFFF00',
+  lightGreen: '#90EE90',
+  darkGreen: '#006400',
+  red: '#FF0000',
 };
 export const lightTheme = {
   bg: '#f9f9f9',
@@ -15,4 +19,8 @@ export const lightTheme = {
   soft: '#aaaaaa',
   hover: '#373737',
   transparent: 'rgba(0, 0, 0, 0.6)',
+  yellow: '#FFFF00',
+  lightGreen: '#90EE90',
+  darkGreen: '#006400',
+  red: '#FF0000',
 };

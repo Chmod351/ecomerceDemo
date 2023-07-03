@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Loading from './Loading.jsx';
 import Pagination from '../components/Pagination.jsx';
+import Filter from '../components/Filter.jsx';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import {
@@ -18,10 +19,10 @@ import {
   Payment,
   Delete,
 } from '@material-ui/icons';
+import { statusData } from '../data/colorData.js';
 
 const Container = styled.section`
   margin: 0.5rem;
-  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   color: ${({ theme }) => theme.text};
@@ -99,6 +100,7 @@ const Orders = ({ userId }) => {
   const [isOrderDeleted, setIsOrderDeleted] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedStatus, setSelectedStatus] = useState('');
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -107,7 +109,7 @@ const Orders = ({ userId }) => {
       setIsOrderDeleted(false);
     };
     fetchOrders();
-  }, [userId, isOrderDeleted]);
+  }, [userId, isOrderDeleted, selectedStatus]);
 
   useEffect(() => {
     const pageCount = Math.ceil(orders.length / 8);
@@ -135,18 +137,34 @@ const Orders = ({ userId }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
+  const handleStatusChange = (event) => {
+    setSelectedStatus(event.target.value);
+  };
 
   // Calcular el índice de inicio y fin para los pedidos de la página actual
   const startIndex = (currentPage - 1) * 8;
   const endIndex = startIndex + 8;
 
   // Obtener los pedidos de la página actual
-  const currentOrders = orders.slice(startIndex, endIndex);
+  const filteredOrders = selectedStatus
+    ? orders.filter((order) => order.shippingStatus == selectedStatus)
+    : orders;
+
+  const currentOrders = filteredOrders.slice(startIndex, endIndex);
 
   return (
     <Container>
       {orders.length > 0 ? (
         <>
+          {orders.length > 4 ? (
+            <Filter
+              text={'Status'}
+              name={'Status'}
+              onChange={handleStatusChange}
+              obj={statusData}
+              prop={'Status'}
+            />
+          ) : null}
           {currentOrders.map((order) => {
             return (
               <Wrapper key={order._id}>

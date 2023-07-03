@@ -63,3 +63,10 @@ export const price = [
   { id: 2, prop: 'Price (asc)', value: 'asc' },
   { id: 3, prop: 'Price (desc)', value: 'desc' },
 ];
+
+export const statusData = [
+  { id: 1, prop: 'Pendiente', value: 'pendiente' },
+  { id: 2, prop: 'Enviado', value: 'enviado' },
+  { id: 3, prop: 'Recibido', value: 'recibido' },
+  { id: 4, prop: 'Rechazado', value: 'rechazado' },
+];

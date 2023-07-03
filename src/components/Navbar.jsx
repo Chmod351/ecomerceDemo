@@ -51,7 +51,6 @@ const Wrapper = styled.section`
 const Left = styled.div`
   display: flex;
   align-items: center;
-  ${pc({ flex: '3' })}
   ${mobile({ justifyContent: 'center', maxWidth: '100vw', width: '100%' })}
 `;
 
@@ -71,12 +70,6 @@ const Item = styled.div`
   ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
 
-const Center = styled.div`
-  flex: 1;
-  display: flex;
-  align-items: center;
-  ${mobile({ display: 'none' })}
-`;
 
 const Right = styled.div`
   flex: 3;
@@ -173,7 +166,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   // Maneja el evento de clic en el botón de cierre de sesión
   const handleClick = () => {
     logoutUser(dispatch);
-  
   };
   useEffect(() => {
     // Cambia el estado de isMenuOpen al cambiar el tamaño de la ventana
@@ -240,16 +232,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           {/* Barra de búsqueda */}
           <SearchBar />
         </Left>
-        <Center role="banner">
-          <Link
-            to="/"
-            style={{ textDecoration: 'none' }}
-            title="Cierva"
-            role="link"
-          >
-            <Title text={'Cierva'} />
-          </Link>
-        </Center>
         <Right role="menu">
           {/* Menú desplegable para dispositivos móviles */}
           {isMenuOpen && (

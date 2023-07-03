@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Loading from './Loading.jsx';
+import Pagination from '../components/Pagination.jsx';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import {
@@ -17,7 +18,6 @@ import {
   Payment,
   Delete,
 } from '@material-ui/icons';
-import { handleSuccess } from '../utils/toast.js';
 
 const Container = styled.section`
   margin: 0.5rem;
@@ -41,9 +41,9 @@ const Cell = styled.div`
     status == 'pendiente'
       ? theme.orange // naranja para 'pendiente'
       : status == 'recibido'
-      ? theme.lightGreen // Verde clarito para 'recibido'
+      ? theme.lightGreen // Verde para 'recibido'
       : status == 'enviado'
-      ? theme.darkBlue // azul fuerte para 'enviado'
+      ? theme.darkBlue // azul  para 'enviado'
       : status == 'rechazado'
       ? theme.red // Rojo para 'rechazado'
       : theme.soft};
@@ -97,15 +97,22 @@ const Icon = styled.div`
 const Orders = ({ userId }) => {
   const [orders, setOrders] = useState([]);
   const [isOrderDeleted, setIsOrderDeleted] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    const orders = async () => {
+    const fetchOrders = async () => {
       const res = await getOrders(userId);
       setOrders(res.data);
       setIsOrderDeleted(false);
     };
-    orders();
+    fetchOrders();
   }, [userId, isOrderDeleted]);
+
+  useEffect(() => {
+    const pageCount = Math.ceil(orders.length / 8);
+    setTotalPages(pageCount);
+  }, [orders]);
 
   const getStatusIcon = (status) => {
     if (status == 'pendiente') {
@@ -124,12 +131,23 @@ const Orders = ({ userId }) => {
     setIsOrderDeleted(true);
     return res;
   };
-  
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Calcular el índice de inicio y fin para los pedidos de la página actual
+  const startIndex = (currentPage - 1) * 8;
+  const endIndex = startIndex + 8;
+
+  // Obtener los pedidos de la página actual
+  const currentOrders = orders.slice(startIndex, endIndex);
+
   return (
     <Container>
       {orders.length > 0 ? (
         <>
-          {orders.map((order) => {
+          {currentOrders.map((order) => {
             return (
               <Wrapper key={order._id}>
                 <Cell>
@@ -186,6 +204,12 @@ const Orders = ({ userId }) => {
       ) : (
         <Loading />
       )}
+      <Pagination
+        filteredProducts={currentOrders}
+        totalPages={totalPages}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+      />
     </Container>
   );
 };

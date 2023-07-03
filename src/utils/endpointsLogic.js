@@ -163,6 +163,18 @@ export const getOrders = async (userId) => {
   }
 };
 
+// ---- --DELETE ORDER -- ----
+export const deleteOrder = async (orderId) => {
+  console.log(orderId)
+  try {
+    const res = await publicRequest.delete(`/purchases/${orderId}`);
+    return res;
+  } catch (error) {
+    handleError(error);
+    console.log(error);
+  }
+};
+
 // ---- --GET PRODUCTS -- ----
 
 // get product by ID

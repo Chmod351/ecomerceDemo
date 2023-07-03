@@ -2,9 +2,9 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import ButtonElement from '../components/Button';
 import { sliderItems } from '../data/sliderData';
 import { mobile } from '../responsive';
-import ButtonElement from '../components/Button';
 
 const Container = styled.section`
   width: 100%;
@@ -33,10 +33,6 @@ const Arrow = styled.div`
   cursor: pointer;
   opacity: 0.5;
   z-index: 2;
-  &:focus {
-    background-color: ${({ theme }) => theme.bgLighter};
-    border: 5px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
   }
 `;
 

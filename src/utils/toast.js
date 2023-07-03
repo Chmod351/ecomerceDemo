@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 export const Toast = {
   success: {
     removed: 'removed from cart succesfully!',
+    removedOrder: 'Order was removed succesfully!',
     added: 'added to cart',
     thanks: 'Thank you for choose us!!',
     welcome: 'welcome!',

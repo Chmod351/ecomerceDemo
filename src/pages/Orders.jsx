@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Loading from './Loading.jsx';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { formatCreatedAt, getOrders } from '../utils/endpointsLogic';
+import { formatCreatedAt, getOrders, deleteOrder } from '../utils/endpointsLogic';
 import {
   AccessTime,
   Check,
@@ -11,7 +11,10 @@ import {
   CalendarTodayOutlined,
   ShoppingBasket,
   Payment,
+  Delete
 } from '@material-ui/icons';
+import { handleSuccess } from '../utils/toast.js';
+
 const Container = styled.section`
   margin: 0.5rem;
   max-width: 1200px;
@@ -23,7 +26,7 @@ const Container = styled.section`
 const Wrapper = styled.div`
   display: grid;
   margin: 1.1rem;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: auto repeat(4, 1fr);
   gap: 0.2rem;
   ${mobile({ gridTemplateColumns: '1fr', gap: '0' })}
 `;
@@ -59,16 +62,47 @@ const Label = styled.label`
   font-size: 1rem;
   font-weight: bold;
 `;
+
+const Icon = styled.div`
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: ${({ theme }) => theme.hover};
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+  color: ${({ theme }) => theme.bg};
+  border: 0.1px solid ${({ theme }) => theme.hover};
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &:hover {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+  &:focus {
+    background-color: ${({ theme }) => theme.bgLighter};
+    border: 0.1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+`;
+
 const Orders = ({ userId }) => {
   const [orders, setOrders] = useState([]);
+  const [isOrderDeleted, setIsOrderDeleted] = useState(false);
 
   useEffect(() => {
     const orders = async () => {
       const res = await getOrders(userId);
       setOrders(res.data);
+      setIsOrderDeleted(false)
     };
     orders();
-  }, [userId]);
+  }, [userId, isOrderDeleted]);
 
   const getStatusIcon = (status) => {
     if (status == 'pendiente') {
@@ -82,6 +116,12 @@ const Orders = ({ userId }) => {
     }
   };
 
+  const handleDeleteOrder = async (idOrder) => {
+    const res = await deleteOrder(idOrder);
+    handleSuccess('removedOrder')
+    setIsOrderDeleted(true);
+  }
+
   return (
     <Container>
       {orders ? (
@@ -89,6 +129,16 @@ const Orders = ({ userId }) => {
           {orders.map((order) => {
             return (
               <Wrapper key={order._id}>
+                <Cell>
+                  <Icon
+                    title="Delete Order"
+                    aria-label="Delete order"
+                    onClick={() => handleDeleteOrder(order._id)}
+                    tabIndex="0"
+                  >
+                    <Delete />
+                  </Icon>
+                </Cell>
                 <Cell
                   aria-label={`Order: ${order._id}`}
                   title={`Order: ${order._id}`}

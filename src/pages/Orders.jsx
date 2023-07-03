@@ -154,8 +154,10 @@ const Orders = ({ userId }) => {
 
   return (
     <Container>
+      {/* if orders has not more than 0 loading component will show up */}
       {orders.length > 0 ? (
         <>
+          {/* IF Orders HAS MORE THAN 4 WILL SHOW THE FILTER COMPONENT */}
           {orders.length > 4 ? (
             <Filter
               text={'Status'}

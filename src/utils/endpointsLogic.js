@@ -165,9 +165,10 @@ export const getOrders = async (userId) => {
 
 // ---- --DELETE ORDER -- ----
 export const deleteOrder = async (orderId) => {
-  console.log(orderId)
+  console.log(orderId);
   try {
     const res = await publicRequest.delete(`/purchases/${orderId}`);
+    handleSuccess('removedOrder');
     return res;
   } catch (error) {
     handleError(error);

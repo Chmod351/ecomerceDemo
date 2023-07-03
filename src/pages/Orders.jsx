@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import Loading from './Loading.jsx';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { formatCreatedAt, getOrders, deleteOrder } from '../utils/endpointsLogic';
+import {
+  formatCreatedAt,
+  getOrders,
+  deleteOrder,
+} from '../utils/endpointsLogic';
 import {
   AccessTime,
   Check,
@@ -11,7 +15,7 @@ import {
   CalendarTodayOutlined,
   ShoppingBasket,
   Payment,
-  Delete
+  Delete,
 } from '@material-ui/icons';
 import { handleSuccess } from '../utils/toast.js';
 
@@ -43,7 +47,6 @@ const Cell = styled.div`
       : status == 'rechazado'
       ? theme.red // Rojo para 'rechazado'
       : theme.soft};
-
 `;
 const Info = styled.p`
   font-size: 1rem;
@@ -99,7 +102,7 @@ const Orders = ({ userId }) => {
     const orders = async () => {
       const res = await getOrders(userId);
       setOrders(res.data);
-      setIsOrderDeleted(false)
+      setIsOrderDeleted(false);
     };
     orders();
   }, [userId, isOrderDeleted]);
@@ -118,13 +121,13 @@ const Orders = ({ userId }) => {
 
   const handleDeleteOrder = async (idOrder) => {
     const res = await deleteOrder(idOrder);
-    handleSuccess('removedOrder')
     setIsOrderDeleted(true);
-  }
-
+    return res;
+  };
+  
   return (
     <Container>
-      {orders ? (
+      {orders.length > 0 ? (
         <>
           {orders.map((order) => {
             return (

@@ -214,7 +214,6 @@ export const getAllProducts = async (currentPage, pageSize) => {
     const response = await publicRequest.get(
       `/products?page=${currentPage}&size=${pageSize}`,
     );
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

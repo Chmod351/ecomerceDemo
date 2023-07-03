@@ -30,6 +30,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
+${pc({marginLeft:'2.5rem'})}
 `;
 
 const Top = styled.aside`
@@ -40,9 +41,9 @@ const Top = styled.aside`
 `;
 
 const TopTexts = styled.div`
- display: flex;
+  display: flex;
   flex-direction: row;
- 
+
   ${mobile({ display: 'none' })}
 `;
 
@@ -50,7 +51,7 @@ const TopText = styled.span`
   text-decoration: underline;
   cursor: pointer;
   margin: 0rem 0.625rem;
-display:flex;
+  display: flex;
   align-items: center;
   text-align: center;
   ${mobile({ margin: '0' })}

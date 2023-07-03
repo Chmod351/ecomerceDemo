@@ -65,6 +65,7 @@ export const price = [
 ];
 
 export const statusData = [
+  { id: 0, prop: 'All', value: '' },
   { id: 1, prop: 'Pendiente', value: 'pendiente' },
   { id: 2, prop: 'Enviado', value: 'enviado' },
   { id: 3, prop: 'Recibido', value: 'recibido' },

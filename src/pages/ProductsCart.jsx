@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { Link } from 'react-router-dom';
+import Pagination from '../components/Pagination';
 
 const Container = styled.section``;
 
@@ -115,8 +116,17 @@ const ProductsCarts = ({ cart, username }) => {
 
   return (
     <Container>
-      {cart.products.length > 0 ? (
-      <Wrapper role="list">
+    {/* if cart.products has not more than 0, message and icon will show up */}
+      {cart.products.length > 0 ?
+        /* if cart.products has more than 10 items Pagination component must render */
+      (cart.products.length > 10 ?
+        <Pagination 
+        filteredProducts={cart.products} 
+        totalPages={Math.ceil(cart.products.length/10)} 
+        currentPage={1} 
+        handlePageChange={()=>{''}}
+        /> :
+      (<Wrapper role="list">
           <Info role="complementary">
             {cart.products.map((product, index) => (
               <Product tabIndex="0">
@@ -176,7 +186,7 @@ const ProductsCarts = ({ cart, username }) => {
           </Info>
           {/* SUMARY COMPONENT */}
           <Summary cart={cart} username={username} />
-        </Wrapper>
+        </Wrapper>)
       ) : (
         <Message>
           Your Cart Is Empty

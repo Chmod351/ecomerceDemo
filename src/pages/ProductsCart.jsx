@@ -2,7 +2,7 @@ import { addProduct, removeProduct } from '../redux/cartRedux';
 import { handleSuccess } from '../utils/toast';
 import Summary from '../components/Summary';
 import QuantityButton from '../components/quantityButtons';
-import { SentimentDissatisfiedOutline } from '@material-ui/icons';
+import { SentimentDissatisfiedOutlined } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
@@ -116,7 +116,7 @@ const ProductsCarts = ({ cart, username }) => {
   return (
     <Container>
       {cart.products.length > 0 ? (
-        <Wrapper role="list">
+      <Wrapper role="list">
           <Info role="complementary">
             {cart.products.map((product, index) => (
               <Product tabIndex="0">

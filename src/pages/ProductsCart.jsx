@@ -109,12 +109,12 @@ const ProductsCarts = ({ cart, username }) => {
   const totalPages = Math.ceil(cart.products.length/10);
 
   const handleRemove = (index) => {
-    dispatch(removeProduct(cart.products[index]));
+    dispatch(removeProduct(cart.products[startIndex+index]));
     handleSuccess('removed');
   };
 
   const handleAdd = (index) => {
-    dispatch(addProduct({ ...cart.products[index], quantity: 1 }));
+    dispatch(addProduct({ ...cart.products[startIndex+index], quantity: 1 }));
     handleSuccess('added');
   };
 
@@ -127,7 +127,7 @@ const ProductsCarts = ({ cart, username }) => {
       startIndex = (currentPage - 1) * 10;
       endIndex = startIndex + 10;
      currentProds = cart.products.length < 10 ? cart.products : cart.products.slice(startIndex, endIndex);
-    },[cart.products])
+    },[cart.products.length])
      
      const handlePageChange = (page) => {
       setCurrentPage(page);
@@ -136,7 +136,7 @@ const ProductsCarts = ({ cart, username }) => {
   return (
     <Container>
     {/* if cart.products has no more than 0 items, message and icon will show up */}
-      {currentProds.length > 0 ?
+      {cart.products.length > 0 ?
       (<>
       <Wrapper role="list">
           <Info role="complementary">

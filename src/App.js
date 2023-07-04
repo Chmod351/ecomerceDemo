@@ -15,6 +15,8 @@ import Success from './pages/Success'; // Componente para mostrar la página de 
 import { useSelector } from 'react-redux'; // Hook de React Redux para acceder al estado global
 import { ThemeProvider } from 'styled-components'; // Proveedor de estilos para el tema actual
 import { useState } from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+const REACT_APP_GOOGLEID = process.env.REACT_APP_GOOGLEID;
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser); // Obtiene el usuario actual del estado global
@@ -35,37 +37,40 @@ const App = () => {
   };
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
-            {/* Página de inicio con soporte para modo oscuro */}
-          </Route>
-          <Route path="/products/:category">
-            <ProductList
-              darkMode={darkMode}
-              setDarkMode={handleDarkModeToggle}
-            />
-            {/* Lista de productos de una categoría con soporte para modo oscuro */}
-          </Route>
-          <Route path="/product/:id">
-            <Product darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
-            {/* Página de un producto individual con soporte para modo oscuro */}
-          </Route>
-          <Route path="/cart">
-            <Cart darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
-          </Route>
-          <Route path="/success">
-            <Success /> {/*Página de éxito después de realizar la orden */}
-          </Route>
-          <Route path="/auth">
-            {user ? <Redirect to="/" /> : <Register />}
-            {/* Redirige a la página de inicio si el usuario ya ha iniciado sesión, de lo contrario, muestra el formulario de registro */}
-          </Route>
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <GoogleOAuthProvider clientId={REACT_APP_GOOGLEID}>
+      {' '}
+      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
+              {/* Página de inicio con soporte para modo oscuro */}
+            </Route>
+            <Route path="/products/:category">
+              <ProductList
+                darkMode={darkMode}
+                setDarkMode={handleDarkModeToggle}
+              />
+              {/* Lista de productos de una categoría con soporte para modo oscuro */}
+            </Route>
+            <Route path="/product/:id">
+              <Product darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
+              {/* Página de un producto individual con soporte para modo oscuro */}
+            </Route>
+            <Route path="/cart">
+              <Cart darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
+            </Route>
+            <Route path="/success">
+              <Success /> {/*Página de éxito después de realizar la orden */}
+            </Route>
+            <Route path="/auth">
+              {user ? <Redirect to="/" /> : <Register />}
+              {/* Redirige a la página de inicio si el usuario ya ha iniciado sesión, de lo contrario, muestra el formulario de registro */}
+            </Route>
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </GoogleOAuthProvider>
   );
 };
 

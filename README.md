@@ -49,7 +49,7 @@ The project is distributed under the GNU License.
 - The tasks in the backlog are the ones that can be developed, but they may not necessarily be developed
 - To-Do Tasks are tasks that we must do.
 - The assigned tasks will be marked as Doing.
-- Once the PR is done, the task is moved to Review, where its approval or rejection will be awaited. In case of rejection, the task will be marked again as To-Do, and another PR should be done with the new changes
+- Once a pull request is done, the task will be moved to "Review", where its approval or rejection will be awaited. In case of rejection, the task will be marked as "To-Do" again, and another pull request should be done with the new changes.
 - In case of approval, it will be marked as completed.
-- If it's not mentioned in the backlog, don't do it.
+- If a task is not mentioned in the backlog, please do not work on it
 

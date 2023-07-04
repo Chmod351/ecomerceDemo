@@ -14,8 +14,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { e } from '../data/navbarData';
 import SearchBar from './searchBar';
-import Title from './Title';
 import { logoutUser } from '../utils/endpointsLogic';
+import Prompt from './Prompt';
 
 const Container = styled.nav`
   color: ${({ theme }) => theme.text};
@@ -69,7 +69,6 @@ const Item = styled.div`
   cursor: pointer;
   ${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
-
 
 const Right = styled.div`
   flex: 3;
@@ -158,6 +157,7 @@ const MenuItemCart = styled.div`
 `;
 
 const Navbar = ({ darkMode, setDarkMode }) => {
+  const [showPrompt, setShowPrompt] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const username = useSelector((state) => state.user.username);
   const [isMenuOpen, setIsMenuOpen] = useState(true);
@@ -166,6 +166,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   // Maneja el evento de clic en el botón de cierre de sesión
   const handleClick = () => {
     logoutUser(dispatch);
+    setShowPrompt(!showPrompt);
   };
   useEffect(() => {
     // Cambia el estado de isMenuOpen al cambiar el tamaño de la ventana
@@ -259,7 +260,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     role="link"
                     title="Log Out"
                     tabIndex="0"
-                    onClick={handleClick}
+                    onClick={() => setShowPrompt(!showPrompt)}
                   >
                     {username}
                   </MenuItem>
@@ -301,6 +302,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           </MenuItemCart>
         </Link>
       </Wrapper>
+      {showPrompt && (
+        <Prompt
+          text={'Do you want to logout?'}
+          onClick={handleClick}
+          setShowPrompt={() => setShowPrompt(!showPrompt)}
+        />
+      )}
     </Container>
   );
 };

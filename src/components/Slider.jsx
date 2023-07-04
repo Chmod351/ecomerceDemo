@@ -147,6 +147,7 @@ const Slider = () => {
                 {item.desc}
               </Desc>
               <Link
+                style={{ textDecoration: 'none' }}
                 role="link"
                 to={item.url}
                 tabIndex="-1"

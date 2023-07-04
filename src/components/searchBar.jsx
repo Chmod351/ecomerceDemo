@@ -46,6 +46,8 @@ const Input = styled.input`
   }
 `;
 const Label = styled.label`
+  display: flex;
+  align-items: center;
   padding: 0.3rem;
   border: 0.1px solid transparent;
   cursor: pointer;
@@ -87,18 +89,15 @@ const SearchBar = () => {
 
   return (
     <Container>
-      <SearchContainer
-        role='search'
-        aria-label='search bar'
-      >
+      <SearchContainer role="search" aria-label="search bar">
         <Input
-          role='form'
-          aria-label='what are you looking for'
-          title='what are you looking for'
-          placeholder='Search...'
+          role="form"
+          aria-label="what are you looking for"
+          title="what are you looking for"
+          placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          tabIndex='0'
+          tabIndex="0"
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
               SearchProduct(e);
@@ -107,15 +106,15 @@ const SearchBar = () => {
         />
         <SearchLine />
         <Label
-          role='button'
-          title='Submit'
+          role="button"
+          title="Submit"
           onClick={SearchProduct}
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
               SearchProduct(e);
             }
           }}
-          tabIndex='0'
+          tabIndex="0"
         >
           <Search />
         </Label>

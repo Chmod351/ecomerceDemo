@@ -1,4 +1,4 @@
-import { Search,ShoppingCart,Payment } from '@material-ui/icons';
+import { Search, ShoppingCart, Payment } from '@material-ui/icons';
 import styled from 'styled-components';
 
 const ButtonElement = styled.button`
@@ -31,6 +31,8 @@ const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
       return <ShoppingCart />;
     } else if (status == 'SHOP NOW') {
       return <Search />;
+    } else if (status == 'LOGIN NOW') {
+      return null;
     } else {
       return null;
     }

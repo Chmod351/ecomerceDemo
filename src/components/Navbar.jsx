@@ -106,7 +106,7 @@ const MenuItem = styled.div`
   position: relative;
   display: inline-block;
   cursor: pointer;
-  margin-left: 25px;
+  margin-left: 1.5rem;
   &:after {
     content: '';
     position: absolute;

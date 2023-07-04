@@ -4,9 +4,10 @@ import { mobile } from '../responsive';
 const Container = styled.section`
   width: 20rem;
   height: 10rem;
-  background-color: white;
-  color: black;
+  background-color: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
   position: fixed;
+  border: 0.5px solid ${({ theme }) => theme.text};
   top: 50%;
   left: 50%;
   z-index: 999;

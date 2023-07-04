@@ -205,6 +205,7 @@ const ProductsCarts = ({ cart, username }) => {
             {/* SUMARY COMPONENT */}
             <Summary cart={cart} username={username} />
           </Wrapper>
+          {/* pagination component */}
           {cart.products.length > 8 ? (
             <Pagination
               filteredProducts={currentProds}

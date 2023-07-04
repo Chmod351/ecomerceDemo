@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
+import { useEffect, useState } from 'react';
 
 const Container = styled.section``;
 
@@ -104,6 +105,9 @@ const IconFace = styled.svg`
 
 const ProductsCarts = ({ cart, username }) => {
   const dispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(cart.products.length/10);
+
   const handleRemove = (index) => {
     dispatch(removeProduct(cart.products[index]));
     handleSuccess('removed');
@@ -114,21 +118,29 @@ const ProductsCarts = ({ cart, username }) => {
     handleSuccess('added');
   };
 
+     // get start and end index to calculate current products on page
+     let startIndex = (currentPage - 1) * 10;
+     let endIndex = startIndex + 10;
+     let currentProds = cart.products.length < 10 ? cart.products : cart.products.slice(startIndex, endIndex);
+
+     useEffect(()=>{
+      startIndex = (currentPage - 1) * 10;
+      endIndex = startIndex + 10;
+     currentProds = cart.products.length < 10 ? cart.products : cart.products.slice(startIndex, endIndex);
+    },[cart.products])
+     
+     const handlePageChange = (page) => {
+      setCurrentPage(page);
+    };
+
   return (
     <Container>
-    {/* if cart.products has not more than 0, message and icon will show up */}
-      {cart.products.length > 0 ?
-        /* if cart.products has more than 10 items Pagination component must render */
-      (cart.products.length > 10 ?
-        <Pagination 
-        filteredProducts={cart.products} 
-        totalPages={Math.ceil(cart.products.length/10)} 
-        currentPage={1} 
-        handlePageChange={()=>{''}}
-        /> :
-      (<Wrapper role="list">
+    {/* if cart.products has no more than 0 items, message and icon will show up */}
+      {currentProds.length > 0 ?
+      (<>
+      <Wrapper role="list">
           <Info role="complementary">
-            {cart.products.map((product, index) => (
+            {currentProds.map((product, index) => (
               <Product tabIndex="0">
                 <ProductDetail>
                   <Link
@@ -186,7 +198,14 @@ const ProductsCarts = ({ cart, username }) => {
           </Info>
           {/* SUMARY COMPONENT */}
           <Summary cart={cart} username={username} />
-        </Wrapper>)
+        </Wrapper>       
+        <Pagination 
+        filteredProducts={currentProds} 
+        totalPages={totalPages} 
+        currentPage={currentPage} 
+        handlePageChange={handlePageChange}
+        />
+        </>
       ) : (
         <Message>
           Your Cart Is Empty

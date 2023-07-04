@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
-${pc({marginLeft:'2.5rem'})}
+  ${pc({ marginLeft: '2.5rem' })}
 `;
 
 const Top = styled.aside`
@@ -120,7 +120,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
           {username ? (
             <ButtonElement text={'CHECKOUT NOW'} />
           ) : (
-            <Link to="/auth">
+            <Link to="/auth" style={{ textDecoration: 'none' }}>
               <ButtonElement text={'LOGIN NOW'} />
             </Link>
           )}

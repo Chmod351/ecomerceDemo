@@ -43,6 +43,10 @@ const Button = styled.button`
     color: white;
     cursor: not-allowed;
   }
+  &:hover {
+    background-color: ${({ theme }) => theme.lightGreen};
+    color: black;
+  }
 `;
 
 const Prompt = ({ text, onClick, setShowPrompt }) => {

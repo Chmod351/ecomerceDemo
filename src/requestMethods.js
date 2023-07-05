@@ -10,5 +10,7 @@ export const username = currentUser?.username;
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
-

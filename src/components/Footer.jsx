@@ -93,6 +93,8 @@ const MenuItem = styled.p`
 `;
 const A = styled.a`
   color: ${({ theme }) => theme.text};
+  display: flex;
+  align-items: center;
 `;
 
 const Footer = () => {

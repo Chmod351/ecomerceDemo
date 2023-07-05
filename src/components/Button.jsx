@@ -1,5 +1,6 @@
 import { Search, ShoppingCart, Payment } from '@material-ui/icons';
 import styled from 'styled-components';
+import { mobile } from '../responsive';
 
 const ButtonElement = styled.button`
   display: flex;
@@ -21,6 +22,7 @@ const ButtonElement = styled.button`
     border: 1px solid ${({ theme }) => theme.hover};
     color: ${({ theme }) => theme.text};
   }
+  ${mobile({fontSize: '0.8rem'})}
 `;
 
 const Button = ({ text, onClick, onKeyUp, tabIndex }) => {

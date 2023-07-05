@@ -44,7 +44,7 @@ const Button = styled.button`
     cursor: not-allowed;
   }
   &:hover {
-    background-color: ${({ theme }) => theme.lightGreen};
+    background-color: #90ee90;
     color: black;
   }
 `;

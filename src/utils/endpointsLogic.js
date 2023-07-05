@@ -161,7 +161,6 @@ export const getOrders = async (userId) => {
   } catch (error) {
     handleError(error);
     console.log(error);
-    return null;
   }
 };
 
@@ -296,6 +295,7 @@ export const logoutUser = (dispatch) => {
   // Cierra la sesión del usuario
   try {
     dispatch(logout());
+    handleSuccess('logout');
   } catch (error) {
     console.log(error);
     handleError(error);

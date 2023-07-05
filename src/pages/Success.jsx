@@ -35,13 +35,17 @@ const Success = () => {
   const [orderId, setOrderId] = useState(null);
   const msgSuccess = `Order has been created successfully. Your order number is ${orderId}`;
   const msgFail = `Something went wrong, your order was not created yet...`;
-
+  console.log(
+    data.billing_details + ' Adress',
+    cartId + ' carrito',
+    cart.total + ' Total',
+  );
   useEffect(() => {
     const createOrder = async () => {
       const res = await makeOrder(
+        data.billing_details.address,
         cartId,
         cart.total,
-        data.billing_details.address,
       );
       if (res) {
         setOrderId(res);

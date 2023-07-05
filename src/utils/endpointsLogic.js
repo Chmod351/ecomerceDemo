@@ -63,8 +63,6 @@ export const verifyEmail = (email, setError, setEmail) => {
 
 // functionals functions
 
-// ----------> POST REQUESTS <--------------
-
 // Registrar un usuario
 export const handleRegistration = async (email, password, username, setMsg) => {
   // Realiza la solicitud de registro y maneja las respuestas.
@@ -138,15 +136,14 @@ export const payment = async (tokenId, amount, history, userCart) => {
 
 // crear orden
 
-export const makeOrder = async (amount, address, cartId) => {
+export const makeOrder = async (address, cartId, amount) => {
   try {
     const response = await publicRequest.post('/purchases/create', {
+      shippingAddress: address,
       cartId,
       amount,
-      address,
     });
     const { data } = response; // Accede directamente a la propiedad 'data' en el objeto de respuesta
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

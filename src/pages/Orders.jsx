@@ -147,9 +147,8 @@ const Orders = ({ userId }) => {
 
   // Obtener los pedidos de la página actual
   const filteredOrders = selectedStatus
-    ? orders.filter((order) => order.shippingStatus == selectedStatus)
+    ? orders.filter((o) => o.shippingStatus == selectedStatus)
     : orders;
-
   const currentOrders = filteredOrders.slice(startIndex, endIndex);
 
   return (

@@ -101,6 +101,21 @@ export const login = async (dispatch, email, password, setMsg) => {
   }
 };
 
+// añadir al carrito
+
+export const addToCart = async (cart, setUserCart) => {
+  try {
+    const response = await publicRequest.post('/carts/create', {
+      products: cart.products,
+    });
+    setUserCart(response.data._id);
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+    return null;
+  }
+};
+
 // Pagos
 
 export const payment = async (tokenId, amount, history, userCart) => {
@@ -117,37 +132,26 @@ export const payment = async (tokenId, amount, history, userCart) => {
   } catch (error) {
     console.log(error);
     handleError(error);
-  }
-};
-
-// añadir al carrito
-
-export const addToCart = async (cart, setUserCart) => {
-  try {
-    const response = await publicRequest.post('/carts/create', {
-      products: cart.products,
-    });
-    setUserCart(response.data._id);
-  } catch (error) {
-    console.log(error);
-    handleError(error);
+    return null;
   }
 };
 
 // crear orden
 
-export const makeOrder = async (amount, address, userId, cartId) => {
+export const makeOrder = async (amount, address, cartId) => {
   try {
-    const res = await publicRequest.post('/purchases/create', {
-      userId,
+    const response = await publicRequest.post('/purchases/create', {
       cartId,
       amount,
       address,
     });
-    return res;
+    const { data } = response; // Accede directamente a la propiedad 'data' en el objeto de respuesta
+    console.log(data);
+    return data;
   } catch (error) {
     console.log(error);
     handleError(error);
+    return null;
   }
 };
 
@@ -160,6 +164,7 @@ export const getOrders = async (userId) => {
   } catch (error) {
     handleError(error);
     console.log(error);
+    return null;
   }
 };
 
@@ -173,6 +178,7 @@ export const deleteOrder = async (orderId) => {
   } catch (error) {
     handleError(error);
     console.log(error);
+    return null;
   }
 };
 
@@ -190,6 +196,7 @@ export const productById = async (id, setProduct, setColor, setSize) => {
   } catch (error) {
     console.log(error);
     handleError(error);
+    return null;
   }
 };
 
@@ -202,6 +209,7 @@ export const SearchProducts = async (query) => {
   } catch (error) {
     console.log(error);
     handleError(error);
+    return null;
   }
 };
 
@@ -217,6 +225,14 @@ export const getProductByTags = async (tag, currentPage, pageSize) => {
   } catch (error) {
     console.log(error);
     handleError(error);
+    const response = await publicRequest.get(
+      `/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`,
+    );
+    if (response.data) {
+      return response;
+    } else {
+      return null;
+    }
   }
 };
 // GET ALL PRODUCTS
@@ -231,6 +247,10 @@ export const getAllProducts = async (currentPage, pageSize) => {
   } catch (error) {
     console.log(error);
     handleError(error);
+    const response = await publicRequest.get(
+      `/products?page=${currentPage}&size=${pageSize}`,
+    );
+    return response;
   }
 };
 

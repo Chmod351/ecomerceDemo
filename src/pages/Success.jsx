@@ -39,15 +39,16 @@ const Success = () => {
   useEffect(() => {
     const createOrder = async () => {
       const res = await makeOrder(
+        cartId,
         cart.total,
         data.billing_details.address,
-        currentUser._id,
-        cartId,
       );
-      if (res.data._id) {
-        setOrderId(res.data._id);
+      if (res) {
+        setOrderId(res);
         dispatch(clearCart());
         handleSuccess('thanks');
+      } else {
+        setOrderId(null);
       }
     };
 
@@ -66,7 +67,7 @@ const Success = () => {
       {/* Se muestra el mensaje de éxito o error dependiendo del estado del ID del pedido */}
       {orderId ? msgSuccess : msgFail}
       {/* componente Button  */}
-      <Link to="/" role="link">
+      <Link to="/" role="link" style={{ textDecoration: 'none' }}>
         <Button text={'Keep Buying'} />
       </Link>
     </Container>

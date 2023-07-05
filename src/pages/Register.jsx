@@ -32,7 +32,7 @@ const Container = styled.section`
 
 const Wrapper = styled.div`
   width: 25rem;
-  padding: 1.25rem;
+  padding: 1rem;
   background-color: ${({ theme }) => theme.bgLighter};
   ${mobile({ width: '75%' })}
 `;
@@ -52,17 +52,13 @@ const Form = styled.form`
 const Input = styled.input`
   width: 94%;
   margin: 1rem 0.625rem 0rem 0rem;
-  padding: 0.625rem;
   outline: none;
   font-weight: bold;
   border: none;
+  padding: 0.33rem;
   border-bottom: 1px solid ${({ theme }) => theme.text}; /* Agrega esta línea */
-  background-color: ${({ theme }) => theme.bg};
+  background-color: transparent;
   color: ${({ theme }) => theme.text};
-  &:focus {
-    background-color: ${({ theme }) => theme.textSoft};
-    color: ${({ theme }) => theme.bg};
-  }
 `;
 
 const Agreement = styled.span`
@@ -97,7 +93,7 @@ const InputContainer = styled.div`
 `;
 const Label = styled.label`
   font-size: 0.75rem;
-  margin: 1rem 0rem 0 0;
+  padding: 0.6rem 0rem;
   color: ${({ theme }) => theme.text};
 `;
 

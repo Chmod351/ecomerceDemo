@@ -151,6 +151,31 @@ export const makeOrder = async (amount, address, userId, cartId) => {
   }
 };
 
+// obtener ordenes
+
+export const getOrders = async (userId) => {
+  try {
+    const res = await publicRequest.get(`/purchases/${userId}`);
+    return res;
+  } catch (error) {
+    handleError(error);
+    console.log(error);
+  }
+};
+
+// ---- --DELETE ORDER -- ----
+export const deleteOrder = async (orderId) => {
+  console.log(orderId);
+  try {
+    const res = await publicRequest.delete(`/purchases/${orderId}`);
+    handleSuccess('removedOrder');
+    return res;
+  } catch (error) {
+    handleError(error);
+    console.log(error);
+  }
+};
+
 // ---- --GET PRODUCTS -- ----
 
 // get product by ID
@@ -202,7 +227,6 @@ export const getAllProducts = async (currentPage, pageSize) => {
     const response = await publicRequest.get(
       `/products?page=${currentPage}&size=${pageSize}`,
     );
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
@@ -259,4 +283,19 @@ export const logoutUser = (dispatch) => {
     console.log(error);
     handleError(error);
   }
+};
+
+// FUNCION DE FORMATEO DE FECHAS
+
+export const formatCreatedAt = (createdAt) => {
+  const date = new Date(createdAt);
+  const formattedDate = date.toLocaleString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+  return formattedDate;
 };

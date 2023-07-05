@@ -2,14 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { mobile } from '../responsive';
-import { ArrowLeftRounded, ArrowRightRounded } from '@material-ui/icons';
 import Loading from '../pages/Loading';
-import {
-  SearchProducts,
-  getAllProducts,
-  getProductByTags,
-  getProductsFunction,
-} from '../utils/endpointsLogic';
+import { getProductsFunction } from '../utils/endpointsLogic';
+import Pagination from './Pagination';
 
 const Container = styled.section`
   padding: 2rem 0;
@@ -26,76 +21,23 @@ const Wrapper = styled.div`
   ${mobile({ alignItems: 'center', justifyContent: 'center' })}
 `;
 
-const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-`;
-
-const PageButton = styled.button`
-  background-color: ${(props) => (props.active ? '#333' : '#fff')};
-  color: ${(props) => (props.active ? '#fff' : '#333')};
-  border: 1px solid #ccc;
-  padding: 0rem 1rem;
-  border-radius: 1rem;
-  margin: 0 0.3rem;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 'bold';
-
-  &:hover {
-    background-color: ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.bg};
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  &:focus {
-    background-color: ${({ theme }) => theme.bgLighter};
-    border: 0.1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-`;
-const Icon = styled.div`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background-color: ${({ theme }) => theme.hover};
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  justify-content: center;
-  color: ${({ theme }) => theme.bg};
-  border: 0.1px solid ${({ theme }) => theme.hover};
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  &:hover {
-    background-color: ${({ theme }) => theme.bgLighter};
-    border: 0.1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-  &:focus {
-    background-color: ${({ theme }) => theme.bgLighter};
-    border: 0.1px solid ${({ theme }) => theme.hover};
-    color: ${({ theme }) => theme.text};
-  }
-`;
-
 const Products = ({ tag, filters, sort, query }) => {
   // Estado para almacenar los productos y los productos filtrados
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Estado para controlar la paginación
   const [showPagination, setShowPagination] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const [pageSize, setPageSize] = useState(8);
   const [totalPages, setTotalPages] = useState(0);
+
+  // Maneja el cambio de página
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   // Función para obtener los productos
   const getProducts = useCallback(async () => {
@@ -153,11 +95,6 @@ const Products = ({ tag, filters, sort, query }) => {
     }
   }, [sort]);
 
-  // Maneja el cambio de página
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   return (
     // renderiza los productos y si no cargaron, renderiza el componente Loading
     <Container id="Products">
@@ -185,80 +122,12 @@ const Products = ({ tag, filters, sort, query }) => {
 
       {/* Renderizar paginación */}
 
-      {filteredProducts.length >= 8 && totalPages > 1 ? (
-        <PaginationContainer tabIndex="0">
-          {/* Botón de página anterior */}
-          <Icon
-            title="previous"
-            aria-label="go to previous page"
-            role="navigation"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                handlePageChange(currentPage - 1);
-              }
-            }}
-            tabIndex="0"
-            style={{ pointerEvents: currentPage === 1 ? 'none' : 'auto' }}
-          >
-            <ArrowLeftRounded />
-          </Icon>
-          {/* Botones de número de página */}
-          {[...Array(totalPages)].map((_, index) => (
-            <PageButton
-              title={index + 1}
-              role="list"
-              aria-label={index + 1}
-              key={index + 1}
-              active={index + 1 === currentPage}
-              onClick={() => handlePageChange(index + 1)}
-              tabIndex="0"
-            >
-              {index + 1}
-            </PageButton>
-          ))}
-          {/* Botón de página siguiente */}
-          <Icon
-            title="next"
-            aria-label="go to next page"
-            role="navigation"
-            onClick={() => handlePageChange(currentPage + 1)}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                handlePageChange(currentPage + 1);
-              }
-            }}
-            tabIndex="0"
-            disabled={currentPage === totalPages}
-            style={{
-              pointerEvents: currentPage === totalPages ? 'none' : 'auto',
-            }}
-          >
-            <ArrowRightRounded />
-          </Icon>
-        </PaginationContainer>
-      ) : (
-        // Renderiza un botón de página anterior si no hay suficientes productos o solo hay una página
-        <PaginationContainer
-          title="previous"
-          aria-label="go to previous page"
-          role="navigation"
-        >
-          <PageButton
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                handlePageChange(currentPage - 1);
-              }
-            }}
-            tabIndex="0"
-          >
-            Back
-          </PageButton>
-        </PaginationContainer>
-      )}
+      <Pagination
+        filteredProducts={filteredProducts}
+        totalPages={totalPages}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+      />
     </Container>
   );
 };

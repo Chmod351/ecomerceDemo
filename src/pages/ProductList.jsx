@@ -5,9 +5,10 @@ import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { color } from '../data/colorData';
-import { size } from '../data/sizeData';
+import { color, size, price } from '../data/colorData';
 import Footer from '../components/Footer';
+import Filter from '../components/Filter';
+
 const Container = styled.section`
   height: 100vh;
   background-color: ${({ theme }) => theme.bg};
@@ -21,7 +22,7 @@ const FilterContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Filter = styled.div`
+const Filters = styled.div`
   margin: 1.25rem;
   ${mobile({ width: '0rem 1.25rem', display: 'flex', flexDirection: 'column' })}
 `;
@@ -78,35 +79,34 @@ const ProductList = ({ darkMode, setDarkMode }) => {
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <FilterContainer>
-        <Filter>
-          <FilterText>Filter Products:</FilterText>
-          <Select name="color" onChange={handleFilters}>
-            <Option disabled>Color</Option>
-            {color.map((c) => {
-              return (
-                <Option key={c.id} tabIndex="0">
-                  {c.color}
-                </Option>
-              );
-            })}
-          </Select>
-          <Select name="size" onChange={handleFilters}>
-            <Option disabled tabIndex="0">
-              Size
-            </Option>
-            {size.map((s) => {
-              return <Option key={s.id}>{s.size}</Option>;
-            })}
-          </Select>
-        </Filter>
-        <Filter>
-          <FilterText>Sort Products:</FilterText>
-          <Select onChange={(e) => setSort(e.target.value)}>
-            <Option value="newest">Newest</Option>
-            <Option value="asc">Price (asc)</Option>
-            <Option value="desc">Price (desc)</Option>
-          </Select>
-        </Filter>
+        <Filters>
+          <Filter
+            text={'Filter Products'}
+            name={'color'}
+            prop={'Color'}
+            onChange={handleFilters}
+            obj={color}
+            value={color.value}
+          />
+          <Filter
+            text={''}
+            name={'size'}
+            prop={'size'}
+            onChange={handleFilters}
+            obj={size}
+            value={size.value}
+          />
+        </Filters>
+        <Filters>
+          <Filter
+            text={'Sort Products'}
+            name={'sort'}
+            onChange={(e) => setSort(e.target.value)}
+            prop={'Order'}
+            obj={price}
+            value={price.value}
+          />
+        </Filters>
       </FilterContainer>
       <Products tag={tags} filters={filters} sort={sort} query={query} />
       <Newsletter />

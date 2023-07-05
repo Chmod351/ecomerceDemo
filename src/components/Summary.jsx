@@ -122,7 +122,12 @@ const Summary = ({ cart, username }) => {
           />
         </StripeCheckout>
       ) : (
-        <Link to="/auth" role="link" aria-label="this is a link to auth">
+        <Link
+          to="/auth"
+          role="link"
+          aria-label="this is a link to auth"
+          style={{ textDecoration: 'none' }}
+        >
           <Button text={'LOGIN NOW'} />
         </Link>
       )}

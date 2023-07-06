@@ -51,7 +51,7 @@ const Button = styled.button`
 
 const Prompt = ({ text, onClick, setShowPrompt }) => {
   return (
-    <Container>
+    <Container role="modal">
       <Description aria-label={text}>{text}</Description>
       <Buttons>
         <Button onClick={onClick} aria-label="yes">

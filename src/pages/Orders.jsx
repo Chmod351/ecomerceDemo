@@ -21,6 +21,7 @@ import {
 } from '@material-ui/icons';
 import { statusData } from '../data/colorData.js';
 import SadFaceMsg from '../components/SadFaceMsg.jsx';
+import Prompt from '../components/Prompt.jsx';
 
 const Container = styled.section`
   margin: 0.5rem;
@@ -103,6 +104,7 @@ const Orders = ({ userId }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedStatus, setSelectedStatus] = useState('');
   const [ordersLoad, setOrdersLoad] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -175,7 +177,7 @@ const Orders = ({ userId }) => {
                   <Icon
                     title="Delete Order"
                     aria-label="Delete order"
-                    onClick={() => handleDeleteOrder(order._id)}
+                    onClick={() => setShowPrompt(!showPrompt)}
                     tabIndex="0"
                   >
                     <Delete />
@@ -218,6 +220,13 @@ const Orders = ({ userId }) => {
                     {formatCreatedAt(order.createdAt)} <CalendarTodayOutlined />
                   </Info>
                 </Cell>
+                {showPrompt && (
+                  <Prompt
+                    text={'Do you want detele this order?'}
+                    onClick={() => handleDeleteOrder(order._id)}
+                    setShowPrompt={() => setShowPrompt(!showPrompt)}
+                  />
+                )}
               </Wrapper>
             );
           })}

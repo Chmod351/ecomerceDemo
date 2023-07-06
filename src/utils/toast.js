@@ -9,6 +9,7 @@ export const Toast = {
     welcome: 'welcome!',
     created: 'Your account was created',
     Empty: 'No result found with that query ',
+    logout: 'We will miss you!',
   },
   error: {
     400: 'Bad Request',

@@ -43,11 +43,15 @@ const Button = styled.button`
     color: white;
     cursor: not-allowed;
   }
+  &:hover {
+    background-color: #90ee90;
+    color: black;
+  }
 `;
 
 const Prompt = ({ text, onClick, setShowPrompt }) => {
   return (
-    <Container>
+    <Container role="modal">
       <Description aria-label={text}>{text}</Description>
       <Buttons>
         <Button onClick={onClick} aria-label="yes">

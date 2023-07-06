@@ -154,9 +154,10 @@ export const makeOrder = async (address, cartId, amount) => {
 
 // obtener ordenes
 
-export const getOrders = async (userId) => {
+export const getOrders = async (userId, setOrdersLoad) => {
   try {
     const res = await publicRequest.get(`/purchases/${userId}`);
+    setOrdersLoad(true);
     return res;
   } catch (error) {
     handleError(error);

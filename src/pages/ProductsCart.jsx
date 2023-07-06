@@ -2,13 +2,13 @@ import { addProduct, removeProduct } from '../redux/cartRedux';
 import { handleSuccess } from '../utils/toast';
 import Summary from '../components/Summary';
 import QuantityButton from '../components/quantityButtons';
-import { SentimentDissatisfiedOutlined } from '@material-ui/icons';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 import { Link } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import { useEffect, useState } from 'react';
+import SadFaceMsg from '../components/SadFaceMsg';
 
 const Container = styled.section``;
 
@@ -81,26 +81,6 @@ const Hr = styled.hr`
   background-color: #eee;
   border: none;
   height: 1px;
-`;
-
-const Message = styled.p`
-  display: flex;
-  height: 50vh;
-  flex: 4;
-  background-color: ${({ theme }) => theme.bgLighter};
-  font-weight: bold;
-  font-size: 2.4rem;
-  color: ${({ theme }) => theme.soft};
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  ${mobile({ height: '60vh', flexDirection: 'column' })}
-`;
-
-const IconFace = styled.svg`
-  color: ${({ theme }) => theme.soft};
-  margin: 0 1rem;
-  ${mobile({ margin: '1rem auto' })}
 `;
 
 const ProductsCarts = ({ cart, username }) => {
@@ -216,12 +196,7 @@ const ProductsCarts = ({ cart, username }) => {
           ) : null}
         </>
       ) : (
-        <Message>
-          Your Cart Is Empty
-          <IconFace>
-            <SentimentDissatisfiedOutlined />
-          </IconFace>
-        </Message>
+        <SadFaceMsg text={'Your Cart Is Empty'} />
       )}
     </Container>
   );

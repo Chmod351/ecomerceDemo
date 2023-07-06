@@ -20,6 +20,7 @@ import {
   Delete,
 } from '@material-ui/icons';
 import { statusData } from '../data/colorData.js';
+import SadFaceMsg from '../components/SadFaceMsg.jsx';
 
 const Container = styled.section`
   margin: 0.5rem;
@@ -101,10 +102,11 @@ const Orders = ({ userId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [ordersLoad, setOrdersLoad] = useState(false);
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const res = await getOrders(userId);
+      const res = await getOrders(userId, setOrdersLoad);
       setOrders(res.data);
       setIsOrderDeleted(false);
     };
@@ -153,8 +155,8 @@ const Orders = ({ userId }) => {
 
   return (
     <Container>
-      {/* if orders has not more than 0 loading component will show up */}
-      {orders.length > 0 ? (
+      {/* if ordersLoad is true  loading component will show up */}
+      {ordersLoad ? (
         <>
           {/* IF Orders HAS MORE THAN 4 WILL SHOW THE FILTER COMPONENT */}
           {orders.length > 4 ? (
@@ -223,12 +225,16 @@ const Orders = ({ userId }) => {
       ) : (
         <Loading />
       )}
-      <Pagination
-        filteredProducts={currentOrders}
-        totalPages={totalPages}
-        currentPage={currentPage}
-        handlePageChange={handlePageChange}
-      />
+      {orders.length === 0 ? (
+        <SadFaceMsg text={'No Orders Found'} />
+      ) : (
+        <Pagination
+          filteredProducts={currentOrders}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handlePageChange={handlePageChange}
+        />
+      )}
     </Container>
   );
 };

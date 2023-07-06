@@ -51,7 +51,7 @@ const Form = styled.form`
 
 const Input = styled.input`
   width: 94%;
-  margin: 1rem 0.625rem 0rem 0rem;
+  margin: 1rem 0rem;
   outline: none;
   font-weight: bold;
   border: none;
@@ -93,7 +93,7 @@ const InputContainer = styled.div`
 `;
 const Label = styled.label`
   font-size: 0.75rem;
-  padding: 0.6rem 0rem;
+margin: 0.3rem 0rem;
   color: ${({ theme }) => theme.text};
 `;
 

@@ -87,10 +87,15 @@ export const login = async (dispatch, email, password, setMsg) => {
   // Realiza la solicitud de inicio de sesión y maneja las respuestas y errores correspondientes
   setMsg('login');
   dispatch(loginStart());
+  const time = 24 * 60 * 60 * 1000;
   try {
     const res = await publicRequest.post('/users/signIn', { email, password });
     dispatch(loginSuccess(res.data)); // usa redux para logear al usuario
     handleSuccess('welcome');
+    setTimeout(() => {
+      console.log('ads');
+      logoutUser(dispatch);
+    }, time);
   } catch (error) {
     setMsg(error.message);
     console.log(error);

@@ -93,7 +93,6 @@ export const login = async (dispatch, email, password, setMsg) => {
     dispatch(loginSuccess(res.data)); // usa redux para logear al usuario
     handleSuccess('welcome');
     setTimeout(() => {
-      console.log('ads');
       logoutUser(dispatch);
     }, time);
   } catch (error) {
@@ -101,6 +100,17 @@ export const login = async (dispatch, email, password, setMsg) => {
     console.log(error);
     handleError(error);
     dispatch(loginFailure()); // cancela la accion
+  }
+};
+
+// google auth
+export const googleLogin = async (token) => {
+  try {
+    const res = await publicRequest.get(`/users/google/signIn/${token}`);
+    return res;
+  } catch (error) {
+    console.log(error);
+    handleError(error);
   }
 };
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { login } from '../utils/endpointsLogic';
+import { googleLogin, login } from '../utils/endpointsLogic';
 import {
   validateUsername,
   validatePassword,
@@ -93,7 +93,7 @@ const InputContainer = styled.div`
 `;
 const Label = styled.label`
   font-size: 0.75rem;
-margin: 0.3rem 0rem;
+  margin: 0.3rem 0rem;
   color: ${({ theme }) => theme.text};
 `;
 
@@ -157,6 +157,11 @@ const Register = () => {
       default:
         break;
     }
+  };
+
+  const handleGoogleAuth = async (credentialResponse) => {
+    const res = await googleLogin(credentialResponse.credential);
+    return res;
   };
 
   return (
@@ -230,6 +235,7 @@ const Register = () => {
           ) : null}
           <GoogleLogin
             onSuccess={(credentialResponse) => {
+              handleGoogleAuth(credentialResponse);
               console.log(credentialResponse);
             }}
             onError={() => {

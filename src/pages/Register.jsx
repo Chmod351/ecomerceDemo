@@ -236,7 +236,6 @@ const Register = () => {
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               handleGoogleAuth(credentialResponse);
-              console.log(credentialResponse);
             }}
             onError={() => {
               console.log('Login Failed');

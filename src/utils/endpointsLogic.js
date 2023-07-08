@@ -61,6 +61,18 @@ export const verifyEmail = (email, setError, setEmail) => {
   }
 };
 
+export const findByEmail = async (email) => {
+  try {
+    const res = await publicRequest.post('/users/findByEmail', {
+      email,
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+    handleError(error);
+  }
+};
+
 // functionals functions
 
 // Registrar un usuario
@@ -104,16 +116,10 @@ export const login = async (dispatch, email, password, setMsg) => {
 };
 
 // google auth
-export const googleLogin = async (token, dispatch) => {
+export const googleLogin = async (token) => {
   try {
     const res = await publicRequest.get(`/users/google/signIn/${token}`);
-    console.log(res);
-    const time = 48 * 60 * 60 * 1000;
-    dispatch(loginSuccess(res.data));
-    handleSuccess('welcome');
-    setTimeout(() => {
-      logoutUser(dispatch);
-    }, time);
+    return res.data;
   } catch (error) {
     console.log(error);
     handleError(error);

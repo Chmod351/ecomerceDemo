@@ -124,7 +124,7 @@ const Register = () => {
   const handleGoogleAuth = async (credentialResponse) => {
     const res = await googleLogin(credentialResponse.credential);
     const email = await findByEmail(res.email);
-    if (!email) {
+    if (email === null) {
       await handleRegistration(res.email, res.jti, res.name, setMsg);
       await login(dispatch, res.email, res.jti, setMsg);
     }

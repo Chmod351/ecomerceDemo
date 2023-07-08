@@ -126,8 +126,10 @@ const Register = () => {
     const email = await findByEmail(res.email);
     if (email === null) {
       await handleRegistration(res.email, res.jti, res.name, setMsg);
+      console.log('succes');
       await login(dispatch, res.email, res.jti, setMsg);
     } else {
+      console.log(res.email, res.jti);
       await login(dispatch, res.email, res.jti, setMsg);
     }
   };

@@ -159,7 +159,7 @@ const Register = () => {
     }
   };
 
-  const handleGoogleAuth = async (credentialResponse, dispatch) => {
+  const handleGoogleAuth = async (credentialResponse) => {
     const res = await googleLogin(credentialResponse.credential, dispatch);
     return res;
   };

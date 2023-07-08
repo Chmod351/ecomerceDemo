@@ -104,7 +104,7 @@ export const login = async (dispatch, email, password, setMsg) => {
 };
 
 // google auth
-export const googleLogin = async (token) => {
+export const googleLogin = async (token,dispatch) => {
   try {
     const res = await publicRequest.get(`/users/google/signIn/${token}`);
     dispatch(loginSuccess(res));

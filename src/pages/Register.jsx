@@ -8,6 +8,7 @@ import {
   validatePassword,
   matchPasswords,
   verifyEmail,
+  findByEmail,
   handleRegistration,
 } from '../utils/endpointsLogic.js';
 import { Messages } from '../utils/msg.js';
@@ -119,6 +120,17 @@ const Register = () => {
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  // google oauth
+  const handleGoogleAuth = async (credentialResponse) => {
+    const res = await googleLogin(credentialResponse.credential);
+    const email = await findByEmail(res.email);
+    if (!email) {
+      await handleRegistration(res.email, res.jti, res.name, setMsg);
+      await login(dispatch, res.email, res.jti, setMsg);
+    }
+    await login(dispatch, res.email, res.jti, setMsg);
+  };
+
   // handle click function
   const handleClick = async (e) => {
     e.preventDefault();
@@ -133,6 +145,7 @@ const Register = () => {
     setFormValues(initialFormValues);
     setOff(false);
   };
+
   // Función para manejar los cambios en los campos de entrada
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -157,11 +170,6 @@ const Register = () => {
       default:
         break;
     }
-  };
-
-  const handleGoogleAuth = async (credentialResponse) => {
-    const res = await googleLogin(credentialResponse.credential, dispatch);
-    return res;
   };
 
   return (

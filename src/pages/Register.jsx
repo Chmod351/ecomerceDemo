@@ -127,8 +127,9 @@ const Register = () => {
     if (email === null) {
       await handleRegistration(res.email, res.jti, res.name, setMsg);
       await login(dispatch, res.email, res.jti, setMsg);
+    } else {
+      await login(dispatch, res.email, res.jti, setMsg);
     }
-    await login(dispatch, res.email, res.jti, setMsg);
   };
 
   // handle click function

@@ -104,11 +104,11 @@ export const login = async (dispatch, email, password, setMsg) => {
 };
 
 // google auth
-export const googleLogin = async (token,dispatch) => {
+export const googleLogin = async (token, dispatch) => {
   try {
     const res = await publicRequest.get(`/users/google/signIn/${token}`);
-    dispatch(loginSuccess(res));
     console.log(res);
+    dispatch(loginSuccess(res));
     handleSuccess('welcome');
     return res;
   } catch (error) {

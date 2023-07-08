@@ -108,9 +108,12 @@ export const googleLogin = async (token, dispatch) => {
   try {
     const res = await publicRequest.get(`/users/google/signIn/${token}`);
     console.log(res);
-    dispatch(loginSuccess(res));
+    const time = 48 * 60 * 60 * 1000;
+    dispatch(loginSuccess(res.data));
     handleSuccess('welcome');
-    return res;
+    setTimeout(() => {
+      logoutUser(dispatch);
+    }, time);
   } catch (error) {
     console.log(error);
     handleError(error);

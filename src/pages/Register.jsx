@@ -17,7 +17,6 @@ import { mobile } from '../responsive';
 import { Messages } from '../utils/msg.js';
 import { register } from '../utils/data/registerData';
 
-
 const Container = styled.section`
   width: 100vw;
   height: 100vh;
@@ -125,8 +124,10 @@ const Register = () => {
   // google oauth
   const handleGoogleAuth = async (credentialResponse) => {
     const res = await googleLogin(credentialResponse.credential);
+    console.log(res);
     const email = await findByEmail(res.email);
-    if (email === null) {
+    if (email.data === null) {
+      console.log('email null');
       await handleRegistration(res.email, res.jti, res.name, setMsg);
       console.log('succes');
       await login(dispatch, res.email, res.jti, setMsg);

@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import ButtonElement from '../components/Button';
+import ButtonElement from '../components/ui/Button';
 
 const Container = styled.article`
   flex: 1;
   margin: 3px;
   height: 70vh;
+  border-radius: 1rem;
   position: relative;
   ${mobile({ width: '90vw' })}
 `;
@@ -25,6 +26,7 @@ const Info = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  font-family: 'Pangolin', cursive;
   flex-direction: column;
   align-items: center;
   justify-content: center;

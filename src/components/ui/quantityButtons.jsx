@@ -1,6 +1,6 @@
 import { Add, Remove } from '@material-ui/icons';
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile } from '../../responsive';
 
 const ProductAmountContainer = styled.aside`
   display: flex;
@@ -11,7 +11,6 @@ const ProductAmountContainer = styled.aside`
 const ProductAmount = styled.div`
   width: 2rem;
   height: 2rem;
-  border-radius: 1rem;
   border: 1px solid teal;
   display: flex;
   align-items: center;
@@ -24,7 +23,6 @@ const ProductAmount = styled.div`
 const Icon = styled.button`
   width: 2rem;
   height: 2rem;
-  border-radius: 50%;
   border: none;
   background-color: ${({ theme }) => theme.hover};
   display: flex;

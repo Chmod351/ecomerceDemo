@@ -1,14 +1,18 @@
-import { addProduct, removeProduct } from '../redux/cartRedux';
-import { handleSuccess } from '../utils/toast';
-import Summary from '../components/Summary';
-import QuantityButton from '../components/quantityButtons';
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
 import { mobile, pc } from '../responsive';
-import { Link } from 'react-router-dom';
-import Pagination from '../components/Pagination';
-import { useEffect, useState } from 'react';
-import SadFaceMsg from '../components/SadFaceMsg';
+// functions 
+import { addProduct, removeProduct } from '../components/redux/cartRedux';
+import { handleSuccess } from '../utils/toast';
+// ui 
+import Pagination from '../components/ui/Pagination';
+import QuantityButton from '../components/ui/quantityButtons';
+import SadFaceMsg from '../components/ui/SadFaceMsg';
+// components 
+import Summary from '../components/Summary';
 
 const Container = styled.section``;
 

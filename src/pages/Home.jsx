@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import Categories from '../components/Category';
+
 import Navbar from '../components/Navbar';
-import Newsletter from '../components/Newsletter';
-import Products from '../components/Products';
-import Slider from '../components/Slider';
-import Footer from '../components/Footer';
-import Announcement from '../components/Announcement';
-import SearchBar from '../components/searchBar';
 import Title from '../components/Title';
+import Slider from '../components/Slider';
+import Categories from '../components/Category';
+import SearchBar from '../components/ui/searchBar';
+import Products from '../components/Products';
+import Newsletter from '../components/Newsletter';
+import Footer from '../components/Footer';
 
 const Home = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
@@ -16,7 +16,6 @@ const Home = ({ darkMode, setDarkMode }) => {
   return (
     <>
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <Announcement />
         <Slider />
         <Title text={'Collections'} />
         <Categories />

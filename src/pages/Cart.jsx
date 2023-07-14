@@ -1,14 +1,15 @@
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
-import Navbar from '../components/Navbar';
-import { mobile, pc } from '../responsive';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { LocalMall, ShoppingBasket, Shop } from '@material-ui/icons';
+
+import Navbar from '../components/Navbar';
+import { mobile, pc } from '../responsive';
 import Footer from '../components/Footer';
-import ButtonElement from '../components/Button';
+import ButtonElement from '../components/ui/Button';
 import ProductsCarts from './ProductsCart';
 import Orders from './Orders';
-import { LocalMall, ShoppingBasket, Shop } from '@material-ui/icons';
 
 const Container = styled.section`
   min-height: 100vh;
@@ -43,7 +44,6 @@ const Top = styled.aside`
 const TopTexts = styled.div`
   display: flex;
   flex-direction: row;
-
   ${mobile({ display: 'none' })}
 `;
 
@@ -121,7 +121,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
             <ButtonElement text={'CHECKOUT NOW'} />
           ) : (
             <Link to="/auth" style={{ textDecoration: 'none' }}>
-              <ButtonElement text={'LOGIN NOW'} />
+              <ButtonElement text={'CHECKOUT NOW'} />
             </Link>
           )}
         </Top>

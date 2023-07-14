@@ -4,15 +4,18 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom/';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+
+
 import { mobile } from '../responsive';
-import Button from './Button';
+import Button from './ui/Button';
 import { addToCart, payment } from '../utils/endpointsLogic';
+
+
 const KEY = process.env.REACT_APP_STRIPE;
 
 const SummaryContainer = styled.aside`
   flex: 1;
   border: 0.5px solid lightgray;
-  border-radius: 0.625rem;
   padding: 1.25rem;
   height: 20rem;
   ${mobile({ height: '10rem', padding: '1rem', margin: '0 1rem' })}
@@ -128,7 +131,7 @@ const Summary = ({ cart, username }) => {
           aria-label="this is a link to auth"
           style={{ textDecoration: 'none' }}
         >
-          <Button text={'LOGIN NOW'} />
+          <Button text={'CHECKOUT NOW'} />
         </Link>
       )}
     </SummaryContainer>

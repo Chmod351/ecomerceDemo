@@ -2,9 +2,10 @@ import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { sliderItems } from '../data/sliderData';
+
+import { sliderItems } from '../utils/data/sliderData';
 import { mobile } from '../responsive';
-import ButtonElement from '../components/Button';
+import ButtonElement from '../components/ui/Button';
 
 const Container = styled.section`
   width: 100%;
@@ -12,7 +13,7 @@ const Container = styled.section`
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ height: '90vh', marginTop: '3rem' })}
+  ${mobile({ height: '90vh'})}
 `;
 
 const Arrow = styled.div`
@@ -20,7 +21,6 @@ const Arrow = styled.div`
   height: 3rem;
   background-color: ${({ theme }) => theme.text};
   color: ${({ theme }) => theme.bg};
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,6 +66,7 @@ const ImgContainer = styled.div`
 const Image = styled.img`
   height: 80%;
   width: 50vw;
+  object-fit: contain;
   ${mobile({ width: '100vw', height: '20rem' })}
 `;
 
@@ -83,6 +84,7 @@ const Desc = styled.p`
   margin: 2rem 0rem;
   font-size: 1.2rem;
   font-weight: 500;
+  font-family: 'Pangolin', cursive;
   letter-spacing: 3px;
   ${mobile({ fontSize: '0.8rem', margin: '0.5rem 0rem' })}
 `;

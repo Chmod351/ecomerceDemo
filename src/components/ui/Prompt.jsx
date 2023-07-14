@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile } from '../../responsive';
 
 const Container = styled.section`
   width: 20rem;

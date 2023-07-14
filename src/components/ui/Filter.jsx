@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile } from '../../responsive';
 
 const FilterText = styled.span`
   font-size: 1.25rem;
@@ -12,7 +12,6 @@ const FilterText = styled.span`
 const Select = styled.select`
   text-align: center;
   border: none;
-  border-radius: 1rem;
   background-color: ${({ theme }) => theme.hover};
   color: ${({ theme }) => theme.bg};
   padding: 0.625rem;
@@ -20,7 +19,10 @@ const Select = styled.select`
   ${mobile({ margin: '0.625rem 0rem' })}
 `;
 
-const Option = styled.option``;
+const Option = styled.option`
+
+`;
+
 const Filter = ({ text, name, onChange, obj, prop }) => {
   return (
     <>

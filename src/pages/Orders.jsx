@@ -1,14 +1,5 @@
 import { useEffect, useState } from 'react';
-import Loading from './Loading.jsx';
-import Pagination from '../components/Pagination.jsx';
-import Filter from '../components/Filter.jsx';
 import styled from 'styled-components';
-import { mobile } from '../responsive';
-import {
-  formatCreatedAt,
-  getOrders,
-  deleteOrder,
-} from '../utils/endpointsLogic';
 import {
   AccessTime,
   Check,
@@ -19,9 +10,20 @@ import {
   Payment,
   Delete,
 } from '@material-ui/icons';
-import { statusData } from '../data/colorData.js';
-import SadFaceMsg from '../components/SadFaceMsg.jsx';
-import Prompt from '../components/Prompt.jsx';
+
+import { mobile } from '../responsive';
+import {
+  formatCreatedAt,
+  getOrders,
+  deleteOrder,
+} from '../utils/endpointsLogic';
+import { statusData } from '../utils/data/colorData.js';
+//ui
+import Loading from './Loading.jsx';
+import Pagination from '../components/ui/Pagination.jsx';
+import Filter from '../components/ui/Filter.jsx';
+import SadFaceMsg from '../components/ui/SadFaceMsg.jsx';
+import Prompt from '../components/ui/Prompt.jsx';
 
 const Container = styled.section`
   margin: 0.5rem;

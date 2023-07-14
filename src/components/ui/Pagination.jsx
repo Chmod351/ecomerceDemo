@@ -12,7 +12,6 @@ const PageButton = styled.button`
   color: ${(props) => (props.active ? '#fff' : '#333')};
   border: 1px solid #ccc;
   padding: 0rem 1rem;
-  border-radius: 1rem;
   margin: 0 0.3rem;
   cursor: pointer;
   font-size: 1rem;
@@ -36,7 +35,6 @@ const PageButton = styled.button`
 const Icon = styled.div`
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 50%;
   background-color: ${({ theme }) => theme.hover};
   display: flex;
   align-items: center;
@@ -44,7 +42,6 @@ const Icon = styled.div`
   justify-content: center;
   color: ${({ theme }) => theme.bg};
   border: 0.1px solid ${({ theme }) => theme.hover};
-
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;

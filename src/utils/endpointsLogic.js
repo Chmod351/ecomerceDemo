@@ -5,8 +5,8 @@ import {
   loginStart,
   loginSuccess,
   logout,
-} from '../redux/userRedux';
-import { addProduct } from '../redux/cartRedux';
+} from '../components/redux/userRedux';
+import { addProduct } from '../components/redux/cartRedux';
 
 // validate format and data
 

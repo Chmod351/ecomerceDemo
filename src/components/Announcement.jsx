@@ -1,14 +1,15 @@
 import styled from 'styled-components';
-import { pc } from '../responsive';
+import { mobile, pc } from '../responsive';
 
 const Container = styled.div`
-  height: 1.875rem;
+  height: 2rem;
   background-color: teal;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   ${pc({ maxWidth: '100vw' })}
+  ${mobile({ marginTop: '6rem' })}
 `;
 
 const Title = styled.h1`

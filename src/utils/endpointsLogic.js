@@ -66,7 +66,6 @@ export const findByEmail = async (email) => {
     const res = await publicRequest.post('/users/findByEmail', {
       email,
     });
-    console.log(res);
     return res;
   } catch (error) {
     console.log(error);
@@ -79,6 +78,7 @@ export const findByEmail = async (email) => {
 // Registrar un usuario
 export const handleRegistration = async (email, password, username, setMsg) => {
   // Realiza la solicitud de registro y maneja las respuestas.
+  console.log(email + ' email', password + ' password', username + ' username');
   try {
     await publicRequest.post('/users/signUp', {
       email,

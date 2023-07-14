@@ -8,23 +8,27 @@ import SearchBar from '../components/ui/searchBar';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
+import styled from 'styled-components';
 
+const Container = styled.div`
+  background-color: ${({ theme }) => theme.bg};
+`;
 const Home = ({ darkMode, setDarkMode }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
   return (
-    <>
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <Slider />
-        <Title text={'Collections'} />
-        <Categories />
-        <Title text={'Products'} />
-        <SearchBar />
-        <Products />
-        <Newsletter />
+    <Container>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Slider />
+      <Title text={'Collections'} />
+      <Categories />
+      <Title text={'Products'} />
+      <SearchBar />
+      <Products />
+      <Newsletter />
       <Footer />
-    </>
+    </Container>
   );
 };
 

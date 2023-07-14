@@ -8,14 +8,17 @@ import {
 } from '@material-ui/icons';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { mobile, pc } from '../responsive';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { e } from '../data/navbarData';
-import SearchBar from './searchBar';
+
+import { mobile, pc } from '../responsive';
+import { e } from '../utils/data/navbarData';
 import { logoutUser } from '../utils/endpointsLogic';
-import Prompt from './Prompt';
+// ui
+import SearchBar from './ui/searchBar';
+import Prompt from './ui/Prompt';
+import Announcement from './Announcement';
 
 const Container = styled.nav`
   color: ${({ theme }) => theme.text};
@@ -187,129 +190,132 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   }, []);
 
   return (
-    <Container role="navigation">
-      <Wrapper>
-        <Left>
-          {/* Icono del menú para dispositivos móviles */}
-          <MenuIconMobile>
-            <MenuRounded
-              role="menubar"
-              aria-label="Dropdown Menu"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              style={{ cursor: 'pointer' }}
-            />
-          </MenuIconMobile>
-          {/* Etiqueta y botón de cambio de modo oscuro/claro */}
-          <DarkLabel
-            role="menuitem"
-            title={darkMode ? 'Dark' : 'Light'}
-            aria-label={darkMode ? 'Dark' : 'Light'}
-            onClick={() => setDarkMode(!darkMode)}
-            tabIndex="0"
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                setDarkMode(!darkMode);
-              }
-            }}
-          >
-            {darkMode ? 'Dark' : 'Light'}
-          </DarkLabel>
-          <Item
-            role="menuitem"
-            title={darkMode ? 'Dark' : 'Light'}
-            aria-label={darkMode ? 'Dark' : 'Light'}
-            name="theme"
-            value={darkMode}
-            onClick={() => setDarkMode(!darkMode)}
-            tabIndex="0"
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                setDarkMode(!darkMode);
-              }
-            }}
-          >
-            {darkMode ? <Brightness7 /> : <Brightness2 />}
-          </Item>
-          {/* Barra de búsqueda */}
-          <SearchBar />
-        </Left>
-        <Right role="menu">
-          {/* Menú desplegable para dispositivos móviles */}
-          {isMenuOpen && (
-            <DropdownMenu aria-hidden={!isMenuOpen}>
-              {/* USER EXISTS? */}
-              <>
-                {e.map((i) => {
-                  const { id, route, name } = i;
-                  return (
+    <>
+      <Container role="navigation">
+        <Wrapper>
+          <Left>
+            {/* Icono del menú para dispositivos móviles */}
+            <MenuIconMobile>
+              <MenuRounded
+                role="menubar"
+                aria-label="Dropdown Menu"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                style={{ cursor: 'pointer' }}
+              />
+            </MenuIconMobile>
+            {/* Etiqueta y botón de cambio de modo oscuro/claro */}
+            <DarkLabel
+              role="menuitem"
+              title={darkMode ? 'Dark' : 'Light'}
+              aria-label={darkMode ? 'Dark' : 'Light'}
+              onClick={() => setDarkMode(!darkMode)}
+              tabIndex="0"
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  setDarkMode(!darkMode);
+                }
+              }}
+            >
+              {darkMode ? 'Dark' : 'Light'}
+            </DarkLabel>
+            <Item
+              role="menuitem"
+              title={darkMode ? 'Dark' : 'Light'}
+              aria-label={darkMode ? 'Dark' : 'Light'}
+              name="theme"
+              value={darkMode}
+              onClick={() => setDarkMode(!darkMode)}
+              tabIndex="0"
+              onKeyUp={(e) => {
+                if (e.key === 'Enter') {
+                  setDarkMode(!darkMode);
+                }
+              }}
+            >
+              {darkMode ? <Brightness7 /> : <Brightness2 />}
+            </Item>
+            {/* Barra de búsqueda */}
+            <SearchBar />
+          </Left>
+          <Right role="menu">
+            {/* Menú desplegable para dispositivos móviles */}
+            {isMenuOpen && (
+              <DropdownMenu aria-hidden={!isMenuOpen}>
+                {/* USER EXISTS? */}
+                <>
+                  {e.map((i) => {
+                    const { id, route, name } = i;
+                    return (
+                      <Link
+                        role="link"
+                        aria-label={`go to ${name}`}
+                        title={name}
+                        key={id}
+                        to={route}
+                        style={{ textDecoration: 'none' }}
+                        tabIndex="0"
+                      >
+                        <MenuItem>{name}</MenuItem>
+                      </Link>
+                    );
+                  })}
+                  {username ? (
+                    <MenuItem
+                      role="link"
+                      title="Log Out"
+                      tabIndex="0"
+                      onClick={() => setShowPrompt(!showPrompt)}
+                    >
+                      {username}
+                    </MenuItem>
+                  ) : (
                     <Link
                       role="link"
-                      aria-label={`go to ${name}`}
-                      title={name}
-                      key={id}
-                      to={route}
+                      aria-label="go to auth"
+                      to="/auth"
                       style={{ textDecoration: 'none' }}
+                      title="Login / Create Account"
                       tabIndex="0"
                     >
-                      <MenuItem>{name}</MenuItem>
+                      <MenuItem>Login</MenuItem>
                     </Link>
-                  );
-                })}
-                {username ? (
-                  <MenuItem
-                    role="link"
-                    title="Log Out"
-                    tabIndex="0"
-                    onClick={() => setShowPrompt(!showPrompt)}
-                  >
-                    {username}
-                  </MenuItem>
-                ) : (
-                  <Link
-                    role="link"
-                    aria-label="go to auth"
-                    to="/auth"
-                    style={{ textDecoration: 'none' }}
-                    title="Login / Create Account"
-                    tabIndex="0"
-                  >
-                    <MenuItem>Login</MenuItem>
-                  </Link>
-                )}
-              </>
-            </DropdownMenu>
-          )}
-        </Right>
-        {/* Elemento del carrito */}
-        <Link
-          to="/cart"
-          style={{ textDecoration: 'none' }}
-          tabIndex="0"
-          role="link"
-        >
-          <MenuItemCart>
-            {/* Icono del carrito con número de productos */}
-            <Badge
-              role="figure"
-              aria-label="shopping cart"
-              title={`${quantity} products in cart`}
-              badgeContent={quantity}
-              color="primary"
-              overlap="rectangular"
-            >
-              {quantity > 0 ? <ShoppingCart /> : <ShoppingCartOutlined />}
-            </Badge>
-          </MenuItemCart>
-        </Link>
-      </Wrapper>
-      {showPrompt && (
-        <Prompt
-          text={'Do you want to logout?'}
-          onClick={handleClick}
-          setShowPrompt={() => setShowPrompt(!showPrompt)}
-        />
-      )}
-    </Container>
+                  )}
+                </>
+              </DropdownMenu>
+            )}
+          </Right>
+          {/* Elemento del carrito */}
+          <Link
+            to="/cart"
+            style={{ textDecoration: 'none' }}
+            tabIndex="0"
+            role="link"
+          >
+            <MenuItemCart>
+              {/* Icono del carrito con número de productos */}
+              <Badge
+                role="figure"
+                aria-label="shopping cart"
+                title={`${quantity} products in cart`}
+                badgeContent={quantity}
+                color="primary"
+                overlap="rectangular"
+              >
+                {quantity > 0 ? <ShoppingCart /> : <ShoppingCartOutlined />}
+              </Badge>
+            </MenuItemCart>
+          </Link>
+        </Wrapper>
+        {showPrompt && (
+          <Prompt
+            text={'Do you want to logout?'}
+            onClick={handleClick}
+            setShowPrompt={() => setShowPrompt(!showPrompt)}
+          />
+        )}
+      </Container>
+      <Announcement />
+    </>
   );
 };
 

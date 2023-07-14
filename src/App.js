@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'; // Hook de React Redux para acceder a
 import { ThemeProvider } from 'styled-components'; // Proveedor de estilos para el tema actual
 import { useState } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import './app.css'
 const REACT_APP_GOOGLEID = process.env.REACT_APP_GOOGLEID;
 
 const App = () => {

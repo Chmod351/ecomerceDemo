@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile } from '../../responsive';
 import { SentimentDissatisfiedOutlined } from '@material-ui/icons';
 
 const Message = styled.p`

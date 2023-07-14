@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { mobile } from '../responsive';
-import Loading from '../pages/Loading';
 import { getProductsFunction } from '../utils/endpointsLogic';
-import Pagination from './Pagination';
+
+// ui
+import Loading from '../pages/Loading';
+import Pagination from './ui/Pagination';
 
 const Container = styled.section`
   padding: 2rem 0;

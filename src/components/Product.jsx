@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -35,8 +36,9 @@ const LinkDecoration = styled(Link)`
 `;
 
 const Image = styled.img`
+  margin-top: 0.2rem;
   height: 20rem;
-  width: 16rem;
+  width: 18rem;
   z-index: 2;
 `;
 
@@ -53,7 +55,7 @@ const Product = ({ product }) => {
         to={`/product/${product._id}`}
         aria-label={`see more details about ${product.name} $ ${product.price}`}
         role="link"
-        title={`${product.name} $ ${product.price}`}
+        title={`${product.name} $ ${product.price} size ${product.size}`}
       >
         <Image
           src={product.imgUrl}

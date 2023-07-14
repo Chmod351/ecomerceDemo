@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { handleSuccess } from '../utils/toast';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+
+import Button from '../components/ui/Button';
+
+import { handleSuccess } from '../utils/toast';
 import { makeOrder } from '../utils/endpointsLogic';
-import { clearCart } from '../redux/cartRedux';
-import Button from '../components/Button';
+import { clearCart } from '../components/redux/cartRedux';
 
 const Container = styled.section`
   width: 100vw;

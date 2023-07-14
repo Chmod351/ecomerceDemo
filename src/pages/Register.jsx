@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { mobile } from '../responsive';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { googleLogin, login } from '../utils/endpointsLogic';
+import { useDispatch } from 'react-redux';
+import { GoogleLogin } from '@react-oauth/google';
+
 import {
   validateUsername,
   validatePassword,
@@ -11,10 +13,10 @@ import {
   findByEmail,
   handleRegistration,
 } from '../utils/endpointsLogic.js';
+import { mobile } from '../responsive';
 import { Messages } from '../utils/msg.js';
-import { register } from '../data/registerData';
-import { useDispatch } from 'react-redux';
-import { GoogleLogin } from '@react-oauth/google';
+import { register } from '../utils/data/registerData';
+
 
 const Container = styled.section`
   width: 100vw;

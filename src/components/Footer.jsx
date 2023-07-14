@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { mobile } from '../responsive';
-import { contact, e, social } from '../data/footerData';
+import { contact, e, social } from '../utils/data/footerData';
 import { Link } from 'react-router-dom';
 
 const Container = styled.footer`

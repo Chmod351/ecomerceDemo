@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { mobile, pc } from '../responsive';
 import { Search } from '@material-ui/icons';
-import { SearchProducts } from '../utils/endpointsLogic';
-import { handleSuccess } from '../utils/toast';
+
+import { mobile, pc } from '../../responsive';
+import { SearchProducts } from '../../utils/endpointsLogic';
+import { handleSuccess } from '../../utils/toast';
+
 const Container = styled.nav`
   display: flex;
   align-items: center;
-
   justify-content: center;
   background-color: ${({ theme }) => theme.bg};
   ${pc({ padding: '1rem 0' })};
@@ -48,12 +49,10 @@ const Input = styled.input`
 const Label = styled.label`
   display: flex;
   align-items: center;
-  padding: 0.3rem;
+  padding: 0.6rem;
   border: 0.1px solid transparent;
   cursor: pointer;
   font-weight: bold;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
   color: ${({ theme }) => theme.bg};
   background-color: ${({ theme }) => theme.hover};
   ${mobile({ padding: '0.1rem' })};
@@ -68,6 +67,7 @@ const Label = styled.label`
     color: ${({ theme }) => theme.text};
   }
 `;
+
 const SearchBar = () => {
   const [query, setQuery] = useState('');
   const history = useHistory();

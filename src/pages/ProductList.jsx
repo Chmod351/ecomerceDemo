@@ -1,13 +1,15 @@
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+
 import Navbar from '../components/Navbar';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
-import { mobile } from '../responsive';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { color, size, price } from '../data/colorData';
 import Footer from '../components/Footer';
-import Filter from '../components/Filter';
+import Filter from '../components/ui/Filter';
+
+import { mobile } from '../responsive';
+import { color, size, price } from '../utils/data/colorData';
 
 const Container = styled.section`
   height: 100vh;
@@ -26,26 +28,6 @@ const Filters = styled.div`
   margin: 1.25rem;
   ${mobile({ width: '0rem 1.25rem', display: 'flex', flexDirection: 'column' })}
 `;
-
-const FilterText = styled.span`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-right: 1.25rem;
-  color: ${({ theme }) => theme.text};
-  ${mobile({ marginRight: '0rem' })}
-`;
-
-const Select = styled.select`
-  text-align: center;
-  border: none;
-  border-radius: 1rem;
-  background-color: ${({ theme }) => theme.hover};
-  color: ${({ theme }) => theme.bg};
-  padding: 0.625rem;
-  margin-right: 1.25rem;
-  ${mobile({ margin: '0.625rem 0rem' })}
-`;
-const Option = styled.option``;
 
 const ProductList = ({ darkMode, setDarkMode }) => {
   const [tags, setTags] = useState(null);

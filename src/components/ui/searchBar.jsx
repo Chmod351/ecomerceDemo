@@ -11,7 +11,6 @@ const Container = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.bg};
   ${pc({ padding: '1rem 0' })};
   ${mobile({ display: 'flex', width: '100%' })};
 `;

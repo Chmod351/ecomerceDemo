@@ -40,6 +40,7 @@ const Image = styled.img`
   height: 20rem;
   width: 18rem;
   z-index: 2;
+  object-fit: fill;
 `;
 
 const Price = styled.p`

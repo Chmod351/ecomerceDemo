@@ -12,17 +12,14 @@ import {
 } from '@material-ui/icons';
 
 import { mobile } from '../responsive';
-import {
-  formatCreatedAt,
-  getOrders,
-  deleteOrder,
-} from '../utils/endpointsLogic';
+// utils
+import { formatCreatedAt, getOrders, deleteOrder } from '../utils/logic/orders';
 import { statusData } from '../utils/data/colorData.js';
 //ui
-import Loading from './Loading.jsx';
+import Loading from '../components/ui/Loading.jsx';
+import SadFaceMsg from '../components/ui/SadFaceMsg.jsx';
 import Pagination from '../components/ui/Pagination.jsx';
 import Filter from '../components/ui/Filter.jsx';
-import SadFaceMsg from '../components/ui/SadFaceMsg.jsx';
 import Prompt from '../components/ui/Prompt.jsx';
 
 const Container = styled.section`

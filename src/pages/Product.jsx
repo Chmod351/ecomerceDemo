@@ -1,21 +1,23 @@
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import React from 'react';
 import styled from 'styled-components';
-
-//Components
-import Navbar from '../components/Navbar';
-import Newsletter from '../components/Newsletter';
-import Products from '../components/Products';
-import Footer from '../components/Footer';
-// ui
-import QuantityButton from '../components/ui/quantityButtons';
-import Button from '../components/ui/Button';
-import Loading from './Loading';
-
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+//responsive
 import { mobile } from '../responsive';
-import { addToReduxCart, productById } from '../utils/endpointsLogic';
+//Components
+import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
+import Products from '../components/Products';
+import Newsletter from '../components/Newsletter';
+// ui
+import Loading from '../components/ui/Loading';
+import Button from '../components/ui/Button';
+import QuantityButton from '../components/ui/quantityButtons';
+// functions
+import { productById } from '../utils/logic/products';
+import { addToReduxCart } from '../utils/logic/cart.js';
+
+
 
 const Container = styled.section`
   display-items: center;

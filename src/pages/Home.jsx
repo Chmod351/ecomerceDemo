@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-
-import Navbar from '../components/Navbar';
-import Title from '../components/Title';
-import Slider from '../components/Slider';
-import Categories from '../components/Category';
-import SearchBar from '../components/ui/searchBar';
-import Products from '../components/Products';
-import Newsletter from '../components/Newsletter';
-import Footer from '../components/Footer';
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import Navbar from '../components/Navbar';
+import Slider from '../components/Slider';
+import Title from '../components/Title';
+import Footer from '../components/Footer';
+import Products from '../components/Products';
+import SearchBar from '../components/ui/searchBar';
+import Categories from '../components/Category';
+import Newsletter from '../components/Newsletter';
+
 
 const Container = styled.div`
   background-color: ${({ theme }) => theme.bg};

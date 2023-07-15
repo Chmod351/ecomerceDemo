@@ -17,15 +17,6 @@ for data retrieval. To better understand the API and its endpoints, we recommend
 - Open the terminal in the project's root folder and run npm install, and finally npm start
 - Create a .env file and add your Stripe API key (ONLY IF YOU NEED TO MODIFY THE STRIPE API).
 
-## Usage
-- The Components folder contains reusable components
-- The Pages folder contains views where components are rendered.
-- The data folder contains iterable elements such as footer and navbar items.
-- The Utils folder contains the theme, login messages, Toastify messages, and API logic.
-- The requestMethods file contains Axios configuration. Use publicRequests to make API calls, as it is configured to send cookies.
-- The Redux folder contains Redux-Toolkit configuration
-- responsive.js contains responsive design objects to maintain the project's responsiveness.
-
 ## Contribution
 - Make comments in your changes, make them easy to read
 - Keep your changes small and focused (e.g., if your pull request is about the shopping cart, avoid making changes to unrelated components).
@@ -34,15 +25,6 @@ for data retrieval. To better understand the API and its endpoints, we recommend
 - Make your PRs to the Development branch.
 - In the Pull Requests (PRs) made to the DEVELOPMENT branch, you should include the link to your task on Trello to facilitate tracking
 - Be respectful to others.
-  
-## Style Guide
-
-Follow the code style guidelines and naming conventions:
-- Component/views styles are located at the top, below the imports. The parent element is the Container, and the child element is the Wrapper. Other elements should have descriptive names based on their respective HTML elements
-
-## License
-
-The project is distributed under the GNU License.
 
 ## Tasks
 - [trello](https://trello.com/b/PZR0coVQ/ecomerce-frontend) has a Kanban structure
@@ -52,4 +34,10 @@ The project is distributed under the GNU License.
 - Once a pull request is done, the task will be moved to "Review", where its approval or rejection will be awaited. In case of rejection, the task will be marked as "To-Do" again, and another pull request should be done with the new changes.
 - In case of approval, it will be marked as completed.
 - If a task is not mentioned in the backlog, please do not work on it
+
+## License
+
+The project is distributed under the GNU License.
+
+
 

@@ -1,22 +1,24 @@
-import Product from './pages/Product'; // Componente para mostrar la página de un producto individual
-import Home from './pages/Home'; // Componente para mostrar la página de inicio
-import ProductList from './pages/ProductList'; // Componente para mostrar la lista de productos de una categoría
-import Register from './pages/Register'; // Componente para mostrar el formulario de registro e inicio de session
-import Cart from './pages/Cart'; // Componente para mostrar la vista  del compras
 import 'normalize.css'; // Normaliza los estilos CSS en diferentes navegadores
+import './app.css';
+import { useSelector } from 'react-redux'; // Hook de React Redux para acceder al estado global
+import { ThemeProvider } from 'styled-components'; 
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from 'react-router-dom'; // Importación de componentes de React Router para el enrutamiento
-import { darkTheme, lightTheme } from './utils/theme.js'; // Importación de temas (estilos) para la aplicación
-import Success from './pages/Success'; // Componente para mostrar la página de éxito después de una acción
-import { useSelector } from 'react-redux'; // Hook de React Redux para acceder al estado global
-import { ThemeProvider } from 'styled-components'; // Proveedor de estilos para el tema actual
+} from 'react-router-dom';
+import { darkTheme, lightTheme } from './utils/theme.js'; 
 import { useState } from 'react';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import './app.css'
+// pages
+import Home from './pages/Home'; 
+import Cart from './pages/Cart'; 
+import Product from './pages/Product'; 
+import Success from './pages/Success'; 
+import Register from './pages/Register'; 
+import ProductList from './pages/ProductList';
+
 const REACT_APP_GOOGLEID = process.env.REACT_APP_GOOGLEID;
 
 const App = () => {

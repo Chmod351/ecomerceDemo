@@ -9,10 +9,13 @@ import { addProduct, removeProduct } from '../components/redux/cartRedux';
 import { handleSuccess } from '../utils/toast';
 // ui 
 import Pagination from '../components/ui/Pagination';
-import QuantityButton from '../components/ui/quantityButtons';
 import SadFaceMsg from '../components/ui/SadFaceMsg';
+import QuantityButton from '../components/ui/quantityButtons';
 // components 
 import Summary from '../components/Summary';
+
+
+
 
 const Container = styled.section``;
 

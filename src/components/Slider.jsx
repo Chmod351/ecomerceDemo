@@ -1,10 +1,10 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-import { sliderItems } from '../utils/data/sliderData';
+import { Link } from 'react-router-dom';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
 import { mobile } from '../responsive';
+import { sliderItems } from '../utils/data/sliderData';
+//ui
 import ButtonElement from '../components/ui/Button';
 
 const Container = styled.section`

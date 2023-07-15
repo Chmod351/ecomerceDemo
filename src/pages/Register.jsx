@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { googleLogin, login } from '../utils/endpointsLogic';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
-
+import { mobile } from '../responsive';
+// utils
+import { Messages } from '../utils/msg.js';
+import { register } from '../utils/data/registerData';
+// functions
 import {
   validateUsername,
   validatePassword,
@@ -12,10 +15,10 @@ import {
   verifyEmail,
   findByEmail,
   handleRegistration,
-} from '../utils/endpointsLogic.js';
-import { mobile } from '../responsive';
-import { Messages } from '../utils/msg.js';
-import { register } from '../utils/data/registerData';
+  googleLogin,
+  login,
+} from '../utils/logic/users.js';
+
 
 const Container = styled.section`
   width: 100vw;

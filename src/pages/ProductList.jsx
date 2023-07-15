@@ -1,15 +1,16 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
+import { mobile } from '../responsive';
+// utils
+import { color, size, price } from '../utils/data/colorData';
+// components
+import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
-import Footer from '../components/Footer';
+// ui
 import Filter from '../components/ui/Filter';
-
-import { mobile } from '../responsive';
-import { color, size, price } from '../utils/data/colorData';
 
 const Container = styled.section`
   height: 100vh;

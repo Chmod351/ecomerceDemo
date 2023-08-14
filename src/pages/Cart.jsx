@@ -1,15 +1,18 @@
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+
 import { LocalMall, ShoppingBasket, Shop } from '@material-ui/icons';
 
-import Navbar from '../components/Navbar';
 import { mobile, pc } from '../responsive';
+//components
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ButtonElement from '../components/ui/Button';
-import ProductsCarts from './ProductsCart';
+// pages
 import Orders from './Orders';
+import ProductsCarts from './ProductsCart';
 
 const Container = styled.section`
   min-height: 100vh;
@@ -31,6 +34,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
+  cursor: pointer;
   ${pc({ marginLeft: '2.5rem' })}
 `;
 
@@ -70,9 +74,16 @@ const Cart = ({ darkMode, setDarkMode }) => {
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Wrapper role="complementary">
-        <Title role="main">
-          <LocalMall />
-          YOUR BAG
+        <Title role="main" onClick={username ? () => setLoad(!load) : null}>
+          {load ? (
+            <>
+              <ShoppingBasket /> Go to Orders
+            </>
+          ) : (
+            <>
+              <LocalMall /> Go to Bag
+            </>
+          )}
         </Title>
         <Top>
           <Link
@@ -86,12 +97,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
           <TopTexts>
             <TopText
               tabIndex="0"
-              onClick={() => setLoad(!load)}
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                  setLoad(!load);
-                }
-              }}
+              onClick={username ? () => setLoad(!load) : null}
               role="status"
               aria-label={`you have ${cart.quantity} products in your cart`}
               title={`you have ${cart.quantity} products in your cart`}
@@ -101,12 +107,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
             {username ? (
               <TopText
                 tabIndex="0"
-                onClick={() => setLoad(!load)}
-                onKeyUp={(e) => {
-                  if (e.key === 'Enter') {
-                    setLoad(!load);
-                  }
-                }}
+                onClick={username ? () => setLoad(!load) : null}
                 role="status"
                 aria-label={`you have ${cart.quantity} active orders`}
                 title={`yours active orders`}

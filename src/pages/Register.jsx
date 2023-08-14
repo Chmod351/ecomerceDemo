@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { googleLogin, login } from '../utils/endpointsLogic';
 import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
-
+import { mobile } from '../responsive';
+// utils
+import { Messages } from '../utils/msg.js';
+import { register } from '../utils/data/registerData';
+// functions
 import {
   validateUsername,
   validatePassword,
@@ -12,10 +15,9 @@ import {
   verifyEmail,
   findByEmail,
   handleRegistration,
-} from '../utils/endpointsLogic.js';
-import { mobile } from '../responsive';
-import { Messages } from '../utils/msg.js';
-import { register } from '../utils/data/registerData';
+  googleLogin,
+  login,
+} from '../utils/logic/users.js';
 
 
 const Container = styled.section`
@@ -108,7 +110,6 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [off, setOff] = useState(true);
-  const [loggingIn, setLoggingIn] = useState(false);
 
   const dispatch = useDispatch();
   const Create = 'Create account';
@@ -125,11 +126,17 @@ const Register = () => {
   // google oauth
   const handleGoogleAuth = async (credentialResponse) => {
     const res = await googleLogin(credentialResponse.credential);
+    console.log(res);
     const email = await findByEmail(res.email);
-    if (email === null) {
-      await handleRegistration(res.email, res.jti, res.name, setMsg);
-      console.log('succes');
-      await login(dispatch, res.email, res.jti, setMsg);
+    if (email.data === null) {
+      console.log('email null');
+      await handleRegistration(
+        res.user.email,
+        res.user.jti,
+        res.user.name,
+        setMsg,
+      );
+      await login(dispatch, res.user.email, res.user.jti, setMsg);
     } else {
       console.log(res.email, res.jti);
       await login(dispatch, res.email, res.jti, setMsg);
@@ -142,10 +149,12 @@ const Register = () => {
     setOff(true);
     if (islogin) {
       await login(dispatch, email, password, setMsg);
+      setOff(false);
     } else {
       setMsg('message');
       await handleRegistration(email, password, username, setMsg);
       await login(dispatch, email, password, setMsg);
+      setOff(false);
     }
     setFormValues(initialFormValues);
     setOff(false);
@@ -164,7 +173,6 @@ const Register = () => {
         break;
       case 'password':
         validatePassword(value, setMsg, setPassword, setStore, login, setOff);
-        setLoggingIn(true);
         break;
       case 'confirmPassword':
         matchPasswords(value, setMsg, setOff, store);
@@ -271,7 +279,6 @@ const Register = () => {
             {islogin ? 'Submit' : Create}
           </Button>
           <Button
-            disabled={loggingIn}
             title={islogin ? Create : alreadyHaveOne}
             role="button"
             aria-label={islogin ? Create : alreadyHaveOne}

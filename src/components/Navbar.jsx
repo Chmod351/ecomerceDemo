@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 import { mobile, pc } from '../responsive';
 import { e } from '../utils/data/navbarData';
-import { logoutUser } from '../utils/endpointsLogic';
+import { logoutUser } from '../utils/logic/users.js';
 // ui
 import SearchBar from './ui/searchBar';
 import Prompt from './ui/Prompt';

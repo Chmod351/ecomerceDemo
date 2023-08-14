@@ -4,14 +4,13 @@ import styled from 'styled-components';
 import { Search } from '@material-ui/icons';
 
 import { mobile, pc } from '../../responsive';
-import { SearchProducts } from '../../utils/endpointsLogic';
+import { SearchProducts } from '../../utils/logic/products.js';
 import { handleSuccess } from '../../utils/toast';
 
 const Container = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.bg};
   ${pc({ padding: '1rem 0' })};
   ${mobile({ display: 'flex', width: '100%' })};
 `;
@@ -23,6 +22,7 @@ const SearchContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  ${mobile({ maxWidth: '90%' })}
   ${pc({ maxWidth: '800px' })};
 `;
 const SearchLine = styled.div`

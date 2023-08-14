@@ -1,15 +1,14 @@
 import logo from '../assests/logo.png';
-import StripeCheckout from 'react-stripe-checkout';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom/';
-import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
+import StripeCheckout from 'react-stripe-checkout';
+import { useHistory,Link } from 'react-router-dom';
 
 import { mobile } from '../responsive';
+// ui
 import Button from './ui/Button';
-import { addToCart, payment } from '../utils/endpointsLogic';
-
+//functions
+import { addToCart, payment } from '../utils/logic/cart';
 
 const KEY = process.env.REACT_APP_STRIPE;
 

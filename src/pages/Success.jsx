@@ -1,14 +1,15 @@
+import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-
+import { useLocation, Link } from 'react-router-dom';
+// ui
 import Button from '../components/ui/Button';
-
-import { handleSuccess } from '../utils/toast';
-import { makeOrder } from '../utils/endpointsLogic';
+//components
 import { clearCart } from '../components/redux/cartRedux';
+// functions
+import { makeOrder } from '../utils/logic/orders';
+import { handleSuccess } from '../utils/toast';
+import Loading from '../components/ui/Loading';
 
 const Container = styled.section`
   width: 100vw;
@@ -35,6 +36,7 @@ const Success = () => {
 
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
+  const [done, setDone] = useState(false);
   const msgSuccess = `Order has been created successfully. Your order number is ${orderId}`;
   const msgFail = `Something went wrong, your order was not created yet...`;
 
@@ -46,12 +48,13 @@ const Success = () => {
         cart.total,
       );
       if (res) {
-        console.log(res);
         setOrderId(res._id);
         dispatch(clearCart());
+        setDone(true);
         handleSuccess('thanks');
       } else {
         setOrderId(null);
+        setDone(true);
       }
     };
 
@@ -67,12 +70,17 @@ const Success = () => {
       role="contentinfo"
       aria-label={orderId ? msgSuccess : msgFail}
     >
-      {/* Se muestra el mensaje de éxito o error dependiendo del estado del ID del pedido */}
-      {orderId ? msgSuccess : msgFail}
-      {/* componente Button  */}
-      <Link to="/" role="link" style={{ textDecoration: 'none' }}>
-        <Button text={'Keep Buying'} />
-      </Link>
+      {' '}
+      {done ? (
+        <>
+          {orderId ? msgSuccess : msgFail}
+          <Link to="/" role="link" style={{ textDecoration: 'none' }}>
+            <Button text={'Keep Buying'} />
+          </Link>
+        </>
+      ) : (
+        <Loading />
+      )}
     </Container>
   );
 };

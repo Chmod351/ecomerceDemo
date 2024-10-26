@@ -92,7 +92,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
             role="link"
             aria-label="link to home"
           >
-            <ButtonElement text={'CONTINUE SHOPPING'} />
+            <ButtonElement text='CONTINUE SHOPPING' />
           </Link>
           <TopTexts>
             <TopText

@@ -40,6 +40,7 @@ const Product = styled.article`
 
 const ProductDetail = styled.div`
   flex: 2;
+gap:2rem;
   display: flex;
   ${mobile({ flexDirection: 'column' })}
 `;
@@ -51,6 +52,7 @@ const Image = styled.img`
 
 const Details = styled.div`
   color: ${({ theme }) => theme.textSoft};
+  gap:2rem;
   padding: 1.25rem;
   ${mobile({ flexWrap: 'wrap', width: '100vw', padding: '0rem' })}
 `;

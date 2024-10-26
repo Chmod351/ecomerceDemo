@@ -23,6 +23,14 @@ const Wrapper = styled.div`
   justify-content: space-between;
   ${mobile({ alignItems: 'center', justifyContent: 'center' })}
 `;
+
+const ErrorMessage=styled.div`
+  color: ${({ theme }) => theme.text};
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+`;
  // Estado para controlar la paginación
   const pageSize=100;
 
@@ -31,6 +39,7 @@ const Products = ({ tag, filters, sort, query }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setEr] = useState("")
 
  
   const [totalPages, setTotalPages] = useState(0);
@@ -42,18 +51,24 @@ const Products = ({ tag, filters, sort, query }) => {
   };
 
   // Función para obtener los productos
-  const getProducts = useCallback(async () => {
+ const getProducts = useCallback(async () => {
+  try {
     const res = await getProductsFunction(currentPage, pageSize, tag, query);
     // Actualiza el estado de los productos y el número total de páginas
-    if (res.data.products) {
-      setProducts(res.data.products);
-    } else if (res.data) {
-      setProducts(res.data);
+    if (res && res?.data?.products) {
+      setProducts(res?.data.products);
+    } else if (res && res?.data) {
+      setProducts(res?.data);
     } else {
       setProducts([]);
     }
-    setTotalPages(res.data.totalPages);
-  }, [tag, currentPage, pageSize, query]);
+    setTotalPages(res?.data?.totalPages);
+  } catch (e) {
+    /* handle error */
+    console.log(e);
+    setEr(e.message);
+  }
+}, [tag, currentPage, pageSize, query]);
 
   // Llama a la función getProducts al montar el componente o cuando cambian los parámetros
   useEffect(async () => {
@@ -96,6 +111,13 @@ const Products = ({ tag, filters, sort, query }) => {
     }
   }, [sort]);
 
+  if (error) {
+    return (
+      <Container>
+        <ErrorMessage>{error}</ErrorMessage>
+      </Container>
+    );
+  }
   return (
     // renderiza los productos y si no cargaron, renderiza el componente Loading
     <Container id="Products">

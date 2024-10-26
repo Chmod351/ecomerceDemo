@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { mobile, pc } from '../responsive';
 
@@ -16,7 +17,7 @@ const Title = styled.h1`
   color: white;
   font-size: 1rem;
 `;
-const Announcement = () => {
+const Announcement =React.memo( () => {
   return (
     <Container role="banner">
       <Title
@@ -28,6 +29,6 @@ const Announcement = () => {
       </Title>
     </Container>
   );
-};
+});
 
 export default Announcement;

@@ -14,9 +14,11 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.bg};
 `;
 const Home = ({ darkMode, setDarkMode }) => {
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
   return (
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />

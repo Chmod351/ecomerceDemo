@@ -134,6 +134,7 @@ const Orders = ({ userId }) => {
   const handleDeleteOrder = async (idOrder) => {
     const res = await deleteOrder(idOrder);
     setIsOrderDeleted(true);
+    setShowPrompt(false);
     return res;
   };
 

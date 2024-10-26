@@ -4,7 +4,7 @@ import { mobile } from '../../responsive';
 
 const ButtonElement = styled.button`
   display: flex;
-  font-family: 'Pangolin', cursive;
+  font-family: 'roboto', cursive;
   align-items: center;
   text-align: center;
   padding: 10px;
@@ -26,6 +26,30 @@ const ButtonElement = styled.button`
   ${mobile({ fontSize: '0.8rem' })}
 `;
 
+const ButtonElementSoft = styled.button`
+  display: flex;
+  font-family: 'roboto', cursive;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  color: grey;
+  background-color: none;
+  border: none;
+  font-weight: regular;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: none;
+  }
+  &:focus {
+    background-color: red;
+    border: 1px solid ${({ theme }) => theme.hover};
+    color: ${({ theme }) => theme.text};
+  }
+  ${mobile({ fontSize: '0.8rem' })}
+`;
+
 const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
   const getStatusIcon = (status) => {
     if (status == 'CHECKOUT NOW') {
@@ -41,6 +65,21 @@ const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
     }
   };
 
+  if (text==="CONTINUE SHOPPING") {
+    return (
+    <ButtonElementSoft
+      status={text}
+      tabIndex={tabIndex}
+      onClick={onClick}
+      onKeyUp={onKeyUp}
+      role="button"
+      title={text}
+      aria-label={text}
+    >
+      {getStatusIcon(`${text}`)} {text}
+    </ButtonElementSoft>
+    )
+  }else{
   return (
     <ButtonElement
       status={text}
@@ -53,7 +92,9 @@ const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
     >
       {getStatusIcon(`${text}`)} {text}
     </ButtonElement>
+   
   );
+  }
 };
 
 export default Button;

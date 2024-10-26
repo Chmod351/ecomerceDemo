@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { mobile } from '../responsive';
@@ -15,6 +15,7 @@ const Container = styled.section`
 
 const Wrapper = styled.div`
   max-width: 1200px;
+  gap:2rem;
   margin: auto;
   padding: 1.25rem;
   display: flex;
@@ -22,6 +23,8 @@ const Wrapper = styled.div`
   justify-content: space-between;
   ${mobile({ alignItems: 'center', justifyContent: 'center' })}
 `;
+ // Estado para controlar la paginación
+  const pageSize=100;
 
 const Products = ({ tag, filters, sort, query }) => {
   // Estado para almacenar los productos y los productos filtrados
@@ -29,10 +32,7 @@ const Products = ({ tag, filters, sort, query }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Estado para controlar la paginación
-  const [showPagination, setShowPagination] = useState(true);
-
-  const [pageSize, setPageSize] = useState(8);
+ 
   const [totalPages, setTotalPages] = useState(0);
 
   // Maneja el cambio de página
@@ -57,10 +57,11 @@ const Products = ({ tag, filters, sort, query }) => {
 
   // Llama a la función getProducts al montar el componente o cuando cambian los parámetros
   useEffect(async () => {
-    await getProducts();
-  }, [getProducts]);
+  await  getProducts();
+  }, [getProducts, tag, currentPage, pageSize, query]);
 
   // Filtra los productos según los parámetros de filtro y actualiza los productos filtrados
+ 
   useEffect(() => {
     if (products.length > 0) {
       if (tag || query) {
@@ -72,10 +73,8 @@ const Products = ({ tag, filters, sort, query }) => {
             )
           : products;
         setFilteredProducts(filtered);
-        setShowPagination(filtered.length > 8);
       } else {
         setFilteredProducts(products);
-        setShowPagination(products.length > 8);
       }
     }
   }, [products, tag, filters, query]);
@@ -104,6 +103,7 @@ const Products = ({ tag, filters, sort, query }) => {
         <Wrapper>
           {tag || query
             ? filteredProducts.map((product) => (
+           
                 <Product
                   product={product}
                   key={product._id}

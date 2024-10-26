@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { contact, e, social } from '../utils/data/footerData';
 import { Link } from 'react-router-dom';
+import Announcement from './Announcement';
 
 const Container = styled.footer`
   background-color: ${({ theme }) => theme.bg};
@@ -194,6 +195,7 @@ const Footer =React.memo( () => {
           />
         </Right>
       </Wrapper>
+      <Announcement text="cierva design is a free responsive e-commerce template, contactme 1b410d2r5@mozmail.com"/>
     </Container>
   );
 });

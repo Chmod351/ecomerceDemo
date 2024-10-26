@@ -40,6 +40,7 @@ const Products = ({ tag, filters, sort, query }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setEr] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
  
   const [totalPages, setTotalPages] = useState(0);
@@ -53,6 +54,8 @@ const Products = ({ tag, filters, sort, query }) => {
   // Función para obtener los productos
  const getProducts = useCallback(async () => {
   try {
+    setIsLoading(true);
+    // Llama a la función getProductsFunction para obtener los productos
     const res = await getProductsFunction(currentPage, pageSize, tag, query);
     // Actualiza el estado de los productos y el número total de páginas
     if (res && res?.data?.products) {
@@ -62,10 +65,12 @@ const Products = ({ tag, filters, sort, query }) => {
     } else {
       setProducts([]);
     }
+    setIsLoading(false);
     setTotalPages(res?.data?.totalPages);
   } catch (e) {
     /* handle error */
     console.log(e);
+    setIsLoading(false);
     setEr(e.message);
   }
 }, [tag, currentPage, pageSize, query]);
@@ -95,6 +100,7 @@ const Products = ({ tag, filters, sort, query }) => {
   }, [products, tag, filters, query]);
 
   // Ordena los productos según el tipo de orden seleccionado (newest, asc, desc)
+
   useEffect(() => {
     if (sort === 'newest') {
       setFilteredProducts((prev) =>
@@ -118,6 +124,16 @@ const Products = ({ tag, filters, sort, query }) => {
       </Container>
     );
   }
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
+    
+  }
+
   return (
     // renderiza los productos y si no cargaron, renderiza el componente Loading
     <Container id="Products">

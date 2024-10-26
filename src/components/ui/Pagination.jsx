@@ -66,7 +66,7 @@ const Pagination = ({
 }) => {
   return (
     <>
-      {filteredProducts.length >= 8 && totalPages > 1 ? (
+      {filteredProducts.length >= 8 && totalPages > 1 && (
         <PaginationContainer tabIndex="0">
           {/* Botón de página anterior */}
           <Icon
@@ -119,27 +119,28 @@ const Pagination = ({
             <ArrowRightRounded />
           </Icon>
         </PaginationContainer>
-      ) : (
-        // Renderiza un botón de página anterior si no hay suficientes productos o solo hay una página
-        <PaginationContainer
-          title="previous"
-          aria-label="go to previous page"
-          role="navigation"
-        >
-          <PageButton
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            onKeyUp={(e) => {
-              if (e.key === 'Enter') {
-                handlePageChange(currentPage - 1);
-              }
-            }}
-            tabIndex="0"
-          >
-            Back
-          </PageButton>
-        </PaginationContainer>
       )}
+      {/*   : ( */}
+        {/* // Renderiza un botón de página anterior si no hay suficientes productos o solo hay una página */}
+        {/* <PaginationContainer */}
+        {/*   title="previous" */}
+        {/*   aria-label="go to previous page" */}
+        {/*   role="navigation" */}
+        {/* > */}
+        {/*   <PageButton */}
+        {/*     onClick={() => handlePageChange(currentPage - 1)} */}
+        {/*     disabled={currentPage === 1} */}
+        {/*     onKeyUp={(e) => { */}
+        {/*       if (e.key === 'Enter') { */}
+        {/*         handlePageChange(currentPage - 1); */}
+        {/*       } */}
+        {/*     }} */}
+        {/*     tabIndex="0" */}
+        {/*   > */}
+        {/*     Back */}
+        {/*   </PageButton> */}
+        {/* </PaginationContainer> */}
+      {/* ) */} 
     </>
   );
 };

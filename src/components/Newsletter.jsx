@@ -1,3 +1,4 @@
+import React from 'react';
 import { Send } from '@material-ui/icons';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
@@ -52,7 +53,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Newsletter = () => {
+const Newsletter =React.memo( () => {
   return (
     <Container role="form" aria-label="Newsletter section">
       <Title>Newsletter</Title>
@@ -81,6 +82,6 @@ const Newsletter = () => {
       </InputContainer>
     </Container>
   );
-};
+});
 
 export default Newsletter;

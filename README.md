@@ -26,14 +26,18 @@ for data retrieval. To better understand the API and its endpoints, we recommend
 - In the Pull Requests (PRs) made to the DEVELOPMENT branch, you should include the link to your task on Trello to facilitate tracking
 - Be respectful to others.
 
-## Tasks
-- [trello](https://trello.com/b/PZR0coVQ/ecomerce-frontend) has a Kanban structure
-- The tasks in the backlog are the ones that can be developed, but they may not necessarily be developed
-- To-Do Tasks are tasks that we must do.
-- The assigned tasks will be marked as Doing.
-- Once a pull request is done, the task will be moved to "Review", where its approval or rejection will be awaited. In case of rejection, the task will be marked as "To-Do" again, and another pull request should be done with the new changes.
-- In case of approval, it will be marked as completed.
-- If a task is not mentioned in the backlog, please do not work on it
+Design
+
+[FireShot Capture 009 - Cierva Design - ciervademo.onrender.com.pdf](https://github.com/yamilt351/ecomerceDemo/files/12476080/FireShot.Capture.009.-.Cierva.Design.-.ciervademo.onrender.com.pdf)
+
+[FireShot Capture 008 - Cierva Design - ciervademo.onrender.com.pdf](https://github.com/yamilt351/ecomerceDemo/files/12476079/FireShot.Capture.008.-.Cierva.Design.-.ciervademo.onrender.com.pdf)
+
+[FireShot Capture 007 - Cierva Design - ciervademo.onrender.com.pdf](https://github.com/yamilt351/ecomerceDemo/files/12476078/FireShot.Capture.007.-.Cierva.Design.-.ciervademo.onrender.com.pdf)
+
+[FireShot Capture 006 - Cierva Design - ciervademo.onrender.com.pdf](https://github.com/yamilt351/ecomerceDemo/files/12476077/FireShot.Capture.006.-.Cierva.Design.-.ciervademo.onrender.com.pdf)
+
+[FireShot Capture 004 - Cierva Design - ciervademo.onrender.com.pdf](https://github.com/yamilt351/ecomerceDemo/files/12476075/FireShot.Capture.004.-.Cierva.Design.-.ciervademo.onrender.com.pdf)
+
 
 ## License
 

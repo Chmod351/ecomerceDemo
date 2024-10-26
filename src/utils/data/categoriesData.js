@@ -1,7 +1,7 @@
 export const categories = [
   {
     _id: 1,
-    img: 'https://disedulcejuana.com.ar/wp-content/uploads/2021/03/78929526_1241698686022750_5666710611174621184_o.jpg',
+    img: 'https://ae01.alicdn.com/kf/HTB1vdV2oILJ8KJjy0Fnq6AFDpXaK/RLMABABY-White-Button-Women-Tee-Shirt-Sexy-Deep-V-Neck-Long-Sleeve-Crop-Top-Fashion-Spring.jpg',
     title: 'SHIRT STYLE!',
     alt: 'women with short shirt',
     tags: 'shirts',

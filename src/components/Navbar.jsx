@@ -314,7 +314,7 @@ const Navbar =React.memo( ({ darkMode, setDarkMode }) => {
           />
         )}
       </Container>
-      <Announcement />
+      <Announcement  text="Free shipping on orders over $50!"/>
     </>
   );
 });

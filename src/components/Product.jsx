@@ -19,12 +19,18 @@ const Info = styled.div`
 const Container = styled.article`
   flex: 1;
   margin: 5px;
+gap:2rem;
+  border-radius: 1rem;
+
+padding:1rem;
   min-width: 16rem;
-  height: 20rem;
+  max-width: 18rem;
+  height: 22rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.bgLighter};
+ 
   position: relative;
   &:hover ${Info} {
     opacity: 1;
@@ -39,41 +45,67 @@ const Image = styled.img`
   margin-top: 0.2rem;
   height: 20rem;
   width: 18rem;
+  maxHeight:20rem;
+  maxWidth:18rem;
   z-index: 2;
-  object-fit: fill;
+  backgroundColor: black;
+  object-fit: contain;
 `;
 
-const Price = styled.p`
-  font-weight: bold;
-  font-size: 2.4rem;
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+const PriceContainer=styled.div`
+width: 100%;
+margin:auto;
+display:flex;
+justify-content:center;
+align-items:center;
+color: ${({ theme }) => theme.hover};
+
+`
+const Price=styled.b`
+font-size: 1.5rem;
+`
+const Hot = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
   color: white;
+  padding: 1rem 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+font-size: 1.5rem;
+  z-index: 3;
 `;
 
 const Product = ({ product }) => {
   return (
     <Container aria-label={product.name}>
+      {product.hot && <Hot>50%</Hot>}
       <LinkDecoration
         to={`/product/${product._id}`}
         aria-label={`see more details about ${product.name} $ ${product.price}`}
         role="link"
         title={`${product.name} $ ${product.price} size ${product.size}`}
       >
+        <ImageContainer>
+
         <Image
-          src={product.imgUrl}
+          src={product.imgUrl??"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"}
           alt={product.name}
           role="img"
           title={product.imgUrl}
           aria-label={`product-image:${product.description}`}
         />
-        <Info role="contentinfo">
-          <Price
-            role="complementary"
-            aria-label={`product price ${product.price}`}
-          >
-            ${product.price}
-          </Price>
-        </Info>
-      </LinkDecoration>
+                </ImageContainer>
+   <PriceContainer>
+       <Price>${product.price}</Price>
+          </PriceContainer>
+       </LinkDecoration>
     </Container>
   );
 };

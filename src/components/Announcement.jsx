@@ -4,7 +4,7 @@ import { mobile, pc } from '../responsive';
 
 const Container = styled.div`
   height: 2rem;
-  background-color: teal;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +17,7 @@ const Title = styled.h1`
   color: white;
   font-size: 1rem;
 `;
-const Announcement =React.memo( () => {
+const Announcement =React.memo( ({text}) => {
   return (
     <Container role="banner">
       <Title
@@ -25,7 +25,7 @@ const Announcement =React.memo( () => {
         title="Free shipping on orders over $50!"
         aria-label="Free shipping on orders over $50!"
       >
-        Free shipping on orders over $50!
+        {text}
       </Title>
     </Container>
   );

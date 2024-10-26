@@ -11,11 +11,18 @@ for data retrieval. To better understand the API and its endpoints, we recommend
 - Basic knowledge of React and CSS
 
 
+
 ## Installation
 - Make sure you have [nodejs](https://nodejs.org/en) & [Npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) installed
 - Fork the project
 - Open the terminal in the project's root folder and run npm install, and finally npm start
 - Create a .env file and add your Stripe API key (ONLY IF YOU NEED TO MODIFY THE STRIPE API).
+
+`
+REACT_APP_GOOGLEID=
+REACT_APP_STRIPE=
+REACT_APP_URL=
+`
 
 ## Contribution
 - Make comments in your changes, make them easy to read

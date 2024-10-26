@@ -9,14 +9,14 @@ const ButtonElement = styled.button`
   text-align: center;
   padding: 10px;
   font-size: 1.2rem;
-  color: black;
-  background-color: gold;
+  color: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.text};
   border: none;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
   &:hover {
-    background-color: yellow;
+    background-color: ${({ theme }) => theme.hover};
   }
   &:focus {
     background-color: ${({ theme }) => theme.bg};

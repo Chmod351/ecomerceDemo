@@ -94,7 +94,7 @@ export const contact = [
   {
     id: 333,
     icon: <MailOutline style={{ marginRight: '10px' }} />,
-    text: 'y.kasper@protonmail.com',
-    url: 'mailto:y.kasper@protonmail.com',
+    text: '1b410d2r5@mozmail.com',
+    url: '1b410d2r5@mozmail.com',
   },
 ];

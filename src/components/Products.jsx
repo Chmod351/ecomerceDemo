@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { mobile } from '../responsive';
@@ -15,6 +15,7 @@ const Container = styled.section`
 
 const Wrapper = styled.div`
   max-width: 1200px;
+  gap:2rem;
   margin: auto;
   padding: 1.25rem;
   display: flex;
@@ -23,16 +24,25 @@ const Wrapper = styled.div`
   ${mobile({ alignItems: 'center', justifyContent: 'center' })}
 `;
 
+const ErrorMessage=styled.div`
+  color: ${({ theme }) => theme.text};
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+`;
+ // Estado para controlar la paginación
+  const pageSize=100;
+
 const Products = ({ tag, filters, sort, query }) => {
   // Estado para almacenar los productos y los productos filtrados
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [error, setEr] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
-  // Estado para controlar la paginación
-  const [showPagination, setShowPagination] = useState(true);
-
-  const [pageSize, setPageSize] = useState(8);
+ 
   const [totalPages, setTotalPages] = useState(0);
 
   // Maneja el cambio de página
@@ -42,25 +52,36 @@ const Products = ({ tag, filters, sort, query }) => {
   };
 
   // Función para obtener los productos
-  const getProducts = useCallback(async () => {
+ const getProducts = useCallback(async () => {
+  try {
+    setIsLoading(true);
+    // Llama a la función getProductsFunction para obtener los productos
     const res = await getProductsFunction(currentPage, pageSize, tag, query);
     // Actualiza el estado de los productos y el número total de páginas
-    if (res.data.products) {
-      setProducts(res.data.products);
-    } else if (res.data) {
-      setProducts(res.data);
+    if (res && res?.data?.products) {
+      setProducts(res?.data.products);
+    } else if (res && res?.data) {
+      setProducts(res?.data);
     } else {
       setProducts([]);
     }
-    setTotalPages(res.data.totalPages);
-  }, [tag, currentPage, pageSize, query]);
+    setIsLoading(false);
+    setTotalPages(res?.data?.totalPages);
+  } catch (e) {
+    /* handle error */
+    console.log(e);
+    setIsLoading(false);
+    setEr(e.message);
+  }
+}, [tag, currentPage, pageSize, query]);
 
   // Llama a la función getProducts al montar el componente o cuando cambian los parámetros
   useEffect(async () => {
-    await getProducts();
-  }, [getProducts]);
+  await  getProducts();
+  }, [getProducts, tag, currentPage, pageSize, query]);
 
   // Filtra los productos según los parámetros de filtro y actualiza los productos filtrados
+ 
   useEffect(() => {
     if (products.length > 0) {
       if (tag || query) {
@@ -72,15 +93,14 @@ const Products = ({ tag, filters, sort, query }) => {
             )
           : products;
         setFilteredProducts(filtered);
-        setShowPagination(filtered.length > 8);
       } else {
         setFilteredProducts(products);
-        setShowPagination(products.length > 8);
       }
     }
   }, [products, tag, filters, query]);
 
   // Ordena los productos según el tipo de orden seleccionado (newest, asc, desc)
+
   useEffect(() => {
     if (sort === 'newest') {
       setFilteredProducts((prev) =>
@@ -97,6 +117,23 @@ const Products = ({ tag, filters, sort, query }) => {
     }
   }, [sort]);
 
+  if (error) {
+    return (
+      <Container>
+        <ErrorMessage>{error}</ErrorMessage>
+      </Container>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    );
+    
+  }
+
   return (
     // renderiza los productos y si no cargaron, renderiza el componente Loading
     <Container id="Products">
@@ -104,6 +141,7 @@ const Products = ({ tag, filters, sort, query }) => {
         <Wrapper>
           {tag || query
             ? filteredProducts.map((product) => (
+           
                 <Product
                   product={product}
                   key={product._id}

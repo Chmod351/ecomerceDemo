@@ -51,7 +51,7 @@ const InfoContainer = styled.aside`
 `;
 
 const Title = styled.h1`
-  font-weight: 200;
+  font-weight: 600;
   text-transform: uppercase;
   color: ${({ theme }) => theme.text};
 `;
@@ -61,7 +61,7 @@ const Desc = styled.p`
 `;
 
 const Price = styled.span`
-  font-weight: 100;
+  font-weight: 800;
   font-size: 40px;
 `;
 

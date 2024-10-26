@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { GoogleLogin } from '@react-oauth/google';
 import { mobile } from '../responsive';
 // utils
+import {handleError} from '../utils/toast.js';
 import { Messages } from '../utils/msg.js';
 import { register } from '../utils/data/registerData';
 // functions
@@ -101,6 +102,8 @@ const Label = styled.label`
   margin: 0.3rem 0rem;
   color: ${({ theme }) => theme.text};
 `;
+  const Create = 'Create account';
+  const alreadyHaveOne = 'I already have an account';
 
 const Register = () => {
   const [islogin, setLog] = useState(true);
@@ -112,8 +115,7 @@ const Register = () => {
   const [off, setOff] = useState(true);
 
   const dispatch = useDispatch();
-  const Create = 'Create account';
-  const alreadyHaveOne = 'I already have an account';
+
   const initialFormValues = {
     email: '',
     password: '',
@@ -125,7 +127,8 @@ const Register = () => {
 
   // google oauth
   const handleGoogleAuth = async (credentialResponse) => {
-    const res = await googleLogin(credentialResponse.credential);
+    try {
+         const res = await googleLogin(credentialResponse.credential);
     console.log(res);
     const email = await findByEmail(res.email);
     if (email.data === null) {
@@ -141,6 +144,12 @@ const Register = () => {
       console.log(res.email, res.jti);
       await login(dispatch, res.email, res.jti, setMsg);
     }
+    } catch (e) {
+      /* handle error */
+      console.log(e)
+      handleError(e); 
+    }
+ 
   };
 
   // handle click function
@@ -259,7 +268,7 @@ const Register = () => {
               handleGoogleAuth(credentialResponse);
             }}
             onError={() => {
-              console.log('Login Failed');
+               handleError('Google login failed');
             }}
           />
           <Button

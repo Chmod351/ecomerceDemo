@@ -5,7 +5,7 @@ import { Search } from '@material-ui/icons';
 
 import { mobile, pc } from '../../responsive';
 import { SearchProducts } from '../../utils/logic/products.js';
-import { handleSuccess } from '../../utils/toast';
+import { handleSuccess,handleError } from '../../utils/toast';
 
 const Container = styled.nav`
   display: flex;
@@ -74,7 +74,8 @@ const SearchBar = () => {
 
   const SearchProduct = async (e) => {
     e.preventDefault();
-    const response = await SearchProducts(query);
+    try {
+     const response = await SearchProducts(query);
     const products = response.data;
     if (products.length === 1) {
       const firstProduct = products[0];
@@ -85,6 +86,11 @@ const SearchBar = () => {
       handleSuccess('Empty');
     }
     setQuery('');
+    } catch (e) {
+      /* handle error */
+      console.log(e)
+      handleError(e);
+    }
   };
 
   return (

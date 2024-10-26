@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { Badge } from '@material-ui/core';
 import {
   ShoppingCartOutlined,
@@ -6,7 +7,6 @@ import {
   Brightness2,
   MenuRounded,
 } from '@material-ui/icons';
-import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -159,7 +159,7 @@ const MenuItemCart = styled.div`
   }
 `;
 
-const Navbar = ({ darkMode, setDarkMode }) => {
+const Navbar =React.memo( ({ darkMode, setDarkMode }) => {
   const [showPrompt, setShowPrompt] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const username = useSelector((state) => state.user.username);
@@ -317,6 +317,6 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <Announcement />
     </>
   );
-};
+});
 
 export default Navbar;

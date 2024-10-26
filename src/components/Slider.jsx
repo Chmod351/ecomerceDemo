@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
@@ -89,7 +89,7 @@ const Desc = styled.p`
   ${mobile({ fontSize: '0.8rem', margin: '0.5rem 0rem' })}
 `;
 
-const Slider = () => {
+const Slider =React.memo( () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
     if (direction === 'left') {
@@ -181,6 +181,6 @@ const Slider = () => {
       </Arrow>
     </Container>
   );
-};
+})
 
 export default Slider;

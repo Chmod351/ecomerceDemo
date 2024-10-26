@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { categories } from '../utils/data/categoriesData';
 import { mobile } from '../responsive';
@@ -19,7 +20,7 @@ const Wrapper = styled.div`
   ${mobile({ padding: '0rem', flexDirection: 'column' })}
 `;
 
-const Categories = () => {
+const Categories =React.memo( () => {
   return (
     <Container id="Collections" role="group">
       <Wrapper role="feed">
@@ -29,6 +30,6 @@ const Categories = () => {
       </Wrapper>
     </Container>
   );
-};
+});
 
 export default Categories;

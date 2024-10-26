@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 import { contact, e, social } from '../utils/data/footerData';
@@ -97,7 +98,7 @@ const A = styled.a`
   align-items: center;
 `;
 
-const Footer = () => {
+const Footer =React.memo( () => {
   return (
     <Container role="contentinfo" aria-label="footer">
       <Wrapper role="complementary">
@@ -195,6 +196,6 @@ const Footer = () => {
       </Wrapper>
     </Container>
   );
-};
+});
 
 export default Footer;

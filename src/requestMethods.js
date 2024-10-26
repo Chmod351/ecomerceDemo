@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = 'https://ecomerce-rest-api-le9i.onrender.com/api';
-// export const BASE_URL = 'http://localhost:5000/api';
+ export const BASE_URL = process.env.REACT_APP_URL
 
 const user = JSON.parse(localStorage.getItem('persist:root'))?.user;
 const currentUser = user && JSON.parse(user).currentUser;

@@ -4,14 +4,20 @@ import styled from 'styled-components';
 import { mobile } from '../responsive';
 
 const Container = styled.section`
-  height: 60vh;
+  height: 50vh;
   background-color: ${({ theme }) => theme.bgLighter};
   color: ${({ theme }) => theme.text};
+`;
+const Box = styled.div`
+height: 80%;
   display: flex;
+  ${mobile({ flexDirection: 'column' })}
+flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+margin:auto;
 `;
+
 const Title = styled.h3`
   font-size: 4.375rem;
   margin-bottom: 1.25rem;
@@ -56,6 +62,8 @@ const Button = styled.button`
 const Newsletter =React.memo( () => {
   return (
     <Container role="form" aria-label="Newsletter section">
+<Box>
+
       <Title>Newsletter</Title>
       <Desc
         role="complementary"
@@ -80,6 +88,8 @@ const Newsletter =React.memo( () => {
           <Send />
         </Button>
       </InputContainer>
+
+      </Box>
     </Container>
   );
 });

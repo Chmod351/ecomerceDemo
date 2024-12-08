@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/common/Navbar';
 import Slider from '../components/Slider';
-import Title from '../components/Title';
-import Footer from '../components/Footer';
+import Title from '../components/common/Title';
+import Footer from '../components/common/Footer';
 import Products from '../components/Products';
 import SearchBar from '../components/ui/searchBar';
 import Categories from '../components/Category';

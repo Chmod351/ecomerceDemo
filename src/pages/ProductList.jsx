@@ -5,12 +5,12 @@ import { mobile } from '../responsive';
 // utils
 import { color, size, price } from '../utils/data/colorData';
 // components
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 // ui
 import Filter from '../components/ui/Filter';
+import Footer from '../components/common/Footer';
+import Navbar from '../components/common/Navbar';
 
 const Container = styled.section`
   height: 100vh;

@@ -16,7 +16,7 @@ import { mobile } from '../responsive';
 import { formatCreatedAt, getOrders, deleteOrder } from '../utils/logic/orders';
 import { statusData } from '../utils/data/colorData.js';
 //ui
-import Loading from '../components/ui/Loading.jsx';
+import Loading from '../components/common/Loading.jsx';
 import SadFaceMsg from '../components/ui/SadFaceMsg.jsx';
 import Pagination from '../components/ui/Pagination.jsx';
 import Filter from '../components/ui/Filter.jsx';

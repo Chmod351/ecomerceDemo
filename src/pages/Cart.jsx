@@ -7,12 +7,12 @@ import { LocalMall, ShoppingBasket, Shop } from '@material-ui/icons';
 
 import { mobile, pc } from '../responsive';
 //components
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import ButtonElement from '../components/ui/Button';
 // pages
 import Orders from './Orders';
 import ProductsCarts from './ProductsCart';
+import Navbar from '../components/common/Navbar';
+import Footer from '../components/common/Footer';
 
 const Container = styled.section`
   min-height: 100vh;

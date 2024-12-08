@@ -5,12 +5,12 @@ import { useDispatch } from 'react-redux';
 //responsive
 import { mobile } from '../responsive';
 //Components
-import Footer from '../components/Footer';
-import Navbar from '../components/Navbar';
+import Footer from '../components/common/Footer';
+import Navbar from '../components/common/Navbar';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 // ui
-import Loading from '../components/ui/Loading';
+import Loading from '../components/common/Loading';
 import Button from '../components/ui/Button';
 import QuantityButton from '../components/ui/quantityButtons';
 // functions

@@ -9,7 +9,7 @@ import { clearCart } from '../components/redux/cartRedux';
 // functions
 import { makeOrder } from '../utils/logic/orders';
 import { handleSuccess } from '../utils/toast';
-import Loading from '../components/ui/Loading';
+import Loading from '../components/common/Loading';
 
 const Container = styled.section`
   width: 100vw;

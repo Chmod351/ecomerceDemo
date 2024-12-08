@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import { mobile } from '../responsive';
 import { getProductsFunction } from '../utils/logic/products.js';
 
 // ui
-import Loading from './ui/Loading';
+import Loading from './common/Loading';
 import Pagination from './ui/Pagination';
 
 const Container = styled.section`

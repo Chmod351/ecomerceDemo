@@ -58,11 +58,9 @@ const Products = ({ tag, filters, sort, query }) => {
     // Llama a la función getProductsFunction para obtener los productos
     const res = await getProductsFunction(currentPage, pageSize, tag, query);
     // Actualiza el estado de los productos y el número total de páginas
-    if (res && res?.data?.products) {
-      setProducts(res?.data.products);
-    } else if (res && res?.data) {
-      setProducts(res?.data);
-    } else {
+    if (res && res?.data) {
+      setProducts(res?.data.data);
+    }  else {
       setProducts([]);
     }
     setIsLoading(false);
@@ -141,7 +139,6 @@ const Products = ({ tag, filters, sort, query }) => {
         <Wrapper>
           {tag || query
             ? filteredProducts.map((product) => (
-           
                 <Product
                   product={product}
                   key={product._id}

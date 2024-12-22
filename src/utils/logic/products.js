@@ -5,13 +5,13 @@ import { handleError } from '../toast'
 
 // get product by ID
 
-export const productById = async (id, setProduct, setColor, setSize) => {
+export const productById = async (id, setProduct) => {
   try {
-    const res = await publicRequest.get(`/products/${id}`);
+    const res = await publicRequest.get(`/products/id/${id}`);
     const productResponse = { productId: res.data._id, ...res.data };
     setProduct(productResponse); // establece el estado products en la respuesta
-    setColor(productResponse.color[0]); // establece el color al primer color devuelto
-    setSize(productResponse.size[0]); // establece el tamaño al primer tamaño devuelto
+
+  // establece el tamaño al primer tamaño devuelto
   } catch (error) {
     console.log(error);
     handleError(error);
@@ -81,7 +81,7 @@ export const getProductsFunction = async (
   query,
 ) => {
   if (tag) {
-    const res = await getProductByTags(tag, currentPage, pageSize);
+    const res = await SearchProducts(tag);
     return res;
   } else if (query) {
     const res = await SearchProducts(query);

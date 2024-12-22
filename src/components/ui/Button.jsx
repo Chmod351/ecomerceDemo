@@ -52,7 +52,7 @@ const ButtonElementSoft = styled.button`
 
 const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
   const getStatusIcon = (status) => {
-    if (status == 'CHECKOUT NOW') {
+    if (status == 'CHECKOUT NOW' || "MERCADO PAGO" || "TRANSFERENCIA") {
       return <Payment />;
     } else if (status == 'CONTINUE SHOPPING') {
       return <ShoppingCart />;

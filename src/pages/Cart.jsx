@@ -63,8 +63,8 @@ const TopText = styled.span`
 
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
-  const username = useSelector((state) => state.user.username);
-  const userId = useSelector((state) => state.user.currentUser?._id);
+  // const username = useSelector((state) => state.user.username);
+  {/* const userId = useSelector((state) => state.user.currentUser?._id); */}
   const [load, setLoad] = useState(true);
 
   useEffect(() => {
@@ -74,17 +74,17 @@ const Cart = ({ darkMode, setDarkMode }) => {
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <Wrapper role="complementary">
-        <Title role="main" onClick={username ? () => setLoad(!load) : null}>
-          {load ? (
-            <>
-              <ShoppingBasket /> Go to Orders
-            </>
-          ) : (
-            <>
-              <LocalMall /> Go to Bag
-            </>
-          )}
-        </Title>
+       {/*  <Title role="main" onClick={username ? () => setLoad(!load) : null}> */}
+          {/* {load ? ( */}
+          {/*   <> */}
+          {/*     <ShoppingBasket /> Go to Orders */}
+          {/*   </> */}
+          {/* ) : ( */}
+          {/*   <> */}
+          {/*     <LocalMall /> Go to Bag */}
+          {/*   </> */}
+          {/* )} */}
+        {/* </Title> */}
         <Top>
           <Link
             to="/"
@@ -97,42 +97,44 @@ const Cart = ({ darkMode, setDarkMode }) => {
           <TopTexts>
             <TopText
               tabIndex="0"
-              onClick={username ? () => setLoad(!load) : null}
+              // onClick={username ? () => setLoad(!load) : null}
               role="status"
               aria-label={`you have ${cart.quantity} products in your cart`}
               title={`you have ${cart.quantity} products in your cart`}
             >
               <Shop /> Shopping Bag({cart.quantity})
             </TopText>
-            {username ? (
-              <TopText
-                tabIndex="0"
-                onClick={username ? () => setLoad(!load) : null}
-                role="status"
-                aria-label={`you have ${cart.quantity} active orders`}
-                title={`yours active orders`}
-              >
-                <ShoppingBasket />
-                Orders
-              </TopText>
-            ) : null}
+       {/*      {username ?? ( */}
+              {/* <TopText */}
+              {/*   tabIndex="0" */}
+              {/*   onClick={username ? () => setLoad(!load) : null} */}
+              {/*   role="status" */}
+              {/*   aria-label={`you have ${cart.quantity} active orders`} */}
+              {/*   title={`yours active orders`} */}
+              {/* > */}
+              {/*   <ShoppingBasket /> */}
+              {/*   Orders */}
+              {/* </TopText> */}
+            {/* ) } */}
           </TopTexts>
           {/* si el usuario esta logeado muestra le permite comprar, sino tiene que logearse */}
-          {username ? (
-            <ButtonElement text={'CHECKOUT NOW'} />
-          ) : (
-            <Link to="/auth" style={{ textDecoration: 'none' }}>
-              <ButtonElement text={'CHECKOUT NOW'} />
-            </Link>
-          )}
+  {/*         {username ? ( */}
+          {/*   <ButtonElement text={'CHECKOUT NOW'} /> */}
+          {/* ) : ( */}
+          {/*   <Link to="/auth" style={{ textDecoration: 'none' }}> */}
+          {/*     <ButtonElement text={'CHECKOUT NOW'} /> */}
+          {/*   </Link> */}
+          {/* )} */}
+            <ButtonElement text={'TRANSFERENCIA'} />
         </Top>
         {/* PRODUCT CARTS COMPONENT */}
 
-        {load ? (
-          <ProductsCarts username={username} cart={cart} />
-        ) : (
-          <Orders userId={userId} />
-        )}
+        {/* {load ? ( */}
+        {/*   <ProductsCarts username={username} cart={cart} /> */}
+        {/* ) : ( */}
+        {/*   <Orders userId={userId} /> */}
+        {/* )} */}
+ <ProductsCarts cart={cart} />
       </Wrapper>
       <Footer />
     </Container>

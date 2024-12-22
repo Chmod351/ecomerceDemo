@@ -36,7 +36,7 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Summary = ({ cart, username }) => {
+const Summary = ({ cart}) => {
   const [userCart, setUserCart] = useState(null);
   const [stripeToken, setStripeToken] = useState(null);
 
@@ -106,8 +106,7 @@ const Summary = ({ cart, username }) => {
           $ {cart.total}
         </SummaryItemPrice>
       </SummaryItem>
-      {username ? (
-        <StripeCheckout
+  <StripeCheckout
           name="Cierva Design"
           image={logo}
           billingAddress
@@ -118,21 +117,38 @@ const Summary = ({ cart, username }) => {
           stripeKey={KEY}
         >
           <Button
-            text={'CHECKOUT NOW'}
+            text={'MERCADO PAGO'}
             onClick={handleClick}
             onKeyUp={handleClick}
           />
         </StripeCheckout>
-      ) : (
-        <Link
-          to="/auth"
-          role="link"
-          aria-label="this is a link to auth"
-          style={{ textDecoration: 'none' }}
-        >
-          <Button text={'CHECKOUT NOW'} />
-        </Link>
-      )}
+     {/*  {username ? ( */}
+      {/*   <StripeCheckout */}
+      {/*     name="Cierva Design" */}
+      {/*     image={logo} */}
+      {/*     billingAddress */}
+      {/*     shippingAddress */}
+      {/*     description={`Your total is $${cart.total}`} */}
+      {/*     amount={cart.total * 100} */}
+      {/*     token={onToken} */}
+      {/*     stripeKey={KEY} */}
+      {/*   > */}
+      {/*     <Button */}
+      {/*       text={'CHECKOUT NOW'} */}
+      {/*       onClick={handleClick} */}
+      {/*       onKeyUp={handleClick} */}
+      {/*     /> */}
+      {/*   </StripeCheckout> */}
+      {/* ) : ( */}
+      {/*   <Link */}
+      {/*     to="/auth" */}
+      {/*     role="link" */}
+      {/*     aria-label="this is a link to auth" */}
+      {/*     style={{ textDecoration: 'none' }} */}
+      {/*   > */}
+      {/*     <Button text={'CHECKOUT NOW'} /> */}
+      {/*   </Link> */}
+      {/* )} */}
     </SummaryContainer>
   );
 };

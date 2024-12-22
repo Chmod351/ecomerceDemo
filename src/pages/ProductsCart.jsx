@@ -127,7 +127,7 @@ const ProductsCarts = ({ cart }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
+console.log(currentProds)
   return (
     <Container>
       {/* if cart.products has no more than 0 items, message and icon will show up */}
@@ -144,11 +144,11 @@ const ProductsCarts = ({ cart }) => {
                       aria-label={`${product.name} in ${
                         product.color
                       } total units ${product.quantity} cost = ${
-                        product.price * product.quantity
+                        product.price_es * product.quantity
                       }`}
                       title={`${product.name} in ${product.color} total units ${
                         product.quantity
-                      } cost = ${product.price * product.quantity}`}
+                      } cost = ${product.price_es * product.quantity}`}
                     >
                       <Image src={product.imgUrl} alt={product.name} />
                     </Link>
@@ -182,9 +182,9 @@ const ProductsCarts = ({ cart }) => {
                     />
                     <ProductPrice
                       aria-label="total"
-                      title={product.price * product.quantity}
+                      title={product.price_es * product.quantity}
                     >
-                      $ {product.price * product.quantity}
+                      $ {product.price_es * product.quantity}
                     </ProductPrice>
                   </PriceDetail>
                 </Product>

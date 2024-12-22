@@ -92,7 +92,7 @@ const ProductList = ({ darkMode, setDarkMode }) => {
         </Filters>
       </FilterContainer>
       <Products tag={tags} filters={filters} sort={sort} query={query} />
-      <Newsletter />
+     {/*  <Newsletter /> */}
       <Footer />
     </Container>
   );

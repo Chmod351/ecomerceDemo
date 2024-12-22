@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 //responsive
@@ -17,8 +17,6 @@ import QuantityButton from '../components/ui/quantityButtons';
 import { productById } from '../utils/logic/products';
 import { addToReduxCart } from '../utils/logic/cart.js';
 
-
-
 const Container = styled.section`
   display-items: center;
   background-color: ${({ theme }) => theme.bgLighter};
@@ -26,6 +24,7 @@ const Container = styled.section`
 
 const Wrapper = styled.article`
   max-width: 1200px;
+  width: 100%;
   margin: auto;
   padding: 50px;
   display: flex;
@@ -38,12 +37,16 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
+  min-width: 500px;
+  min-height: 500px;
+  max-width: 40rem;
   max-height: 30rem;
   object-fit: contain;
   ${mobile({ height: '100%' })}
 `;
 
 const InfoContainer = styled.aside`
+width:50%;
   color: ${({ theme }) => theme.text};
   flex: 1;
   padding: 0px 50px;
@@ -66,9 +69,10 @@ const Price = styled.span`
 `;
 
 const FilterContainer = styled.div`
-  width: 50%;
+  width: 100%;
   margin: 30px 0px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   ${mobile({ width: '100%' })}
 `;
@@ -86,9 +90,10 @@ const FilterTitle = styled.span`
 const FilterColor = styled.div`
   width: 20px;
   height: 20px;
+   padding: 5px;
   border: 1px solid ${({ theme }) => theme.hover};
   background-color: ${(props) => props.color};
-  margin: 0px 5px;
+   margin: 0px 5px 
   cursor: pointer;
 `;
 
@@ -108,7 +113,7 @@ const FilterSize = styled.select`
 const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
-  width: 60%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   ${mobile({ width: '100%' })}
@@ -116,6 +121,11 @@ const AddContainer = styled.div`
 
 const Description = styled.p`
   font-size: 1rem;
+  display: flex;
+  max-width: 90%;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
   font-family: 'Pangolin', cursive;
 `;
 
@@ -125,14 +135,43 @@ const Product = ({ darkMode, setDarkMode }) => {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState('');
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [isProductAvaliable, setIsProductAvaliable] = useState(true);
   const [size, setSize] = useState('');
   const dispatch = useDispatch();
+
+  const allColors = Array.from(
+    new Set(product?.stock.flatMap((stockItem) => stockItem.color) || []),
+  );
+
+  const allSizes = Array.from(
+    new Set(product?.stock.flatMap((stockItem) => stockItem.size) || []),
+  );
+
+  const isCombinationAvailable = useCallback(
+    (color, size) => {
+      return product?.stock.some(
+        (stockItem) =>
+          stockItem.color.includes(color) &&
+          stockItem.size.includes(size) &&
+          stockItem.quantity > 0,
+      );
+    },
+    [product?.stock],
+  );
+
+  useEffect(() => {
+    if (size && color) {
+      const isAvaliable = isCombinationAvailable(color, size);
+      setIsProductAvaliable(isAvaliable);
+    }
+  }, [color, size, isCombinationAvailable]);
 
   useEffect(() => {
     // screen goes up when this components loads
     const getProduct = async () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      const res = await productById(id, setProduct, setColor, setSize); // get the specific product info
+      const res = await productById(id, setProduct); // get the specific product info
       return res;
     };
     getProduct();
@@ -149,6 +188,7 @@ const Product = ({ darkMode, setDarkMode }) => {
   const handleClick = () => {
     addToReduxCart(dispatch, setQuantity, product, quantity, color, size);
   };
+  console.log(color,size)
   return (
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -157,64 +197,97 @@ const Product = ({ darkMode, setDarkMode }) => {
           <Wrapper role="article">
             <ImgContainer>
               <Image
-                title={`${product.name} $ ${product.price}`}
-                src={product.imgUrl}
-                alt={product.name}
+                title={`${product.name_es} $ ${product.price_es}`}
+                src={product?.image_url[selectedImage] || "logo.png"}
+                alt={product.name_es}
                 role="img"
-                aria-label={`this is a ${product.name}`}
+                aria-label={`this is a ${product.name_es}`}
               />
+<aside style={{flexDirection:"row",display:"flex"}}> 
+             {product?.image_url.map((img, index) => ( 
+               <article
+                 key={index} 
+                 className="w-[100px] h-[100px] flex-shrink-0 rounded-lg" 
+                 style={{
+                   border: 
+                     selectedImage === index 
+                       ? "3px solid black" 
+                       : "3px solid transparent",
+                 }} 
+               > 
+                <img 
+                       style={{cursor:"pointer",width:'100%',height:'auto'}} 
+                   onClick={() => setSelectedImage(index)} 
+                   key={index} 
+                   src={img || ""} 
+                   alt={product?.name_es} 
+                 /> 
+              </article> 
+             ))} 
+              </aside> 
+
             </ImgContainer>
-            <InfoContainer role="complementary" aria="complementary info">
+                    <InfoContainer role="complementary" aria="complementary info">
               <Title tabIndex="0" role="complementary">
-                {product.name}
+                {product.name_es}
               </Title>
-              <Desc tabIndex="0"> {product.hot}</Desc>
+              <Desc tabIndex="0"> {product.sale.status}</Desc>
               <Description
                 tabIndex="0"
                 role="description"
-                aria-label={product.description}
+                aria-label={product.description_es}
               >
-                {product.description}
+                {product.description_es}
               </Description>
-              <Price tabIndex="0">$ {product.price}</Price>
+              <Price tabIndex="0">$ {product.price_es}</Price>
               <FilterContainer role="menu">
                 <Filter tabIndex="0" aria-label="color section">
-                  <FilterTitle tabIndex="0"></FilterTitle>
-                  {product.color.map((c) => (
+                  <FilterTitle tabIndex="0">Color:</FilterTitle>
+               {allColors.map((c) => (
+                  <ul
+                    key={c}
+                    style={{ listStyle: "none" }}
+                  >
                     <FilterColor
-                      role="list"
-                      title={c}
-                      aria-label={`color selected = ${c}`}
-                      tabIndex="0"
-                      color={c}
-                      key={c}
                       onClick={() => setColor(c)}
-                      onKeyUp={(e) => {
+                      className="w-9 h-9 hover:cursor-pointer border rounded-full border-solid-2  border-gray-400"
+                      style={{
+                        backgroundColor: c,
+                        border:
+                          color !== c
+                            ? c === "#ffffff"
+                              ? "3px solid black"
+                              : `3px solid ${c}`
+                            : "3px solid orange",
+                        borderRadius: "50%",
+                      }}
+                        onKeyUp={(e) => {
                         if (e.key === 'Enter') {
                           setColor(c);
                         }
                       }}
                     />
-                  ))}
-                </Filter>
+                  </ul>
+                ))}
+             </Filter>
                 <Filter aria-label="size section">
                   <FilterTitle tabIndex="0">Size</FilterTitle>
-                  <FilterSize
-                    title={size}
-                    onChange={(e) => setSize(e.target.value)}
+                 {allSizes.map((s) => (
+              <ul>
+                  <FilterColor
                     tabIndex="0"
-                  >
-                    {product.size.map((s) => (
-                      <FilterSizeOption
-                        key={s}
-                        tabIndex="0"
+                      onClick={() => setSize(s)}
                         title={s}
                         aria-label={`size is ${s}`}
-                      >
-                        {s}
-                      </FilterSizeOption>
-                    ))}
-                  </FilterSize>
+                        style={{ backgroundColor:"white",
+                        border: size !== s ? "2px solid black": "2px solid orange",
+                        borderRadius: "50%",
+                      }}
+                    >
+                      {s}
+                   </FilterColor>
+              </ul>
+                ))}
                 </Filter>
               </FilterContainer>
               <AddContainer>
@@ -236,6 +309,11 @@ const Product = ({ darkMode, setDarkMode }) => {
                   }}
                 />
               </AddContainer>
+            {!isProductAvaliable && (
+            <span style={{ color: "red" }}>
+              No nos quedan unidades disponibles :(
+            </span>
+             )}
             </InfoContainer>
           </Wrapper>
           <Products tag={product.tags} />
@@ -243,7 +321,6 @@ const Product = ({ darkMode, setDarkMode }) => {
       ) : (
         <Loading />
       )}
-      <Newsletter />
       <Footer />
     </Container>
   );

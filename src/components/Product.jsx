@@ -84,26 +84,26 @@ font-size: 1.5rem;
 
 const Product = ({ product }) => {
   return (
-    <Container aria-label={product.name}>
-      {product.hot && <Hot>50%</Hot>}
+    <Container aria-label={product.name_es}>
+      {product.sale && <Hot>50%</Hot>}
       <LinkDecoration
         to={`/product/${product._id}`}
-        aria-label={`see more details about ${product.name} $ ${product.price}`}
+        aria-label={`see more details about ${product.name_es} $ ${product.price_es}`}
         role="link"
-        title={`${product.name} $ ${product.price} size ${product.size}`}
+        title={`${product.name_es} $ ${product.price_es}`}
       >
         <ImageContainer>
 
         <Image
-          src={product.imgUrl??"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"}
+          src={product.image_url??"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"}
           alt={product.name}
           role="img"
-          title={product.imgUrl}
-          aria-label={`product-image:${product.description}`}
+          title={product.image_url}
+          aria-label={`product-image:${product.description_es}`}
         />
                 </ImageContainer>
    <PriceContainer>
-       <Price>${product.price}</Price>
+       <Price>${product.price_es}</Price>
           </PriceContainer>
        </LinkDecoration>
     </Container>

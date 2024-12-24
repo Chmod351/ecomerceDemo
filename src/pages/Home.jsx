@@ -6,8 +6,8 @@ import Title from '../components/common/Title';
 import Footer from '../components/common/Footer';
 import Products from '../components/Products';
 import SearchBar from '../components/ui/searchBar';
-import Categories from '../components/Category';
-import Newsletter from '../components/Newsletter';
+{/* import Categories from '../components/Category'; */}
+{/* import Newsletter from '../components/Newsletter'; */}
 
 
 const Container = styled.div`
@@ -22,9 +22,9 @@ const Home = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Slider />
-      <Title text={'Collections'} />
-      <Categories />
+     {/*  <Slider /> */}
+  {/*     <Title text={'Collections'} /> */}
+     {/*  <Categories /> */}
       <Title text={'Products'} />
       <SearchBar />
       <Products />

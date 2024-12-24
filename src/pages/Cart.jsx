@@ -13,6 +13,8 @@ import Orders from './Orders';
 import ProductsCarts from './ProductsCart';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
+import Summary from '../components/Summary';
+import TransferPayment from '../components/form/Transferencia';
 
 const Container = styled.section`
   min-height: 100vh;
@@ -65,8 +67,7 @@ const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   // const username = useSelector((state) => state.user.username);
   {/* const userId = useSelector((state) => state.user.currentUser?._id); */}
-  const [load, setLoad] = useState(true);
-
+const [transferencia, setTransferencia] = useState(false)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -123,9 +124,12 @@ const Cart = ({ darkMode, setDarkMode }) => {
           {/* ) : ( */}
           {/*   <Link to="/auth" style={{ textDecoration: 'none' }}> */}
           {/*     <ButtonElement text={'CHECKOUT NOW'} /> */}
+          {/*    onRequestClose={() => setIsModalOpen(false)} */}
           {/*   </Link> */}
           {/* )} */}
-            <ButtonElement text={'TRANSFERENCIA'} />
+            <ButtonElement text={'TRANSFERENCIA'} onClick={() => setTransferencia(true)}/>
+           {transferencia &&
+          <TransferPayment  total={cart.total} setTransferencia={setTransferencia} /> }
         </Top>
         {/* PRODUCT CARTS COMPONENT */}
 
@@ -134,7 +138,10 @@ const Cart = ({ darkMode, setDarkMode }) => {
         {/* ) : ( */}
         {/*   <Orders userId={userId} /> */}
         {/* )} */}
- <ProductsCarts cart={cart} />
+
+          <ProductsCarts cart={cart} >
+            <Summary cart={cart} />
+          </ProductsCarts>
       </Wrapper>
       <Footer />
     </Container>

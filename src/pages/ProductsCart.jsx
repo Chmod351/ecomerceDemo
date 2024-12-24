@@ -17,7 +17,15 @@ import Summary from '../components/Summary';
 
 
 
-const Container = styled.section``;
+const Container = styled.section`
+  min-height: 100vh;
+  max-height: auto;
+  background-color: ${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
+  ${mobile({ maxWidth: '100vw', padding: '0' })}
+  ${pc({ maxWidth: '100vw', padding: '0' })}
+  max-width: 1200px;
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -64,13 +72,15 @@ const ProductColor = styled.div`
   height: 1.25rem;
   border-radius: 50%;
   border: 1px solid ${({ theme }) => theme.textSoft};
-
   background-color: ${(props) => props.color};
 `;
 
 const ProductSize = styled.span``;
+
 const ProductDescription = styled.span`
-  overflow: wrap;
+ 
+  word-break: break-all;
+  overflow-wrap: break-word;
 `;
 const PriceDetail = styled.div`
   flex: 1;
@@ -92,7 +102,7 @@ const Hr = styled.hr`
   height: 1px;
 `;
 
-const ProductsCarts = ({ cart }) => {
+const ProductsCarts = ({ cart,children }) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(cart.products.length / 10);
@@ -139,9 +149,10 @@ console.log(currentProds)
                 <Product tabIndex="0">
                   <ProductDetail>
                     <Link
+                      style={{width:'200px'}}
                       to={`/product/${product._id}`}
                       role="link"
-                      aria-label={`${product.name} in ${
+                      aria-label={`${product.name_es} in ${
                         product.color
                       } total units ${product.quantity} cost = ${
                         product.price_es * product.quantity
@@ -150,11 +161,11 @@ console.log(currentProds)
                         product.quantity
                       } cost = ${product.price_es * product.quantity}`}
                     >
-                      <Image src={product.imgUrl} alt={product.name} />
+                      <Image src={product.image_url} alt={product.name_es} />
                     </Link>
                     <Details>
                       <ProductName>
-                        <b>Product:</b> {product.name}
+                        <b>Product:</b> {product.name_es}
                       </ProductName>
                       <ProductColor
                         color={product.color}
@@ -166,10 +177,10 @@ console.log(currentProds)
                       </ProductSize>
                       <br></br>
                       <ProductDescription
-                        title={product.description}
-                        aria-label={product.description}
+                        title={product.description_es}
+                        aria-label={product.description_es}
                       >
-                        <b>Description:</b> {product.description}
+                        <b>Description:</b> {product.description_es}
                       </ProductDescription>
                     </Details>
                   </ProductDetail>
@@ -192,17 +203,17 @@ console.log(currentProds)
               <Hr />
             </Info>
             {/* SUMARY COMPONENT */}
-            <Summary cart={cart} />
+            {children}
           </Wrapper>
           {/* pagination component */}
-          {cart.products.length > 8 ? (
+          {cart.products.length > 8 ?? (
             <Pagination
               filteredProducts={currentProds}
               totalPages={totalPages}
               currentPage={currentPage}
               handlePageChange={handlePageChange}
             />
-          ) : null}
+          )}
         </>
       ) : (
         <SadFaceMsg text={'Your Cart Is Empty'} />

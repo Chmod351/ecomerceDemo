@@ -20,7 +20,6 @@ import Loading from '../components/common/Loading.jsx';
 import SadFaceMsg from '../components/ui/SadFaceMsg.jsx';
 import Pagination from '../components/ui/Pagination.jsx';
 import Filter from '../components/ui/Filter.jsx';
-import Prompt from '../components/ui/Prompt.jsx';
 
 const Container = styled.section`
   margin: 0.5rem;
@@ -221,7 +220,7 @@ const Orders = ({ userId }) => {
                   </Info>
                 </Cell>
                 {showPrompt && (
-                  <Prompt
+                  <LogOutPrompt
                     text={'Do you want detele this order?'}
                     onClick={() => handleDeleteOrder(order._id)}
                     setShowPrompt={() => setShowPrompt(!showPrompt)}

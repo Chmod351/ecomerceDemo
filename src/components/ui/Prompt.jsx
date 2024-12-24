@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { mobile } from '../../responsive';
 
 const Container = styled.section`
-  width: 20rem;
-  height: 10rem;
+  width: auto;
+  height: auto;
   background-color: ${({ theme }) => theme.bg};
   color: ${({ theme }) => theme.text};
   position: fixed;
@@ -49,19 +49,42 @@ const Button = styled.button`
   }
 `;
 
-const Prompt = ({ text, onClick, setShowPrompt }) => {
-  return (
-    <Container role="modal">
-      <Description aria-label={text}>{text}</Description>
+export const ButtonsPack=({setShowPrompt})=>{
+return (
+   <Buttons>
+        <Button onClick={setShowPrompt} aria-label="no">
+          Cancel
+        </Button>
+      </Buttons>)
+}
+
+export const LogOutPrompt=({text, onClick, setShowPrompt})=>{
+return (
+    <Prompt>
+
+ <Description aria-label={text}>{text}</Description>
       <Buttons>
         <Button onClick={onClick} aria-label="yes">
           Yes
         </Button>
         <Button onClick={setShowPrompt} aria-label="no">
-          No
+          Cancel
         </Button>
       </Buttons>
-    </Container>
+
+    </Prompt>
+)
+}
+
+const Prompt = ({ children }) => {
+  return (
+    <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+
+    <Container role="modal">
+      {children}
+         </Container>
+
+    </div>
   );
 };
 

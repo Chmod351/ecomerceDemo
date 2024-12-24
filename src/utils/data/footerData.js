@@ -39,7 +39,7 @@ export const e = [
   },
   {
     id: 26,
-    route: '/',
+    route: '/privacy',
     name: 'Privacy Policy',
   },
 

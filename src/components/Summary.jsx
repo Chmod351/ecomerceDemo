@@ -9,6 +9,7 @@ import { mobile } from '../responsive';
 import Button from './ui/Button';
 //functions
 import { addToCart, payment } from '../utils/logic/cart';
+import MercadoPago from './form/MercadoPago';
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -16,8 +17,8 @@ const SummaryContainer = styled.aside`
   flex: 1;
   border: 0.5px solid lightgray;
   padding: 1.25rem;
-  height: 20rem;
-  ${mobile({ height: '10rem', padding: '1rem', margin: '0 1rem' })}
+  height: auto;
+  ${mobile({ height: 'auto', padding: '1rem', margin: '0 1rem' })}
 `;
 
 const SummaryTitle = styled.h2`
@@ -36,29 +37,23 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
+const precios = {
+  Express_CABA: 5500,
+  Standard: 6000,
+  Express_GBA: 7500,
+  PickUp: 4500,
+};
+
 const Summary = ({ cart}) => {
-  const [userCart, setUserCart] = useState(null);
-  const [stripeToken, setStripeToken] = useState(null);
 
-  const history = useHistory();
+  const [userData, setUserData] = useState({deliveryMode: "PickUp"})
+  const [mercadopago, setMercadopago] = useState(false)
 
-  const handleClick = async () => {
-    await addToCart(cart, setUserCart);
-  };
-
-  const onToken = (token) => {
-    setStripeToken(token);
-  };
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      await payment(stripeToken.id, cart.total, history, userCart);
-    };
-    stripeToken && makeRequest();
-  }, [stripeToken, cart, history, userCart]);
-
+console.log(cart.total)
   return (
     <SummaryContainer role="table">
+      <>
+
       <SummaryTitle role="contentinfo" aria-label="your order Summary">
         ORDER SUMMARY
       </SummaryTitle>
@@ -73,6 +68,62 @@ const Summary = ({ cart}) => {
         </SummaryItemPrice>
       </SummaryItem>
       <SummaryItem>
+        <SummaryItemText>
+
+ <div style={{flexDirection:'column', display:'flex'}}>
+            <label className="font-helvetica">
+              <input
+                type="radio"
+                className="mr-2"
+                value="PickUp"
+                checked={userData.deliveryMode === "PickUp"}
+                onChange={() =>
+                  setUserData({ ...userData, deliveryMode: "PickUp" })
+                }
+              />
+              Retirar por sucursal de correo
+            </label>
+            <label className="font-helvetica">
+              <input
+                type="radio"
+                className="mr-2"
+                value="Standard"
+                checked={userData.deliveryMode === "Standard"}
+                onChange={() =>
+                  setUserData({ ...userData, deliveryMode: "Standard" })
+                }
+              />
+              Envío estándar a domicilio
+            </label>
+            <label className="font-helvetica">
+              <input
+                type="radio"
+                className="mr-2"
+                value="Express_CABA"
+                checked={userData.deliveryMode === "Express_CABA"}
+                onChange={() =>
+                  setUserData({ ...userData, deliveryMode: "Express_CABA" })
+                }
+              />
+              Moto mensajería 24 hs - CABA
+            </label>
+            <label className="font-helvetica">
+              <input
+                type="radio"
+                className="mr-2"
+                value="Express_GBA"
+                checked={userData.deliveryMode === "Express_GBA"}
+                onChange={() =>
+                  setUserData({ ...userData, deliveryMode: "Express_GBA" })
+                }
+              />
+              Moto mensajería 24 hs - GBA
+            </label>
+          </div>
+
+        </SummaryItemText>
+      </SummaryItem>
+      <SummaryItem>
         <SummaryItemText role="complementary">
           Estimated Shipping
         </SummaryItemText>
@@ -81,21 +132,21 @@ const Summary = ({ cart}) => {
           title="Estimated Shipping $35.90"
           aria-label={`you bill will be $ ${cart.total}`}
         >
-          $ 35.90
-        </SummaryItemPrice>
+          ${precios[userData.deliveryMode]}
+                 </SummaryItemPrice>
       </SummaryItem>
-      <SummaryItem>
-        <SummaryItemText role="complementary">
-          Shipping Discount
-        </SummaryItemText>
-        <SummaryItemPrice
-          role="contentinfo"
-          title="Shipping Discount $35.90"
-          aria-label={`you bill will be $ ${cart.total}`}
-        >
-          $ -35.90
-        </SummaryItemPrice>
-      </SummaryItem>
+{/*       <SummaryItem> */}
+        {/* <SummaryItemText role="complementary"> */}
+        {/*   Shipping Discount */}
+        {/* </SummaryItemText> */}
+        {/* <SummaryItemPrice */}
+        {/*   role="contentinfo" */}
+        {/*   title="Shipping Discount $35.90" */}
+        {/*   aria-label={`you bill will be $ ${cart.total}`} */}
+        {/* > */}
+        {/*   $ -35.90 */}
+        {/* </SummaryItemPrice> */}
+      {/* </SummaryItem> */}
       <SummaryItem type="total">
         <SummaryItemText role="complementary">Total</SummaryItemText>
         <SummaryItemPrice
@@ -103,25 +154,17 @@ const Summary = ({ cart}) => {
           title={cart.total}
           aria-label={`you bill will be $ ${cart.total}`}
         >
-          $ {cart.total}
+          $ {cart.total + precios[userData.deliveryMode]}
         </SummaryItemPrice>
       </SummaryItem>
-  <StripeCheckout
-          name="Cierva Design"
-          image={logo}
-          billingAddress
-          shippingAddress
-          description={`Your total is $${cart.total}`}
-          amount={cart.total * 100}
-          token={onToken}
-          stripeKey={KEY}
-        >
+ 
           <Button
             text={'MERCADO PAGO'}
-            onClick={handleClick}
-            onKeyUp={handleClick}
+            onClick={() => setMercadopago(!mercadopago)}
           />
-        </StripeCheckout>
+        </>   { mercadopago &&  <MercadoPago  total={cart.total + precios[userData.deliveryMode]} setMercadopago={setMercadopago} />
+      }
+     
      {/*  {username ? ( */}
       {/*   <StripeCheckout */}
       {/*     name="Cierva Design" */}

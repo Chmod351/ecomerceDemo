@@ -61,36 +61,36 @@ const ProductList = ({ darkMode, setDarkMode }) => {
   return (
     <Container>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <FilterContainer>
-        <Filters>
-          <Filter
-            text={'Filter Products'}
-            name={'color'}
-            prop={'Color'}
-            onChange={handleFilters}
-            obj={color}
-            value={color.value}
-          />
-          <Filter
-            text={''}
-            name={'size'}
-            prop={'size'}
-            onChange={handleFilters}
-            obj={size}
-            value={size.value}
-          />
-        </Filters>
-        <Filters>
-          <Filter
-            text={'Sort Products'}
-            name={'sort'}
-            onChange={(e) => setSort(e.target.value)}
-            prop={'Order'}
-            obj={price}
-            value={price.value}
-          />
-        </Filters>
-      </FilterContainer>
+  {/*     <FilterContainer> */}
+        {/* <Filters> */}
+        {/*   <Filter */}
+        {/*     text={'Filter Products'} */}
+        {/*     name={'color'} */}
+        {/*     prop={'Color'} */}
+        {/*     onChange={handleFilters} */}
+        {/*     obj={color} */}
+        {/*     value={color.value} */}
+        {/*   /> */}
+        {/*   <Filter */}
+        {/*     text={''} */}
+        {/*     name={'size'} */}
+        {/*     prop={'size'} */}
+        {/*     onChange={handleFilters} */}
+        {/*     obj={size} */}
+        {/*     value={size.value} */}
+        {/*   /> */}
+        {/* </Filters> */}
+        {/* <Filters> */}
+        {/*   <Filter */}
+        {/*     text={'Sort Products'} */}
+        {/*     name={'sort'} */}
+        {/*     onChange={(e) => setSort(e.target.value)} */}
+        {/*     prop={'Order'} */}
+        {/*     obj={price} */}
+        {/*     value={price.value} */}
+        {/*   /> */}
+        {/* </Filters> */}
+      {/* </FilterContainer> */}
       <Products tag={tags} filters={filters} sort={sort} query={query} />
      {/*  <Newsletter /> */}
       <Footer />

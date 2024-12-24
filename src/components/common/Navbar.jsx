@@ -205,36 +205,36 @@ const Navbar =React.memo( ({ darkMode, setDarkMode }) => {
               />
             </MenuIconMobile>
             {/* Etiqueta y botón de cambio de modo oscuro/claro */}
-            <DarkLabel
-              role="menuitem"
-              title={darkMode ? 'Dark' : 'Light'}
-              aria-label={darkMode ? 'Dark' : 'Light'}
-              onClick={() => setDarkMode(!darkMode)}
-              tabIndex="0"
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                  setDarkMode(!darkMode);
-                }
-              }}
-            >
-              {darkMode ? 'Dark' : 'Light'}
-            </DarkLabel>
-            <Item
-              role="menuitem"
-              title={darkMode ? 'Dark' : 'Light'}
-              aria-label={darkMode ? 'Dark' : 'Light'}
-              name="theme"
-              value={darkMode}
-              onClick={() => setDarkMode(!darkMode)}
-              tabIndex="0"
-              onKeyUp={(e) => {
-                if (e.key === 'Enter') {
-                  setDarkMode(!darkMode);
-                }
-              }}
-            >
-              {darkMode ? <Brightness7 /> : <Brightness2 />}
-            </Item>
+      {/*       <DarkLabel */}
+            {/*   role="menuitem" */}
+            {/*   title={darkMode ? 'Dark' : 'Light'} */}
+            {/*   aria-label={darkMode ? 'Dark' : 'Light'} */}
+            {/*   onClick={() => setDarkMode(!darkMode)} */}
+            {/*   tabIndex="0" */}
+            {/*   onKeyUp={(e) => { */}
+            {/*     if (e.key === 'Enter') { */}
+            {/*       setDarkMode(!darkMode); */}
+            {/*     } */}
+            {/*   }} */}
+            {/* > */}
+            {/*   {darkMode ? 'Dark' : 'Light'} */}
+            {/* </DarkLabel> */}
+      {/*       <Item */}
+            {/*   role="menuitem" */}
+            {/*   title={darkMode ? 'Dark' : 'Light'} */}
+            {/*   aria-label={darkMode ? 'Dark' : 'Light'} */}
+            {/*   name="theme" */}
+            {/*   value={darkMode} */}
+            {/*   onClick={() => setDarkMode(!darkMode)} */}
+            {/*   tabIndex="0" */}
+            {/*   onKeyUp={(e) => { */}
+            {/*     if (e.key === 'Enter') { */}
+            {/*       setDarkMode(!darkMode); */}
+            {/*     } */}
+            {/*   }} */}
+            {/* > */}
+            {/*   {darkMode ? <Brightness7 /> : <Brightness2 />} */}
+            {/* </Item> */}
             {/* Barra de búsqueda */}
             <SearchBar />
           </Left>
@@ -260,7 +260,7 @@ const Navbar =React.memo( ({ darkMode, setDarkMode }) => {
                       </Link>
                     );
                   })}
-                  {username ? (
+                  {username ?? (
                     <MenuItem
                       role="link"
                       title="Log Out"
@@ -269,18 +269,22 @@ const Navbar =React.memo( ({ darkMode, setDarkMode }) => {
                     >
                       {username}
                     </MenuItem>
-                  ) : (
-                    <Link
-                      role="link"
-                      aria-label="go to auth"
-                      to="/auth"
-                      style={{ textDecoration: 'none' }}
-                      title="Login / Create Account"
-                      tabIndex="0"
-                    >
-                      <MenuItem>Login</MenuItem>
-                    </Link>
-                  )}
+                  ) }
+
+              {/*       ( */}
+                    {/* <Link */}
+                    {/*   role="link" */}
+                    {/*   aria-label="go to auth" */}
+                    {/*   to="/auth" */}
+                    {/*   style={{ textDecoration: 'none' }} */}
+                    {/*   title="Login / Create Account" */}
+                    {/*   tabIndex="0" */}
+                    {/* > */}
+                    {/*   <MenuItem>Login</MenuItem> */}
+                    {/* </Link> */}
+                  {/* ) */}
+
+                  
                 </>
               </DropdownMenu>
             )}

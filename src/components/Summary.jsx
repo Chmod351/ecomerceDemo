@@ -1,17 +1,14 @@
-import logo from '../assests/logo.png';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import StripeCheckout from 'react-stripe-checkout';
-import { useHistory,Link } from 'react-router-dom';
+import {  useState } from 'react';
 
 import { mobile } from '../responsive';
 // ui
 import Button from './ui/Button';
 //functions
-import { addToCart, payment } from '../utils/logic/cart';
 import MercadoPago from './form/MercadoPago';
+import {useSelector,useDispatch} from 'react-redux';
+import { setUserData } from './redux/orderRedux';
 
-const KEY = process.env.REACT_APP_STRIPE;
 
 const SummaryContainer = styled.aside`
   flex: 1;
@@ -37,19 +34,18 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const precios = {
-  Express_CABA: 5500,
-  Standard: 6000,
-  Express_GBA: 7500,
-  PickUp: 4500,
-};
 
-const Summary = ({ cart}) => {
 
-  const [userData, setUserData] = useState({deliveryMode: "PickUp"})
+const Summary = ({ cart,precios}) => {
+  const dispatch = useDispatch();
+const userData = useSelector((state) => state.order);
   const [mercadopago, setMercadopago] = useState(false)
+console.log(userData)
 
-console.log(cart.total)
+
+ const handleDeliveryModeChange = (mode) => {
+    dispatch(setUserData({ deliveryMode: mode }));
+  };
   return (
     <SummaryContainer role="table">
       <>
@@ -77,9 +73,7 @@ console.log(cart.total)
                 className="mr-2"
                 value="PickUp"
                 checked={userData.deliveryMode === "PickUp"}
-                onChange={() =>
-                  setUserData({ ...userData, deliveryMode: "PickUp" })
-                }
+                onChange={() =>handleDeliveryModeChange("PickUp")}
               />
               Retirar por sucursal de correo
             </label>
@@ -89,9 +83,7 @@ console.log(cart.total)
                 className="mr-2"
                 value="Standard"
                 checked={userData.deliveryMode === "Standard"}
-                onChange={() =>
-                  setUserData({ ...userData, deliveryMode: "Standard" })
-                }
+                onChange={() =>handleDeliveryModeChange("Standard")}
               />
               Envío estándar a domicilio
             </label>
@@ -101,9 +93,7 @@ console.log(cart.total)
                 className="mr-2"
                 value="Express_CABA"
                 checked={userData.deliveryMode === "Express_CABA"}
-                onChange={() =>
-                  setUserData({ ...userData, deliveryMode: "Express_CABA" })
-                }
+                onChange={() =>handleDeliveryModeChange("Express_CABA")}
               />
               Moto mensajería 24 hs - CABA
             </label>
@@ -113,9 +103,7 @@ console.log(cart.total)
                 className="mr-2"
                 value="Express_GBA"
                 checked={userData.deliveryMode === "Express_GBA"}
-                onChange={() =>
-                  setUserData({ ...userData, deliveryMode: "Express_GBA" })
-                }
+                onChange={() =>handleDeliveryModeChange("Express_GBA")}
               />
               Moto mensajería 24 hs - GBA
             </label>

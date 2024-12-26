@@ -26,7 +26,13 @@ export const makeOrder = async (address, cartId, amount) => {
   total
   }) => {
     try {
+    console.log('cart:', cart)
     console.log("entrando a orders:  ",mercadoPagoInfo , userData, cart, total);
+ const orderItems = cart.products.map(product => ({
+      ...product,
+      productPrice: product.price_es,
+    }));
+    console.log(orderItems)
       const requestBody = {
         mercadoPagoInfo: {
           installments: mercadoPagoInfo.installments,
@@ -42,7 +48,7 @@ export const makeOrder = async (address, cartId, amount) => {
           token: mercadoPagoInfo.token,
           transaction_amount: mercadoPagoInfo.transaction_amount,
         },
-        orderItems: cart.products,
+        orderItems,
         totalPrice: total,
         deliveryMode: userData.deliveryMode,
         paymentMethod: "Mercado Pago",
@@ -72,12 +78,14 @@ export const makeOrder = async (address, cartId, amount) => {
         return { id };
       }
       const order = await response.json();
-      // clearCart();
-
+  
+localStorage.clear()
+      handleSuccess('createdOrder');
       return order;
     } catch (e) {
       /* handle error */
       // clearCart();
+    localStorage.clear()
       handleError(error);
       console.log(e);
     }

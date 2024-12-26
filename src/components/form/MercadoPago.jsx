@@ -8,7 +8,7 @@ import { createOrderMp } from "../../utils/logic/orders";
 import Prompt, {ButtonsPack} from "../ui/Prompt";
 import { initMercadoPago } from '@mercadopago/sdk-react';
 import {useSelector} from "react-redux";
-import {handleError} from "../../utils/toast";
+import {handleError, handleSuccess} from "../../utils/toast";
 const initialState = {
   deliveryMode: 'PickUp',
   firstName: 'jasd',
@@ -32,6 +32,7 @@ function MercadoPago({
   );
 const userData = useSelector((state) => state.orders);
 const cart = useSelector((state) => state.cart);
+  const clearCart = useSelector((state) => state.cart.clearCart);
   const [isCardPaymentMounted, setIsCardPaymentMounted] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setEr] = useState("");
@@ -72,13 +73,15 @@ useEffect(() => {
         total
       });
       setMercadopagoOrdenId(id);
-     
+     handleSuccess("orderCreated");
+      clearCart()
     } catch (e) {
       /* handle error */
       console.log("e: ", e);
       handleError(e??"Error al crear la orden");
       handleClose()
     }
+    setEr("");
     setIsLoading(false);
   };
 

@@ -1,179 +1,150 @@
 import React from "react";
-import { InputField } from "..";
+import InputField from "./Input";
+import styled from 'styled-components';
+import {mobile, pc} from "../../responsive";
+import Button from "../ui/Button";
 
-function FormCheckout({
-  register,
-  errors,
-  isDisabled,
-  defaultValue,
-}) {
+const Container = styled.form`
+  min-height: 100vh;
+  max-height: auto;
+  background-color: ${({ theme }) => theme.bgLighter};
+  color: ${({ theme }) => theme.text};
+  ${mobile({ maxWidth: '100vw', padding: '0' })}
+  ${pc({ maxWidth: '100vw', padding: '0' })}
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  ${mobile({ flexDirection: 'column', overflow: 'hidden' })}
+`;
+
+const Aside=styled.aside`
+  display: flex;
+  justify-content: space-between;
+  ${mobile({ flexDirection: 'column', justifyContent: 'center' })}
+  width: 73%;
+  ${pc({ padding: '0.2rem 0rem' })}
+`
+
+const Section=styled.section`
+  flex: 1;
+  gap:2rem;
+  display: flex;
+  flex-direction: column;
+background-color: ${({ theme }) => theme.bg};
+padding:1rem;
+border-radius: 1rem;
+  ${mobile({ flexDirection: 'column' })}
+`
+
+function FormCheckout({children}) {
   return (
-    <>
-      <div className="bg-primary p-8 rounded-xl">
-        <div className="w-full justify-center mx-auto  font-helvetica ">
-          <h1 className="text-xs font-bold text-center md:text-left mb-10 ">
-            DIRECCION DE ENVIO (* OBLIGATORIA)
-          </h1>
-        </div>
+    <Container>
+    
+      <Wrapper>
+      <Aside>
+      <Section className="bg-primary p-8 rounded-xl">
 
-        <div className="w-full justify-center mx-auto  rounded-xl gap-4">
-          <div className="flex flex-wrap gap-7 flex-row ">
-            <div className="md:w-[48.7%] w-full">
               <InputField
-                disabled={isDisabled}
                 label="Nombre"
-                defaultValue={defaultValue.firstName}
                 name="firstName"
-                register={register}
-                errors={errors}
+                // errors={errors}
                 placeholder="Nombre *"
                 required
               />
-            </div>
-            <div className="md:w-[48.7%] w-full ">
+        
               <InputField
                 label="Apellido"
-                disabled={isDisabled}
                 name="lastName"
-                defaultValue={defaultValue.lastName}
-                register={register}
-                errors={errors}
+                // errors={errors}
                 placeholder="Apellido *"
                 required
               />
-            </div>
-          </div>
-          <br />
+         
           <InputField
             label="Dirección *"
-            disabled={isDisabled}
-            defaultValue={defaultValue.shippingAddress1}
             name="shippingAddress1"
-            register={register}
-            errors={errors}
+            // errors={errors}
             placeholder="Dirección *"
             required
           />
-          <br />
-          <div className="flex flex-wrap gap-7 ">
-            <div className="w-full">
+        
               <InputField
-                disabled={isDisabled}
-                defaultValue={defaultValue.floor}
                 label="Piso/ Dpto / Lote (Opcional)"
                 name="floor"
-                register={register}
-                errors={errors}
+                // errors={errors}
                 placeholder="Piso/ Dpto / Lote (Opcional)"
               />
-            </div>
-          </div>
-          <br />
-          <div className="flex flex-wrap gap-7">
-            <div className="md:w-[48.7%] w-full">
+     
               <InputField
-                disabled={isDisabled}
                 label="Código postal *"
                 name="zip"
-                defaultValue={defaultValue.zip}
-                register={register}
-                errors={errors}
+                // errors={errors}
                 placeholder="Código postal *"
                 required
               />
-            </div>
-            <div className="md:w-[48.7%] w-full ">
+           
               <InputField
                 label="Localidad *"
-                disabled={isDisabled}
-                defaultValue={defaultValue.city}
                 name="city"
-                register={register}
-                errors={errors}
+                // errors={errors}
                 placeholder="Localidad *"
                 required
               />
-            </div>
-          </div>
-          <br />
+      
+            
+            </Section>
+            <Section>
           <InputField
             label="Email *"
             name="email"
-            disabled={isDisabled}
-            defaultValue={defaultValue.email}
-            register={register}
-            errors={errors}
+            // errors={errors}
             placeholder="Email *"
             type="email"
             required
           />
-          <br />
+   
           <InputField
             label="País *"
-            disabled={isDisabled}
             name="country"
-            defaultValue={defaultValue.country}
-            register={register}
-            errors={errors}
-            placeholder="País *"
-            required
-          />
-          <br />
-          <InputField
-            label="Provincia *"
-            name="state"
-            register={register}
-            defaultValue={defaultValue.state}
-            errors={errors}
-            disabled={isDisabled}
+            // errors={errors}
             placeholder="Provincia *"
             required
           />
-          <br />
           <InputField
-            disabled={isDisabled}
             label="Número de teléfono *"
             name="phoneNumber"
-            defaultValue={defaultValue.phoneNumber}
-            register={register}
-            errors={errors}
+            // errors={errors}
             placeholder="Número de teléfono *"
             required
           />
-          <br />
-        </div>
-      </div>
-      <br className="mb-10" />
-      <div className="w-full justify-center mx-auto gap-4 bg-primary p-8 rounded-xl">
         <InputField
-          disabled={isDisabled}
           label="Comentarios (Opcional)"
           name="commentaries"
-          defaultValue={defaultValue.commentaries}
-          register={register}
-          errors={errors}
+          // errors={errors}
           placeholder="Comentarios (Opcional)"
         />
-        <br />
         <span>
           Ingrese el número de su DNI (para la factura)
           <InputField
             label="DNI"
             required
-            disabled={isDisabled}
-            defaultValue={defaultValue.userIdCard}
             name="userIdCard"
-            register={register}
-            errors={errors}
+            // errors={errors}
             placeholder="DNI"
           />
         </span>
-      </div>
-      <br className="mb-10" />
-      <button type="submit" className="w-full">
-        Confirmar
-      </button>
-    </>
+        </Section>
+       
+      </Aside>
+      <>
+        {children}
+      </>
+      </Wrapper>
+  <Button type="submit" text="Confirmar" />
+        
+    </Container>
   );
 }
 

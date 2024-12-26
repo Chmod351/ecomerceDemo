@@ -20,51 +20,37 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     setUserData: (state, action) => {
-      // Validamos que action.payload sea un objeto con las propiedades esperadas
-      Object.assign(state, action.payload);
+      state.deliveryMode = action.payload.deliveryMode;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.shippingAddress1 = action.payload.shippingAddress1;
+      state.floor = action.payload.floor;
+      state.zip = action.payload.zip;
+      state.city = action.payload.city;
+      state.email = action.payload.email;
+      state.country = action.payload.country;
+      state.state = action.payload.state;
+      state.phoneNumber = action.payload.phoneNumber;
+      state.commentaries = action.payload.commentaries;
+      state.userIdCard = action.payload.userIdCard;
     },
-    setDeliveryMode: (state, action) => {
-      state.deliveryMode = action.payload;
+    clearOrderInfo: (state) => {
+      state.deliveryMode = '';
+      state.firstName = '';
+      state.lastName = '';
+      state.shippingAddress1 = '';
+      state.floor = '';
+      state.zip = '';
+      state.city = '';
+      state.email = '';
+      state.country = '';
+      state.state = '';
+      state.phoneNumber = '';
+      state.commentaries = '';
+      state.userIdCard = '';
     },
-    setFirstName: (state, action) => {
-      state.firstName = action.payload;
-    },
-    setLastName: (state, action) => {
-     state.lastName = action.payload;
-    },
-    setShippingAddress1: (state, action) => {
-      state.shippingAddress1 = action.payload;
-    },
-    setFloor: (state, action) => {
-      state.floor = action.payload;
-    },
-    setZip: (state, action) => {
-      state.zip = action.payload;
-    },
-    setCity: (state, action) => {
-      state.city = action.payload;
-    },
-    setEmail: (state, action) => {
-      state.email = action.payload;
-    },
-    setCountry: (state, action) => {
-      state.country = action.payload;
-    },
-    setState: (state, action) => {
-      state.state = action.payload;
-    },
-    setPhoneNumber: (state, action) => {
-      state.phoneNumber = action.payload;
-    },
-    setCommentaries: (state, action) => {
-      state.commentaries = action.payload;
-    },
-    setUserIdCard: (state, action) => {
-      state.userIdCard = action.payload;
-    },
-
   },
 });
 
-export const { setUserData, setDeliveryMode, setFirstName } = orderSlice.actions;
+export const { setUserData,clearOrderInfo} = orderSlice.actions;
 export default orderSlice.reducer;

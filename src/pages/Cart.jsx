@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import { LocalMall, ShoppingBasket, Shop } from '@material-ui/icons';
+import {  Shop } from '@material-ui/icons';
 
 import { mobile, pc } from '../responsive';
 //components
 import ButtonElement from '../components/ui/Button';
 // pages
-import Orders from './Orders';
 import ProductsCarts from './ProductsCart';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import Summary from '../components/Summary';
 import TransferPayment from '../components/form/Transferencia';
+import FormCheckout from '../components/form/FormCheckout';
 
 const Container = styled.section`
   min-height: 100vh;
@@ -63,14 +63,24 @@ const TopText = styled.span`
   ${mobile({ margin: '0' })}
 `;
 
+const precios = {
+  Express_CABA: 5500,
+  Standard: 6000,
+  Express_GBA: 7500,
+  PickUp: 4500,
+};
+
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
   // const username = useSelector((state) => state.user.username);
   {/* const userId = useSelector((state) => state.user.currentUser?._id); */}
+  const [paymentForm, setPaymentForm] = useState(false)
 const [transferencia, setTransferencia] = useState(false)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+ 
   return (
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -98,12 +108,21 @@ const [transferencia, setTransferencia] = useState(false)
           <TopTexts>
             <TopText
               tabIndex="0"
-              // onClick={username ? () => setLoad(!load) : null}
+              onClick={()=>setPaymentForm(false)}
               role="status"
               aria-label={`you have ${cart.quantity} products in your cart`}
               title={`you have ${cart.quantity} products in your cart`}
             >
               <Shop /> Shopping Bag({cart.quantity})
+            </TopText>
+ <TopText
+              tabIndex="0"
+              onClick={()=>setPaymentForm(true)}        
+              role="status"
+              aria-label={`payment form`}
+              title={`payment form`}
+            >
+              <Shop /> Delivery Form
             </TopText>
        {/*      {username ?? ( */}
               {/* <TopText */}
@@ -138,10 +157,14 @@ const [transferencia, setTransferencia] = useState(false)
         {/* ) : ( */}
         {/*   <Orders userId={userId} /> */}
         {/* )} */}
-
+        {paymentForm ? <FormCheckout >
+          <Summary cart={cart}  precios={precios}/>
+        </FormCheckout>
+        :
           <ProductsCarts cart={cart} >
-            <Summary cart={cart} />
+            <Summary cart={cart} precios={precios}/>
           </ProductsCarts>
+        }
       </Wrapper>
       <Footer />
     </Container>

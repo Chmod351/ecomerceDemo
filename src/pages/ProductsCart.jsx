@@ -137,7 +137,6 @@ const ProductsCarts = ({ cart,children }) => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-console.log(currentProds)
   return (
     <Container>
       {/* if cart.products has no more than 0 items, message and icon will show up */}

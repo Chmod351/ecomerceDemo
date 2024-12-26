@@ -2,9 +2,7 @@ import { createOrder } from "../../utils/logic/orders";
 import { useState } from "react";
 import Prompt, {ButtonsPack} from "../ui/Prompt";
 import Button from "../ui/Button";
-import {handleError} from "../../utils/toast";
-import {userData} from '../../components/redux/userRedux'
-import {cart} from '../../components/redux/cartRedux'
+import {handleError, handleSuccess} from "../../utils/toast";
 import {useSelector} from "react-redux";
 
 function TransferPayment({
@@ -15,13 +13,16 @@ function TransferPayment({
   const [isErr, setIsErr] = useState(null);
   const [orderId, setOrderId] = useState(null);
  const cart = useSelector((state) => state.cart);
-  const userData = useSelector((state) => state.orders.userData);
+  const clearCart = useSelector((state) => state.cart.clearCart);
+  const userData = useSelector((state) => state.orders);
 
   const handlePayment = async () => {
     try {
       setIsErr(null);
       const id= await createOrder(total,userData,carl);
       setOrderId(id);
+      handleSuccess("orderCreated");
+      clearCart();
     } catch (error) {
       setIsLoading(false);
       console.error(error);

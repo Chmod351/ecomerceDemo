@@ -102,9 +102,9 @@ export const login = async (dispatch, email, password, setMsg) => {
 	const time = 48 * 60 * 60 * 1000;
 	try {
 		const res = await publicRequest.post('/user/login', { email, password });
-		if (res.data) {
+		if (res.data.session.loggedin) {
 			console.log({ res });
-			dispatch(loginSuccess(res.data.user.username)); // usa redux para logear al usuario
+			dispatch(loginSuccess(res.data.user)); // usa redux para logear al usuario
 			handleSuccess('welcome');
 			setTimeout(() => {
 				logoutUser(dispatch);

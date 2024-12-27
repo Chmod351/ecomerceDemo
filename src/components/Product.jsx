@@ -94,13 +94,13 @@ const Product = ({ product }) => {
 				<ImageContainer>
 					<Image
 						src={
-							product.image_url ??
+							product?.image_url ??
 							'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
 						}
-						alt={product.name}
+						alt={product?.name}
 						role="img"
-						title={product.image_url}
-						aria-label={`product-image:${product.description_es}`}
+						title={product?.description_es}
+						aria-label={`product-image:${product?.description_es}`}
 					/>
 				</ImageContainer>
 				<PriceContainer>

@@ -1,6 +1,4 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserData } from '../redux/orderRedux';
 import styled from 'styled-components';
 const Column = styled.div`
 	display: flex;
@@ -15,16 +13,27 @@ const Input = styled.input`
 	width: 90%;
 `;
 
-function InputField({ label, name, errors, placeholder, type = 'text' }) {
+const Error = styled.span`
+	color: red;
+	font-size: 12px;
+`;
+
+function InputField({
+	label,
+	name,
+	errors,
+	placeholder,
+	type = 'text',
+	register,
+	required,
+}) {
 	let error;
-
-	const userData = useSelector((state) => state.orders);
-	const dispatch = useDispatch();
-
-	const handleChange = (field, event) => {
-		console.log(userData);
-		dispatch(setUserData({ ...userData, [field]: event.target.value }));
-	};
+	if (errors?.isArray) {
+		error = errors?.[0]?.[name.split('.').join('?.')];
+		console.log('errrrrrrrrrrrr', error);
+	} else {
+		error = errors?.[name.split('.').join('?.')];
+	}
 
 	return (
 		<Column className="flex flex-col w-full ">
@@ -33,17 +42,17 @@ function InputField({ label, name, errors, placeholder, type = 'text' }) {
 				className={`rounded p-4 mt-1 placeholder:text-gray-400  outline-none ${
 					error ? 'border-red-500' : 'border-gray-300'
 				}`}
-				onChange={(event) => handleChange(name, event)}
+				{...register(name, { required })}
 				placeholder={placeholder}
 				type={type ? type : 'text'}
 			/>
 			{error && (
-				<span className="text-red-500 text-sm mt-1">{error.message}</span>
+				<Error className="text-red-500 text-sm mt-1">{error.message}</Error>
 			)}
 			{errors?.stock?.length > 0 && name.startsWith('stock') && (
-				<span className="text-red-500 text-sm mt-1">
+				<Error className="text-red-500 text-sm mt-1">
 					la informacion del stock debe estar completa
-				</span>
+				</Error>
 			)}
 		</Column>
 	);

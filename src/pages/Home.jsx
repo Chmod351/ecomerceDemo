@@ -28,7 +28,7 @@ const Home = ({ darkMode, setDarkMode }) => {
 			{/*     <Title text={'Collections'} /> */}
 			{/*  <Categories /> */}
 			<Title text={'Products'} />
-			<SearchBar />
+	 {/*    <SearchBar /> */}
 			<Products />
 			{/*   <Newsletter /> */}
 			<Footer />

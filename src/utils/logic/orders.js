@@ -78,7 +78,7 @@ export const createOrder = async (total, userData, cart) => {
 		...product,
 		productPrice: product.price_es,
 	}));
-	console.log('asdasdasdasd');
+
 	try {
 		const requestBody = {
 			mercadoPagoInfo: null,
@@ -102,13 +102,15 @@ export const createOrder = async (total, userData, cart) => {
 			},
 			body: JSON.stringify(requestBody),
 		});
+
 		if (!response.ok) {
-			throw new Error('Error creating order');
+			const { id, error } = await response.json();
+			console.log(id, error);
+			return { id };
 		}
 		const order = await response.json();
-		handleSuccess('createdOrder');
-		clearCart();
-		return order._id;
+		console.log({ order });
+		return order;
 	} catch (e) {
 		/* handle error */
 		handleError(error);

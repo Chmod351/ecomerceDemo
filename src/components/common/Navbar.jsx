@@ -261,7 +261,7 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 											</Link>
 										);
 									})}
-									{user.currentUser.username && (
+									{user?.currentUser?.username && (
 										<MenuItem
 											role="link"
 											title="Log Out"

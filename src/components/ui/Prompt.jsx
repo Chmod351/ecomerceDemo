@@ -21,6 +21,8 @@ const Container = styled.section`
 const Description = styled.div`
 	display: flex;
 	margin: auto;
+	height: 100%;
+	align-items: center;
 	text-align: center;
 	font-weight: bold;
 	justify-content: center;
@@ -62,15 +64,17 @@ export const ButtonsPack = ({ setShowPrompt }) => {
 export const LogOutPrompt = ({ text, onClick, setShowPrompt }) => {
 	return (
 		<Prompt>
-			<Description aria-label={text}>{text}</Description>
-			<Buttons>
-				<Button onClick={onClick} aria-label="yes">
-					Yes
-				</Button>
-				<Button onClick={setShowPrompt} aria-label="no">
-					Close
-				</Button>
-			</Buttons>
+			<div style={{ height: '10rem', width: '20rem' }}>
+				<Description aria-label={text}>{text}</Description>
+				<Buttons>
+					<Button onClick={onClick} aria-label="yes">
+						Yes
+					</Button>
+					<Button onClick={setShowPrompt} aria-label="no">
+						Close
+					</Button>
+				</Buttons>
+			</div>
 		</Prompt>
 	);
 };
@@ -84,6 +88,7 @@ const Prompt = ({ children }) => {
 				left: 0,
 				right: 0,
 				bottom: 0,
+				zIndex: 999,
 				backgroundColor: 'rgba(0, 0, 0, 0.5)',
 			}}
 		>

@@ -8,6 +8,7 @@ import Button from './ui/Button';
 import MercadoPago from './form/MercadoPago';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserData } from './redux/orderRedux';
+import TransferPayment from './form/Transferencia';
 
 const SummaryContainer = styled.aside`
 	flex: 1;
@@ -29,20 +30,27 @@ const SummaryItem = styled.div`
 	font-size: ${(props) => props.type === 'total' && '1.5rem'};
 `;
 
+const ButtonContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+`;
 const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Summary = ({ cart, precios, active }) => {
+const Summary = ({ cart, precios, active, register, errors }) => {
+	const [transferencia, setTransferencia] = useState(false);
 	const dispatch = useDispatch();
 	const userData = useSelector((state) => state.order);
 	const [mercadopago, setMercadopago] = useState(false);
 
-	console.log(userData);
-
 	const handleDeliveryModeChange = (mode) => {
 		dispatch(setUserData({ deliveryMode: mode }));
 	};
+	const total = cart.total + precios[userData.deliveryMode];
+
+	console.log({ cart, userData, total });
 	return (
 		<SummaryContainer role="table">
 			<>
@@ -68,6 +76,7 @@ const Summary = ({ cart, precios, active }) => {
 									className="mr-2"
 									value="PickUp"
 									checked={userData.deliveryMode === 'PickUp'}
+									{...register('deliveryMode')}
 									onChange={() => handleDeliveryModeChange('PickUp')}
 								/>
 								Retirar por sucursal de correo
@@ -77,6 +86,7 @@ const Summary = ({ cart, precios, active }) => {
 									type="radio"
 									className="mr-2"
 									value="Standard"
+									{...register('deliveryMode')}
 									checked={userData.deliveryMode === 'Standard'}
 									onChange={() => handleDeliveryModeChange('Standard')}
 								/>
@@ -86,6 +96,7 @@ const Summary = ({ cart, precios, active }) => {
 								<input
 									type="radio"
 									className="mr-2"
+									{...register('deliveryMode')}
 									value="Express_CABA"
 									checked={userData.deliveryMode === 'Express_CABA'}
 									onChange={() => handleDeliveryModeChange('Express_CABA')}
@@ -97,6 +108,7 @@ const Summary = ({ cart, precios, active }) => {
 									type="radio"
 									className="mr-2"
 									value="Express_GBA"
+									{...register('deliveryMode')}
 									checked={userData.deliveryMode === 'Express_GBA'}
 									onChange={() => handleDeliveryModeChange('Express_GBA')}
 								/>
@@ -109,15 +121,11 @@ const Summary = ({ cart, precios, active }) => {
 					<SummaryItemText role="complementary">
 						Estimated Shipping
 					</SummaryItemText>
-					<SummaryItemPrice
-						role="contentinfo"
-						title="Estimated Shipping $35.90"
-						aria-label={`you bill will be $ ${cart.total}`}
-					>
+					<SummaryItemPrice role="contentinfo">
 						${precios[userData.deliveryMode]}
 					</SummaryItemPrice>
 				</SummaryItem>
-				{/*       <SummaryItem> */}
+				{/* <SummaryItem> */}
 				{/* <SummaryItemText role="complementary"> */}
 				{/*   Shipping Discount */}
 				{/* </SummaryItemText> */}
@@ -133,24 +141,35 @@ const Summary = ({ cart, precios, active }) => {
 					<SummaryItemText role="complementary">Total</SummaryItemText>
 					<SummaryItemPrice
 						role="contentinfo"
-						title={cart.total}
-						aria-label={`you bill will be $ ${cart.total}`}
+						title={total}
+						aria-label={`you bill will be $ ${total}`}
 					>
-						$ {cart.total + precios[userData.deliveryMode]}
+						$ {isNaN(total) ? cart.total : total}
 					</SummaryItemPrice>
 				</SummaryItem>
-
-				<Button
-					disabled={!active}
-					text={'MERCADO PAGO'}
-					onClick={() => setMercadopago(!mercadopago)}
-				/>
+				<ButtonContainer>
+					<Button
+						disabled={!active && !isNaN(total)}
+						text={'TRANSFERENCIA'}
+						onClick={() => setTransferencia(true)}
+					/>
+					<Button
+						disabled={!active && !isNaN(total)}
+						text={'MERCADO '}
+						onClick={() => setMercadopago(!mercadopago)}
+					/>
+				</ButtonContainer>
 			</>{' '}
-			{mercadopago && (
-				<MercadoPago
-					total={cart.total + precios[userData.deliveryMode]}
-					setMercadopago={setMercadopago}
+			{transferencia && (
+				<TransferPayment
+					total={total}
+					setTransferencia={setTransferencia}
+					cart={cart}
+					userData={userData}
 				/>
+			)}
+			{mercadopago && (
+				<MercadoPago total={total} setMercadopago={setMercadopago} />
 			)}
 			{/*  {username ? ( */}
 			{/*   <StripeCheckout */}

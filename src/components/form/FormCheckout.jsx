@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import InputField from './Input';
 import styled from 'styled-components';
 import { mobile, pc } from '../../responsive';
@@ -6,6 +6,9 @@ import Button from '../ui/Button';
 import { useForm } from 'react-hook-form';
 import checkoutFormSchema from '../../utils/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserData } from '../redux/orderRedux';
+import Summary from '../Summary';
 
 const Container = styled.form`
 	min-height: 100vh;
@@ -38,18 +41,38 @@ const Section = styled.section`
 	border-radius: 1rem;
 	${mobile({ flexDirection: 'column' })}
 `;
-function FormCheckout({ children }) {
-	const { register, handleSubmit, formState, errors } = useForm({
+
+const precios = {
+	Express_CABA: 5500,
+	Standard: 6000,
+	Express_GBA: 7500,
+	PickUp: 4500,
+};
+function FormCheckout({ cart }) {
+	const userData = useSelector((state) => state.orders);
+	const dispatch = useDispatch();
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isValid },
+		watch,
+	} = useForm({
 		resolver: zodResolver(checkoutFormSchema),
 	});
 
+	const onSubmit = (data) => {
+		console.log('Datos del formulario enviados:', data);
+		dispatch(setUserData(data)); // Guardar datos en Redux
+	};
+
 	return (
-		<Container form onSubmit={handleSubmit(data)}>
+		<Container form onSubmit={handleSubmit(onSubmit)}>
 			<Wrapper>
 				<Aside>
 					<Section className="bg-primary p-8 rounded-xl">
 						<InputField
-							label="Nombre"
+							label="Nombre *"
 							name="firstName"
 							register={register}
 							errors={errors}
@@ -58,14 +81,67 @@ function FormCheckout({ children }) {
 						/>
 
 						<InputField
-							label="Apellido"
+							label="Apellido *"
 							name="lastName"
 							register={register}
 							errors={errors}
 							placeholder="Apellido *"
 							required
 						/>
+						<InputField
+							label="Email *"
+							name="email"
+							errors={errors}
+							register={register}
+							placeholder="Email *"
+							type="email"
+							required
+						/>
 
+						<InputField
+							label="Número de teléfono *"
+							name="phoneNumber"
+							errors={errors}
+							placeholder="Número de teléfono *"
+							register={register}
+							required
+						/>
+						<InputField
+							label="Comentarios (Opcional)"
+							name="commentaries"
+							errors={errors}
+							placeholder="Comentarios (Opcional)"
+							register={register}
+						/>
+						<span>
+							Ingrese el número de su DNI (para la factura)
+							<InputField
+								label="DNI *"
+								required
+								name="userIdCard"
+								errors={errors}
+								placeholder="DNI"
+								register={register}
+							/>
+						</span>
+					</Section>
+					<Section>
+						<InputField
+							label="País *"
+							name="country"
+							errors={errors}
+							placeholder="Pais *"
+							register={register}
+							required
+						/>
+						<InputField
+							label="Provincia *"
+							name="state"
+							errors={errors}
+							placeholder="Provincia *"
+							register={register}
+							required
+						/>
 						<InputField
 							label="Dirección *"
 							name="shippingAddress1"
@@ -100,56 +176,16 @@ function FormCheckout({ children }) {
 							required
 						/>
 					</Section>
-					<Section>
-						<InputField
-							label="Email *"
-							name="email"
-							errors={errors}
-							register={register}
-							placeholder="Email *"
-							type="email"
-							required
-						/>
-
-						<InputField
-							label="País *"
-							name="country"
-							errors={errors}
-							placeholder="Provincia *"
-							register={register}
-							required
-						/>
-						<InputField
-							label="Número de teléfono *"
-							name="phoneNumber"
-							errors={errors}
-							placeholder="Número de teléfono *"
-							register={register}
-							required
-						/>
-						<InputField
-							label="Comentarios (Opcional)"
-							name="commentaries"
-							errors={errors}
-							placeholder="Comentarios (Opcional)"
-							register={register}
-						/>
-						<span>
-							Ingrese el número de su DNI (para la factura)
-							<InputField
-								label="DNI"
-								required
-								name="userIdCard"
-								errors={errors}
-								placeholder="DNI"
-								register={register}
-							/>
-						</span>
-					</Section>
 				</Aside>
-				<>{children}</>
+				<Summary
+					cart={cart}
+					precios={precios}
+					active={isValid}
+					register={register}
+					errors={errors}
+				/>
 			</Wrapper>
-			<Button type="submit" text="Confirmar" />
+			<Button type="submit" text="Confirmar Datos Del Formulario De Envio" />
 		</Container>
 	);
 }

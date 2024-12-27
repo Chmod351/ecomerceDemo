@@ -63,13 +63,6 @@ const TopText = styled.span`
 	${mobile({ margin: '0' })}
 `;
 
-const precios = {
-	Express_CABA: 5500,
-	Standard: 6000,
-	Express_GBA: 7500,
-	PickUp: 4500,
-};
-
 const Cart = ({ darkMode, setDarkMode }) => {
 	const cart = useSelector((state) => state.cart);
 	const userData = useSelector((state) => state.orders);
@@ -78,12 +71,10 @@ const Cart = ({ darkMode, setDarkMode }) => {
 		/* const userId = useSelector((state) => state.user.currentUser?._id); */
 	}
 	const [paymentForm, setPaymentForm] = useState(false);
-	const [transferencia, setTransferencia] = useState(false);
+
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}, []);
-
-	console.log(userData);
 
 	return (
 		<Container role="contentinfo">
@@ -152,16 +143,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
 					{/*    onRequestClose={() => setIsModalOpen(false)} */}
 					{/*   </Link> */}
 					{/* )} */}
-					<ButtonElement
-						text={'TRANSFERENCIA'}
-						onClick={() => setTransferencia(true)}
-					/>
-					{transferencia && (
-						<TransferPayment
-							total={cart.total}
-							setTransferencia={setTransferencia}
-						/>
-					)}
 				</Top>
 				{/* PRODUCT CARTS COMPONENT */}
 
@@ -170,14 +151,11 @@ const Cart = ({ darkMode, setDarkMode }) => {
 				{/* ) : ( */}
 				{/*   <Orders userId={userId} /> */}
 				{/* )} */}
+
 				{paymentForm ? (
-					<FormCheckout>
-						<Summary cart={cart} precios={precios} />
-					</FormCheckout>
+					<FormCheckout cart={cart} />
 				) : (
-					<ProductsCarts cart={cart}>
-						<Summary cart={cart} precios={precios} active={false} />
-					</ProductsCarts>
+					<ProductsCarts cart={cart} />
 				)}
 			</Wrapper>
 			<Footer />

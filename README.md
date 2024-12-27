@@ -45,6 +45,10 @@ Design
 
 [FireShot Capture 004 - Cierva Design - ciervademo.onrender.com.pdf](https://github.com/yamilt351/ecomerceDemo/files/12476075/FireShot.Capture.004.-.Cierva.Design.-.ciervademo.onrender.com.pdf)
 
+updated demo
+[Grabación de pantalla desde 2024-10-26 19-34-24.webm](https://github.com/user-attachments/assets/5fe5f5e8-4c64-4e96-a3a0-5c26fc058969)
+
+
 
 ## License
 

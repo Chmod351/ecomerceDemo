@@ -261,14 +261,14 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 											</Link>
 										);
 									})}
-									{user && (
+									{user.currentUser.username && (
 										<MenuItem
 											role="link"
 											title="Log Out"
 											tabIndex="0"
 											onClick={() => setShowPrompt(!showPrompt)}
 										>
-											{user.currentUser}
+											{user.currentUser.username}
 										</MenuItem>
 									)}
 

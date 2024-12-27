@@ -259,14 +259,14 @@ const Register = () => {
 							</Link>
 						</Agreement>
 					) : null}
-					<GoogleLogin
-						onSuccess={(credentialResponse) => {
-							handleGoogleAuth(credentialResponse);
-						}}
-						onError={() => {
-							handleError('Google login failed');
-						}}
-					/>
+					{/*  <GoogleLogin */}
+					{/* onSuccess={(credentialResponse) => { */}
+					{/*   handleGoogleAuth(credentialResponse); */}
+					{/* }} */}
+					{/* onError={() => { */}
+					{/*   handleError('Google login failed'); */}
+					{/* }} */}
+					{/* /> */}
 					<Button
 						title={islogin ? 'Submit' : Create}
 						role="button"
@@ -279,7 +279,6 @@ const Register = () => {
 								handleClick(e);
 							}
 						}}
-						disabled={off}
 					>
 						{islogin ? 'Submit' : Create}
 					</Button>

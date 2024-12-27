@@ -7,6 +7,7 @@ import { getProductsFunction } from '../utils/logic/products.js';
 // ui
 import Loading from './common/Loading';
 import Pagination from './ui/Pagination';
+import SadFaceMsg from './ui/SadFaceMsg';
 
 const Container = styled.section`
 	padding: 2rem 0;
@@ -129,6 +130,7 @@ const Products = ({ tag, filters, sort, query }) => {
 			</Container>
 		);
 	}
+	console.log(products);
 
 	return (
 		// renderiza los productos y si no cargaron, renderiza el componente Loading
@@ -152,7 +154,9 @@ const Products = ({ tag, filters, sort, query }) => {
 							))}
 				</Wrapper>
 			) : (
-				<Loading />
+				<Wrapper>
+					<SadFaceMsg text="No se encontraron productos" />
+				</Wrapper>
 			)}
 
 			{/* Renderizar paginación */}

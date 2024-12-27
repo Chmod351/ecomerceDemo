@@ -11,6 +11,7 @@ import SadFaceMsg from './ui/SadFaceMsg';
 
 const Container = styled.section`
 	padding: 2rem 0;
+	height: 100vh;
 	background-color: ${({ theme }) => theme.bg};
 `;
 
@@ -25,13 +26,6 @@ const Wrapper = styled.div`
 	${mobile({ alignItems: 'center', justifyContent: 'center' })}
 `;
 
-const ErrorMessage = styled.div`
-	color: ${({ theme }) => theme.text};
-	text-align: center;
-	font-weight: bold;
-	font-size: 1.5rem;
-	margin-top: 1rem;
-`;
 // Estado para controlar la paginación
 const pageSize = 100;
 
@@ -118,7 +112,7 @@ const Products = ({ tag, filters, sort, query }) => {
 	if (error) {
 		return (
 			<Container>
-				<ErrorMessage>{error}</ErrorMessage>
+				<SadFaceMsg text={error} />
 			</Container>
 		);
 	}

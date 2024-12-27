@@ -102,11 +102,15 @@ export const login = async (dispatch, email, password, setMsg) => {
 	const time = 48 * 60 * 60 * 1000;
 	try {
 		const res = await publicRequest.post('/user/login', { email, password });
-		dispatch(loginSuccess(res.data)); // usa redux para logear al usuario
-		handleSuccess('welcome');
-		setTimeout(() => {
-			logoutUser(dispatch);
-		}, time);
+		if (res.data) {
+			console.log({ res });
+			dispatch(loginSuccess(res.data.user.username)); // usa redux para logear al usuario
+			handleSuccess('welcome');
+			setTimeout(() => {
+				logoutUser(dispatch);
+			}, time);
+		}
+		console.log(res);
 	} catch (error) {
 		setMsg(error.message);
 		console.log(error);
@@ -126,9 +130,11 @@ export const googleLogin = async (token) => {
 	}
 };
 
-export const logoutUser = (dispatch) => {
+export const logoutUser = async (dispatch) => {
 	// Cierra la sesión del usuario
 	try {
+		const res = await publicRequest.post('/user/logout');
+		console.log(res.data.message);
 		dispatch(logout());
 		handleSuccess('logout');
 	} catch (error) {

@@ -19,7 +19,7 @@ import { logoutUser } from '../../utils/logic/users.js';
 // import Prompt from './ui/Prompt';
 import Announcement from './Announcement';
 import SearchBar from '../ui/searchBar';
-import Prompt from '../ui/Prompt';
+import Prompt, { LogOutPrompt } from '../ui/Prompt';
 
 const Container = styled.nav`
 	color: ${({ theme }) => theme.text};
@@ -163,10 +163,11 @@ const MenuItemCart = styled.div`
 const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 	const [showPrompt, setShowPrompt] = useState(false);
 	const quantity = useSelector((state) => state.cart.quantity);
-	const username = useSelector((state) => state.user.username);
+	const user = useSelector((state) => state.user);
+
 	const [isMenuOpen, setIsMenuOpen] = useState(true);
 	const dispatch = useDispatch();
-
+	console.log(user);
 	// Maneja el evento de clic en el botón de cierre de sesión
 	const handleClick = () => {
 		logoutUser(dispatch);
@@ -260,14 +261,14 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 											</Link>
 										);
 									})}
-									{username ?? (
+									{user && (
 										<MenuItem
 											role="link"
 											title="Log Out"
 											tabIndex="0"
 											onClick={() => setShowPrompt(!showPrompt)}
 										>
-											{username}
+											{user.currentUser}
 										</MenuItem>
 									)}
 
@@ -310,7 +311,7 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 					</Link>
 				</Wrapper>
 				{showPrompt && (
-					<Prompt
+					<LogOutPrompt
 						text={'Do you want to logout?'}
 						onClick={handleClick}
 						setShowPrompt={() => setShowPrompt(!showPrompt)}

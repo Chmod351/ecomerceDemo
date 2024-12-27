@@ -65,7 +65,7 @@ function MercadoPago({ total, setMercadopago }) {
 				total,
 			});
 			setMercadopagoOrdenId(id);
-			handleSuccess('orderCreated');
+			handleSuccess('thanks');
 			clearCart();
 		} catch (e) {
 			/* handle error */

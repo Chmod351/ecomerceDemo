@@ -1,9 +1,34 @@
 import { createOrder } from '../../utils/logic/orders';
 import { useState } from 'react';
+import styled from 'styled-components';
+import { Toast } from '../../utils/toast';
 import Prompt, { ButtonsPack } from '../ui/Prompt';
 import Button from '../ui/Button';
 import { handleError, handleSuccess } from '../../utils/toast';
 import { useSelector } from 'react-redux';
+import Loading from 'react-loading';
+
+const Container = styled.section`
+	padding: 2rem;
+`;
+const HiddenDescription = styled.p`
+	color: gray;
+`;
+
+const ColumnContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`;
+
+const ColumnContainerJustifyBetween = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 200px;
+	justify-content: space-between;
+	align-items: center;
+`;
 
 function TransferPayment({ total, setTransferencia, userData, cart }) {
 	const [isLoading, setIsLoading] = useState(false);
@@ -15,38 +40,44 @@ function TransferPayment({ total, setTransferencia, userData, cart }) {
 		setIsLoading(true);
 		try {
 			setIsErr(null);
-			console.log('cart: ', cart, userData, total);
 			const id = await createOrder(total, userData, cart);
-			console.log(id);
-			setOrderId(id);
-			handleSuccess('orderCreated');
+			console.log({ id });
+			setOrderId(id._id);
+			handleSuccess('thanks');
 			clearCart();
+			setIsLoading(false);
 		} catch (error) {
 			setIsLoading(false);
 			console.error(error);
-			handleError(error.error ?? 'Error al procesar el pago');
+			handleError(error);
 			setIsErr('Error al procesar el pago');
 		}
 	};
-
 	return (
 		<Prompt>
 			{isLoading && (
-				<div className="flex flex-col gap-4 w-full h-full justify-center items-center">
-					Cargando...
-					<div className="w-10 h-10 bg-gray-400 animate-spin  "></div>
+				<div>
+					<Loading type="spin" color="black" height={100} width={100} />
 				</div>
 			)}
-			<div id="transfer_container">
+			{orderId && (
+				<Container>
+					<h1>¡GRACIAS POR TU COMPRA!</h1>
+					<p>este es tu NUMERO DE ORDEN:</p>
+					<strong>{orderId}</strong>
+					<p>Te enviamos un email con el detalle de tu compra</p>
+					<p>Y te mantendremos informado sobre el estado de tu orden</p>
+				</Container>
+			)}
+			<Container id="transfer_container">
 				{!isLoading && !isErr && (
-					<div className="flex flex-col gap-4">
-						<div className="flex flex-row justify-center m-auto items-center gap-4"></div>
+					<ColumnContainer>
 						<p>
 							Luego de generar el numero de orden,
 							<strong> tendrás dos horas </strong>para enviar por email el
 							comprobante de pago.
 						</p>
-						<div className="flex flex-col gap-4 bg-primary p-4 rounded-lg h-[300px] ">
+						<ColumnContainerJustifyBetween>
 							<h1>
 								<b>ALIAS</b>: LAZY.TRENDY
 							</h1>
@@ -60,7 +91,7 @@ function TransferPayment({ total, setTransferencia, userData, cart }) {
 							</a>
 
 							<br />
-							<strong className="md:text-3xl ">
+							<strong>
 								{!orderId ? (
 									<>TOTAL A PAGAR : $ {total}</>
 								) : (
@@ -79,16 +110,16 @@ function TransferPayment({ total, setTransferencia, userData, cart }) {
 								type="submit"
 								disabled={isLoading || orderId ? true : false}
 							/>
-						</div>
+						</ColumnContainerJustifyBetween>
 						<br />
-						<p className="text-sm text-gray-400">
+						<HiddenDescription>
 							las transferencias no son reembolsables Tenes que enviar el
 							comprobante en un plazo de 2hs o el pedido se cancela
 							automaticamente Gracias por tu compra!
-						</p>
-					</div>
+						</HiddenDescription>
+					</ColumnContainer>
 				)}
-			</div>
+			</Container>
 			<ButtonsPack setShowPrompt={() => setTransferencia(false)} />
 		</Prompt>
 	);

@@ -38,7 +38,7 @@ const SocialContainer = styled.aside`
 const SocialIcon = styled.div`
 	width: 2.5rem;
 	height: 2.5rem;
-	border-radius: 50%;
+	border-radius: 10%;
 	color: white;
 	background-color: #${(props) => props.color};
 	display: flex;
@@ -125,7 +125,7 @@ const Footer = React.memo(() => {
 					<SocialContainer role="list">
 						{/* seccion de redes sociales */}
 						{social.map((i) => {
-							const { id, color, icon, link } = i;
+							const { id, color, icon, link, platform } = i;
 							return (
 								<A
 									href={link}
@@ -135,9 +135,22 @@ const Footer = React.memo(() => {
 									role="link"
 									aria-label={link}
 								>
-									<SocialIcon color={color} role="img">
-										{icon}
-									</SocialIcon>
+									{platform !== 'Instagram' ? (
+										<img
+											src={icon}
+											alt={link}
+											style={{
+												width: '2.5rem',
+												height: '2.5rem',
+												objectFit: 'contain',
+												marginRight: '1.25rem',
+											}}
+										/>
+									) : (
+										<SocialIcon color={color} role="img">
+											{icon}
+										</SocialIcon>
+									)}
 								</A>
 							);
 						})}

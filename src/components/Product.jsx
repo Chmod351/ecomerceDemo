@@ -84,7 +84,7 @@ const Hot = styled.span`
 const Product = ({ product }) => {
 	return (
 		<Container aria-label={product.name_es}>
-			{product.sale && <Hot>50%</Hot>}
+			{product.sale.status && <Hot>{product.sale.quantity}</Hot>}
 			<LinkDecoration
 				to={`/product/${product._id}`}
 				aria-label={`see more details about ${product.name_es} $ ${product.price_es}`}

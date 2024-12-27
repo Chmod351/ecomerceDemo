@@ -6,7 +6,7 @@ const Message = styled.p`
   display: flex;
   height: 50vh;
   flex: 4;
-  background-color: ${({ theme }) => theme.bgLighter};
+  background-color: ${({ theme }) => theme.bg};
   font-weight: bold;
   font-size: 2.4rem;
   color: ${({ theme }) => theme.soft};

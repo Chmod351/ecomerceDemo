@@ -12,7 +12,6 @@ import Pagination from '../components/ui/Pagination';
 import SadFaceMsg from '../components/ui/SadFaceMsg';
 import QuantityButton from '../components/ui/quantityButtons';
 // components 
-import Summary from '../components/Summary';
 
 
 
@@ -102,7 +101,7 @@ const Hr = styled.hr`
   height: 1px;
 `;
 
-const ProductsCarts = ({ cart,children }) => {
+const ProductsCarts = ({ cart,children}) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(cart.products.length / 10);

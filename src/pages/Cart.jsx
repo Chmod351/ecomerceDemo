@@ -72,6 +72,7 @@ const precios = {
 
 const Cart = ({ darkMode, setDarkMode }) => {
   const cart = useSelector((state) => state.cart);
+const userData = useSelector((state) => state.orders);
   // const username = useSelector((state) => state.user.username);
   {/* const userId = useSelector((state) => state.user.currentUser?._id); */}
   const [paymentForm, setPaymentForm] = useState(false)
@@ -80,7 +81,8 @@ const [transferencia, setTransferencia] = useState(false)
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
- 
+console.log(userData)
+
   return (
     <Container role="contentinfo">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
@@ -112,15 +114,17 @@ const [transferencia, setTransferencia] = useState(false)
               role="status"
               aria-label={`you have ${cart.quantity} products in your cart`}
               title={`you have ${cart.quantity} products in your cart`}
+              style={{color:paymentForm?'gray':'black'}}
             >
               <Shop /> Shopping Bag({cart.quantity})
             </TopText>
  <TopText
               tabIndex="0"
-              onClick={()=>setPaymentForm(true)}        
+              onClick={()=>setPaymentForm(true)}
               role="status"
               aria-label={`payment form`}
               title={`payment form`}
+              style={{color:!paymentForm?'gray':'black'}}
             >
               <Shop /> Delivery Form
             </TopText>
@@ -162,7 +166,7 @@ const [transferencia, setTransferencia] = useState(false)
         </FormCheckout>
         :
           <ProductsCarts cart={cart} >
-            <Summary cart={cart} precios={precios}/>
+            <Summary cart={cart} precios={precios} active={false}/>
           </ProductsCarts>
         }
       </Wrapper>

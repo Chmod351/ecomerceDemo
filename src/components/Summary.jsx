@@ -36,12 +36,12 @@ const SummaryItemPrice = styled.span``;
 
 
 
-const Summary = ({ cart,precios}) => {
+const Summary = ({ cart,precios,active}) => {
   const dispatch = useDispatch();
 const userData = useSelector((state) => state.order);
   const [mercadopago, setMercadopago] = useState(false)
-console.log(userData)
 
+  console.log(userData)
 
  const handleDeliveryModeChange = (mode) => {
     dispatch(setUserData({ deliveryMode: mode }));
@@ -147,6 +147,7 @@ console.log(userData)
       </SummaryItem>
  
           <Button
+          disabled={!active}
             text={'MERCADO PAGO'}
             onClick={() => setMercadopago(!mercadopago)}
           />

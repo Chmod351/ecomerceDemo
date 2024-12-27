@@ -38,7 +38,7 @@ const SocialContainer = styled.aside`
 const SocialIcon = styled.div`
 	width: 2.5rem;
 	height: 2.5rem;
-	border-radius: 50%;
+	border-radius: 10%;
 	color: white;
 	background-color: #${(props) => props.color};
 	display: flex;
@@ -104,17 +104,13 @@ const Footer = React.memo(() => {
 		<Container role="contentinfo" aria-label="footer">
 			<Wrapper role="complementary">
 				<Left role="table">
-					<Logo
-						aria-label="cierva design logo"
-						role="banner"
-						title="Cierva Design"
-					>
+					<Logo aria-label="Lazy logo" role="banner" title="Lazy Trendy">
 						Lazy Trendy
 					</Logo>
 					<Desc
-						aria-label="about Cierva"
+						aria-label="about Lazy"
 						role="complementary"
-						title="About Cierva"
+						title="About Lazy Trendy"
 					>
 						Nuestra colección abarcan desde piezas atrevidas hasta clásicos
 						reinventados, ideales para crear un guardarropa versátil. Cada
@@ -125,7 +121,7 @@ const Footer = React.memo(() => {
 					<SocialContainer role="list">
 						{/* seccion de redes sociales */}
 						{social.map((i) => {
-							const { id, color, icon, link } = i;
+							const { id, color, icon, link, platform } = i;
 							return (
 								<A
 									href={link}
@@ -135,9 +131,22 @@ const Footer = React.memo(() => {
 									role="link"
 									aria-label={link}
 								>
-									<SocialIcon color={color} role="img">
-										{icon}
-									</SocialIcon>
+									{platform !== 'Instagram' ? (
+										<img
+											src={icon}
+											alt={link}
+											style={{
+												width: '2.5rem',
+												height: '2.5rem',
+												objectFit: 'contain',
+												marginRight: '1.25rem',
+											}}
+										/>
+									) : (
+										<SocialIcon color={color} role="img">
+											{icon}
+										</SocialIcon>
+									)}
 								</A>
 							);
 						})}
@@ -196,7 +205,7 @@ const Footer = React.memo(() => {
 					/>
 				</Right>
 			</Wrapper>
-			<Announcement text="cierva design is a free responsive e-commerce template, contactme 1b410d2r5@mozmail.com" />
+			<Announcement text="holi" />
 		</Container>
 	);
 });

@@ -18,6 +18,7 @@ import Product from './pages/Product';
 import Register from './pages/Register';
 import ProductList from './pages/ProductList';
 import PrivacyPage from './pages/Privacy';
+import Admin from './pages/Admin';
 
 const REACT_APP_GOOGLEID = process.env.REACT_APP_GOOGLEID;
 
@@ -38,6 +39,8 @@ const App = () => {
 		setDarkMode(newDarkMode);
 		setDarkModePreference(newDarkMode);
 	};
+
+	console.log(user?.currentUser?.username, user?.currentUser?.username);
 
 	return (
 		<GoogleOAuthProvider clientId={REACT_APP_GOOGLEID}>
@@ -69,8 +72,15 @@ const App = () => {
 							{/*Página de éxito después de realizar la orden */}
 						</Route>
 						<Route path="/auth">
-							{user ? <Redirect to="/" /> : <Register />}
+							{user?.currentUser?.username ? <Redirect to="/" /> : <Register />}
 							{/* Redirige a la página de inicio si el usuario ya ha iniciado sesión, de lo contrario, muestra el formulario de registro */}
+						</Route>
+						<Route path="/admin">
+							{user?.currentUser?.type !== 'admin' ? (
+								<Redirect to="/" />
+							) : (
+								<Admin />
+							)}
 						</Route>
 					</Switch>
 				</Router>

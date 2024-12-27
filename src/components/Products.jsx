@@ -130,7 +130,6 @@ const Products = ({ tag, filters, sort, query }) => {
 			</Container>
 		);
 	}
-	console.log(products);
 
 	return (
 		// renderiza los productos y si no cargaron, renderiza el componente Loading

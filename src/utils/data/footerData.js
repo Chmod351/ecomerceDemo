@@ -9,11 +9,12 @@ import {
 
 // objects footer
 
+
 export const e = [
   {
     id: 21,
-    route: '/products/shirts',
-    name: 'Shirts',
+    route: '/products/tops',
+    name: 'TOPS',
   },
   {
     id: 22,
@@ -23,8 +24,8 @@ export const e = [
 
   {
     id: 23,
-    route: '/products/coats',
-    name: 'Coats',
+    route: '/products/bottoms',
+    name: 'BOTTOMS',
   },
   {
     id: 24,
@@ -33,12 +34,12 @@ export const e = [
   },
   {
     id: 25,
-    route: '/products/jackets',
-    name: 'Jackets',
+    route: '/products/shoes',
+    name: 'SHOES',
   },
   {
     id: 26,
-    route: '/',
+    route: '/privacy',
     name: 'Privacy Policy',
   },
 
@@ -52,6 +53,11 @@ export const e = [
     route: '/',
     name: 'Terms',
   },
+  {
+    id: 29,
+    route: '/products/accesories',
+    name: 'ACCESORIES',
+  }
 ];
 
 export const social = [

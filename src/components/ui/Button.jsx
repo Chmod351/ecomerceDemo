@@ -10,7 +10,7 @@ const ButtonElement = styled.button`
   padding: 10px;
   font-size: 1.2rem;
   color: ${({ theme }) => theme.bg};
-  background-color: ${({ theme }) => theme.text};
+  background-color: ${({ disabled,theme }) => disabled ? "gray" : theme.text};
   border: none;
   font-weight: bold;
   cursor: pointer;
@@ -37,7 +37,7 @@ const ButtonElementSoft = styled.button`
   background-color: none;
   border: none;
   font-weight: regular;
-  cursor: pointer;
+  cursor:${({ disabled }) => disabled ? "not-allowed" : "pointer"};
   transition: background-color 0.3s ease;
   &:hover {
     background-color: none;
@@ -50,9 +50,9 @@ const ButtonElementSoft = styled.button`
   ${mobile({ fontSize: '0.8rem' })}
 `;
 
-const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
+const Button = ({ text, onClick, onKeyUp, tabIndex,disabled=false }) => {
   const getStatusIcon = (status) => {
-    if (status == 'CHECKOUT NOW') {
+    if (status == 'CHECKOUT NOW' || "MERCADO PAGO" || "TRANSFERENCIA") {
       return <Payment />;
     } else if (status == 'CONTINUE SHOPPING') {
       return <ShoppingCart />;
@@ -64,11 +64,11 @@ const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
       return null;
     }
   };
-
   if (text==="CONTINUE SHOPPING") {
     return (
     <ButtonElementSoft
       status={text}
+      disabled={disabled}
       tabIndex={tabIndex}
       onClick={onClick}
       onKeyUp={onKeyUp}
@@ -88,6 +88,7 @@ const Button = ({ text, onClick, onKeyUp, tabIndex }) => {
       onKeyUp={onKeyUp}
       role="button"
       title={text}
+      disabled={disabled}
       aria-label={text}
     >
       {getStatusIcon(`${text}`)} {text}

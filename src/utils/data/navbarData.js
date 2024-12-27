@@ -5,18 +5,25 @@ export const e = [
     name: 'Home',
   },
   {
-    id: 2,
-    route: '/products/coats',
-    name: 'Coats',
+   id: 21,
+    route: '/products/tops',
+    name: 'TOPS',
+
+  },
+ {
+    id: 23,
+    route: '/products/bottoms',
+    name: 'BOTTOMS',
+  },
+
+  {
+    id: 25,
+    route: '/products/shoes',
+    name: 'SHOES',
   },
   {
-    id: 3,
-    route: '/products/jackets',
-    name: 'Jackets',
-  },
-  {
-    id: 4,
-    route: '/products/shirts',
-    name: 'Shirts',
-  },
+    id: 29,
+    route: '/products/accesories',
+    name: 'ACCESORIES',
+  }
 ];

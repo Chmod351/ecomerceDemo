@@ -15,7 +15,6 @@ import { useState } from 'react';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
-import Success from './pages/Success';
 import Register from './pages/Register';
 import ProductList from './pages/ProductList';
 import PrivacyPage from './pages/Privacy';
@@ -64,9 +63,7 @@ const App = () => {
 						<Route path="/cart">
 							<Cart darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
 						</Route>
-						<Route path="/success">
-							<Success /> {/*Página de éxito después de realizar la orden */}
-						</Route>
+
 						<Route path="/privacy">
 							<PrivacyPage />{' '}
 							{/*Página de éxito después de realizar la orden */}

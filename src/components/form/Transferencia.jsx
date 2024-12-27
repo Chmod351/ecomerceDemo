@@ -5,18 +5,19 @@ import Button from '../ui/Button';
 import { handleError, handleSuccess } from '../../utils/toast';
 import { useSelector } from 'react-redux';
 
-function TransferPayment({ total, setTransferencia }) {
+function TransferPayment({ total, setTransferencia, userData, cart }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isErr, setIsErr] = useState(null);
 	const [orderId, setOrderId] = useState(null);
-	const cart = useSelector((state) => state.cart);
 	const clearCart = useSelector((state) => state.cart.clearCart);
-	const userData = useSelector((state) => state.orders);
 
 	const handlePayment = async () => {
+		setIsLoading(true);
 		try {
 			setIsErr(null);
-			const id = await createOrder(total, userData, carl);
+			console.log('cart: ', cart, userData, total);
+			const id = await createOrder(total, userData, cart);
+			console.log(id);
 			setOrderId(id);
 			handleSuccess('orderCreated');
 			clearCart();
@@ -75,7 +76,7 @@ function TransferPayment({ total, setTransferencia }) {
 								text={`CHECKOUT:  $ ${total}`}
 								// @ts-ignore
 								onClick={() => handlePayment()}
-								type="button"
+								type="submit"
 								disabled={isLoading || orderId ? true : false}
 							/>
 						</div>

@@ -97,7 +97,7 @@ const Hr = styled.hr`
 	height: 1px;
 `;
 
-const ProductsCarts = ({ cart, children }) => {
+const ProductsCarts = ({ cart }) => {
 	const dispatch = useDispatch();
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = Math.ceil(cart.products.length / 10);
@@ -197,7 +197,6 @@ const ProductsCarts = ({ cart, children }) => {
 							<Hr />
 						</Info>
 						{/* SUMARY COMPONENT */}
-						{children}
 					</Wrapper>
 					{/* pagination component */}
 					{cart.products.length > 8 ?? (

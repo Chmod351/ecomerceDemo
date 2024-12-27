@@ -109,17 +109,18 @@ const Footer = React.memo(() => {
 						role="banner"
 						title="Cierva Design"
 					>
-						Cierva Design
+						Lazy Trendy
 					</Logo>
 					<Desc
 						aria-label="about Cierva"
 						role="complementary"
 						title="About Cierva"
 					>
-						There are many variations of passages of Lorem Ipsum available, but
-						the majority have suffered alteration in some form, by injected
-						humour, or randomised words which don’t look even slightly
-						believable.
+						Nuestra colección abarcan desde piezas atrevidas hasta clásicos
+						reinventados, ideales para crear un guardarropa versátil. Cada
+						prenda es confeccionada con amor y atención al detalle. En nuestra
+						tienda, celebramos la diversidad y la autoexpresión a través de
+						diseños únicos y contemporáneos que resaltan tu individualidad{' '}
 					</Desc>
 					<SocialContainer role="list">
 						{/* seccion de redes sociales */}

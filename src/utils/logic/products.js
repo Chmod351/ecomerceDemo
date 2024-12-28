@@ -32,26 +32,26 @@ export const SearchProducts = async (query) => {
 
 // product by tag
 
-export const getProductByTags = async (tag, currentPage, pageSize) => {
-	// obtiene los productos relacinados y le pide al backend la paginacion necesaria
-	try {
-		const response = await publicRequest.get(
-			`/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
-		);
-		return response;
-	} catch (error) {
-		console.log(error);
-		handleError(error);
-		const response = await publicRequest.get(
-			`/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}`
-		);
-		if (response.data) {
-			return response;
-		} else {
-			return null;
-		}
-	}
-};
+/* export const getProductByTags = async (tag, currentPage, pageSize) => { */
+/* // obtiene los productos relacinados y le pide al backend la paginacion necesaria */
+/* try { */
+/*   const response = await publicRequest.get( */
+/*     `/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}` */
+/*   ); */
+/*   return response; */
+/* } catch (error) { */
+/*   console.log(error); */
+/*   handleError(error); */
+/*   const response = await publicRequest.get( */
+/*     `/products/tag?tag=${tag}&page=${currentPage}&size=${pageSize}` */
+/*   ); */
+/*   if (response.data) { */
+/*     return response; */
+/*   } else { */
+/*     return null; */
+/*   } */
+/* } */
+/* }; */
 // GET ALL PRODUCTS
 
 export const getAllProducts = async (currentPage, pageSize) => {

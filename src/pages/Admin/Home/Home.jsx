@@ -1,8 +1,6 @@
 import WidgetLg from '../../../components/admin/WidgetLg/WidgetLg';
 import Chart from '../../../components/admin/chart/Chart';
 import FeaturedInfo from '../../../components/admin/featuredInfo/FeaturedInfo';
-import Sidebar from '../../../components/admin/sidebar/Sidebar';
-import WidgetSm from '../../../components/admin/widgetSm/WidgetSm';
 import { publicRequest } from '../../../requestMethods';
 import './home.css';
 import { useEffect, useMemo, useState } from 'react';

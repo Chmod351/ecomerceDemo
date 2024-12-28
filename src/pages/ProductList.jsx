@@ -10,7 +10,6 @@ import Newsletter from '../components/Newsletter';
 // ui
 import Filter from '../components/ui/Filter';
 import Footer from '../components/common/Footer';
-import Navbar from '../components/common/Navbar';
 
 const Container = styled.section`
 	height: 100vh;
@@ -60,7 +59,6 @@ const ProductList = ({ darkMode, setDarkMode }) => {
 
 	return (
 		<Container>
-			<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 			{/*     <FilterContainer> */}
 			{/* <Filters> */}
 			{/*   <Filter */}

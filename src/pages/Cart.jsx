@@ -10,7 +10,6 @@ import { mobile, pc } from '../responsive';
 import ButtonElement from '../components/ui/Button';
 // pages
 import ProductsCarts from './ProductsCart';
-import Navbar from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import Summary from '../components/Summary';
 import TransferPayment from '../components/form/Transferencia';
@@ -78,7 +77,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
 
 	return (
 		<Container role="contentinfo">
-			<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 			<Wrapper role="complementary">
 				{/*  <Title role="main" onClick={username ? () => setLoad(!load) : null}> */}
 				{/* {load ? ( */}
@@ -158,7 +156,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
 					<ProductsCarts cart={cart} />
 				)}
 			</Wrapper>
-			<Footer />
 		</Container>
 	);
 };

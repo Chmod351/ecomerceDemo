@@ -22,7 +22,6 @@ import HomePage from './pages/Admin/Home/Home';
 import NewProduct from './pages/Admin/newProduct/NewProduct';
 import { default as AdminProduct } from './pages/Admin/product/Product';
 import { default as AdminProductList } from './pages/Admin/productList/ProductList';
-import Topbar from './components/admin/topbar/Topbar';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 
@@ -80,22 +79,21 @@ const App = () => {
 						</Route>
 
 						<Route path="/auth">
-							{user ? <Redirect to="/" /> : <Register />}
+							{user?.currentUser ? <Redirect to="/" /> : <Register />}
 						</Route>
-						{user.type === 'admin' ? (
+						{user?.type === 'admin' ? (
 							<>
-								<Topbar />
 								<div className="container">
-									<Route path="/admin">
+									<Route path="/admin/dashboard">
 										<HomePage />
 									</Route>
-									<Route path="/products">
+									<Route path="/admin/products">
 										<AdminProductList />
 									</Route>
-									<Route path="/product/:productId">
+									<Route path="/admin/product/:productId">
 										<AdminProduct />
 									</Route>
-									<Route path="/newproduct">
+									<Route path="/admin/newproduct">
 										<NewProduct />
 									</Route>
 								</div>

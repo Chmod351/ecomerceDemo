@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { mobile, pc } from '../../responsive';
-import { e } from '../../utils/data/navbarData';
+import { adminRoutes, e } from '../../utils/data/navbarData';
 import { logoutUser } from '../../utils/logic/users.js';
 // ui
 // import Prompt from './ui/Prompt';
@@ -262,14 +262,32 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 										);
 									})}
 									{user?.currentUser?.username && (
-										<MenuItem
-											role="link"
-											title="Log Out"
-											tabIndex="0"
-											onClick={() => setShowPrompt(!showPrompt)}
-										>
-											{user.currentUser.username}
-										</MenuItem>
+										<>
+											{adminRoutes.map((i) => {
+												const { id, route, name } = i;
+												return (
+													<Link
+														role="link"
+														aria-label={`go to ${name}`}
+														title={name}
+														key={id}
+														to={route}
+														style={{ textDecoration: 'none' }}
+														tabIndex="0"
+													>
+														<MenuItem>{name}</MenuItem>
+													</Link>
+												);
+											})}
+											<MenuItem
+												role="link"
+												title="Log Out"
+												tabIndex="0"
+												onClick={() => setShowPrompt(!showPrompt)}
+											>
+												{user.currentUser.username}
+											</MenuItem>
+										</>
 									)}
 
 									{/*       ( */}

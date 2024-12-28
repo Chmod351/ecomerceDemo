@@ -18,7 +18,13 @@ import Product from './pages/Product';
 import Register from './pages/Register';
 import ProductList from './pages/ProductList';
 import PrivacyPage from './pages/Privacy';
-import Admin from './pages/Admin';
+import HomePage from './pages/Admin/Home/Home';
+import NewProduct from './pages/Admin/newProduct/NewProduct';
+import { default as AdminProduct } from './pages/Admin/product/Product';
+import { default as AdminProductList } from './pages/Admin/productList/ProductList';
+import Topbar from './components/admin/topbar/Topbar';
+import Navbar from './components/common/Navbar';
+import Footer from './components/common/Footer';
 
 const REACT_APP_GOOGLEID = process.env.REACT_APP_GOOGLEID;
 
@@ -47,6 +53,7 @@ const App = () => {
 			{' '}
 			<ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
 				<Router>
+					<Navbar darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
 					<Switch>
 						<Route exact path="/">
 							<Home darkMode={darkMode} setDarkMode={handleDarkModeToggle} />
@@ -71,18 +78,33 @@ const App = () => {
 							<PrivacyPage />{' '}
 							{/*Página de éxito después de realizar la orden */}
 						</Route>
+
 						<Route path="/auth">
-							{user?.currentUser?.username ? <Redirect to="/" /> : <Register />}
-							{/* Redirige a la página de inicio si el usuario ya ha iniciado sesión, de lo contrario, muestra el formulario de registro */}
+							{user ? <Redirect to="/" /> : <Register />}
 						</Route>
-						<Route path="/admin">
-							{user?.currentUser?.type !== 'admin' ? (
-								<Redirect to="/" />
-							) : (
-								<Admin />
-							)}
-						</Route>
+						{user.type === 'admin' ? (
+							<>
+								<Topbar />
+								<div className="container">
+									<Route path="/admin">
+										<HomePage />
+									</Route>
+									<Route path="/products">
+										<AdminProductList />
+									</Route>
+									<Route path="/product/:productId">
+										<AdminProduct />
+									</Route>
+									<Route path="/newproduct">
+										<NewProduct />
+									</Route>
+								</div>
+							</>
+						) : (
+							<Redirect to="/" />
+						)}
 					</Switch>
+					<Footer />
 				</Router>
 			</ThemeProvider>
 		</GoogleOAuthProvider>

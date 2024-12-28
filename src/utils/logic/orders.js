@@ -48,6 +48,7 @@ export const createOrderMp = async ({
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				credentials: 'includes',
 			},
 			body: JSON.stringify(requestBody),
 		});
@@ -99,6 +100,7 @@ export const createOrder = async (total, userData, cart) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				credentials: 'includes',
 			},
 			body: JSON.stringify(requestBody),
 		});

@@ -158,8 +158,6 @@ const Product = ({ darkMode, setDarkMode }) => {
 		[product?.stock]
 	);
 
-	console.log(isCombinationAvailable(color, size));
-
 	useEffect(() => {
 		if (size && color) {
 			const isAvaliable = isCombinationAvailable(color, size);

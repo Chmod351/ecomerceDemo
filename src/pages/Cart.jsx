@@ -10,9 +10,6 @@ import { mobile, pc } from '../responsive';
 import ButtonElement from '../components/ui/Button';
 // pages
 import ProductsCarts from './ProductsCart';
-import Footer from '../components/common/Footer';
-import Summary from '../components/Summary';
-import TransferPayment from '../components/form/Transferencia';
 import FormCheckout from '../components/form/FormCheckout';
 
 const Container = styled.section`
@@ -30,13 +27,6 @@ const Wrapper = styled.div`
 	margin: auto;
 	${mobile({ padding: '1rem 0rem', marginTop: '5rem' })}
 	${pc({ padding: '1rem 0rem' })}
-`;
-
-const Title = styled.h1`
-	font-weight: 300;
-	text-align: center;
-	cursor: pointer;
-	${pc({ marginLeft: '2.5rem' })}
 `;
 
 const Top = styled.aside`
@@ -62,13 +52,11 @@ const TopText = styled.span`
 	${mobile({ margin: '0' })}
 `;
 
+const HiddenOnPc = styled.div`
+	${pc({ display: 'none' })}
+`;
 const Cart = ({ darkMode, setDarkMode }) => {
 	const cart = useSelector((state) => state.cart);
-	const userData = useSelector((state) => state.orders);
-	// const username = useSelector((state) => state.user.username);
-	{
-		/* const userId = useSelector((state) => state.user.currentUser?._id); */
-	}
 	const [paymentForm, setPaymentForm] = useState(false);
 
 	useEffect(() => {
@@ -78,17 +66,6 @@ const Cart = ({ darkMode, setDarkMode }) => {
 	return (
 		<Container role="contentinfo">
 			<Wrapper role="complementary">
-				{/*  <Title role="main" onClick={username ? () => setLoad(!load) : null}> */}
-				{/* {load ? ( */}
-				{/*   <> */}
-				{/*     <ShoppingBasket /> Go to Orders */}
-				{/*   </> */}
-				{/* ) : ( */}
-				{/*   <> */}
-				{/*     <LocalMall /> Go to Bag */}
-				{/*   </> */}
-				{/* )} */}
-				{/* </Title> */}
 				<Top>
 					<Link
 						to="/"
@@ -119,37 +96,18 @@ const Cart = ({ darkMode, setDarkMode }) => {
 						>
 							<Shop /> Delivery Form
 						</TopText>
-						{/*      {username ?? ( */}
-						{/* <TopText */}
-						{/*   tabIndex="0" */}
-						{/*   onClick={username ? () => setLoad(!load) : null} */}
-						{/*   role="status" */}
-						{/*   aria-label={`you have ${cart.quantity} active orders`} */}
-						{/*   title={`yours active orders`} */}
-						{/* > */}
-						{/*   <ShoppingBasket /> */}
-						{/*   Orders */}
-						{/* </TopText> */}
-						{/* ) } */}
 					</TopTexts>
-					{/* si el usuario esta logeado muestra le permite comprar, sino tiene que logearse */}
-					{/*         {username ? ( */}
-					{/*   <ButtonElement text={'CHECKOUT NOW'} /> */}
-					{/* ) : ( */}
-					{/*   <Link to="/auth" style={{ textDecoration: 'none' }}> */}
-					{/*     <ButtonElement text={'CHECKOUT NOW'} /> */}
-					{/*    onRequestClose={() => setIsModalOpen(false)} */}
-					{/*   </Link> */}
-					{/* )} */}
+					<HiddenOnPc>
+						<ButtonElement
+							text={paymentForm ? 'BACK TO CART' : 'PAYMENT FORM'}
+							onClick={
+								paymentForm
+									? () => setPaymentForm(false)
+									: () => setPaymentForm(true)
+							}
+						/>
+					</HiddenOnPc>
 				</Top>
-				{/* PRODUCT CARTS COMPONENT */}
-
-				{/* {load ? ( */}
-				{/*   <ProductsCarts username={username} cart={cart} /> */}
-				{/* ) : ( */}
-				{/*   <Orders userId={userId} /> */}
-				{/* )} */}
-
 				{paymentForm ? (
 					<FormCheckout cart={cart} />
 				) : (

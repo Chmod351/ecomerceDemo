@@ -1,59 +1,39 @@
 import './featuredInfo.css';
 import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
-import { useEffect, useState } from 'react';
-import { publicRequest } from '../../../requestMethods';
 
-export default function FeaturedInfo() {
-	const [income, setIncome] = useState([]);
-	const [perc, setPerc] = useState(0);
-
-	useEffect(() => {
-		const getIncome = async () => {
-			try {
-				const res = await publicRequest.get('orders/monthly-sales');
-				setIncome(res.data);
-				setPerc((res.data[1].total * 100) / res.data[0].total - 100);
-			} catch {}
-		};
-		getIncome();
-	}, []);
-
+export default function FeaturedInfo({ pendingOrders, deliveredOrders }) {
+	console.log(deliveredOrders);
 	return (
 		<div className="featured">
 			<div className="featuredItem">
 				<span className="featuredTitle">Revanue</span>
 				<div className="featuredMoneyContainer">
-					<span className="featuredMoney">${income[1]?.total}</span>
-					<span className="featuredMoneyRate">
-						%{Math.floor(perc)}{' '}
-						{perc < 0 ? (
-							<ArrowDownward className="featuredIcon negative" />
-						) : (
-							<ArrowUpward className="featuredIcon" />
-						)}
+					<span className="featuredMoney">
+						${deliveredOrders.totalOrders * deliveredOrders.totalIncome}
 					</span>
+					<span className="featuredMoneyRate"></span>
 				</div>
-				<span className="featuredSub">Compared to last month</span>
+				<span className="featuredSub">This month</span>
 			</div>
 			<div className="featuredItem">
-				<span className="featuredTitle">Sales</span>
+				<span className="featuredTitle">Pending Orders</span>
 				<div className="featuredMoneyContainer">
-					<span className="featuredMoney">$4,415</span>
+					<span className="featuredMoney">{pendingOrders.totalOrders}</span>
 					<span className="featuredMoneyRate">
-						-1.4 <ArrowDownward className="featuredIcon negative" />
+						<ArrowUpward className="featuredIcon" />
 					</span>
 				</div>
-				<span className="featuredSub">Compared to last month</span>
+				<span className="featuredSub">This month</span>
 			</div>
 			<div className="featuredItem">
-				<span className="featuredTitle">Cost</span>
+				<span className="featuredTitle">Delivered</span>
 				<div className="featuredMoneyContainer">
-					<span className="featuredMoney">$2,225</span>
+					<span className="featuredMoney">{deliveredOrders.totalOrders}</span>
 					<span className="featuredMoneyRate">
-						+2.4 <ArrowUpward className="featuredIcon" />
+						<ArrowUpward className="featuredIcon" />
 					</span>
 				</div>
-				<span className="featuredSub">Compared to last month</span>
+				<span className="featuredSub">This month</span>{' '}
 			</div>
 		</div>
 	);

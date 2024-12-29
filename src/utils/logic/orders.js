@@ -46,6 +46,20 @@ export const createOrderMp = async ({
 		};
 
 		const response = await publicRequest.post('/orders/create', requestBody);
+		/*  const response = await fetch( */
+		/*   'http://localhost:30000/api/v1/orders/create', */
+		/*   { */
+		/*     method: 'POST', */
+		/*     headers: { */
+		/*       'Content-Type': 'application/json', */
+		/*     }, */
+		/*     body: JSON.stringify(requestBody), */
+		/*   } */
+		/* ); */
+		/* if (!response.ok) { */
+		/*   throw new Error('Error al crear la orden'); */
+		/* } */
+		/* await response.json(); */
 		console.log(response);
 		localStorage.clear();
 		handleSuccess('createdOrder');

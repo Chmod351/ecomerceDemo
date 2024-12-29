@@ -1,5 +1,5 @@
 import './featuredInfo.css';
-import { ArrowDownward, ArrowUpward } from '@material-ui/icons';
+import { ArrowUpward } from '@material-ui/icons';
 
 export default function FeaturedInfo({ pendingOrders, deliveredOrders }) {
 	console.log(deliveredOrders);

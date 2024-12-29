@@ -186,7 +186,6 @@ const Product = ({ darkMode, setDarkMode }) => {
 	const handleClick = () => {
 		addToReduxCart(dispatch, setQuantity, product, quantity, color, size);
 	};
-	console.log(color, size);
 	return (
 		<Container role="contentinfo">
 			{product ? (

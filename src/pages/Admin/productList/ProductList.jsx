@@ -1,67 +1,112 @@
 import './productList.css';
-import { DataGrid } from '@material-ui/data-grid';
-import { DeleteOutline } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../../utils/logic/products';
+import Loading from '../../../components/common/Loading';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
+const Table = styled.table`
+	width: 100%;
+	height: 100%;
+	background-color: ${({ theme }) => theme.bg};
+`;
+const Container = styled.section`
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	background-color: ${({ theme }) => theme.bgLighter};
+`;
+
+const TableContainer = styled.div`
+	max-width: 1200px;
+	width: 100%;
+	height: 100%;
+	justify-content: end;
+	margin: auto;
+	background-color: ${({ theme }) => theme.bg};
+`;
+
+const Td = styled.td`
+	text-align: center;
+	color: ${({ theme }) => theme.text};
+	border: 0.5px solid lightgray;
+`;
+
+const Tr = styled.tr``;
+const Th = styled.th`
+	text-align: center;
+	color: ${({ theme }) => theme.text};
+	border: 0.5px solid lightgray;
+`;
 export default function ProductList() {
-	const dispatch = useDispatch();
-	const products = useSelector((state) => state.product.products);
+	const [products, setProducts] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
-		getAllProducts(dispatch);
-	}, [dispatch]);
+		const getProducts = async () => {
+			setIsLoading(true);
+			try {
+				const res = await getAllProducts(1, 1000);
+				// Transform data to match DataGrid's requirements
+				const transformedProducts = res.data.data.map((product) => ({
+					id: product._id,
+					name: product.name_es,
+					price: product.price_es,
+					inStock: product.stock.reduce(
+						(acc, stockItem) => acc + stockItem.quantity,
+						0
+					),
+					colors: product.stock.map((stockItem) => stockItem.color),
+					sizes: product.stock.map((stockItem) => stockItem.size),
+					img: product.image_url[0] || 'logo.svg', // Default image
+				}));
+				setProducts(transformedProducts);
+			} catch (e) {
+				console.error(e);
+			} finally {
+				setIsLoading(false);
+			}
+		};
 
-	const columns = [
-		{ field: '_id', headerName: 'ID', width: 220 },
-		{
-			field: 'product',
-			headerName: 'Product',
-			width: 200,
-			renderCell: (params) => {
-				return (
-					<div className="productListItem">
-						<img className="productListImg" src={params.row.img} alt="" />
-						{params.row.title}
-					</div>
-				);
-			},
-		},
-		{ field: 'inStock', headerName: 'Stock', width: 200 },
-		{
-			field: 'price',
-			headerName: 'Price',
-			width: 160,
-		},
-		{
-			field: 'action',
-			headerName: 'Action',
-			width: 150,
-			renderCell: (params) => {
-				return (
-					<>
-						<Link to={'/product/' + params.row._id}>
-							<button className="productListEdit">Edit</button>
-						</Link>
-						<DeleteOutline className="productListDelete" />
-					</>
-				);
-			},
-		},
-	];
+		getProducts();
+	}, []);
+
+	if (isLoading) {
+		return <Loading />;
+	}
+	console.log(products);
 
 	return (
-		<div className="productList">
-			<DataGrid
-				rows={products}
-				disableSelectionOnClick
-				columns={columns}
-				getRowId={(row) => row._id}
-				pageSize={8}
-				checkboxSelection
-			/>
-		</div>
+		<Container className="productList">
+			<TableContainer>
+				<Table>
+					<thead>
+						<tr>
+							<Th>ID</Th>
+							<Th>Name</Th>
+							<Th>Price</Th>
+							<Th>Total Stock</Th>
+							<Th>Colors</Th>
+							<Th>Sizes</Th>
+						</tr>
+					</thead>
+					<tbody>
+						{products.map((product) => (
+							<Tr key={product.id}>
+								<Td>
+									<Link to={`/admin/product/${product.id}`}>{product.id}</Link>
+								</Td>
+								<Td>{product.name}</Td>
+								<Td>${product.price}</Td>
+								<Td> {product.inStock}</Td>
+								<Td>{product.colors.join(', ')}</Td>
+								<Td>{product.sizes.join(', ')}</Td>
+							</Tr>
+						))}
+					</tbody>
+				</Table>
+			</TableContainer>
+		</Container>
 	);
 }

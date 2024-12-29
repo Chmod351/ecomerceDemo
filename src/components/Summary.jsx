@@ -125,18 +125,7 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 						${precios[userData.deliveryMode]}
 					</SummaryItemPrice>
 				</SummaryItem>
-				{/* <SummaryItem> */}
-				{/* <SummaryItemText role="complementary"> */}
-				{/*   Shipping Discount */}
-				{/* </SummaryItemText> */}
-				{/* <SummaryItemPrice */}
-				{/*   role="contentinfo" */}
-				{/*   title="Shipping Discount $35.90" */}
-				{/*   aria-label={`you bill will be $ ${cart.total}`} */}
-				{/* > */}
-				{/*   $ -35.90 */}
-				{/* </SummaryItemPrice> */}
-				{/* </SummaryItem> */}
+
 				<SummaryItem type="total">
 					<SummaryItemText role="complementary">Total</SummaryItemText>
 					<SummaryItemPrice
@@ -169,7 +158,11 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 				/>
 			)}
 			{mercadopago && (
-				<MercadoPago total={total} setMercadopago={setMercadopago} />
+				<MercadoPago
+					total={total}
+					setMercadopago={setMercadopago}
+					userData={userData}
+				/>
 			)}
 			{/*  {username ? ( */}
 			{/*   <StripeCheckout */}

@@ -45,8 +45,6 @@ const App = () => {
 		setDarkModePreference(newDarkMode);
 	};
 
-	console.log(user?.currentUser?.username, user?.currentUser?.username);
-
 	return (
 		<GoogleOAuthProvider clientId={REACT_APP_GOOGLEID}>
 			{' '}

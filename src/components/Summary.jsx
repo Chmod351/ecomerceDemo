@@ -13,6 +13,7 @@ import TransferPayment from './form/Transferencia';
 const SummaryContainer = styled.aside`
 	flex: 1;
 	border: 0.5px solid lightgray;
+	border-radius: 0.625rem;
 	padding: 1.25rem;
 	height: auto;
 	${mobile({ height: 'auto', padding: '1rem', margin: '0 1rem' })}
@@ -50,7 +51,6 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 	};
 	const total = cart.total + precios[userData.deliveryMode];
 
-	console.log({ cart, userData, total });
 	return (
 		<SummaryContainer role="table">
 			<>

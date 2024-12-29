@@ -10,6 +10,7 @@ import Button from '../../../components/ui/Button';
 import InputField from '../../../components/form/Input';
 import { productEditionSchema } from '../../../utils/schema';
 import { publicRequest } from '../../../requestMethods';
+import { handleError, handleSuccess } from '../../../utils/toast';
 const sizeOptions = [
 	{
 		value: 'none',
@@ -83,13 +84,7 @@ const dataLeft = [
 		required: true,
 		placeholder: 'Temporada: Invierno, Verano, Otono, Primavera etc',
 	},
-	{
-		label: 'Descripcion en ingles (minimo 100 caracteres,maximo 500)',
-		name: 'description_en',
-		required: true,
-		type: 'text',
-		placeholder: 'Descripcion en ingles',
-	},
+
 	{
 		label: 'Descripcion en español (minimo 100 caracteres,maximo 500)',
 		name: 'description_es',
@@ -97,13 +92,7 @@ const dataLeft = [
 		type: 'text',
 		placeholder: 'Description en español',
 	},
-	{
-		label: 'Nombre en ingles,(minimo 10 caracteres,maximo 50)',
-		name: 'name_en',
-		required: true,
-		type: 'text',
-		placeholder: 'Nombre en  INGLES',
-	},
+
 	{
 		label: 'Nombre en Español,(minimo 10 caracteres,maximo 50)',
 		name: 'name_es',
@@ -111,13 +100,7 @@ const dataLeft = [
 		type: 'text',
 		placeholder: 'Nombre',
 	},
-	{
-		label: 'Precio en DOLARES',
-		name: 'price_en',
-		required: true,
-		type: 'number',
-		placeholder: 'Precio sin $',
-	},
+
 	{
 		label: 'Precio en pesos',
 		name: 'price_es',
@@ -170,6 +153,295 @@ const Container = styled.div`
 	${mobile({ margin: 'auto' })}
 `;
 
+const Row = styled.div`
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 1rem;
+`;
+
+const Form = styled.form`
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+`;
+
+const InputContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+`;
+
+const EditProductInfo = ({ product }) => {
+	return (
+		<div className="productTop">
+			<div className="productTopRight">
+				<div className="productInfoTop">
+					<img src={product?.image_url[0]} alt="" className="productInfoImg" />
+					<span className="productName">{product?.name_es}</span>
+				</div>
+				<div className="productInfoBottom">
+					<div className="productInfoItem">
+						<span className="productInfoKey">id:</span>
+						<span className="productInfoValue">{product?._id}</span>
+					</div>
+					<div className="productInfoItem">
+						<span className="productInfoKey">Seasson:</span>
+						<span className="productInfoValue">{product?.seasson}</span>
+					</div>
+					<div className="productInfoItem">
+						<span className="productInfoKey">Category:</span>
+						<span className="productInfoValue">{product?.category}</span>
+					</div>
+					<div className="productInfoItem">
+						<span className="productInfoKey">in stock:</span>
+						<span className="productInfoValue">
+							{product?.stock.reduce(
+								(acc, stockItem) => acc + stockItem.quantity,
+								0
+							)}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+const ProductStock = ({
+	product,
+	addMoreClothes,
+	setAddMoreClothes,
+	errors,
+	register,
+}) => {
+	return (
+		<>
+			{addMoreClothes <= product?.stock.length &&
+				product?.stock.map((p, index) => (
+					<div key={index} style={{ gap: '1rem', margin: '1rem 0' }}>
+						<InputField
+							label="Proveedor"
+							name={`stock.${index}.provider`}
+							register={register}
+							errors={errors}
+							defaultValue={p.provider}
+							required={false}
+							placeholder="Nombre del Proveedor"
+						/>
+
+						<label
+							style={{
+								display: 'flex',
+								gap: '1rem',
+								flexDirection: 'column',
+								margin: '1rem 0',
+							}}
+						>
+							Talla
+							<select
+								onChange={(e) =>
+									setValue(`stock.${index}.size`, e.target.value)
+								}
+								{...register(`stock.${index}.size`)}
+							>
+								{sizeOptions.map((option) => (
+									<option key={option.value} value={option.value}>
+										{' '}
+										{option.label}{' '}
+									</option>
+								))}
+							</select>
+						</label>
+						<InputField
+							label="Stock"
+							name={`stock.${index}.quantity`}
+							type="number"
+							register={register}
+							defaultValue={p.quantity}
+							errors={errors}
+							required={false}
+							placeholder="stock *"
+						/>
+						<label
+							style={{
+								display: 'flex',
+								gap: '1rem',
+								flexDirection: 'column',
+								margin: '1rem 0',
+							}}
+						>
+							Color
+							<input
+								defaultValue={p.color}
+								type="color"
+								className="w-full"
+								{...register(`stock.${index}.color`, {
+									required: true,
+								})}
+								required={false}
+							/>
+						</label>
+						<Row>
+							<Button
+								disabled={addMoreClothes > product?.stock.length}
+								type="button"
+								text="Anadir "
+								onClick={() => setAddMoreClothes(addMoreClothes + 1)}
+							/>
+							<Button
+								type="button"
+								onClick={() =>
+									setAddMoreClothes(addMoreClothes > 1 ? addMoreClothes - 1 : 1)
+								}
+								text="Eliminar "
+								disabled={addMoreClothes !== index + 1 || addMoreClothes === 1}
+							/>
+						</Row>
+					</div>
+				))}
+		</>
+	);
+};
+
+const ProductStockManager = ({
+	product,
+	addMoreClothes,
+	setAddMoreClothes,
+	register,
+	errors,
+}) => {
+	return (
+		<>
+			{addMoreClothes > product?.stock.length &&
+				Array.from({ length: addMoreClothes }).map((_, index) => (
+					<div key={Math.random()}>
+						<InputField
+							label="Proveedor"
+							name={`stock.${index}.provider`}
+							register={register}
+							errors={errors}
+							required={false}
+							placeholder="Nombre del Proveedor"
+						/>
+						<label
+							style={{
+								display: 'flex',
+								gap: '1rem',
+								flexDirection: 'column',
+								margin: '1rem 0',
+							}}
+						>
+							Talla
+							<select
+								onChange={(e) =>
+									setValue(`stock.${index}.size`, e.target.value)
+								}
+								{...register(`stock.${index}.size`)}
+							>
+								{sizeOptions.map((option) => (
+									<option key={option.value} value={option.value}>
+										{' '}
+										{option.label}{' '}
+									</option>
+								))}
+							</select>
+						</label>
+						<InputField
+							label="Stock"
+							name={`stock.${index}.quantity`}
+							type="number"
+							register={register}
+							errors={errors}
+							required={false}
+							placeholder="stock *"
+						/>
+						<label
+							style={{
+								display: 'flex',
+								gap: '1rem',
+								flexDirection: 'column',
+								margin: '1rem 0',
+							}}
+						>
+							Color
+							<input
+								type="color"
+								className="w-full"
+								{...register(`stock.${index}.color`, {
+									required: true,
+								})}
+								required={false}
+							/>
+						</label>{' '}
+						<Row>
+							<Button
+								disabled={addMoreClothes !== index + 1}
+								type="button"
+								text="Anadir "
+								onClick={() => setAddMoreClothes(addMoreClothes + 1)}
+							/>
+							<Button
+								type="button"
+								onClick={() =>
+									setAddMoreClothes(addMoreClothes > 1 ? addMoreClothes - 1 : 1)
+								}
+								text="Eliminar "
+								disabled={addMoreClothes !== index + 1 || addMoreClothes === 1}
+							/>
+						</Row>
+					</div>
+				))}
+		</>
+	);
+};
+
+function mergeData(product, data) {
+	const merged = { ...product };
+	Object.keys(data).forEach((key) => {
+		if (data[key]) {
+			merged[key] = data[key];
+		}
+	});
+	return merged;
+}
+
+function formatData(data) {
+	return {
+		...data,
+		image_url: [data.image0, data.image1, data.image2, data.image3].filter(
+			Boolean
+		),
+		collection: data.collection?.toLowerCase(),
+		stock:
+			data.stock?.map((item) => ({
+				...item,
+				quantity: Number(item.quantity),
+				size: Array.isArray(item.size) ? item.size : [item.size],
+				color: Array.isArray(item.color) ? item.color : [item.color],
+			})) || [],
+	};
+}
+function handleStockUpdate(existingStock, newStock) {
+	const updatedStock = [...existingStock];
+
+	newStock.forEach((newItem) => {
+		const index = updatedStock.findIndex(
+			(item) =>
+				item.provider === newItem.provider &&
+				JSON.stringify(item.size) === JSON.stringify(newItem.size) &&
+				JSON.stringify(item.color) === JSON.stringify(newItem.color)
+		);
+
+		if (index >= 0) {
+			updatedStock[index].quantity += Number(newItem.quantity);
+		} else {
+			updatedStock.push(newItem);
+		}
+	});
+
+	return updatedStock;
+}
 export default function Product() {
 	const location = useLocation();
 	const productId = location.pathname.split('/')[3];
@@ -178,49 +450,31 @@ export default function Product() {
 		resolver: zodResolver(productEditionSchema),
 	});
 
-	const [formError, setFormError] = useState('');
-	const [formSuccess, setFormSuccess] = useState('');
 	const [addMoreClothes, setAddMoreClothes] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const { errors } = formState;
 
-	const handleSubmitFormI = async (data) => {
-		setFormError('');
+	async function handleSubmitFormI(data) {
 		setIsLoading(true);
-		const collectionFormatted = data?.collection?.toLowerCase();
-
-		const formatedData = {
-			...data,
-			collection: collectionFormatted,
-		};
 		try {
-			console.log(data);
-			const res = await publicRequest.put(`/products/update/${productId}`, {
-				...formatedData,
-				image_url: [data.image0, data.image1, data.image2, data.image3],
-			});
-			if (res.ok) {
-				console.log('enviado');
-				setFormError('');
-				setFormSuccess('Prenda  cargada exitosamente');
-				reset();
-			} else {
-				// i want to scroll up
-				console.log('error');
-				setFormError(
-					'Error al crear el producto, revisa los campos atentamente'
-				);
-			}
+			const formattedData = formatData(data);
+			const updatedProduct = mergeData(product, formattedData);
+			updatedProduct.stock = handleStockUpdate(product.stock, data.stock);
+			console.log(updatedProduct);
+			const response = await publicRequest.put(
+				`/products/update/${productId}`,
+				updatedProduct
+			);
+			console.log(response.data);
+			handleSuccess('Producto actualizado con éxito');
+		} catch (error) {
+			console.error(error);
+			handleError(error);
+		} finally {
 			setIsLoading(false);
-		} catch (e) {
-			console.log(e);
-			setIsLoading(false);
-			// i want to scroll up
-
-			setFormError(e.message);
 		}
-	};
+	}
 
 	useEffect(() => {
 		// screen goes up when this components loads
@@ -236,273 +490,103 @@ export default function Product() {
 	return (
 		<section className="product">
 			<Container>
-				<div className="productTop">
-					<div className="productTopRight">
-						<div className="productInfoTop">
-							<img
-								src={product?.image_url[0]}
-								alt=""
-								className="productInfoImg"
-							/>
-							<span className="productName">{product?.name_es}</span>
-						</div>
-						<div className="productInfoBottom">
-							<div className="productInfoItem">
-								<span className="productInfoKey">id:</span>
-								<span className="productInfoValue">{product?._id}</span>
-							</div>
-							<div className="productInfoItem">
-								<span className="productInfoKey">Seasson:</span>
-								<span className="productInfoValue">{product?.seasson}</span>
-							</div>
-							<div className="productInfoItem">
-								<span className="productInfoKey">Category:</span>
-								<span className="productInfoValue">{product?.category}</span>
-							</div>
-							<div className="productInfoItem">
-								<span className="productInfoKey">in stock:</span>
-								<span className="productInfoValue">
-									{product?.stock.reduce(
-										(acc, stockItem) => acc + stockItem.quantity,
-										0
-									)}
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
+				<EditProductInfo product={product} />
 				<div className="productBottom">
-					<section className="container">
-						<h1 className="text-3xl font-bold font-helvetica mx-auto text-center p-8">
-							{formError ? formError : 'Formulario de EDICION de productos'}
-						</h1>
-						<form
-							className="p-4 gap-4 bg-primary rounded-lg font-helvetica"
-							onSubmit={handleSubmit((data) => {
-								handleSubmitFormI(data);
-							})}
-						>
-							<div className="md:grid md:grid-cols-2 gap-4 p-4">
-								{dataLeft.map((item) => {
-									if (item.name === 'category') {
-										return (
-											<select
-												name="category"
-												onChange={(e) => setValue('category', e.target.value)}
-											>
-												{item.options.map((option) => (
-													<option key={option.value} value={option.value}>
-														{option.label}
-													</option>
-												))}
-											</select>
-										);
-									} else if (
-										item.name === 'image0' ||
-										item.name === 'image1' ||
-										item.name === 'image2' ||
-										item.name === 'image3'
-									) {
-										return (
-											<InputField
-												key={item.name}
-												label={item.label}
-												name={item.name}
-												type={item.type}
-												register={register}
-												errors={errors}
-												required={false}
-												placeholder={item.placeholder ?? ''}
-											/>
-										);
-									} else {
-										return (
-											<InputField
-												key={item.name}
-												label={item.label}
-												name={item.name}
-												type={item.type}
-												register={register}
-												errors={errors}
-												required={false}
-												placeholder={item.placeholder ?? ''}
-											/>
-										);
-									}
-								})}
-							</div>
-							{formError && <p className="text-red-500">{formError}</p>}
-							<h1 className="text-3xl font-bold font-helvetica">
-								Manejo de Stock
-							</h1>
-							<div className="md:grid md:grid-cols-4 gap-4 p-4">
-								{product?.stock.map((p, index) => (
-									<div key={index} className="flex flex-col gap-4">
-										<InputField
-											label="Proveedor"
-											name={`stock.${index}.provider`}
-											register={register}
-											errors={errors}
-											required={false}
-											placeholder="Nombre del Proveedor"
-										/>
-
-										<InputField
-											label="Coste del Proveedor"
-											name={`stock.${index}.provider_cost`}
-											register={register}
-											type="number"
-											errors={errors}
-											required={false}
-											placeholder="Coste del Proveedor sin $ *"
-										/>
-										<label>
-											Talla
-											<select
-												onChange={(e) =>
-													setValue(`stock.${index}.size`, e.target.value)
-												}
-												{...register(`stock.${index}.size`)}
-											>
-												<option value={p.size[0]}>{p.size[0]}</option>
-											</select>
-										</label>
-										<InputField
-											label="Stock"
-											name={`stock.${index}.quantity`}
-											type="number"
-											register={register}
-											errors={errors}
-											required={false}
-											placeholder="stock *"
-										/>
-										<label className="font-helvetica text-sm font-bold flex flex-col gap-4 my-4">
-											Color
-											<input
-												type="color"
-												className="w-full"
-												{...register(`stock.${index}.color`, {
-													required: true,
-												})}
-												required={false}
-											/>
-										</label>
-										<div className="flex flex-row gap-4">
-											<Button
-												disabled={false}
-												type="button"
-												text="Anadir items"
-												onClick={() => setAddMoreClothes(addMoreClothes + 1)}
-											/>
-											<Button
-												type="button"
-												onClick={() =>
-													setAddMoreClothes(
-														addMoreClothes > 1 ? addMoreClothes - 1 : 1
-													)
-												}
-												text="Eliminar "
-												disabled={
-													addMoreClothes !== index + 1 || addMoreClothes === 1
-												}
-											/>
-										</div>
-									</div>
-								))}
-								{addMoreClothes > product?.stock.length &&
-									Array.from({ length: addMoreClothes }).map((_, index) => (
-										<div key={Math.random()}>
-											<InputField
-												label="Proveedor"
-												name={`stock.${index}.provider`}
-												register={register}
-												errors={errors}
-												required={false}
-												placeholder="Nombre del Proveedor"
-											/>
-
-											<InputField
-												label="Coste del Proveedor"
-												name={`stock.${index}.provider_cost`}
-												register={register}
-												type="number"
-												errors={errors}
-												required={false}
-												placeholder="Coste del Proveedor sin $ *"
-											/>
-
-											<label>
-												Talla
-												<select
-													name={`stock.${index}.size`}
-													onChange={(e) =>
-														setValue(`stock.${index}.size`, e.target.value)
-													}
-													{...register(`stock.${index}.size`)}
+					<h1 className="text-3xl font-bold font-helvetica mx-auto text-center p-8">
+						'Formulario de EDICION de productos'
+					</h1>
+					<Form
+						className="p-4 gap-4 bg-primary rounded-lg font-helvetica"
+						onSubmit={handleSubmit((data) => {
+							handleSubmitFormI(data);
+						})}
+					>
+						<InputContainer className="md:grid md:grid-cols-2 gap-4 p-4">
+							{dataLeft.map((item, index) => {
+								if (item.name === 'category') {
+									return (
+										<select
+											name="category"
+											onChange={(e) => setValue('category', e.target.value)}
+										>
+											{item.options.map((option) => (
+												<option
+													key={option.value}
+													value={option.value}
+													defaultValue={product?.[item.name]}
 												>
-													<option value={product?.stock[0].size[0]}>
-														{product?.stock[0].size[0]}
-													</option>
-												</select>
-											</label>
-
-											<InputField
-												label="Stock"
-												name={`stock.${index}.quantity`}
-												type="number"
-												register={register}
-												errors={errors}
-												required={false}
-												placeholder="stock *"
-											/>
-											<label className="font-helvetica text-sm font-bold flex flex-col gap-4 my-4">
-												Color
-												<input
-													type="color"
-													className="w-full"
-													{...register(`stock.${index}.color`, {
-														required: true,
-													})}
-													required={false}
-												/>
-											</label>
-											<div className="flex flex-row gap-4">
-												<Button
-													disabled={addMoreClothes !== index + 1}
-													type="button"
-													text="Anadir items"
-													onClick={() => setAddMoreClothes(addMoreClothes + 1)}
-												/>
-												<Button
-													type="button"
-													onClick={() =>
-														setAddMoreClothes(
-															addMoreClothes > 1 ? addMoreClothes - 1 : 1
-														)
-													}
-													text="Eliminar "
-													disabled={
-														addMoreClothes !== index + 1 || addMoreClothes === 1
-													}
-												/>
-											</div>
-										</div>
-									))}
-							</div>
-							<Button
-								text={
-									!formState.isValid
-										? 'COMPLETA TODOS LOS CAMPOS'
-										: 'EDITAR PRODUCTO'
+													{option.label}
+												</option>
+											))}
+										</select>
+									);
+								} else if (
+									item.name === 'image0' ||
+									item.name === 'image1' ||
+									item.name === 'image2' ||
+									item.name === 'image3'
+								) {
+									return (
+										<InputField
+											key={item.name}
+											label={item.label}
+											name={item.name}
+											type={item.type}
+											defaultValue={product?.[item.name[index]]}
+											register={register}
+											errors={errors}
+											required={false}
+											placeholder={item.placeholder ?? ''}
+										/>
+									);
+								} else {
+									return (
+										<InputField
+											key={item.name}
+											label={item.label}
+											name={item.name}
+											type={item.type}
+											defaultValue={product?.[item.name]}
+											register={register}
+											errors={errors}
+											required={false}
+											placeholder={item.placeholder ?? ''}
+										/>
+									);
 								}
-								type="submit"
-								disabled={isLoading}
+							})}
+						</InputContainer>
+
+						<h1 className="text-3xl font-bold font-helvetica">
+							Manejo de Stock
+						</h1>
+						<Row>
+							<ProductStock
+								product={product}
+								addMoreClothes={addMoreClothes}
+								errors={errors}
+								setAddMoreClothes={setAddMoreClothes}
+								register={register}
 							/>
-						</form>
-						{formSuccess && (
-							<p className="text-green-500 text-center p-4">{formSuccess}</p>
-						)}
-					</section>
+
+							<ProductStockManager
+								product={product}
+								addMoreClothes={addMoreClothes}
+								errors={errors}
+								setAddMoreClothes={setAddMoreClothes}
+								register={register}
+							/>
+						</Row>
+						<Button
+							text={
+								!formState.isValid
+									? 'COMPLETA TODOS LOS CAMPOS'
+									: 'EDITAR PRODUCTO'
+							}
+							type="submit"
+							disabled={isLoading}
+						/>
+					</Form>
 				</div>
 			</Container>
 		</section>

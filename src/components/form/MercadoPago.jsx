@@ -6,6 +6,7 @@ import Prompt, { ButtonsPack } from '../ui/Prompt';
 import { initMercadoPago } from '@mercadopago/sdk-react';
 import { useSelector } from 'react-redux';
 import { handleError, handleSuccess } from '../../utils/toast';
+import Loading from 'react-loading';
 const initialState = {
 	deliveryMode: 'PickUp',
 	firstName: 'jasd',
@@ -79,6 +80,19 @@ function MercadoPago({ total, setMercadopago }) {
 
 	return (
 		<Prompt id="errorScreenBrick_container">
+			{isLoading && (
+				<div
+					style={{
+						width: '20rem',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						padding: '2rem',
+					}}
+				>
+					<Loading type="spin" color="black" height={100} width={100} />
+				</div>
+			)}
 			{mercadopagoOrdenId && (
 				<div id="statusScreenBrick_container">
 					<div className="flex flex-col justify-center items-center">

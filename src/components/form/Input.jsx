@@ -7,7 +7,7 @@ const Column = styled.div`
 
 const Input = styled.input`
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	border-radius: 5px;
 	padding: 8px;
 	font-size: 16px;
 	width: 90%;

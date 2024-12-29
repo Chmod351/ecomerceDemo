@@ -3,8 +3,6 @@ import { Badge } from '@material-ui/core';
 import {
 	ShoppingCartOutlined,
 	ShoppingCart,
-	Brightness7,
-	Brightness2,
 	MenuRounded,
 } from '@material-ui/icons';
 import styled from 'styled-components';
@@ -19,7 +17,7 @@ import { logoutUser } from '../../utils/logic/users.js';
 // import Prompt from './ui/Prompt';
 import Announcement from './Announcement';
 import SearchBar from '../ui/searchBar';
-import Prompt, { LogOutPrompt } from '../ui/Prompt';
+import { LogOutPrompt } from '../ui/Prompt';
 
 const Container = styled.nav`
 	color: ${({ theme }) => theme.text};
@@ -61,17 +59,6 @@ const Left = styled.div`
 const MenuIconMobile = styled.div`
 	display: none;
 	${mobile({ display: 'flex' })}
-`;
-
-const DarkLabel = styled.label`
-	${mobile({ display: 'none' })}
-`;
-
-const Item = styled.div`
-	font-size: 1rem;
-	margin: 1rem;
-	cursor: pointer;
-	${mobile({ fontSize: '1.4rem', marginLeft: '1rem' })}
 `;
 
 const Right = styled.div`
@@ -167,7 +154,6 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 
 	const [isMenuOpen, setIsMenuOpen] = useState(true);
 	const dispatch = useDispatch();
-	console.log(user);
 	// Maneja el evento de clic en el botón de cierre de sesión
 	const handleClick = () => {
 		logoutUser(dispatch);
@@ -205,38 +191,6 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 								style={{ cursor: 'pointer' }}
 							/>
 						</MenuIconMobile>
-						{/* Etiqueta y botón de cambio de modo oscuro/claro */}
-						{/*       <DarkLabel */}
-						{/*   role="menuitem" */}
-						{/*   title={darkMode ? 'Dark' : 'Light'} */}
-						{/*   aria-label={darkMode ? 'Dark' : 'Light'} */}
-						{/*   onClick={() => setDarkMode(!darkMode)} */}
-						{/*   tabIndex="0" */}
-						{/*   onKeyUp={(e) => { */}
-						{/*     if (e.key === 'Enter') { */}
-						{/*       setDarkMode(!darkMode); */}
-						{/*     } */}
-						{/*   }} */}
-						{/* > */}
-						{/*   {darkMode ? 'Dark' : 'Light'} */}
-						{/* </DarkLabel> */}
-						{/*       <Item */}
-						{/*   role="menuitem" */}
-						{/*   title={darkMode ? 'Dark' : 'Light'} */}
-						{/*   aria-label={darkMode ? 'Dark' : 'Light'} */}
-						{/*   name="theme" */}
-						{/*   value={darkMode} */}
-						{/*   onClick={() => setDarkMode(!darkMode)} */}
-						{/*   tabIndex="0" */}
-						{/*   onKeyUp={(e) => { */}
-						{/*     if (e.key === 'Enter') { */}
-						{/*       setDarkMode(!darkMode); */}
-						{/*     } */}
-						{/*   }} */}
-						{/* > */}
-						{/*   {darkMode ? <Brightness7 /> : <Brightness2 />} */}
-						{/* </Item> */}
-						{/* Barra de búsqueda */}
 						<SearchBar />
 					</Left>
 					<Right role="menu">
@@ -289,19 +243,6 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 											</MenuItem>
 										</>
 									)}
-
-									{/*       ( */}
-									{/* <Link */}
-									{/*   role="link" */}
-									{/*   aria-label="go to auth" */}
-									{/*   to="/auth" */}
-									{/*   style={{ textDecoration: 'none' }} */}
-									{/*   title="Login / Create Account" */}
-									{/*   tabIndex="0" */}
-									{/* > */}
-									{/*   <MenuItem>Login</MenuItem> */}
-									{/* </Link> */}
-									{/* ) */}
 								</>
 							</DropdownMenu>
 						)}

@@ -199,22 +199,26 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 							<DropdownMenu aria-hidden={!isMenuOpen}>
 								{/* USER EXISTS? */}
 								<>
-									{e.map((i) => {
-										const { id, route, name } = i;
-										return (
-											<Link
-												role="link"
-												aria-label={`go to ${name}`}
-												title={name}
-												key={id}
-												to={route}
-												style={{ textDecoration: 'none' }}
-												tabIndex="0"
-											>
-												<MenuItem>{name}</MenuItem>
-											</Link>
-										);
-									})}
+									{!user?.currentUser?.username && (
+										<>
+											{e.map((i) => {
+												const { id, route, name } = i;
+												return (
+													<Link
+														role="link"
+														aria-label={`go to ${name}`}
+														title={name}
+														key={id}
+														to={route}
+														style={{ textDecoration: 'none' }}
+														tabIndex="0"
+													>
+														<MenuItem>{name}</MenuItem>
+													</Link>
+												);
+											})}
+										</>
+									)}
 									{user?.currentUser?.username && (
 										<>
 											{adminRoutes.map((i) => {
@@ -248,26 +252,28 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 						)}
 					</Right>
 					{/* Elemento del carrito */}
-					<Link
-						to="/cart"
-						style={{ textDecoration: 'none' }}
-						tabIndex="0"
-						role="link"
-					>
-						<MenuItemCart>
-							{/* Icono del carrito con número de productos */}
-							<Badge
-								role="figure"
-								aria-label="shopping cart"
-								title={`${quantity} products in cart`}
-								badgeContent={quantity}
-								color="primary"
-								overlap="rectangular"
-							>
-								{quantity > 0 ? <ShoppingCart /> : <ShoppingCartOutlined />}
-							</Badge>
-						</MenuItemCart>
-					</Link>
+					{!user?.currentUser?.username && (
+						<Link
+							to="/cart"
+							style={{ textDecoration: 'none' }}
+							tabIndex="0"
+							role="link"
+						>
+							<MenuItemCart>
+								{/* Icono del carrito con número de productos */}
+								<Badge
+									role="figure"
+									aria-label="shopping cart"
+									title={`${quantity} products in cart`}
+									badgeContent={quantity}
+									color="primary"
+									overlap="rectangular"
+								>
+									{quantity > 0 ? <ShoppingCart /> : <ShoppingCartOutlined />}
+								</Badge>
+							</MenuItemCart>
+						</Link>
+					)}
 				</Wrapper>
 				{showPrompt && (
 					<LogOutPrompt

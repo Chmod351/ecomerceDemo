@@ -338,16 +338,13 @@ export default function Product() {
 			<Container>
 				<EditProductInfo product={product} />
 				<div className="productBottom">
-					<h1 className="text-3xl font-bold font-helvetica mx-auto text-center p-8">
-						'Formulario de EDICION de productos'
-					</h1>
+					<h1>'Formulario de EDICION de productos'</h1>
 					<Form
-						className="p-4 gap-4 bg-primary rounded-lg font-helvetica"
 						onSubmit={handleSubmit((data) => {
 							handleSubmitFormI(data);
 						})}
 					>
-						<InputContainer className="md:grid md:grid-cols-2 gap-4 p-4">
+						<InputContainer>
 							{dataLeft.map((item, index) => {
 								if (item.name === 'category') {
 									return (
@@ -400,9 +397,7 @@ export default function Product() {
 							})}
 						</InputContainer>
 
-						<h1 className="text-3xl font-bold font-helvetica">
-							Manejo de Stock
-						</h1>
+						<h1>Manejo de Stock</h1>
 						<Row>
 							<ProductStock
 								product={product}

@@ -37,24 +37,17 @@ function InputField({
 	}
 
 	return (
-		<Column className="flex flex-col w-full ">
-			<label className="font-helvetica text-sm font-bold">{label}</label>
+		<Column>
+			<label>{label}</label>
 			<Input
-				className={`rounded p-4 mt-1 placeholder:text-gray-400  outline-none ${
-					error ? 'border-red-500' : 'border-gray-300'
-				}`}
 				defaultValue={defaultValue}
 				{...register(name, { required })}
 				placeholder={placeholder}
 				type={type ? type : 'text'}
 			/>
-			{error && (
-				<Error className="text-red-500 text-sm mt-1">{error.message}</Error>
-			)}
+			{error && <Error>{error.message}</Error>}
 			{errors?.stock?.length > 0 && name.startsWith('stock') && (
-				<Error className="text-red-500 text-sm mt-1">
-					la informacion del stock debe estar completa
-				</Error>
+				<Error>la informacion del stock debe estar completa</Error>
 			)}
 		</Column>
 	);

@@ -38,9 +38,7 @@ export default function SelectField({ ...props }) {
 				))}
 			</select>
 			<br />
-			{error && (
-				<span className="text-red-500 text-sm mt-1">{error.message}</span>
-			)}
+			{error && <span>{error.message}</span>}
 			{props.errors?.stock?.length > 0 && props.name.startsWith('stock') && (
 				<span style={{ color: 'red', fontSize: '14px', marginTop: '5px' }}>
 					la informacion del stock debe estar completa

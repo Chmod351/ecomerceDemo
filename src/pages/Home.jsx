@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import Navbar from '../components/common/Navbar';
 import Slider from '../components/Slider';
 import Title from '../components/common/Title';
 import Footer from '../components/common/Footer';
@@ -23,7 +22,6 @@ const Home = ({ darkMode, setDarkMode }) => {
 
 	return (
 		<Container>
-			<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 			{/*  <Slider /> */}
 			{/*     <Title text={'Collections'} /> */}
 			{/*  <Categories /> */}
@@ -31,7 +29,6 @@ const Home = ({ darkMode, setDarkMode }) => {
 			{/*    <SearchBar /> */}
 			<Products />
 			{/*   <Newsletter /> */}
-			<Footer />
 		</Container>
 	);
 };

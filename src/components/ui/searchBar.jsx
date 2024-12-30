@@ -39,6 +39,7 @@ const Input = styled.input`
 	background-color: ${({ theme }) => theme.bgLighter};
 	color: ${({ theme }) => theme.text};
 	border: none;
+	border-radius: 5px;
 	padding: 0.8rem;
 	outline: none;
 	width: 100%;
@@ -52,10 +53,11 @@ const Label = styled.label`
 	padding: 0.6rem;
 	border: 0.1px solid transparent;
 	cursor: pointer;
+	border-radius: 5px;
 	font-weight: bold;
 	color: ${({ theme }) => theme.bg};
 	background-color: ${({ theme }) => theme.hover};
-	${mobile({ padding: '0.1rem' })};
+	${mobile({ padding: '1rem' })};
 	&:hover {
 		background-color: ${({ theme }) => theme.bgLighter};
 		border: 0.1px solid ${({ theme }) => theme.hover};
@@ -77,7 +79,6 @@ const SearchBar = () => {
 		try {
 			const response = await SearchProducts(query);
 
-			console.log(response);
 			const products = response.data.data;
 			if (products.length === 1) {
 				const firstProduct = products[0];
@@ -124,7 +125,7 @@ const SearchBar = () => {
 					}}
 					tabIndex="0"
 				>
-					<Search />
+					Search
 				</Label>
 			</SearchContainer>
 		</Container>

@@ -7,7 +7,7 @@ const Column = styled.div`
 
 const Input = styled.input`
 	border: 1px solid #ccc;
-	border-radius: 4px;
+	border-radius: 5px;
 	padding: 8px;
 	font-size: 16px;
 	width: 90%;
@@ -26,6 +26,7 @@ function InputField({
 	type = 'text',
 	register,
 	required,
+	defaultValue,
 }) {
 	let error;
 	if (errors?.isArray) {
@@ -42,6 +43,7 @@ function InputField({
 				className={`rounded p-4 mt-1 placeholder:text-gray-400  outline-none ${
 					error ? 'border-red-500' : 'border-gray-300'
 				}`}
+				defaultValue={defaultValue}
 				{...register(name, { required })}
 				placeholder={placeholder}
 				type={type ? type : 'text'}

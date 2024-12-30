@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import InputField from './Input';
 import styled from 'styled-components';
 import { mobile, pc } from '../../responsive';
@@ -6,14 +6,22 @@ import Button from '../ui/Button';
 import { useForm } from 'react-hook-form';
 import checkoutFormSchema from '../../utils/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/orderRedux';
 import Summary from '../Summary';
 
 const Container = styled.form`
 	min-height: 100vh;
 	color: ${({ theme }) => theme.text};
-	${mobile({ maxWidth: '100vw', padding: '0' })}
+	${mobile({
+		maxWidth: '100vw',
+		padding: '0',
+		margin: 'auto',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'center',
+	})}
 	${pc({ maxWidth: '100vw', padding: '0' })}
 `;
 
@@ -27,8 +35,7 @@ const Aside = styled.aside`
 	display: flex;
 	justify-content: space-between;
 	${mobile({ flexDirection: 'column', justifyContent: 'center' })}
-	width: 73%;
-	${pc({ padding: '0.2rem 0rem' })}
+	${pc({ padding: '0.2rem 0rem', width: '73%' })}
 `;
 
 const Section = styled.section`
@@ -49,7 +56,6 @@ const precios = {
 	PickUp: 4500,
 };
 function FormCheckout({ cart }) {
-	const userData = useSelector((state) => state.orders);
 	const dispatch = useDispatch();
 
 	const {

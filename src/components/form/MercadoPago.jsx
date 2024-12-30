@@ -6,31 +6,17 @@ import Prompt, { ButtonsPack } from '../ui/Prompt';
 import { initMercadoPago } from '@mercadopago/sdk-react';
 import { useSelector } from 'react-redux';
 import { handleError, handleSuccess } from '../../utils/toast';
-const initialState = {
-	deliveryMode: 'PickUp',
-	firstName: 'jasd',
-	lastName: 'asd',
-	shippingAddress1: 'asd',
-	floor: 'asd',
-	zip: 'asd',
-	city: 'asd',
-	email: 'asd',
-	country: 'asd',
-	state: 'asd',
-	phoneNumber: 'asd',
-	commentaries: 'asd',
-	userIdCard: 'asd',
-};
-function MercadoPago({ total, setMercadopago }) {
+import Loading from 'react-loading';
+
+function MercadoPago({ total, setMercadopago, userData }) {
 	const [mercadopagoOrdenId, setMercadopagoOrdenId] = useState(null);
-	const userData = useSelector((state) => state.orders);
 	const cart = useSelector((state) => state.cart);
 	const clearCart = useSelector((state) => state.cart.clearCart);
 	const [isCardPaymentMounted, setIsCardPaymentMounted] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setEr] = useState('');
 	const { setIsModalOpen } = useIsMobile();
-
+	console.log(userData);
 	const handleClose = () => {
 		setMercadopago(false);
 		setIsCardPaymentMounted(false); // Desmontar el componente
@@ -60,7 +46,7 @@ function MercadoPago({ total, setMercadopago }) {
 		try {
 			const { id } = await createOrderMp({
 				mercadoPagoInfo: data,
-				userData: initialState,
+				userData,
 				cart,
 				total,
 			});
@@ -79,6 +65,19 @@ function MercadoPago({ total, setMercadopago }) {
 
 	return (
 		<Prompt id="errorScreenBrick_container">
+			{isLoading && (
+				<div
+					style={{
+						width: '20rem',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						padding: '2rem',
+					}}
+				>
+					<Loading type="spin" color="black" height={100} width={100} />
+				</div>
+			)}
 			{mercadopagoOrdenId && (
 				<div id="statusScreenBrick_container">
 					<div className="flex flex-col justify-center items-center">

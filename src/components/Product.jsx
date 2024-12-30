@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -82,11 +83,17 @@ const Hot = styled.span`
 `;
 
 const Product = ({ product }) => {
+	const user = useSelector((state) => state.user.currentUser);
+
 	return (
 		<Container aria-label={product.name_es}>
 			{product.sale.status && <Hot>{product.sale.quantity}</Hot>}
 			<LinkDecoration
-				to={`/product/${product._id}`}
+				to={
+					user?.type === 'admin'
+						? `/admin/product/${product._id}`
+						: `/product/${product._id}`
+				}
 				aria-label={`see more details about ${product.name_es} $ ${product.price_es}`}
 				role="link"
 				title={`${product.name_es} $ ${product.price_es}`}

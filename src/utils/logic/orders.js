@@ -44,30 +44,30 @@ export const createOrderMp = async ({
 				dateOrdered: new Date(),
 			},
 		};
-		const response = await fetch(`${process.env.REACT_APP_URL}/orders/create`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(requestBody),
-		});
-		console.log(response);
-		if (!response.ok) {
-			const { id, error } = await response.json();
-			console.log(id, error);
-			return { id };
-		}
-		const order = await response.json();
 
+		const response = await publicRequest.post('/orders/create', requestBody);
+		/*  const response = await fetch( */
+		/*   'http://localhost:30000/api/v1/orders/create', */
+		/*   { */
+		/*     method: 'POST', */
+		/*     headers: { */
+		/*       'Content-Type': 'application/json', */
+		/*     }, */
+		/*     body: JSON.stringify(requestBody), */
+		/*   } */
+		/* ); */
+		/* if (!response.ok) { */
+		/*   throw new Error('Error al crear la orden'); */
+		/* } */
+		/* await response.json(); */
+		console.log(response);
 		localStorage.clear();
 		handleSuccess('createdOrder');
-		return order;
+		return response;
 	} catch (e) {
 		/* handle error */
-		// clearCart();
-		localStorage.clear();
-		handleError(error);
 		console.log(e);
+		throw new Error(e.message);
 	}
 };
 
@@ -95,28 +95,12 @@ export const createOrder = async (total, userData, cart) => {
 				dateOrdered: new Date(),
 			},
 		};
-		const response = await fetch(`${process.env.REACT_APP_URL}/orders/create`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(requestBody),
-		});
-
-		if (!response.ok) {
-			const { id, error } = await response.json();
-			console.log(id, error);
-			return { id };
-		}
-		const order = await response.json();
-		console.log({ order });
-		return order;
+		const response = await publicRequest.post('/orders/create', requestBody);
+		return response;
 	} catch (e) {
 		/* handle error */
-		handleError(error);
-
-		clearCart();
 		console.log(e);
+		throw new Error(e.message);
 	}
 };
 

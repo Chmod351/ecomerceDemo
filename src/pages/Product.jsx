@@ -5,8 +5,6 @@ import { useDispatch } from 'react-redux';
 //responsive
 import { mobile } from '../responsive';
 //Components
-import Footer from '../components/common/Footer';
-import Navbar from '../components/common/Navbar';
 import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 // ui
@@ -147,7 +145,7 @@ const Product = ({ darkMode, setDarkMode }) => {
 	const allSizes = Array.from(
 		new Set(product?.stock.flatMap((stockItem) => stockItem.size) || [])
 	);
-
+	console.log(color, size);
 	const isCombinationAvailable = useCallback(
 		(color, size) => {
 			return product?.stock.some(
@@ -188,10 +186,8 @@ const Product = ({ darkMode, setDarkMode }) => {
 	const handleClick = () => {
 		addToReduxCart(dispatch, setQuantity, product, quantity, color, size);
 	};
-	console.log(color, size);
 	return (
 		<Container role="contentinfo">
-			<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 			{product ? (
 				<>
 					<Wrapper role="article">
@@ -301,6 +297,7 @@ const Product = ({ darkMode, setDarkMode }) => {
 								/>
 								{/* action button */}
 								<Button
+									disabled={!isCombinationAvailable(color, size)}
 									text="ADD TO CART"
 									onClick={handleClick}
 									tabIndex="0"
@@ -323,7 +320,6 @@ const Product = ({ darkMode, setDarkMode }) => {
 			) : (
 				<Loading />
 			)}
-			<Footer />
 		</Container>
 	);
 };

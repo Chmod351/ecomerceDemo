@@ -7,12 +7,20 @@ import Button from '../ui/Button';
 import { handleError, handleSuccess } from '../../utils/toast';
 import { useSelector } from 'react-redux';
 import Loading from 'react-loading';
+import SadFaceMsg from '../ui/SadFaceMsg';
 
 const Container = styled.section`
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	padding: 2rem;
 `;
 const HiddenDescription = styled.p`
 	color: gray;
+`;
+const RowContainer = styled.div`
+	padding: 1rem;
 `;
 
 const ColumnContainer = styled.div`
@@ -34,17 +42,14 @@ function TransferPayment({ total, setTransferencia, userData, cart }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isErr, setIsErr] = useState(null);
 	const [orderId, setOrderId] = useState(null);
-	const clearCart = useSelector((state) => state.cart.clearCart);
 
 	const handlePayment = async () => {
 		setIsLoading(true);
 		try {
 			setIsErr(null);
 			const id = await createOrder(total, userData, cart);
-			console.log({ id });
-			setOrderId(id._id);
+			setOrderId(id.data._id);
 			handleSuccess('thanks');
-			clearCart();
 			setIsLoading(false);
 		} catch (error) {
 			setIsLoading(false);
@@ -53,24 +58,61 @@ function TransferPayment({ total, setTransferencia, userData, cart }) {
 			setIsErr('Error al procesar el pago');
 		}
 	};
+
 	return (
 		<Prompt>
 			{isLoading && (
-				<div>
+				<div
+					style={{
+						width: '20rem',
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+						padding: '2rem',
+					}}
+				>
 					<Loading type="spin" color="black" height={100} width={100} />
 				</div>
 			)}
+			{isErr && <SadFaceMsg text={isErr} />}
 			{orderId && (
 				<Container>
 					<h1>¡GRACIAS POR TU COMPRA!</h1>
-					<p>este es tu NUMERO DE ORDEN:</p>
-					<strong>{orderId}</strong>
-					<p>Te enviamos un email con el detalle de tu compra</p>
-					<p>Y te mantendremos informado sobre el estado de tu orden</p>
+					<RowContainer>
+						este es tu NUMERO DE ORDEN:
+						<strong>{orderId}</strong>
+					</RowContainer>
+					<br />
+					<RowContainer>
+						ALIAS: LAZY.TRENDY (una vez transferido descarga el comprobante de
+						pago)
+					</RowContainer>
+					<br />
+					<RowContainer>
+						<strong>
+							Recorda enviar tu numero de orden en el email de confirmacion de
+							transferencia junto con el comprobante de pago
+						</strong>
+						{''}
+						<a
+							href="mailto:lazytrendy@tienda.com.ar"
+							target="_blank"
+							className="md:text-xl font-bold"
+						>
+							{''} email: lazytrendy@tienda.com.ar
+						</a>
+					</RowContainer>
+					<br />
+
+					<p>
+						Luego de generar el numero de orden,
+						<strong> tendrás dos horas </strong>para enviar por email el
+						comprobante de pago.
+					</p>
 				</Container>
 			)}
 			<Container id="transfer_container">
-				{!isLoading && !isErr && (
+				{!isLoading && !isErr && !orderId && (
 					<ColumnContainer>
 						<p>
 							Luego de generar el numero de orden,
@@ -79,32 +121,12 @@ function TransferPayment({ total, setTransferencia, userData, cart }) {
 						</p>
 						<ColumnContainerJustifyBetween>
 							<h1>
-								<b>ALIAS</b>: LAZY.TRENDY
+								GENERA LA ORDEN DE PAGO, Y CUANDO TENGAS EL NUMERO DE ORDEN,
+								ENVIANOS UN EMAIL CON
 							</h1>
-							<br />
-							<a
-								href="mailto:lazytrendy@tienda.com.ar"
-								target="_blank"
-								className="md:text-xl font-bold"
-							>
-								email:lazytrendy@tienda.com.ar
-							</a>
-
-							<br />
-							<strong>
-								{!orderId ? (
-									<>TOTAL A PAGAR : $ {total}</>
-								) : (
-									<>
-										ESTE ES TU NUMERO DE ORDEN : {orderId}
-										<br />
-										TOTAL A PAGAR : $ {total}
-									</>
-								)}
-							</strong>
 
 							<Button
-								text={`CHECKOUT:  $ ${total}`}
+								text={`GENERAR ORDEN POR:  $ ${total}`}
 								// @ts-ignore
 								onClick={() => handlePayment()}
 								type="submit"

@@ -315,7 +315,7 @@ export default function Product() {
 				updatedProduct
 			);
 			console.log(response.data);
-			handleSuccess('Producto actualizado con éxito');
+			handleSuccess('succesfull');
 		} catch (error) {
 			console.error(error);
 			handleError(error);

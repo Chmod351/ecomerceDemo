@@ -485,8 +485,6 @@ export default function Product() {
 		getProduct(productId);
 	}, [productId]);
 
-	console.log(product);
-
 	return (
 		<section className="product">
 			<Container>

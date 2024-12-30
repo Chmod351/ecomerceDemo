@@ -80,7 +80,7 @@ function MercadoPago({ total, setMercadopago, userData }) {
 			)}
 			{mercadopagoOrdenId && (
 				<div id="statusScreenBrick_container">
-					<div className="flex flex-col justify-center items-center">
+					<div>
 						<StatusScreen
 							initialization={{
 								paymentId: mercadopagoOrdenId,

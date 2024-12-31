@@ -91,7 +91,7 @@ const Product = ({ product }) => {
 			<LinkDecoration
 				to={
 					user?.type === 'admin'
-						? `/admin/product/${product._id}`
+						? `/admin/update/product/${product._id}`
 						: `/product/${product._id}`
 				}
 				aria-label={`see more details about ${product.name_es} $ ${product.price_es}`}

@@ -18,9 +18,9 @@ import Product from './pages/Product';
 import Register from './pages/Register';
 import ProductList from './pages/ProductList';
 import PrivacyPage from './pages/Privacy';
-import HomePage from './pages/Admin/Home/Home';
+import Dashboard from './pages/Admin/Dashboard/Home';
 import NewProduct from './pages/Admin/newProduct/NewProduct';
-import { default as AdminProduct } from './pages/Admin/product/Product';
+import EditProduct from './pages/Admin/editProduct/EditProduct';
 import { default as AdminProductList } from './pages/Admin/productList/ProductList';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
@@ -83,15 +83,15 @@ const App = () => {
 							<>
 								<div className="container">
 									<Route path="/admin/dashboard">
-										<HomePage />
+										<Dashboard />
 									</Route>
-									<Route path="/admin/products">
+									<Route path="/admin/get/products">
 										<AdminProductList />
 									</Route>
-									<Route path="/admin/product/:productId">
-										<AdminProduct />
+									<Route path="/admin/update/product/:productId">
+										<EditProduct />
 									</Route>
-									<Route path="/admin/newproduct">
+									<Route path="/admin/create/product">
 										<NewProduct />
 									</Route>
 								</div>

@@ -48,28 +48,37 @@
 }
 
 .widgetLgButton.Shipped {
-	background-color: #e5faf2;
-	color: #3bb077;
+	background-color: #4caf50; /* Verde éxito */
+	color: #ffffff; /* Blanco */
 	cursor: pointer;
 }
 
 .widgetLgButton.Processing {
-	background-color: #e5faf2;
+	background-color: #ff9800; /* Naranja progreso */
+	color: #ffffff; /* Blanco */
 	cursor: pointer;
-	color: #3bb077;
 }
+
 .widgetLgButton.Delivered {
-	background-color: #e5faf2;
+	background-color: #2196f3; /* Azul entregado */
+	color: #ffffff; /* Blanco */
 	cursor: pointer;
-	color: #3bb077;
 }
+
 .widgetLgButton.Cancelled {
-	background-color: #fff0f1;
+	background-color: #f44336; /* Rojo cancelado */
+	color: #ffffff; /* Blanco */
 	cursor: pointer;
-	color: #d95087;
 }
-.widgetLgButton.Pending {
-	background-color: #ebf1fe;
+
+.widgetLgButton.Success {
+	background-color: #8bc34a; /* Verde éxito */
+	color: #ffffff; /* Blanco */
 	cursor: pointer;
-	color: #2a7ade;
+}
+
+.widgetLgButton.Pending {
+	background-color: #ffc107; /* Amarillo pendiente */
+	color: #ffffff; /* Blanco */
+	cursor: pointer;
 }

@@ -83,6 +83,7 @@ const ProductStock = ({
 	addMoreClothes,
 	setAddMoreClothes,
 	errors,
+	setValue,
 	register,
 }) => {
 	return (
@@ -106,7 +107,7 @@ const ProductStock = ({
 							name={`stock.${index}.size`}
 							register={register}
 							errors={errors}
-							defaultValue={'XL'}
+							defaultValue={p.size}
 							options={sizeOptions}
 							onChange={(e) => {
 								setValue(`stock.${index}.size`, e.target.value);
@@ -168,6 +169,7 @@ const ProductStockManager = ({
 	addMoreClothes,
 	setAddMoreClothes,
 	register,
+	setValue,
 	errors,
 }) => {
 	return (
@@ -244,52 +246,16 @@ const ProductStockManager = ({
 	);
 };
 
-function mergeData(product, data) {
-	const merged = { ...product };
-	Object.keys(data).forEach((key) => {
-		if (data[key]) {
-			merged[key] = data[key];
+const deleteEmptyFieldsFromData = (data) => {
+	const newData = {};
+	for (const key in data) {
+		if (data[key] !== '') {
+			newData[key] = data[key];
 		}
-	});
-	return merged;
-}
+	}
+	return newData;
+};
 
-function formatData(data) {
-	return {
-		...data,
-		image_url: [data.image0, data.image1, data.image2, data.image3].filter(
-			Boolean
-		),
-		collection: data.collection?.toLowerCase(),
-		stock:
-			data.stock?.map((item) => ({
-				...item,
-				quantity: Number(item.quantity),
-				size: Array.isArray(item.size) ? item.size : [item.size],
-				color: Array.isArray(item.color) ? item.color : [item.color],
-			})) || [],
-	};
-}
-function handleStockUpdate(existingStock, newStock) {
-	const updatedStock = [...existingStock];
-
-	newStock.forEach((newItem) => {
-		const index = updatedStock.findIndex(
-			(item) =>
-				item.provider === newItem.provider &&
-				JSON.stringify(item.size) === JSON.stringify(newItem.size) &&
-				JSON.stringify(item.color) === JSON.stringify(newItem.color)
-		);
-
-		if (index >= 0) {
-			updatedStock[index].quantity += Number(newItem.quantity);
-		} else {
-			updatedStock.push(newItem);
-		}
-	});
-
-	return updatedStock;
-}
 export default function Product() {
 	const location = useLocation();
 	const productId = location.pathname.split('/')[3];
@@ -297,7 +263,7 @@ export default function Product() {
 	const { handleSubmit, register, formState, reset, setValue } = useForm({
 		resolver: zodResolver(productEditionSchema),
 	});
-
+	const [copiedProduct, setCopiedProduct] = useState(null);
 	const [addMoreClothes, setAddMoreClothes] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -305,17 +271,23 @@ export default function Product() {
 
 	async function handleSubmitFormI(data) {
 		setIsLoading(true);
+		const newData = deleteEmptyFieldsFromData(data);
 		try {
-			const formattedData = formatData(data);
-			const updatedProduct = mergeData(product, formattedData);
-			updatedProduct.stock = handleStockUpdate(product.stock, data.stock);
-			console.log(updatedProduct);
 			const response = await publicRequest.put(
 				`/products/update/${productId}`,
-				updatedProduct
+				{
+					...newData,
+					image_url: [
+						data.image0,
+						data.image1,
+						data.image2,
+						data.image3,
+					].filter(Boolean),
+				}
 			);
 			console.log(response.data);
 			handleSuccess('succesfull');
+			reset();
 		} catch (error) {
 			console.error(error);
 			handleError(error);
@@ -323,6 +295,12 @@ export default function Product() {
 			setIsLoading(false);
 		}
 	}
+
+	useEffect(() => {
+		if (product) {
+			setCopiedProduct(product);
+		}
+	}, [product]);
 
 	useEffect(() => {
 		// screen goes up when this components loads
@@ -355,9 +333,14 @@ export default function Product() {
 											onChange={(e) => setValue('category', e.target.value)}
 											label={item.label}
 											name={item.name}
-											defaultValue={product?.category}
+											defaultValue={copiedProduct?.category}
 											register={register}
-											options={item.options}
+											options={[
+												{
+													value: copiedProduct?.category,
+													label: copiedProduct?.category,
+												},
+											]}
 										/>
 									);
 								} else if (
@@ -372,7 +355,16 @@ export default function Product() {
 											label={item.label}
 											name={item.name}
 											type={item.type}
-											defaultValue={product?.[item.name[0]]}
+											defaultValue={
+												item.name === 'image0'
+													? copiedProduct?.image_url[0]
+													: item.name === 'image1'
+														? copiedProduct?.image_url[1]
+														: item.name === 'image2'
+															? copiedProduct?.image_url[2]
+															: item.name === 'image3' &&
+																copiedProduct?.image_url[3]
+											}
 											register={register}
 											errors={errors}
 											required={false}
@@ -386,7 +378,7 @@ export default function Product() {
 											label={item.label}
 											name={item.name}
 											type={item.type}
-											defaultValue={product?.[item.name]}
+											defaultValue={copiedProduct?.[item.name]}
 											register={register}
 											errors={errors}
 											required={false}
@@ -400,19 +392,21 @@ export default function Product() {
 						<h1>Manejo de Stock</h1>
 						<Row>
 							<ProductStock
-								product={product}
-								addMoreClothes={addMoreClothes}
+								product={copiedProduct}
 								errors={errors}
-								setAddMoreClothes={setAddMoreClothes}
 								register={register}
+								addMoreClothes={addMoreClothes}
+								setAddMoreClothes={setAddMoreClothes}
+								setValue={setValue}
 							/>
 
 							<ProductStockManager
-								product={product}
-								addMoreClothes={addMoreClothes}
+								product={copiedProduct}
 								errors={errors}
-								setAddMoreClothes={setAddMoreClothes}
 								register={register}
+								addMoreClothes={addMoreClothes}
+								setAddMoreClothes={setAddMoreClothes}
+								setValue={setValue}
 							/>
 						</Row>
 						<Button

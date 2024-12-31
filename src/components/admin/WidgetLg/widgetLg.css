@@ -70,6 +70,11 @@
 	color: #ffffff; /* Blanco */
 	cursor: pointer;
 }
+.widgetLgButton.Failed {
+	background-color: #f44336; /* Rojo cancelado */
+	color: #ffffff; /* Blanco */
+	cursor: pointer;
+}
 
 .widgetLgButton.Success {
 	background-color: #8bc34a; /* Verde éxito */

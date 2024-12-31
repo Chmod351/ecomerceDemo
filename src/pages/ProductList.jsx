@@ -9,7 +9,6 @@ import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 // ui
 import Filter from '../components/ui/Filter';
-import Footer from '../components/common/Footer';
 
 const Container = styled.section`
 	height: 100vh;
@@ -91,7 +90,6 @@ const ProductList = ({ darkMode, setDarkMode }) => {
 			{/* </FilterContainer> */}
 			<Products tag={tags} filters={filters} sort={sort} query={query} />
 			{/*  <Newsletter /> */}
-			<Footer />
 		</Container>
 	);
 };

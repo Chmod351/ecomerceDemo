@@ -40,7 +40,7 @@ const ShowProductStock = ({
 							name={`stock.${index}.size`}
 							register={register}
 							errors={errors}
-							defaultValue={p.size}
+							defaultValue={p.size[0]}
 							options={sizeOptions}
 							onChange={(e) => {
 								setValue(`stock.${index}.size`, e.target.value);

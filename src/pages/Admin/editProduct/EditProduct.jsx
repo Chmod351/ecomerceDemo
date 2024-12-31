@@ -68,21 +68,29 @@ export default function EditProduct() {
 
 	async function handleSubmitFormI(data) {
 		setIsLoading(true);
+		console.log(data.image0, data.image1, data.image2, data.image3);
 		const newData = deleteEmptyFieldsFromData(data);
+
+		if (
+			data.image0 !== '' &&
+			data.image1 !== '' &&
+			data.image2 !== '' &&
+			data.image3 !== ''
+		) {
+			newData.image_url = [data.image0, data.image1, data.image2, data.image3];
+		} else {
+			newData.image_url = product.image_url;
+		}
+
 		try {
 			const response = await publicRequest.put(
 				`/products/update/${productId}`,
 				{
 					...newData,
-					image_url: [
-						data.image0,
-						data.image1,
-						data.image2,
-						data.image3,
-					].filter(Boolean),
+					stock: newData.stock.map((item) => item),
+					image_url: newData.image_url,
 				}
 			);
-			console.log(response.data);
 			handleSuccess('succesfull');
 			reset();
 		} catch (error) {
@@ -152,6 +160,16 @@ export default function EditProduct() {
 											label={item.label}
 											name={item.name}
 											type={item.type}
+											value={
+												item.name === 'image0'
+													? copiedProduct?.image_url[0]
+													: item.name === 'image1'
+														? copiedProduct?.image_url[1]
+														: item.name === 'image2'
+															? copiedProduct?.image_url[2]
+															: item.name === 'image3' &&
+																copiedProduct?.image_url[3]
+											}
 											defaultValue={
 												item.name === 'image0'
 													? copiedProduct?.image_url[0]

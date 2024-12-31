@@ -7,6 +7,7 @@ export default function SelectField({ ...props }) {
 	} else {
 		error = props.errors?.[props.name.split('.').join('?.')];
 	}
+
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 			<label htmlFor={props.name} className="font-bold">
@@ -28,11 +29,7 @@ export default function SelectField({ ...props }) {
 				defaultValue={props.defaultValue}
 			>
 				{props.options.map((option) => (
-					<option
-						key={option.value}
-						value={option.value}
-						// disabled={option.value === "none"}
-					>
+					<option key={option.value} value={option.value}>
 						{option.label}
 					</option>
 				))}

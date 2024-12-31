@@ -34,12 +34,12 @@ export const adminRoutes = [
 	},
 	{
 		id: 7,
-		route: '/admin/newproduct',
+		route: '/admin/create/product',
 		name: 'New Product',
 	},
 	{
 		id: 8,
-		route: '/admin/products',
+		route: '/admin/get/products',
 		name: 'Products',
 	},
 ];

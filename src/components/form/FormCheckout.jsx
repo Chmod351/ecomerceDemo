@@ -3,12 +3,12 @@ import InputField from './Input';
 import styled from 'styled-components';
 import { mobile, pc } from '../../responsive';
 import Button from '../ui/Button';
+import Summary from '../ui/Summary';
 import { useForm } from 'react-hook-form';
 import checkoutFormSchema from '../../utils/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/orderRedux';
-import Summary from '../Summary';
 
 const Container = styled.form`
 	min-height: 100vh;

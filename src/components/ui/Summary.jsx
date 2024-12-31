@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { mobile } from '../responsive';
+import { mobile } from '../../responsive';
 // ui
-import Button from './ui/Button';
+import Button from './Button';
 //functions
-import MercadoPago from './form/MercadoPago';
+import MercadoPago from '../form/MercadoPago';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUserData } from './redux/orderRedux';
-import TransferPayment from './form/Transferencia';
+import { setUserData } from '../redux/orderRedux';
+import TransferPayment from '../form/Transferencia';
 
 const SummaryContainer = styled.aside`
 	flex: 1;

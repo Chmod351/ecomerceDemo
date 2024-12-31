@@ -2,12 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { GoogleLogin } from '@react-oauth/google';
-import { mobile } from '../responsive';
+// import { GoogleLogin } from '@react-oauth/google';
+import { mobile } from '../../responsive';
 // utils
-import { handleError } from '../utils/toast.js';
-import { Messages } from '../utils/msg.js';
-import { register } from '../utils/data/registerData';
+import { handleError } from '../../utils/toast.js';
+import { registerData } from '../../utils/data/registerData.js';
+import { Messages } from '../../utils/msg.js';
 // functions
 import {
 	validateUsername,
@@ -18,7 +18,7 @@ import {
 	handleRegistration,
 	googleLogin,
 	login,
-} from '../utils/logic/users.js';
+} from '../../utils/logic/users.js';
 
 const Container = styled.section`
 	width: 100vw;
@@ -196,7 +196,7 @@ const Register = () => {
 				{/* verifica si esta en el formulario de logeo o de registro */}
 				<Title>{islogin ? 'SIGN IN' : Create} </Title>
 				<Form role="form" aria-label={islogin ? 'SIGN IN' : Create}>
-					{register.map((data) => {
+					{registerData.map((data) => {
 						const { id, label, name, type, placeholder, errorMessage, shared } =
 							data;
 						if (islogin && shared) {

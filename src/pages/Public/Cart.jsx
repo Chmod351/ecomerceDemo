@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 
 import { Shop } from '@material-ui/icons';
 
-import { mobile, pc } from '../responsive';
 //components
-import ButtonElement from '../components/ui/Button';
+import ButtonElement from '../../components/ui/Button';
 // pages
-import ProductsCarts from './ProductsCart';
-import FormCheckout from '../components/form/FormCheckout';
+import FormCheckout from '../../components/form/FormCheckout';
+import { mobile,pc } from '../../responsive';
+import ProductsCarts from '../../components/ui/ProductsCart';
 
 const Container = styled.section`
 	min-height: 100vh;

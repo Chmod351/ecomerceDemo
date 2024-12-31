@@ -1,14 +1,14 @@
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { mobile } from '../responsive';
+import { mobile } from '../../responsive';
 // utils
-import { color, size, price } from '../utils/data/colorData';
+// import { color, size, price } from '../utils/data/colorData';
 // components
-import Products from '../components/Products';
-import Newsletter from '../components/Newsletter';
+import Products from '../../components/Layout/Products';
+// import Newsletter from '../components/Newsletter';
 // ui
-import Filter from '../components/ui/Filter';
+// import Filter from '../components/ui/Filter';
 
 const Container = styled.section`
 	height: 100vh;
@@ -28,7 +28,7 @@ const Filters = styled.div`
 	${mobile({ width: '0rem 1.25rem', display: 'flex', flexDirection: 'column' })}
 `;
 
-const ProductList = ({ darkMode, setDarkMode }) => {
+const ProductSearchList = ({ darkMode, setDarkMode }) => {
 	const [tags, setTags] = useState(null);
 	const [query, setQuery] = useState(null);
 	const location = useLocation();
@@ -94,4 +94,4 @@ const ProductList = ({ darkMode, setDarkMode }) => {
 	);
 };
 
-export default ProductList;
+export default ProductSearchList;

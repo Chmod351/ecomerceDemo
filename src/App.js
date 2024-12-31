@@ -12,18 +12,18 @@ import {
 import { darkTheme, lightTheme } from './utils/theme.js';
 import { useState } from 'react';
 // pages
-import Home from './pages/Home';
-import Cart from './pages/Cart';
-import Product from './pages/Product';
-import Register from './pages/Register';
-import ProductList from './pages/ProductList';
-import PrivacyPage from './pages/Privacy';
 import Dashboard from './pages/Admin/Dashboard/Home';
 import NewProduct from './pages/Admin/newProduct/NewProduct';
 import EditProduct from './pages/Admin/editProduct/EditProduct';
 import { default as AdminProductList } from './pages/Admin/productList/ProductList';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
+import Home from './pages/Public/Home';
+import ProductSearchList from './pages/Public/ProductSearchList';
+import Product from './pages/Public/Product';
+import Cart from './pages/Public/Cart';
+import PrivacyPage from './pages/Public/Privacy';
+import Register from './pages/Public/Register';
 
 const REACT_APP_GOOGLEID = process.env.REACT_APP_GOOGLEID;
 
@@ -57,7 +57,7 @@ const App = () => {
 							{/* Página de inicio con soporte para modo oscuro */}
 						</Route>
 						<Route path="/products/:category">
-							<ProductList
+							<ProductSearchList
 								darkMode={darkMode}
 								setDarkMode={handleDarkModeToggle}
 							/>

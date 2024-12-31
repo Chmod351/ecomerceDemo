@@ -3,14 +3,15 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
-import { mobile, pc } from '../responsive';
+import { mobile, pc } from '../../responsive';
+
 // functions
-import { addProduct, removeProduct } from '../components/redux/cartRedux';
-import { handleSuccess } from '../utils/toast';
+import { addProduct, removeProduct } from '../../components/redux/cartRedux';
+import { handleSuccess } from '../../utils/toast';
 // ui
-import Pagination from '../components/ui/Pagination';
-import SadFaceMsg from '../components/ui/SadFaceMsg';
-import QuantityButton from '../components/ui/quantityButtons';
+import Pagination from '../../components/ui/Pagination';
+import SadFaceMsg from '../../components/ui/SadFaceMsg';
+import QuantityButton from '../../components/ui/quantityButtons';
 // components
 
 const Container = styled.section`

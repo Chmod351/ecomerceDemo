@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
-import Slider from '../components/Slider';
-import Title from '../components/common/Title';
-import Footer from '../components/common/Footer';
-import Products from '../components/Products';
-import SearchBar from '../components/ui/searchBar';
+// import Slider from '../components/Slider';
+import Title from '../../components/common/Title';
+// import Footer from '../components/common/Footer';
+import Products from '../../components/Layout/Products';
+// import SearchBar from '../components/ui/searchBar';
 {
 	/* import Categories from '../components/Category'; */
 }

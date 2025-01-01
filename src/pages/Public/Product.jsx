@@ -3,17 +3,17 @@ import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 //responsive
-import { mobile } from '../responsive';
+import { mobile } from '../../responsive';
 //Components
-import Products from '../components/Products';
-import Newsletter from '../components/Newsletter';
+import Products from '../../components/Layout/Products';
+// import Newsletter from '../components/Newsletter';
 // ui
-import Loading from '../components/common/Loading';
-import Button from '../components/ui/Button';
-import QuantityButton from '../components/ui/quantityButtons';
+import Loading from '../../components/common/Loading';
+import Button from '../../components/ui/Button';
+import QuantityButton from '../../components/ui/quantityButtons';
 // functions
-import { productById } from '../utils/logic/products';
-import { addToReduxCart } from '../utils/logic/cart.js';
+import { productById } from '../../utils/logic/products';
+import { addToReduxCart } from '../../utils/logic/cart.js';
 
 const Container = styled.section`
 	display-items: center;

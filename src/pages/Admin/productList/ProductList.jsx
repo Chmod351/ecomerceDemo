@@ -163,7 +163,7 @@ export default function ProductList() {
 						{filteredProducts.map((product) => (
 							<Tr key={product.id}>
 								<Td>
-									<Link to={`/admin/product/${product.id}`}>detail</Link>
+									<Link to={`/admin/update/product/${product.id}`}>detail</Link>
 								</Td>
 								<Td>{product.name}</Td>
 								<Td>${product.price}</Td>

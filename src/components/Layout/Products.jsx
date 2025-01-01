@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Product from './Product';
-import { mobile } from '../responsive';
-import { getProductsFunction } from '../utils/logic/products.js';
+import Product from '../ui/Product';
+import { mobile } from '../../responsive';
+import { getProductsFunction } from '../../utils/logic/products.js';
 
 // ui
-import Loading from './common/Loading';
-import Pagination from './ui/Pagination';
-import SadFaceMsg from './ui/SadFaceMsg';
+import Loading from '../common/Loading';
+import Pagination from '../ui/Pagination';
+import SadFaceMsg from '../ui/SadFaceMsg';
 
 const Container = styled.section`
 	padding: 2rem 0;

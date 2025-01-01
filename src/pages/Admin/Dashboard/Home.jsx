@@ -1,10 +1,8 @@
 import WidgetLg from '../../../components/admin/WidgetLg/WidgetLg';
-import Chart from '../../../components/admin/chart/Chart';
 import FeaturedInfo from '../../../components/admin/featuredInfo/FeaturedInfo';
-import WidgetSm from '../../../components/admin/widgetSm/WidgetSm';
 import { publicRequest } from '../../../requestMethods';
 import './home.css';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	LineChart,
 	Line,
@@ -13,12 +11,11 @@ import {
 	Tooltip,
 	ResponsiveContainer,
 } from 'recharts';
+import { handleError } from '../../../utils/toast';
 
-export default function HomePage() {
+export default function Dashboard() {
 	const [chartData, setChartData] = useState('');
 	const [monthlySales, setMonthlySales] = useState([]);
-	let pendingOrders = 0;
-	let deliveredOrders = 0;
 
 	const getMonthlySales = async () => {
 		try {
@@ -27,6 +24,7 @@ export default function HomePage() {
 		} catch (e) {
 			/* handleerror */
 			console.log(e);
+			handleError(e);
 		}
 	};
 
@@ -44,6 +42,7 @@ export default function HomePage() {
 				setChartData(transformedData); // Actualiza el estado con los datos transformados
 			} catch (err) {
 				console.error('Error fetching stock data:', err);
+				handleError(err);
 			}
 		};
 
@@ -95,7 +94,6 @@ export default function HomePage() {
 				</ResponsiveContainer>
 			</div>
 			<div className="homeWidgets">
-				{/*        <WidgetSm /> */}
 				<WidgetLg />
 			</div>
 		</div>

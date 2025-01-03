@@ -18,6 +18,7 @@ import { logoutUser } from '../../utils/logic/users.js';
 import Announcement from './Announcement';
 import SearchBar from '../ui/searchBar';
 import { LogOutPrompt } from '../ui/Prompt';
+import useIsMobile from '../../hooks/useIsMobile';
 
 const Container = styled.nav`
 	color: ${({ theme }) => theme.text};
@@ -71,9 +72,11 @@ const Right = styled.div`
 	${mobile({
 		position: 'absolute',
 		zIndex: '999',
-		transition: '1s ease-in-out',
-		width: '100vw',
+		transition: '5s ease-in-out',
 		left: '0',
+		backgroundColor: 'white',
+		border: '1px solid lightgray',
+		width: '90%',
 		top: '100%',
 	})}
 `;
@@ -151,7 +154,7 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 	const [showPrompt, setShowPrompt] = useState(false);
 	const quantity = useSelector((state) => state.cart.quantity);
 	const user = useSelector((state) => state.user);
-
+	const { isMobile } = useIsMobile();
 	const [isMenuOpen, setIsMenuOpen] = useState(true);
 	const dispatch = useDispatch();
 	// Maneja el evento de clic en el botón de cierre de sesión
@@ -159,23 +162,6 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 		logoutUser(dispatch);
 		setShowPrompt(!showPrompt);
 	};
-	useEffect(() => {
-		// Cambia el estado de isMenuOpen al cambiar el tamaño de la ventana
-		const handleResize = () => {
-			if (window.innerWidth < 820) {
-				setIsMenuOpen(false);
-			} else {
-				setIsMenuOpen(true);
-			}
-		};
-
-		handleResize();
-
-		window.addEventListener('resize', handleResize);
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, []);
 
 	return (
 		<>
@@ -208,13 +194,11 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 														role="link"
 														aria-label={`go to ${name}`}
 														title={name}
+														onClick={
+															isMobile ? () => setIsMenuOpen(!isMenuOpen) : null
+														}
 														key={id}
 														to={route}
-														onClick={() => {
-															if (isMenuOpen) {
-																setIsMenuOpen(false);
-															}
-														}}
 														style={{ textDecoration: 'none' }}
 														tabIndex="0"
 													>

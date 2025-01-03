@@ -38,11 +38,12 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Summary = ({ cart, precios, register, errors, watch, isValid }) => {
+const Summary = ({ cart, precios, register, errors, watch, isValid, flag }) => {
 	const [transferencia, setTransferencia] = useState(false);
 	const [mercadopago, setMercadopago] = useState(false);
 	const userData = watch();
 	const total = cart.total + precios[userData.deliveryMode];
+
 	return (
 		<SummaryContainer role="table">
 			<>
@@ -123,16 +124,20 @@ const Summary = ({ cart, precios, register, errors, watch, isValid }) => {
 					{errors.deliveryMode?.message && 'Modo de entrega es requerido'}
 				</span>
 				<ButtonContainer>
-					<Button
-						disabled={!isValid}
-						text={'TRANSFERENCIA'}
-						onClick={() => setTransferencia(true)}
-					/>
-					<Button
-						disabled={!isValid}
-						text={'MERCADO '}
-						onClick={() => setMercadopago(!mercadopago)}
-					/>
+					{flag && (
+						<>
+							<Button
+								disabled={!isValid}
+								text={'TRANSFERENCIA'}
+								onClick={() => setTransferencia(true)}
+							/>
+							<Button
+								disabled={!isValid}
+								text={'MERCADO '}
+								onClick={() => setMercadopago(!mercadopago)}
+							/>
+						</>
+					)}
 				</ButtonContainer>
 			</>
 
@@ -151,33 +156,6 @@ const Summary = ({ cart, precios, register, errors, watch, isValid }) => {
 					userData={userData}
 				/>
 			)}
-			{/*  {username ? ( */}
-			{/*   <StripeCheckout */}
-			{/*     name="Cierva Design" */}
-			{/*     image={logo} */}
-			{/*     billingAddress */}
-			{/*     shippingAddress */}
-			{/*     description={`Your total is $${cart.total}`} */}
-			{/*     amount={cart.total * 100} */}
-			{/*     token={onToken} */}
-			{/*     stripeKey={KEY} */}
-			{/*   > */}
-			{/*     <Button */}
-			{/*       text={'CHECKOUT NOW'} */}
-			{/*       onClick={handleClick} */}
-			{/*       onKeyUp={handleClick} */}
-			{/*     /> */}
-			{/*   </StripeCheckout> */}
-			{/* ) : ( */}
-			{/*   <Link */}
-			{/*     to="/auth" */}
-			{/*     role="link" */}
-			{/*     aria-label="this is a link to auth" */}
-			{/*     style={{ textDecoration: 'none' }} */}
-			{/*   > */}
-			{/*     <Button text={'CHECKOUT NOW'} /> */}
-			{/*   </Link> */}
-			{/* )} */}
 		</SummaryContainer>
 	);
 };

@@ -210,6 +210,11 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 														title={name}
 														key={id}
 														to={route}
+														onClick={() => {
+															if (isMenuOpen) {
+																setIsMenuOpen(false);
+															}
+														}}
 														style={{ textDecoration: 'none' }}
 														tabIndex="0"
 													>

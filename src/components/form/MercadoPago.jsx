@@ -106,6 +106,7 @@ function MercadoPago({ total, setMercadopago, userData }) {
 						/>
 					)}
 			</div>
+			<span>{error}</span>
 			<ButtonsPack setShowPrompt={handleClose} />
 		</Prompt>
 	);

@@ -11,7 +11,8 @@ import SadFaceMsg from '../ui/SadFaceMsg';
 
 const Container = styled.section`
 	padding: 2rem 0;
-	height: 100vh;
+	min-height: 100vh;
+	height: auto;
 	background-color: ${({ theme }) => theme.bg};
 `;
 
@@ -19,6 +20,7 @@ const Wrapper = styled.div`
 	max-width: 1200px;
 	gap: 2rem;
 	margin: auto;
+	height: auto;
 	padding: 1.25rem;
 	display: flex;
 	flex-wrap: wrap;

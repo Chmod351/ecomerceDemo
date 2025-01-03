@@ -256,6 +256,7 @@ const Product = ({ darkMode, setDarkMode }) => {
 																: `3px solid ${c}`
 															: '3px solid orange',
 													borderRadius: '50%',
+													cursor: 'pointer',
 												}}
 												onKeyUp={(e) => {
 													if (e.key === 'Enter') {
@@ -269,21 +270,23 @@ const Product = ({ darkMode, setDarkMode }) => {
 								<Filter aria-label="size section">
 									<FilterTitle tabIndex="0">Size</FilterTitle>
 									{allSizes.map((s) => (
-										<ul>
-											<FilterColor
+										<ul key={s} style={{ listStyle: 'none' }}>
+											<li
 												tabIndex="0"
 												onClick={() => setSize(s)}
 												title={s}
 												aria-label={`size is ${s}`}
 												style={{
 													backgroundColor: 'white',
+													padding: '10px',
 													border:
 														size !== s ? '2px solid black' : '2px solid orange',
-													borderRadius: '50%',
+													borderRadius: '5px',
+													cursor: 'pointer',
 												}}
 											>
 												{s}
-											</FilterColor>
+											</li>
 										</ul>
 									))}
 								</Filter>

@@ -11,7 +11,7 @@ import Products from '../../components/Layout/Products';
 // import Filter from '../components/ui/Filter';
 
 const Container = styled.section`
-	height: 100vh;
+	min-height: 100vh;
 	background-color: ${({ theme }) => theme.bg};
 	${mobile({ marginTop: '1.25rem', marginTop: '5rem' })}
 `;

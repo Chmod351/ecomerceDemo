@@ -18,15 +18,22 @@ import { addToReduxCart } from '../../utils/logic/cart.js';
 const Container = styled.section`
 	display-items: center;
 	background-color: ${({ theme }) => theme.bgLighter};
+	height: auto;
 `;
 
 const Wrapper = styled.article`
 	max-width: 1200px;
-	width: 100%;
+	width: 90%;
 	margin: auto;
 	padding: 50px;
 	display: flex;
-	${mobile({ padding: '10px', flexDirection: 'column', marginTop: '5rem' })}
+	${mobile({
+		padding: '10px',
+		flexDirection: 'column',
+		marginTop: '5rem',
+		justifyContent: 'center',
+		alignItems: 'center',
+	})}
 `;
 
 const ImgContainer = styled.div`
@@ -35,12 +42,12 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
 	width: 100%;
-	min-width: 500px;
-	min-height: 500px;
+	min-width: 25rem;
+	min-height: 25rem;
 	max-width: 40rem;
 	max-height: 30rem;
 	object-fit: contain;
-	${mobile({ height: '100%' })}
+	${mobile({ height: '100%', width: '100%' })}
 `;
 
 const InfoContainer = styled.aside`
@@ -48,7 +55,12 @@ const InfoContainer = styled.aside`
 	color: ${({ theme }) => theme.text};
 	flex: 1;
 	padding: 0px 50px;
-	${mobile({ padding: '10px' })}
+	${mobile({
+		padding: '10px',
+		flexDirection: 'column',
+		width: '100%',
+		marginTop: '4rem',
+	})}
 `;
 
 const Title = styled.h1`
@@ -95,26 +107,16 @@ const FilterColor = styled.div`
   cursor: pointer;
 `;
 
-const FilterSize = styled.select`
-	margin-left: 10px;
-	height: 3rem;
-	border: none;
-	display: flex;
-	width: 4rem;
-	text-align: center;
-	justify-content: center;
-	cursor: pointer;
-	background-color: ${({ theme }) => theme.hover};
-	color: ${({ theme }) => theme.bg};
-`;
-
-const FilterSizeOption = styled.option``;
-
 const AddContainer = styled.div`
 	width: 100%;
 	display: flex;
+	height: 50px;
+	margin: auto;
 	justify-content: space-between;
-	${mobile({ width: '100%' })}
+	align-items: center;
+	${mobile({
+		flexDirection: 'row',
+	})}
 `;
 
 const Description = styled.p`
@@ -124,7 +126,6 @@ const Description = styled.p`
 	flex-wrap: wrap;
 	overflow: hidden;
 	width: 100%;
-	font-family: 'Pangolin', cursive;
 `;
 
 const Product = ({ darkMode, setDarkMode }) => {
@@ -256,6 +257,7 @@ const Product = ({ darkMode, setDarkMode }) => {
 																: `3px solid ${c}`
 															: '3px solid orange',
 													borderRadius: '50%',
+													cursor: 'pointer',
 												}}
 												onKeyUp={(e) => {
 													if (e.key === 'Enter') {
@@ -269,21 +271,23 @@ const Product = ({ darkMode, setDarkMode }) => {
 								<Filter aria-label="size section">
 									<FilterTitle tabIndex="0">Size</FilterTitle>
 									{allSizes.map((s) => (
-										<ul>
-											<FilterColor
+										<ul key={s} style={{ listStyle: 'none' }}>
+											<li
 												tabIndex="0"
 												onClick={() => setSize(s)}
 												title={s}
 												aria-label={`size is ${s}`}
 												style={{
 													backgroundColor: 'white',
+													padding: '10px',
 													border:
 														size !== s ? '2px solid black' : '2px solid orange',
-													borderRadius: '50%',
+													borderRadius: '5px',
+													cursor: 'pointer',
 												}}
 											>
 												{s}
-											</FilterColor>
+											</li>
 										</ul>
 									))}
 								</Filter>

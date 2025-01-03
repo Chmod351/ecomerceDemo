@@ -4,7 +4,6 @@ import { mobile } from '../../responsive';
 
 const ButtonElement = styled.button`
 	display: flex;
-	font-family: 'roboto', cursive;
 	align-items: center;
 	text-align: center;
 	padding: 10px;
@@ -31,7 +30,6 @@ const ButtonElement = styled.button`
 
 const ButtonElementSoft = styled.button`
 	display: flex;
-	font-family: 'roboto', cursive;
 	align-items: center;
 	text-align: center;
 	padding: 10px;

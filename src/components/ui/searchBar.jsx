@@ -36,7 +36,7 @@ const SearchLine = styled.div`
 	transition: 0.5s ease;
 `;
 const Input = styled.input`
-	background-color: ${({ theme }) => theme.bgLighter};
+	background-color: ${({ theme }) => theme.bg};
 	color: ${({ theme }) => theme.text};
 	border: none;
 	border-radius: 5px;

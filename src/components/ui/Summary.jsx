@@ -6,8 +6,6 @@ import { mobile } from '../../responsive';
 import Button from './Button';
 //functions
 import MercadoPago from '../form/MercadoPago';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserData } from '../redux/orderRedux';
 import TransferPayment from '../form/Transferencia';
 
 const SummaryContainer = styled.aside`
@@ -40,15 +38,10 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Summary = ({ cart, precios, active, register, errors }) => {
+const Summary = ({ cart, precios, register, errors, watch, isValid, flag }) => {
 	const [transferencia, setTransferencia] = useState(false);
-	const dispatch = useDispatch();
-	const userData = useSelector((state) => state.order);
 	const [mercadopago, setMercadopago] = useState(false);
-
-	const handleDeliveryModeChange = (mode) => {
-		dispatch(setUserData({ deliveryMode: mode }));
-	};
+	const userData = watch();
 	const total = cart.total + precios[userData.deliveryMode];
 
 	return (
@@ -59,11 +52,7 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 				</SummaryTitle>
 				<SummaryItem>
 					<SummaryItemText role="contentinfo">Subtotal</SummaryItemText>
-					<SummaryItemPrice
-						role="contentinfo"
-						title={cart.total}
-						aria-label={cart.total}
-					>
+					<SummaryItemPrice role="contentinfo" aria-label={cart.total}>
 						${cart.total}
 					</SummaryItemPrice>
 				</SummaryItem>
@@ -77,7 +66,6 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 									value="PickUp"
 									checked={userData.deliveryMode === 'PickUp'}
 									{...register('deliveryMode')}
-									onChange={() => handleDeliveryModeChange('PickUp')}
 								/>
 								Retirar por sucursal de correo
 							</label>
@@ -88,7 +76,6 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 									value="Standard"
 									{...register('deliveryMode')}
 									checked={userData.deliveryMode === 'Standard'}
-									onChange={() => handleDeliveryModeChange('Standard')}
 								/>
 								Envío estándar a domicilio
 							</label>
@@ -99,7 +86,6 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 									{...register('deliveryMode')}
 									value="Express_CABA"
 									checked={userData.deliveryMode === 'Express_CABA'}
-									onChange={() => handleDeliveryModeChange('Express_CABA')}
 								/>
 								Moto mensajería 24 hs - CABA
 							</label>
@@ -110,7 +96,6 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 									value="Express_GBA"
 									{...register('deliveryMode')}
 									checked={userData.deliveryMode === 'Express_GBA'}
-									onChange={() => handleDeliveryModeChange('Express_GBA')}
 								/>
 								Moto mensajería 24 hs - GBA
 							</label>
@@ -130,25 +115,32 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 					<SummaryItemText role="complementary">Total</SummaryItemText>
 					<SummaryItemPrice
 						role="contentinfo"
-						title={total}
 						aria-label={`you bill will be $ ${total}`}
 					>
 						$ {isNaN(total) ? cart.total : total}
 					</SummaryItemPrice>
 				</SummaryItem>
+				<span style={{ color: 'red' }}>
+					{errors.deliveryMode?.message && 'Modo de entrega es requerido'}
+				</span>
 				<ButtonContainer>
-					<Button
-						disabled={!active && !isNaN(total)}
-						text={'TRANSFERENCIA'}
-						onClick={() => setTransferencia(true)}
-					/>
-					<Button
-						disabled={!active && !isNaN(total)}
-						text={'MERCADO '}
-						onClick={() => setMercadopago(!mercadopago)}
-					/>
+					{flag && (
+						<>
+							<Button
+								disabled={!isValid}
+								text={'TRANSFERENCIA'}
+								onClick={() => setTransferencia(true)}
+							/>
+							<Button
+								disabled={!isValid}
+								text={'MERCADO '}
+								onClick={() => setMercadopago(!mercadopago)}
+							/>
+						</>
+					)}
 				</ButtonContainer>
-			</>{' '}
+			</>
+
 			{transferencia && (
 				<TransferPayment
 					total={total}
@@ -164,33 +156,6 @@ const Summary = ({ cart, precios, active, register, errors }) => {
 					userData={userData}
 				/>
 			)}
-			{/*  {username ? ( */}
-			{/*   <StripeCheckout */}
-			{/*     name="Cierva Design" */}
-			{/*     image={logo} */}
-			{/*     billingAddress */}
-			{/*     shippingAddress */}
-			{/*     description={`Your total is $${cart.total}`} */}
-			{/*     amount={cart.total * 100} */}
-			{/*     token={onToken} */}
-			{/*     stripeKey={KEY} */}
-			{/*   > */}
-			{/*     <Button */}
-			{/*       text={'CHECKOUT NOW'} */}
-			{/*       onClick={handleClick} */}
-			{/*       onKeyUp={handleClick} */}
-			{/*     /> */}
-			{/*   </StripeCheckout> */}
-			{/* ) : ( */}
-			{/*   <Link */}
-			{/*     to="/auth" */}
-			{/*     role="link" */}
-			{/*     aria-label="this is a link to auth" */}
-			{/*     style={{ textDecoration: 'none' }} */}
-			{/*   > */}
-			{/*     <Button text={'CHECKOUT NOW'} /> */}
-			{/*   </Link> */}
-			{/* )} */}
 		</SummaryContainer>
 	);
 };

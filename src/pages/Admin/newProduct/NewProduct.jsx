@@ -6,7 +6,7 @@ import SelectField from '../../../components/form/SelectField';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { publicRequest } from '../../../requestMethods';
-import { handleSuccess } from '../../../utils/toast';
+import { handleError, handleSuccess } from '../../../utils/toast';
 import InputField from '../../../components/form/Input';
 import Button from '../../../components/ui/Button';
 import { mobile } from '../../../responsive';

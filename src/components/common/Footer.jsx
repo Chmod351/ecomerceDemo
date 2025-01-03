@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import Announcement from './Announcement';
 
 const Container = styled.footer`
-	background-color: ${({ theme }) => theme.bg};
+	background-color: ${({ theme }) => theme.bgLighter};
 `;
 
 const Wrapper = styled.div`

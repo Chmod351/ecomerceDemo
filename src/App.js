@@ -77,7 +77,11 @@ const App = () => {
 						</Route>
 
 						<Route path="/auth">
-							{user?.currentUser ? <Redirect to="/" /> : <Register />}
+							{user?.type === 'admin' ? (
+								<Redirect to="/admin/dashboard" />
+							) : (
+								<Register />
+							)}
 						</Route>
 						{user?.type === 'admin' ? (
 							<>

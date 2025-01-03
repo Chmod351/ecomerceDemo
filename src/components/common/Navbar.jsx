@@ -21,7 +21,7 @@ import { LogOutPrompt } from '../ui/Prompt';
 
 const Container = styled.nav`
 	color: ${({ theme }) => theme.text};
-	background-color: ${({ theme }) => theme.bg};
+	background-color: ${({ theme }) => theme.bgLighter};
 	height: 6rem;
 	display: flex;
 	align-items: center;
@@ -67,7 +67,7 @@ const Right = styled.div`
 	align-items: center;
 	justify-content: flex-end;
 	color: ${({ theme }) => theme.text};
-	background-color: ${({ theme }) => theme.bg};
+	background-color: ${({ theme }) => theme.bgLighter};
 	${mobile({
 		position: 'absolute',
 		zIndex: '999',

@@ -11,7 +11,6 @@ import Loading from 'react-loading';
 function MercadoPago({ total, setMercadopago, userData }) {
 	const [mercadopagoOrdenId, setMercadopagoOrdenId] = useState(null);
 	const cart = useSelector((state) => state.cart);
-	const clearCart = useSelector((state) => state.cart.clearCart);
 	const [isCardPaymentMounted, setIsCardPaymentMounted] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setEr] = useState('');
@@ -52,7 +51,6 @@ function MercadoPago({ total, setMercadopago, userData }) {
 			});
 			setMercadopagoOrdenId(id);
 			handleSuccess('thanks');
-			clearCart();
 		} catch (e) {
 			/* handle error */
 			console.log('e: ', e);

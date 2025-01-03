@@ -69,7 +69,7 @@ function FormCheckout({ cart }) {
 	};
 	return (
 		<Container form onSubmit={handleSubmit(onSubmit)}>
-			{' '}
+			<h1>Fill out the form</h1>
 			<Wrapper>
 				<Aside>
 					<Section className="bg-primary p-8 rounded-xl">
@@ -188,14 +188,14 @@ function FormCheckout({ cart }) {
 					errors={errors}
 				/>
 			</Wrapper>
-      {!flag &&
-			<Button
-				type="submit"
-				onClick={!isValid ? () => setFlag(false) : () => setFlag(true)}
-				disabled={false}
-				text={'CHOOSE PAYMENT METHOD'}
-			></Button>
-      }
+			{!flag && (
+				<Button
+					type="submit"
+					onClick={!isValid ? () => setFlag(false) : () => setFlag(true)}
+					disabled={false}
+					text={'CHOOSE PAYMENT METHOD'}
+				></Button>
+			)}
 		</Container>
 	);
 }

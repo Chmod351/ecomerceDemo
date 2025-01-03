@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@material-ui/icons';
-import { mobile } from '../responsive';
-import { sliderItems } from '../utils/data/sliderData';
 //ui
-import ButtonElement from '../components/ui/Button';
+import { mobile } from '../../responsive';
+import { sliderItems } from '../../utils/data/sliderData';
+import Button from './Button';
 
 const Container = styled.section`
 	width: 100%;
@@ -84,7 +84,6 @@ const Desc = styled.p`
 	margin: 2rem 0rem;
 	font-size: 1.2rem;
 	font-weight: 500;
-	font-family: 'Pangolin', cursive;
 	letter-spacing: 3px;
 	${mobile({ fontSize: '0.8rem', margin: '0.5rem 0rem' })}
 `;
@@ -156,7 +155,7 @@ const Slider = React.memo(() => {
 								title="Shop NOW"
 								aria-label="SHOP NOW"
 							>
-								<ButtonElement tabIndex="-1" text={'SHOP NOW'} />
+								<Button tabIndex="-1" text={'SHOP NOW'} />
 							</Link>
 						</InfoContainer>
 					</Slide>

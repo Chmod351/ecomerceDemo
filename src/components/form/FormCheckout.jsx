@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputField from './Input';
 import styled from 'styled-components';
 import { mobile, pc } from '../../responsive';
-import Button from '../ui/Button';
 import Summary from '../ui/Summary';
 import { useForm } from 'react-hook-form';
 import checkoutFormSchema from '../../utils/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDispatch } from 'react-redux';
-import { setUserData } from '../redux/orderRedux';
+import Button from '../ui/Button';
 
 const Container = styled.form`
 	min-height: 100vh;
@@ -56,8 +54,6 @@ const precios = {
 	PickUp: 4500,
 };
 function FormCheckout({ cart }) {
-	const dispatch = useDispatch();
-
 	const {
 		register,
 		handleSubmit,
@@ -66,14 +62,14 @@ function FormCheckout({ cart }) {
 	} = useForm({
 		resolver: zodResolver(checkoutFormSchema),
 	});
+	const [flag, setFlag] = useState(false);
 
 	const onSubmit = (data) => {
-		console.log('Datos del formulario enviados:', data);
-		dispatch(setUserData(data)); // Guardar datos en Redux
+		console.log(data);
 	};
-
 	return (
 		<Container form onSubmit={handleSubmit(onSubmit)}>
+			{' '}
 			<Wrapper>
 				<Aside>
 					<Section className="bg-primary p-8 rounded-xl">
@@ -82,7 +78,7 @@ function FormCheckout({ cart }) {
 							name="firstName"
 							register={register}
 							errors={errors}
-							placeholder="Nombre *"
+							placeholder="Juan *"
 							required
 						/>
 
@@ -91,7 +87,7 @@ function FormCheckout({ cart }) {
 							name="lastName"
 							register={register}
 							errors={errors}
-							placeholder="Apellido *"
+							placeholder="Perez *"
 							required
 						/>
 						<InputField
@@ -99,7 +95,7 @@ function FormCheckout({ cart }) {
 							name="email"
 							errors={errors}
 							register={register}
-							placeholder="Email *"
+							placeholder="juanperez@gmail.com *"
 							type="email"
 							required
 						/>
@@ -108,7 +104,7 @@ function FormCheckout({ cart }) {
 							label="Número de teléfono *"
 							name="phoneNumber"
 							errors={errors}
-							placeholder="Número de teléfono *"
+							placeholder="112345678 *"
 							register={register}
 							required
 						/>
@@ -119,24 +115,21 @@ function FormCheckout({ cart }) {
 							placeholder="Comentarios (Opcional)"
 							register={register}
 						/>
-						<span>
-							Ingrese el número de su DNI (para la factura)
-							<InputField
-								label="DNI *"
-								required
-								name="userIdCard"
-								errors={errors}
-								placeholder="DNI"
-								register={register}
-							/>
-						</span>
+						<InputField
+							label="Ingrese el número de su DNI (para la factura)*"
+							required
+							name="userIdCard"
+							errors={errors}
+							placeholder="Ingrese el número de su DNI (para la factura)*"
+							register={register}
+						/>
 					</Section>
 					<Section>
 						<InputField
-							label="País *"
+							label="Pais *"
 							name="country"
 							errors={errors}
-							placeholder="Pais *"
+							placeholder="Argentina *"
 							register={register}
 							required
 						/>
@@ -144,7 +137,7 @@ function FormCheckout({ cart }) {
 							label="Provincia *"
 							name="state"
 							errors={errors}
-							placeholder="Provincia *"
+							placeholder="Buenos Aires *"
 							register={register}
 							required
 						/>
@@ -183,15 +176,26 @@ function FormCheckout({ cart }) {
 						/>
 					</Section>
 				</Aside>
+
 				<Summary
 					cart={cart}
+					flag={flag}
+					handleSubmit={handleSubmit}
 					precios={precios}
-					active={isValid}
 					register={register}
+					watch={watch}
+					isValid={isValid}
 					errors={errors}
 				/>
 			</Wrapper>
-			<Button type="submit" text="Confirmar Datos Del Formulario De Envio" />
+      {!flag &&
+			<Button
+				type="submit"
+				onClick={!isValid ? () => setFlag(false) : () => setFlag(true)}
+				disabled={false}
+				text={'CHOOSE PAYMENT METHOD'}
+			></Button>
+      }
 		</Container>
 	);
 }

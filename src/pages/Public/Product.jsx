@@ -95,21 +95,6 @@ const FilterColor = styled.div`
   cursor: pointer;
 `;
 
-const FilterSize = styled.select`
-	margin-left: 10px;
-	height: 3rem;
-	border: none;
-	display: flex;
-	width: 4rem;
-	text-align: center;
-	justify-content: center;
-	cursor: pointer;
-	background-color: ${({ theme }) => theme.hover};
-	color: ${({ theme }) => theme.bg};
-`;
-
-const FilterSizeOption = styled.option``;
-
 const AddContainer = styled.div`
 	width: 100%;
 	display: flex;
@@ -124,7 +109,6 @@ const Description = styled.p`
 	flex-wrap: wrap;
 	overflow: hidden;
 	width: 100%;
-	font-family: 'Pangolin', cursive;
 `;
 
 const Product = ({ darkMode, setDarkMode }) => {

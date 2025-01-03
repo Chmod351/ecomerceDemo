@@ -9,49 +9,70 @@ const checkoutFormSchema = z.object({
 		.max(50, { message: 'El modo de entrega es demasiado extenso' }),
 	shippingAddress1: z
 		.string({ required_error: 'La dirección es requerida' })
+		// letras y espacios y numeros
+		.regex(
+			/^[a-zA-Z 0-9]+$/,
+			'La dirección debe contener solo letras y espacios'
+		)
 		.min(1, { message: 'La dirección  es requerida' })
 		.max(80, { message: 'La dirección es demasiado extensa' }),
 	city: z
 		.string({ required_error: 'La ciudad es requerida' })
+		// letras y espacios y numeros
+		.regex(/^[a-zA-Z 0-9]+$/, 'La ciudad debe contener solo letras y espacios')
 		.min(1, { message: 'La ciudad es requerida' })
 		.max(50, { message: 'La ciudad es demasiado extensa' }),
 	country: z
 		.string({ required_error: 'El país es requerido' })
+		// letras y espacios
+		.regex(/^[a-zA-Z ]+$/, 'El Pais debe contener solo letras y espacios')
 		.min(1, { message: 'El país es requerido' })
 		.max(50, { message: 'El país es demasiado extenso' }),
 	state: z
 		.string({ required_error: 'El estado/provincia es requerido' })
+		// letras y espacios
+		.regex(
+			/^[a-zA-Z ]+$/,
+			'El Estado /Provincia debe contener solo letras y espacios'
+		)
 		.min(1, { message: 'El estado/provincia es requerido' })
 		.max(50, {
 			message: 'El estado/provincia es demasiado extenso',
 		}),
 	email: z
 		.string({ required_error: 'El email es requerido' })
+
 		.email({ message: 'Debe ser un email válido' })
 		.min(1, { message: 'El email es requerido' })
 		.max(100, { message: 'El email es demasiado extenso' }),
 	firstName: z
 		.string({ required_error: 'El nombre es requerido' })
+		.regex(/^[a-zA-Z ]+$/, 'El nombre debe contener solo letras y espacios')
 		.min(1, { message: 'El nombre es requerido' })
 		.max(50, { message: 'El nombre es demasiado extenso' }),
 	lastName: z
 		.string({ required_error: 'El apellido es requerido' })
+		.regex(/^[a-zA-Z ]+$/, 'El apellido debe contener solo letras y espacios')
 		.min(1, { message: 'El apellido es requerido' })
 		.max(50, {
 			message: 'El apellido es demasiado extenso',
 		}),
 	floor: z
 		.string()
+		.regex(/^[a-zA-Z 0-9]+$/, 'El Piso debe contener solo letras y espacios')
 		.max(10, { message: 'El piso es demasiado extenso' })
 		.optional(),
 	phoneNumber: z
 		.string({ required_error: 'El telfono es requerido' })
+		.regex(/^[0-9]+$/, 'El telfono debe contener solo numeros')
 		.min(1, { message: 'El teléfono es requerido' })
 		.max(11, {
-			message: 'El telfono es demasiado extenso',
+			message: 'El telefono es demasiado extenso',
 		}),
 	userIdCard: z
 		.string({ required_error: 'El DNI es requerido' })
+		// solo permitir numeros
+		.regex(/^[0-9]+$/, 'El DNI debe contener solo numeros')
 		.min(1, { message: 'El DNI es requerido' })
 		.max(20, {
 			message: 'El DNI es demasiado extenso',

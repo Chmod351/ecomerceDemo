@@ -133,6 +133,8 @@ const ProductsCarts = ({ cart }) => {
 	const handlePageChange = (page) => {
 		setCurrentPage(page);
 	};
+
+	console.log('cart: ', cart);
 	return (
 		<Container>
 			{/* if cart.products has no more than 0 items, message and icon will show up */}
@@ -141,7 +143,10 @@ const ProductsCarts = ({ cart }) => {
 					<Wrapper role="list">
 						<Info role="complementary">
 							{currentProds.map((product, index) => (
-								<Product tabIndex="0">
+								<Product
+									tabIndex="0"
+									key={product._id + product.color + product.size}
+								>
 									<ProductDetail>
 										<Link
 											style={{ width: '200px' }}
@@ -152,7 +157,7 @@ const ProductsCarts = ({ cart }) => {
 											} total units ${product.quantity} cost = ${
 												product.price_es * product.quantity
 											}`}
-											title={`${product.name} in ${product.color} total units ${
+											title={`${product.name_es} in ${product.color} total units ${
 												product.quantity
 											} cost = ${product.price_es * product.quantity}`}
 										>

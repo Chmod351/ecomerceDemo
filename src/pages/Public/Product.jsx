@@ -18,15 +18,22 @@ import { addToReduxCart } from '../../utils/logic/cart.js';
 const Container = styled.section`
 	display-items: center;
 	background-color: ${({ theme }) => theme.bgLighter};
+	height: auto;
 `;
 
 const Wrapper = styled.article`
 	max-width: 1200px;
-	width: 100%;
+	width: 90%;
 	margin: auto;
 	padding: 50px;
 	display: flex;
-	${mobile({ padding: '10px', flexDirection: 'column', marginTop: '5rem' })}
+	${mobile({
+		padding: '10px',
+		flexDirection: 'column',
+		marginTop: '5rem',
+		justifyContent: 'center',
+		alignItems: 'center',
+	})}
 `;
 
 const ImgContainer = styled.div`
@@ -35,12 +42,12 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
 	width: 100%;
-	min-width: 500px;
-	min-height: 500px;
+	min-width: 25rem;
+	min-height: 25rem;
 	max-width: 40rem;
 	max-height: 30rem;
 	object-fit: contain;
-	${mobile({ height: '100%' })}
+	${mobile({ height: '100%', width: '100%' })}
 `;
 
 const InfoContainer = styled.aside`
@@ -48,7 +55,12 @@ const InfoContainer = styled.aside`
 	color: ${({ theme }) => theme.text};
 	flex: 1;
 	padding: 0px 50px;
-	${mobile({ padding: '10px' })}
+	${mobile({
+		padding: '10px',
+		flexDirection: 'column',
+		width: '100%',
+		marginTop: '4rem',
+	})}
 `;
 
 const Title = styled.h1`
@@ -98,8 +110,13 @@ const FilterColor = styled.div`
 const AddContainer = styled.div`
 	width: 100%;
 	display: flex;
+	height: 50px;
+	margin: auto;
 	justify-content: space-between;
-	${mobile({ width: '100%' })}
+	align-items: center;
+	${mobile({
+		flexDirection: 'row',
+	})}
 `;
 
 const Description = styled.p`

@@ -61,7 +61,7 @@ function EditOrder({ order, handleClosePrompt }) {
 		<div
 			style={{
 				height: 'auto',
-				width: '30rem',
+				width: '32rem',
 				padding: '2rem',
 			}}
 		>
@@ -123,14 +123,22 @@ function EditOrder({ order, handleClosePrompt }) {
 				</p>
 			</div>
 			<b>Order Items:</b>
-			<p style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					gap: '1rem',
+					flexWrap: 'nowrap',
+					overflowX: 'auto',
+				}}
+			>
 				{order.orderItems.map((item) => (
 					<div
 						key={item._id._id}
 						style={{
 							width: '8rem',
+
 							flexDirection: 'column',
-							flexWrap: 'wrap',
 							backgroundColor: 'lightgray',
 							padding: '1rem',
 							borderRadius: '0.625rem',
@@ -162,7 +170,7 @@ function EditOrder({ order, handleClosePrompt }) {
 						<p>Size: {item.size}</p>
 					</div>
 				))}
-			</p>
+			</div>
 
 			<label
 				style={{

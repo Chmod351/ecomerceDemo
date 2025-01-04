@@ -32,6 +32,7 @@ const TableContainer = styled.div`
 
 const Td = styled.td`
 	text-align: center;
+	padding: 1rem;
 	color: ${({ theme }) => theme.text};
 	border: 0.5px solid lightgray;
 `;
@@ -168,7 +169,22 @@ export default function ProductList() {
 								<Td>{product.name}</Td>
 								<Td>${product.price}</Td>
 								<Td>{product.inStock}</Td>
-								<Td>{product.colors.join(', ')}</Td>
+								<Td>
+									{product.colors.map((color) => (
+										<span
+											key={color}
+											style={{
+												padding: '0.5rem',
+												backgroundColor: color,
+												border: '1px solid lightgray',
+												margin: '0.2rem',
+												borderRadius: '10px',
+											}}
+										>
+											Color
+										</span>
+									))}
+								</Td>
 								<Td>{product.sizes.join(', ')}</Td>
 								<Td>{product.category}</Td>
 							</Tr>

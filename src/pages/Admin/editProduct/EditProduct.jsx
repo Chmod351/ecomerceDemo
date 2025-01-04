@@ -53,6 +53,27 @@ const deleteEmptyFieldsFromData = (data) => {
 	return newData;
 };
 
+const compareStockArrays = (originalStock, newStock) => {
+	return newStock.map((newItem, index) => {
+		const originalItem = originalStock[index];
+
+		// Si no existe un elemento original, se agrega el nuevo tal cual
+		if (!originalItem) return newItem;
+
+		// Validar si el campo "size" del nuevo elemento está vacío
+		const validatedSize = newItem.size?.length
+			? newItem.size
+			: originalItem.size;
+
+		// Fusionar los objetos, priorizando los valores del nuevo stock
+		return {
+			...originalItem,
+			...newItem,
+			size: validatedSize, // Sobrescribir con el tamaño validado
+		};
+	});
+};
+
 export default function EditProduct() {
 	const location = useLocation();
 	const productId = location.pathname.split('/')[4];
@@ -81,13 +102,14 @@ export default function EditProduct() {
 		} else {
 			newData.image_url = product.image_url;
 		}
-
+		const newStock = compareStockArrays(product.stock, newData.stock);
+		console.log(newStock);
 		try {
 			const response = await publicRequest.put(
 				`/products/update/${productId}`,
 				{
 					...newData,
-					stock: newData.stock.map((item) => item),
+					stock: newStock,
 					image_url: newData.image_url,
 				}
 			);

@@ -10,6 +10,8 @@ const Container = styled.section`
 	border: 0.5px solid ${({ theme }) => theme.text};
 	top: 50%;
 	left: 50%;
+	border-radius: 0.625rem;
+	border: none;
 	z-index: 999;
 	transform: translate(-50%, -50%);
 	display: flex;
@@ -31,6 +33,7 @@ const Description = styled.div`
 const Buttons = styled.div`
 	display: flex;
 	justify-content: space-between;
+	border-radius: 0.625rem;
 	width: 100%;
 `;
 const Button = styled.button`
@@ -38,6 +41,7 @@ const Button = styled.button`
 	margin: 0.5px auto;
 	border: 0.5px solid white;
 	padding: 0.938rem 1.25rem;
+	border-radius: 0.625rem;
 	background-color: teal;
 	color: white;
 	cursor: pointer;

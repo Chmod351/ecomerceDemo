@@ -4,6 +4,7 @@ import { publicRequest } from '../../../requestMethods';
 import { formatCreatedAt } from '../../../utils/logic/orders';
 import { handleError, handleSuccess } from '../../../utils/toast';
 import Prompt from '../../ui/Prompt';
+import Loading from 'react-loading';
 
 function EditOrder({ order, handleClosePrompt }) {
 	const [newStatus, setNewStatus] = useState(order.status);
@@ -35,41 +36,130 @@ function EditOrder({ order, handleClosePrompt }) {
 			handleError(e ?? 'Error al crear la orden');
 		}
 	};
+	if (!order) {
+		return (
+			<div
+				style={{
+					height: '10rem',
+					width: '30rem',
+					display: 'flex',
+					marginTop: '15rem',
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+			>
+				<Loading type="bars" color="black" height={300} width={100} />
+			</div>
+		);
+	}
 
 	return (
-		<div style={{ height: 'auto', width: '20rem', padding: '2rem' }}>
-			<p>Orden: {order._id}</p>
-			<p>
-				<b>Full Name:</b> {order.userData.name} {order.userData.surname}
+		<div
+			style={{
+				height: 'auto',
+				width: '30rem',
+				padding: '2rem',
+			}}
+		>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<p>
+					<b>Orden:</b>
+					{order._id}
+				</p>
+				<p>
+					<b>DNI:</b>
+					{order.userData.userIdCard}
+				</p>
+			</div>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<p>
+					<b>Name:</b> {order.userData.name} {order.userData.surname}
+				</p>
+
+				<p>
+					<b>State:</b>
+					{order.userData.state}
+				</p>
+				<p>
+					<b>Total:</b>
+					{order.totalPrice}
+				</p>
+			</div>
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-between',
+				}}
+			>
+				<p>
+					<b>City:</b>
+					{order.userData.city}
+				</p>
+				<p>
+					<b>Zip:</b>
+					{order.userData.zip}
+				</p>
+
+				<p>
+					<b>Floor:</b>
+					{order.userData.floor}
+				</p>
+			</div>
+			<b>Order Items:</b>
+			<p style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+				{order.orderItems.map((item) => (
+					<div
+						key={item._id._id}
+						style={{
+							width: '8rem',
+							flexDirection: 'column',
+							flexWrap: 'wrap',
+							backgroundColor: 'lightgray',
+							padding: '1rem',
+							borderRadius: '0.625rem',
+						}}
+					>
+						<p>{item._id.name_es}</p>
+						<p>Units: {item.quantity}</p>
+						<p>Value: ${item.productPrice}</p>
+						<div
+							style={{
+								display: 'flex',
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignContent: 'center',
+								margin: 'auto',
+							}}
+						>
+							<p>Color:</p>
+							<span
+								style={{
+									backgroundColor: item.color || 'white', // Usa blanco si item.color es falsy
+									borderRadius: '10%',
+									width: '2rem',
+									marginTop: '0.7rem',
+									height: '2rem',
+								}}
+							></span>
+						</div>
+						<p>Size: {item.size}</p>
+					</div>
+				))}
 			</p>
-			<p>
-				<b>ID Number:</b>
-				{order.userData.userIdCard}
-			</p>
-			<p>
-				<b>State:</b>
-				{order.userData.state}
-			</p>
-			<p>
-				<b>City:</b>
-				{order.userData.city}
-			</p>
-			<p>
-				<b>Zip:</b>
-				{order.userData.zip}
-			</p>
-			<p>
-				<b>Floor:</b>
-				{order.userData.floor}
-			</p>
-			<p>
-				<b>Order Items:</b>
-				{order.orderItems.map((item) => item?.name)}
-			</p>
-			<p>
-				<b>Total:</b>
-				{order.totalPrice}
-			</p>
+
 			<label
 				style={{
 					display: 'flex',
@@ -95,67 +185,65 @@ function EditOrder({ order, handleClosePrompt }) {
 				</select>
 			</label>
 			{order.paymentMethod === 'Transferencia' && (
-				<>
-					<label
+				<label
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						fontSize: '1.3rem',
+						fontWeight: 'bold',
+					}}
+				>
+					Payment Status Update:
+					<select
 						style={{
-							display: 'flex',
-							flexDirection: 'column',
-							fontSize: '1.3rem',
-							fontWeight: 'bold',
+							padding: '0.5rem',
+							marginTop: '0.5rem',
 						}}
+						onChange={(e) => setTransactionStatus(e.target.value)}
+						defaultValue={order.status}
 					>
-						Payment Status Update:
-						<select
-							style={{
-								padding: '0.5rem',
-								marginTop: '0.5rem',
-							}}
-							onChange={(e) => setTransactionStatus(e.target.value)}
-							defaultValue={order.status}
-						>
-							<option value="Pending">Pending</option>
-							<option value="Failed">Failed</option>
-							<option value="Success">Success</option>
-						</select>
-					</label>
-					<div
-						style={{
-							display: 'flex',
-							justifyContent: 'space-between',
-							marginTop: '1rem',
-						}}
-					>
-						<button
-							style={{
-								padding: '1rem 2rem',
-								width: '100%',
-								border: 'none',
-								background: 'green',
-								color: 'white',
-								cursor: 'pointer',
-								hover: { background: '#4CAF50' },
-							}}
-							onClick={handleSubmit}
-						>
-							Editar
-						</button>
-						<button
-							style={{
-								padding: '1rem 2rem',
-								width: '100%',
-								border: 'none',
-								background: 'red',
-								color: 'white',
-								cursor: 'pointer',
-								hover: { background: '#f44336' },
-							}}
-							onClick={handleClosePrompt}
-						>
-							Close
-						</button>
-					</div>
-				</>
+						<option value="Pending">Pending</option>
+						<option value="Failed">Failed</option>
+						<option value="Success">Success</option>
+					</select>
+				</label>
 			)}
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					marginTop: '1rem',
+				}}
+			>
+				<button
+					style={{
+						padding: '1rem 2rem',
+						width: '100%',
+						border: 'none',
+						background: 'green',
+						color: 'white',
+						cursor: 'pointer',
+						hover: { background: '#4CAF50' },
+					}}
+					onClick={handleSubmit}
+				>
+					Editar
+				</button>
+				<button
+					style={{
+						padding: '1rem 2rem',
+						width: '100%',
+						border: 'none',
+						background: 'red',
+						color: 'white',
+						cursor: 'pointer',
+						hover: { background: '#f44336' },
+					}}
+					onClick={handleClosePrompt}
+				>
+					Close
+				</button>
+			</div>
 		</div>
 	);
 }
@@ -164,7 +252,15 @@ export default function WidgetLg() {
 	const [orders, setOrders] = useState([]);
 	const [showPrompt, setShowPrompt] = useState(false);
 	const [order, setOrder] = useState('');
-
+	const getOrderById = async (id) => {
+		try {
+			const res = await publicRequest.get(`/orders/order/${id}`);
+			setOrder(res.data);
+			console.log(res);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	const getOrders = async () => {
 		try {
 			const res = await publicRequest.get('/orders');
@@ -183,15 +279,16 @@ export default function WidgetLg() {
 		handleSuccess('succesfull');
 	};
 
-	const handleOpenPrompt = (order) => {
+	const handleOpenPrompt = async (order) => {
 		setShowPrompt(true);
-		setOrder(order);
+		await getOrderById(order._id);
 	};
 	const handleClosePrompt = () => {
 		setShowPrompt(false);
 		setOrder('');
 		getOrders();
 	};
+
 	return (
 		<div className="widgetLg">
 			<h3 className="widgetLgTitle">Latest transactions</h3>

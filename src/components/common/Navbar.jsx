@@ -71,11 +71,9 @@ const Right = styled.div`
 	background-color: ${({ theme }) => theme.bgLighter};
 	${mobile({
 		position: 'absolute',
-		zIndex: '999',
-		transition: '5s ease-in-out',
 		left: '0',
+		zIndex: '2',
 		backgroundColor: 'white',
-		border: '1px solid lightgray',
 		width: '90%',
 		top: '100%',
 	})}
@@ -89,7 +87,8 @@ const DropdownMenu = styled.div`
 		justifyContent: 'spaceEvenly',
 		textTransform: 'uppercase',
 		flexDirection: 'column',
-		height: '100vh',
+		minHeight: '100vh',
+		height: '100%',
 		overflowY: 'auto',
 	})}
 `;
@@ -150,6 +149,64 @@ const MenuItemCart = styled.div`
 	}
 `;
 
+const MobileMenu = ({ user, setIsMenuOpen, isMenuOpen }) => {
+	return (
+		<DropdownMenu aria-hidden={!isMenuOpen}>
+			{/* USER EXISTS? */}
+			<>
+				{!user?.currentUser?.username && (
+					<>
+						{e.map((i) => {
+							const { id, route, name } = i;
+							return (
+								<Link
+									role="link"
+									aria-label={`go to ${name}`}
+									title={name}
+									onClick={() => setIsMenuOpen(false)}
+									key={id}
+									to={route}
+									style={{ textDecoration: 'none' }}
+									tabIndex="0"
+								>
+									<MenuItem>{name}</MenuItem>
+								</Link>
+							);
+						})}
+					</>
+				)}
+				{user?.currentUser?.username && (
+					<>
+						{adminRoutes.map((i) => {
+							const { id, route, name } = i;
+							return (
+								<Link
+									role="link"
+									aria-label={`go to ${name}`}
+									title={name}
+									key={id}
+									to={route}
+									style={{ textDecoration: 'none' }}
+									tabIndex="0"
+								>
+									<MenuItem>{name}</MenuItem>
+								</Link>
+							);
+						})}
+						<MenuItem
+							role="link"
+							title="Log Out"
+							tabIndex="0"
+							onClick={() => setShowPrompt(!showPrompt)}
+						>
+							{user.currentUser.username}
+						</MenuItem>
+					</>
+				)}
+			</>
+		</DropdownMenu>
+	);
+};
 const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 	const [showPrompt, setShowPrompt] = useState(false);
 	const quantity = useSelector((state) => state.cart.quantity);
@@ -181,63 +238,65 @@ const Navbar = React.memo(({ darkMode, setDarkMode }) => {
 					</Left>
 					<Right role="menu">
 						{/* Menú desplegable para dispositivos móviles */}
-						{isMenuOpen && (
-							<DropdownMenu aria-hidden={!isMenuOpen}>
-								{/* USER EXISTS? */}
-								<>
-									{!user?.currentUser?.username && (
-										<>
-											{e.map((i) => {
-												const { id, route, name } = i;
-												return (
-													<Link
-														role="link"
-														aria-label={`go to ${name}`}
-														title={name}
-														onClick={
-															isMobile ? () => setIsMenuOpen(!isMenuOpen) : null
-														}
-														key={id}
-														to={route}
-														style={{ textDecoration: 'none' }}
-														tabIndex="0"
-													>
-														<MenuItem>{name}</MenuItem>
-													</Link>
-												);
-											})}
-										</>
-									)}
-									{user?.currentUser?.username && (
-										<>
-											{adminRoutes.map((i) => {
-												const { id, route, name } = i;
-												return (
-													<Link
-														role="link"
-														aria-label={`go to ${name}`}
-														title={name}
-														key={id}
-														to={route}
-														style={{ textDecoration: 'none' }}
-														tabIndex="0"
-													>
-														<MenuItem>{name}</MenuItem>
-													</Link>
-												);
-											})}
-											<MenuItem
-												role="link"
-												title="Log Out"
-												tabIndex="0"
-												onClick={() => setShowPrompt(!showPrompt)}
-											>
-												{user.currentUser.username}
-											</MenuItem>
-										</>
-									)}
-								</>
-							</DropdownMenu>
+						{isMobile && isMenuOpen && (
+							<MobileMenu
+								user={user}
+								isMobile={isMobile}
+								setIsMenuOpen={setIsMenuOpen}
+								isMenuOpen={isMenuOpen}
+							/>
+						)}
+						{!isMobile && (
+							<>
+								{!user?.currentUser?.username && (
+									<>
+										{e.map((i) => {
+											const { id, route, name } = i;
+											return (
+												<Link
+													role="link"
+													aria-label={`go to ${name}`}
+													title={name}
+													key={id}
+													to={route}
+													style={{ textDecoration: 'none' }}
+													tabIndex="0"
+												>
+													<MenuItem>{name}</MenuItem>
+												</Link>
+											);
+										})}
+									</>
+								)}
+								{user?.currentUser?.username && (
+									<>
+										{adminRoutes.map((i) => {
+											const { id, route, name } = i;
+											return (
+												<Link
+													role="link"
+													aria-label={`go to ${name}`}
+													title={name}
+													key={id}
+													to={route}
+													style={{ textDecoration: 'none' }}
+													tabIndex="0"
+												>
+													<MenuItem>{name}</MenuItem>
+												</Link>
+											);
+										})}
+										<MenuItem
+											role="link"
+											title="Log Out"
+											tabIndex="0"
+											onClick={() => setShowPrompt(!showPrompt)}
+										>
+											{user.currentUser.username}
+										</MenuItem>
+									</>
+								)}
+							</>
 						)}
 					</Right>
 					{/* Elemento del carrito */}

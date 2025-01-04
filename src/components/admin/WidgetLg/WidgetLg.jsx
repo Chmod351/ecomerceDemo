@@ -11,8 +11,10 @@ function EditOrder({ order, handleClosePrompt }) {
 	const [transactionStatus, setTransactionStatus] = useState(
 		order.paymentStatus
 	);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async () => {
+		setIsLoading(true);
 		try {
 			const res = await publicRequest.put(`/orders/update`, {
 				status: newStatus,
@@ -34,6 +36,8 @@ function EditOrder({ order, handleClosePrompt }) {
 			/* handle error */
 			console.log(e);
 			handleError(e ?? 'Error al crear la orden');
+		} finally {
+			setIsLoading(false);
 		}
 	};
 	if (!order) {
@@ -216,11 +220,12 @@ function EditOrder({ order, handleClosePrompt }) {
 				}}
 			>
 				<button
+					disabled={isLoading}
 					style={{
 						padding: '1rem 2rem',
 						width: '100%',
 						border: 'none',
-						background: 'green',
+						background: isLoading ? 'gray' : 'green',
 						color: 'white',
 						cursor: 'pointer',
 						hover: { background: '#4CAF50' },
@@ -230,11 +235,12 @@ function EditOrder({ order, handleClosePrompt }) {
 					Editar
 				</button>
 				<button
+					disabled={isLoading}
 					style={{
 						padding: '1rem 2rem',
 						width: '100%',
 						border: 'none',
-						background: 'red',
+						background: isLoading ? 'gray' : 'red',
 						color: 'white',
 						cursor: 'pointer',
 						hover: { background: '#f44336' },

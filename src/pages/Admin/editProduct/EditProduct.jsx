@@ -126,6 +126,7 @@ export default function EditProduct() {
 	useEffect(() => {
 		if (product) {
 			setCopiedProduct(product);
+			setAddMoreClothes(product.stock.length);
 		}
 	}, [product]);
 
@@ -143,7 +144,7 @@ export default function EditProduct() {
 			<Container>
 				<ProductInfo product={product} />
 				<div className="productBottom">
-					<h1>'Formulario de EDICION de productos'</h1>
+					<h1>Formulario de EDICION de productos</h1>
 					<Form
 						onSubmit={handleSubmit((data) => {
 							handleSubmitFormI(data);

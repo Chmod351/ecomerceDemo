@@ -14,7 +14,7 @@ export default function Loading() {
 		<Container>
 			<ReactLoading
 				type="bars"
-				color="black"
+				color="#131313"
 				height={300}
 				width={100}
 				role="status"

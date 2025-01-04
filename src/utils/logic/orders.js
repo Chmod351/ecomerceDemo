@@ -9,13 +9,10 @@ export const createOrderMp = async ({
 	total,
 }) => {
 	try {
-		console.log('cart:', cart);
-		console.log('entrando a orders:  ', mercadoPagoInfo, userData, cart, total);
 		const orderItems = cart.products.map((product) => ({
 			...product,
 			productPrice: product.price_es,
 		}));
-		console.log(orderItems);
 		const requestBody = {
 			mercadoPagoInfo: {
 				installments: mercadoPagoInfo.installments,
@@ -46,24 +43,8 @@ export const createOrderMp = async ({
 		};
 
 		const response = await publicRequest.post('/orders/create', requestBody);
-		/*  const response = await fetch( */
-		/*   'http://localhost:30000/api/v1/orders/create', */
-		/*   { */
-		/*     method: 'POST', */
-		/*     headers: { */
-		/*       'Content-Type': 'application/json', */
-		/*     }, */
-		/*     body: JSON.stringify(requestBody), */
-		/*   } */
-		/* ); */
-		/* if (!response.ok) { */
-		/*   throw new Error('Error al crear la orden'); */
-		/* } */
-		/* await response.json(); */
 		console.log(response);
-		localStorage.clear();
-		handleSuccess('createdOrder');
-		return response;
+		return response.data;
 	} catch (e) {
 		/* handle error */
 		console.log(e);

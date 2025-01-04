@@ -20,11 +20,7 @@ const Title = styled.h1`
 const Announcement = React.memo(({ text }) => {
 	return (
 		<Container role="banner">
-			<Title
-				role="complementary"
-				title="Free shipping on orders over $50!"
-				aria-label="Free shipping on orders over $50!"
-			>
+			<Title role="complementary" title={text} aria-label={text}>
 				{text}
 			</Title>
 		</Container>

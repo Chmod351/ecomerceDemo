@@ -12,6 +12,7 @@ const SummaryContainer = styled.aside`
 	flex: 1;
 	border: 0.5px solid lightgray;
 	border-radius: 0.625rem;
+	background-color: ${({ theme }) => theme.bg};
 	padding: 1.25rem;
 	height: auto;
 	${mobile({ height: 'auto', padding: '1rem', margin: '0 1rem' })}

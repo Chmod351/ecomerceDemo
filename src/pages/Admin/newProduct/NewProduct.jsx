@@ -74,9 +74,7 @@ export default function NewProduct() {
 	return (
 		<Container>
 			<Wrapper>
-				<h1 className="text-3xl font-bold font-helvetica mx-auto text-center p-8"></h1>
 				<Form
-					className="p-4 gap-4 bg-primary rounded-lg font-helvetica"
 					onSubmit={handleSubmit((data) => {
 						console.log(data);
 						handleSubmitFormI(data);
@@ -115,7 +113,7 @@ export default function NewProduct() {
 							}
 						})}
 					</div>
-					<h1 className="text-3xl font-bold font-helvetica">Manejo de Stock</h1>
+					<h1>Manejo de Stock</h1>
 					<Row>
 						{[...Array(addMoreClothes)].map((_, index) => (
 							<div style={{ gap: '1rem', margin: '1rem 0' }}>

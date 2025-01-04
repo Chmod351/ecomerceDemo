@@ -15,7 +15,6 @@ function MercadoPago({ total, setMercadopago, userData }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setEr] = useState('');
 	const { setIsModalOpen } = useIsMobile();
-	console.log(userData);
 	const handleClose = () => {
 		setMercadopago(false);
 		setIsCardPaymentMounted(false); // Desmontar el componente
@@ -41,7 +40,6 @@ function MercadoPago({ total, setMercadopago, userData }) {
 	const handlePayment = async ({ data }) => {
 		setEr('');
 		setIsLoading(true);
-		console.log('enviando la data: ', data);
 		try {
 			const { id } = await createOrderMp({
 				mercadoPagoInfo: data,
@@ -49,6 +47,7 @@ function MercadoPago({ total, setMercadopago, userData }) {
 				cart,
 				total,
 			});
+			console.log(id);
 			setMercadopagoOrdenId(id);
 			handleSuccess('thanks');
 		} catch (e) {
@@ -60,7 +59,7 @@ function MercadoPago({ total, setMercadopago, userData }) {
 		setEr('');
 		setIsLoading(false);
 	};
-
+	console.log(mercadopagoOrdenId);
 	return (
 		<Prompt id="errorScreenBrick_container">
 			{isLoading && (
@@ -77,7 +76,10 @@ function MercadoPago({ total, setMercadopago, userData }) {
 				</div>
 			)}
 			{mercadopagoOrdenId && (
-				<div id="statusScreenBrick_container">
+				<div
+					id="statusScreenBrick_container"
+					style={{ padding: '2rem', width: '100%' }}
+				>
 					<div>
 						<StatusScreen
 							initialization={{
@@ -87,7 +89,10 @@ function MercadoPago({ total, setMercadopago, userData }) {
 					</div>
 				</div>
 			)}
-			<div id="cardPaymentBrick_container">
+			<div
+				id="cardPaymentBrick_container"
+				style={{ padding: '2rem', width: '40rem', minHeight: '43rem',height:" 100%" }}
+			>
 				{!error &&
 					!isLoading &&
 					isCardPaymentMounted &&
